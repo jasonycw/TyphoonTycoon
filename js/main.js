@@ -22,7 +22,7 @@ require.config({
 
 require([
 	'jquery',
-], function ($, test) {
+], function ($) {
 	$(document).ready(function() {
 		console.log('it works!');
 	});
