@@ -1,13 +1,10 @@
 body {
-	/*background-color: black;*/
-	background-image:url('../img/noisy-texture-black.png');
+	background-color: black;
 	padding: 25px;
 }
 
-canvas {
+#game-canvas {
 
-	/*background-image:url('../img/noisy-texture-deep-blue.png');
-*/	
 	background-color: black;
 
 	border:solid 1px #00FFFF;

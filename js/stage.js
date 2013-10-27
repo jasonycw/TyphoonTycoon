@@ -1,24 +1,33 @@
-define(["easel", "button"], function(easel, Button) {
+define(["easel"], function(easel) {
         //return an object to define the "my/shirt" module.
-        console.log(Button);
+            
+            function refresh(event) {
+                // time based
+                timeCircle.x = timeCircle.x + (event.delta)/1000*100;
+                if (timeCircle.x > stage.canvas.width) { timeCircle.x = 0; }
+                
+                // not time based:
+                tickCircle.x = tickCircle.x + 5; // 100 / 20 = 5
+                if (tickCircle.x > stage.canvas.width) { tickCircle.x = 0; }
+                
+                stage.update(event);
+            }
+
             stage = new createjs.Stage("game-canvas");
-            console.log(stage);
-            console.log(new Button("Hello!", "#F00"));
-            var btn1 = stage.addChild(new Button("Hello!", "#F00"));
-            btn1.x = 20;
-            btn1.y = 20;
+            //console.log(stage);
             
-            var btn2 = stage.addChild(new Button("Goodbye.", "#0F0"));
-            btn2.x = 20;
-            btn2.y = btn1.y + 50;
-            
-            var btn3 = stage.addChild(new Button("Hello again!!", "#0FF"));
-            btn3.y = btn2.y + 50;
-            
-            
-            btn1.x = btn2.x = btn3.x = 20;
-            
-            createjs.Ticker.addEventListener("tick", stage);
+            timeCircle = new createjs.Shape();
+            timeCircle.graphics.beginFill("red").drawCircle(0, 0, 40);
+            timeCircle.y = 50;
+            stage.addChild(timeCircle);
+
+            tickCircle = new createjs.Shape();
+            tickCircle.graphics.beginFill("blue").drawCircle(0, 0, 40);
+            tickCircle.y = 150;
+            stage.addChild(tickCircle);
+
+
+            createjs.Ticker.addEventListener("tick", refresh);
 
             return stage;
 
