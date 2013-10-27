@@ -8,6 +8,7 @@
 	<script>
 		
 		var stage, timeCircle, tickCircle;
+		var i = 20;
 
 		function init() {
 
@@ -34,27 +35,39 @@
 		
 		function tick(event) {
 			// time based
-			timeCircle.x = timeCircle.x + (event.delta)/1000*1000;
-			timeCircle.y = timeCircle.y - (event.delta)/1000*1000;
+			timeCircle.x = timeCircle.x + (event.delta)/1000*100;
+			timeCircle.y = timeCircle.y - (event.delta)/1000*100;
 			if (timeCircle.x > stage.canvas.width) { timeCircle.x = 0; }
 			if (timeCircle.y < 0) { timeCircle.y = stage.canvas.height; }
 
 			
 			// not time based:
-			tickCircle.x = tickCircle.x + 50; // 100 / 20 = 5
-			tickCircle.y = tickCircle.y + 70;
+			tickCircle.x = tickCircle.x + 5; // 100 / 20 = 5
+			tickCircle.y = tickCircle.y + 7;
 			if (tickCircle.x > stage.canvas.width) { tickCircle.x = 0; }
 			if (tickCircle.y > stage.canvas.height) { tickCircle.y = 0; }
 
 
-			// green circle
-			greenCircle.x = greenCircle.x + 20; // 100 / 20 = 5
-			greenCircle.y = greenCircle.y + 20;
-			if (greenCircle.x > stage.canvas.width) { greenCircle.x = 0; }
-			if (greenCircle.y > stage.canvas.height) { greenCircle.y = 0; }
-
 
 			
+			// green circle
+			greenCircle.x = greenCircle.x + i;
+			greenCircle.y = greenCircle.y - i;
+			if (greenCircle.x > stage.canvas.width) { greenCircle.x = 0; }
+			if (greenCircle.y > stage.canvas.height) { greenCircle.y = 0; }
+			if (greenCircle.x < 0) { greenCircle.x = stage.canvas.width; }
+			if (greenCircle.y < 0) { greenCircle.y = stage.canvas.height; }
+
+
+			//Collision
+			var timeCirclePt = timeCircle.localToLocal(0,0,greenCircle);
+			var tickCirclePt = tickCircle.localToLocal(0,0,greenCircle);
+			if (greenCircle.hitTest(timeCirclePt.x, timeCirclePt.y) || greenCircle.hitTest(tickCirclePt.x, tickCirclePt.y)) {
+				if(i==20)
+					i=-20;
+				else
+					i=20;
+			}
 
 
 			
