@@ -32,7 +32,7 @@ require.config({
 require([
 	'jquery',
 	'stage'
-], function ($) {
+], function ($, stage) {
 	$(document).ready(function() {
 		console.log('it works!');
 		stage;
