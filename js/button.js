@@ -1,10 +1,12 @@
 define(["easel"], function() {
 
+	//Button.prototype
+
 
 	var Button = function(label, color) {
 	  this.initialize(label, color);
 	}
-	var p = Button.prototype = new createjs.Container(); // inherit from Container
+		var p = Button.prototype = new createjs.Container(); // inherit from Container
 
 	p.label;
 	p.background;
@@ -44,8 +46,5 @@ define(["easel"], function() {
 		p.alpha = Math.cos(p.count++*0.1)*0.4+0.6;
 	}
 	return Button;
-	
-
-
 	}
 );

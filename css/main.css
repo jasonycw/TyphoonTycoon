@@ -6,10 +6,7 @@ body {
 	height:90%;
 }
 
-canvas {
-
-	/*background-image:url('../img/noisy-texture-deep-blue.png');
-*/	
+#game-canvas {
 	background-color: black;
 
 	border:solid 1px #00FFFF;
