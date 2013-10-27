@@ -1,8 +1,9 @@
 define(["easel", "button"], function(easel, Button) {
         //return an object to define the "my/shirt" module.
         console.log(Button);
-            stage = new createjs.Stage("demoCanvas");
-            
+            stage = new createjs.Stage("game-canvas");
+            console.log(stage);
+            console.log(new Button("Hello!", "#F00"));
             var btn1 = stage.addChild(new Button("Hello!", "#F00"));
             btn1.x = 20;
             btn1.y = 20;
