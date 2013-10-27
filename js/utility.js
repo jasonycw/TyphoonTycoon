@@ -3,7 +3,7 @@ define(["easel"], function(easel) {
 	console.log("utility.js loaded");
 
 	var Utility = function() {
-	  this.initialize();
+		this.initialize();
 	}
 	
 	var p = Utility.prototype = new createjs.Container(); // inherit from Container
@@ -15,6 +15,4 @@ define(["easel"], function(easel) {
 	}
 
 	return Utility;
-
-    }
-);
+});

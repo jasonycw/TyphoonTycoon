@@ -3,7 +3,7 @@ define(["easel"], function(easel) {
 	console.log("bullet.js loaded");
 
 	var Bullet = function() {
-	  this.initialize();
+		this.initialize();
 	}
 	
 	var p = Bullet.prototype = new createjs.Container(); // inherit from Container
@@ -15,6 +15,4 @@ define(["easel"], function(easel) {
 	}
 
 	return Bullet;
-
-    }
-);
+});

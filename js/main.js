@@ -31,10 +31,9 @@ require.config({
 
 require([
 	'jquery',
-	'stage'
-], function ($, stage) {
+	'game'
+], function ($, Game) {
 	$(document).ready(function() {
-		console.log('load required.js success');
-		stage;
+		Game.init();
 	});
 });
