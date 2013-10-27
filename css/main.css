@@ -8,7 +8,7 @@ body {
 
 #game-canvas {
 	background-color: black;
-	border:solid 1px #00FFFF;
+	border:solid 1px #4A8383;
 	/*set center*/
 	margin-left: auto;
 	margin-right: auto;

@@ -34,7 +34,7 @@ require([
 	'stage'
 ], function ($, stage) {
 	$(document).ready(function() {
-		console.log('it works!');
+		console.log('load required.js success');
 		stage;
 	});
 });
