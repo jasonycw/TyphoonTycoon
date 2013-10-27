@@ -1,7 +1,9 @@
 body {
 	/*background-color: black;*/
 	background-image:url('../img/noisy-texture-black.png');
-	padding: 25px;
+	padding: 25px 0px 0px 0px;
+	margin: 0;
+	height:90%;
 }
 
 canvas {
