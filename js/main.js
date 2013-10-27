@@ -11,17 +11,26 @@ require.config({
 		underscore: {
 			exports: '_',
 			deps: ['jquery']
+		},
+		easel: {
+			exports: 'createjs'
+		},
+		tween: {
+			deps: ['easel'],
+			exports: 'Tween'
 		}
 	},
 	paths: {
 		jquery: 'libs/jquery/jquery-1.10.2.min',
 		underscore: 'libs/underscore/underscore-min',
-		text: 'libs/require/text'
+		text: 'libs/require/text',
+		easel: 'libs/createjs/easeljs-0.7.0.min',
+		tween: 'libs/createjs/tweenjs-0.5.0.min'
 	}
 });
 
 require([
-	'jquery',
+	'jquery'
 ], function ($) {
 	$(document).ready(function() {
 		console.log('it works!');
