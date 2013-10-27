@@ -30,11 +30,16 @@
 		function tick(event) {
 			// time based
 			timeCircle.x = timeCircle.x + (event.delta)/1000*100;
+			timeCircle.y = timeCircle.y - (event.delta)/1000*100;
 			if (timeCircle.x > stage.canvas.width) { timeCircle.x = 0; }
+			if (timeCircle.y < 0) { timeCircle.y = stage.canvas.height; }
+
 			
 			// not time based:
 			tickCircle.x = tickCircle.x + 5; // 100 / 20 = 5
+			tickCircle.y = tickCircle.y + 7;
 			if (tickCircle.x > stage.canvas.width) { tickCircle.x = 0; }
+			if (tickCircle.y > stage.canvas.height) { tickCircle.y = 0; }
 			
 			stage.update(event);
 		}
