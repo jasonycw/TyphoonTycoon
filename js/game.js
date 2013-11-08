@@ -20,6 +20,9 @@ define([
 			init: function() {
 				console.log('init game');
 				this.stage = new createjs.Stage("game-canvas");
+				var mapBackground = new createjs.Bitmap("../img/temp_map.JPG");
+				stage.addChild(mapBackground);
+				stage.update();
 				createjs.Ticker.setFPS(30);
 			}
 		}
