@@ -17,7 +17,7 @@ define([
 
 		function prepareBgImg() {
 			var bgImg = new Image();
-			bgImg.src = "img/temp_map.PNG";
+			bgImg.src = "img/map.png";
 			bgImg.onload = function() {
 				var mapBackground = new createjs.Bitmap(bgImg);
 				stage.addChildAt(mapBackground, 0); // always at the back
