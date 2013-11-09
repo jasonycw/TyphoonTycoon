@@ -15,14 +15,23 @@ define([
 		// Game canvas
 		var stage;
 
+		function prepareBgImg() {
+			var bgImg = new Image();
+			bgImg.src = "img/temp_map.PNG";
+			bgImg.onload = function() {
+				var mapBackground = new createjs.Bitmap(bgImg);
+				stage.addChildAt(mapBackground, 0); // always at the back
+				stage.update();
+			};
+		}
+
 		return {
 			// Initialize the game
 			init: function() {
-				console.log('init game');
-				this.stage = new createjs.Stage("game-canvas");
-				var mapBackground = new createjs.Bitmap("img/temp_map.PNG");
-				stage.addChild(mapBackground);
-				stage.update();
+				stage = new createjs.Stage("game-canvas");
+
+				prepareBgImg();
+				
 				createjs.Ticker.setFPS(30);
 			}
 		}
