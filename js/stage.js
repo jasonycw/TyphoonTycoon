@@ -1,38 +1,52 @@
-define(["jquery"], function($) {
+define([
+	'jquery',
+	'underscore'
+], function($, _) {
+	var canvas;
+	var ctx;
+	var displayList = [];
 
-		console.log("stage.js loaded");
-
-		var Stage = function(canvasId)
-		{
-			var stage = $(canvasId);
-			var displayList = [];
-
-			function getWidth()
-			{
-				return stage.width();
-			}
-
-			function getHeight()
-			{
-				return stage.height();
-			}
-
-			var ctx=canvas.getContext && canvas.getContext('2d');
-			function update()
-			{
-				
-				if (ctx){
-					for (var i = 0; i < displayList.length; i++) {
-						displayList[i].update();
-					}	
-				}			
-			}
-
-			function addChild(obj)
-			{
-				displayList.push(obj);
-			}
+	function Stage(id) {
+		// Get the DOM element
+		this.canvas = $('#' + id)[0];
+		// Get the canvas context
+		this.ctx = this.canvas.getContext && this.canvas.getContext('2d');
+		if (!this.ctx) {
+			throw 'Cannot get the canvas context';
 		}
+		this.counter = 0;
+	}
 
-		return Stage;
+	Stage.prototype = {
+		constructor: Stage,
+		getWidth: function() {
+			return this.canvas.width;
+		},
+		getHeight: function() {
+			return this.canvas.height;
+		},
+		getContext: function() {
+			return this.ctx;
+		},
+		render: function() {
+			// Clear canvas
+			this.ctx.clearRect(0, 0, this.getWidth(), this.getHeight());
+			// Call the display object's render method
+			_.each(displayList, function(item) {
+				if (item) {
+					item.render();
+				}
+			});
+		},
+		addChild: function(item) {
+			console.log(displayList);
+			displayList.push(item);
+			return displayList.length - 1;
+		},
+		removeChild: function(index) {
+			delete displayList[index];
+		}
+	};
+
+	return Stage;
 });

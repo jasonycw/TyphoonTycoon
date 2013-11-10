@@ -1,13 +1,9 @@
 // Game
 define([
-	"easel",
-	"models/ui",
-	"models/player",
-	"units/bullet",
-	"units/enemy",
-	"units/building",
-	"utility"
-], function(easel, UI, Player, Bullet, Enemy, Building, Utility) {
+	'stage',
+	'models/ui',
+	'utility'
+], function(Stage, UI, Utility) {
 
 	console.log("game.js loaded");
 
@@ -20,10 +16,11 @@ define([
 		return {
 			// Initialize the game
 			init: function() {
-				stage = new createjs.Stage("game-canvas");
+				//stage = document.getElementById('game-canvas');
+				stage = new Stage('game-canvas');
 				gameUI = new UI(stage);
 				gameUI.init();
-				createjs.Ticker.setFPS(30);
+				stage.addChild(gameUI);
 			}
 		}
 	})();
