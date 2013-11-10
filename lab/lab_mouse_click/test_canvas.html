@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Testing</title>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="Tower.js" ></script>
+	
+
+</head>
+<body>
+
+	<canvas id="game-canvas" width="960" height="600"></canvas> 
+
+	<script>
+		var gameCanvas = document.getElementById("game-canvas");
+		var ctx = gameCanvas.getContext("2d");
+		var gameMap = new Image();
+		gameMap.src="img/map.png";
+		gameMap.onload = function() {
+			ctx.drawImage(gameMap,0,0);
+		};
+
+		gameCanvas.addEventListener('click', function(event){
+			var x = event.clientX - gameCanvas.offsetLeft;
+			var y = event.clientY - gameCanvas.offsetTop;
+
+			console.log(x, y);
+			var tower = new Tower(x,y);
+		});
+	</script>
+
+</body>
+</html>
