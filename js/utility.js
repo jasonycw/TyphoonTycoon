@@ -1,18 +1,16 @@
-define(["easel"], function(easel) {
+define([
+	'jquery',
+	'underscore'
+], function($, _) {
 
 	console.log("utility.js loaded");
 
-	var Utility = function() {
-		this.initialize();
-	}
-	
-	var p = Utility.prototype = new createjs.Container(); // inherit from Container
-
-	p.Container_initialize = p.initialize;
-	p.initialize = function() {
-		this.Container_initialize();
-		// add custom setup logic here.
-	}
+	var Utility = {
+		// Just an example, remove it when you create a new method.
+		test: function() {
+			return true;
+		}
+	};
 
 	return Utility;
 });

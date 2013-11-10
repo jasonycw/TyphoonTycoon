@@ -1,20 +1,33 @@
-define(["easel"], function(easel) {
-
-	console.log("ui.js loaded");
-
-	var UI = function() {
-	  this.initialize();
-	}
+define([], function() {
+	"use strict";
 	
-	var p = UI.prototype = new createjs.Container(); // inherit from Container
+	var stage;
+	var ctx;
 
-	p.Container_initialize = p.initialize;
-	p.initialize = function() {
-		this.Container_initialize();
-		// add custom setup logic here.
+	var bgImg;
+
+	function UI(stage) {
+		this.stage = stage;
+		this.ctx = this.stage.getContext();
 	}
+
+	UI.prototype = {
+		constructor: UI,
+		init: function() {
+			this.prepareBgImg();
+		},
+		prepareBgImg: function() {
+			var that = this;
+			this.bgImg = new Image();
+			this.bgImg.src = "img/map.png";
+			this.bgImg.onload = function() {
+				that.render();
+			}
+		},
+		render: function() {
+			this.ctx.drawImage(this.bgImg, 0, 0);
+		}
+	};
 
 	return UI;
-
-    }
-);
+});
