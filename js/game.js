@@ -23,7 +23,6 @@ define([
 				stage = new createjs.Stage("game-canvas");
 				gameUI = new UI(stage);
 				gameUI.init();
-				
 				createjs.Ticker.setFPS(30);
 			}
 		}
