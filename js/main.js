@@ -23,9 +23,7 @@ require.config({
 	paths: {
 		jquery: 'libs/jquery/jquery-1.10.2.min',
 		underscore: 'libs/underscore/underscore-min',
-		text: 'libs/require/text',
-		easel: 'libs/createjs/easeljs-0.7.0.min',
-		tween: 'libs/createjs/tweenjs-0.5.0.min'
+		text: 'libs/require/text'
 	}
 });
 

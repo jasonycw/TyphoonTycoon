@@ -1,29 +1,25 @@
 // Game
 define([
-	"easel",
-	"models/ui",
-	"models/player",
-	"units/bullet",
-	"units/enemy",
-	"units/building",
-	"utility"
-], function(easel, UI, Player, Bullet, Enemy, Building, Utility) {
+	"jquery",
+	"models/ui"
+], function($, UI) {
 
 	console.log("game.js loaded");
 
 	var Game = (function() {
 		// Game canvas
 		var stage;
+		var ctx;
 
 		var gameUI;
 
 		return {
 			// Initialize the game
 			init: function() {
-				stage = new createjs.Stage("game-canvas");
-				gameUI = new UI(stage);
+				stage = document.getElementById('game-canvas');;
+				ctx = stage.getContext && stage.getContext('2d');
+				gameUI = new UI(ctx);
 				gameUI.init();
-				createjs.Ticker.setFPS(30);
 			}
 		}
 	})();

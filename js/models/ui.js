@@ -1,11 +1,9 @@
-define(["easel"], function(easel) {
+define([], function() {
 	"use strict";
-	var stage;
+	var ctx;
 
-	var mapBg;
-
-	function UI(s) {
-		this.stage = s;
+	function UI(ctx) {
+		this.ctx = ctx;
 	}
 
 	UI.prototype = {
@@ -17,9 +15,7 @@ define(["easel"], function(easel) {
 			var bgImg = new Image();
 			bgImg.src = "img/map.png";
 			bgImg.onload = function() {
-				that.mapBg = new createjs.Bitmap(bgImg);
-				that.stage.addChildAt(that.mapBg, 0); // always at the back
-				that.stage.update();
+				that.ctx.drawImage(bgImg, 0, 0);
 			}
 		}
 	};
