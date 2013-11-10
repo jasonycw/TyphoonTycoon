@@ -1,4 +1,4 @@
-define([], function() {
+define(['jquery'], function($) {
 	"use strict";
 	
 	var stage;
@@ -15,6 +15,7 @@ define([], function() {
 		constructor: UI,
 		init: function() {
 			this.prepareBgImg();
+			this.bindBtnEvent();
 		},
 		prepareBgImg: function() {
 			var that = this;
@@ -23,6 +24,12 @@ define([], function() {
 			this.bgImg.onload = function() {
 				that.render();
 			}
+		},
+		bindBtnEvent: function() {
+			$('#control-bar button').click(function(e) {
+				// Should be a switch here
+				alert(e.target.id);
+			})
 		},
 		render: function() {
 			this.ctx.drawImage(this.bgImg, 0, 0);
