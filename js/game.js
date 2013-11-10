@@ -1,25 +1,26 @@
 // Game
 define([
-	"jquery",
-	"models/ui"
-], function($, UI) {
+	'stage',
+	'models/ui',
+	'utility'
+], function(Stage, UI, Utility) {
 
 	console.log("game.js loaded");
 
 	var Game = (function() {
 		// Game canvas
 		var stage;
-		var ctx;
 
 		var gameUI;
 
 		return {
 			// Initialize the game
 			init: function() {
-				stage = document.getElementById('game-canvas');;
-				ctx = stage.getContext && stage.getContext('2d');
-				gameUI = new UI(ctx);
+				//stage = document.getElementById('game-canvas');
+				stage = new Stage('game-canvas');
+				gameUI = new UI(stage);
 				gameUI.init();
+				stage.addChild(gameUI);
 			}
 		}
 	})();

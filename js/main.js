@@ -11,13 +11,6 @@ require.config({
 		underscore: {
 			exports: '_',
 			deps: ['jquery']
-		},
-		easel: {
-			exports: 'createjs'
-		},
-		tween: {
-			deps: ['easel'],
-			exports: 'Tween'
 		}
 	},
 	paths: {
