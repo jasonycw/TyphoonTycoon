@@ -1,14 +1,17 @@
 function Tower(coordinateX,coordinateY,imageSrc){
+	var that = this;
 	this.x = coordinateX;
 	this.y = coordinateY;
 	this.image = new Image();
 	this.image.src = imageSrc;
-	this.originX = this.image.height/2;
-	this.originY = this.image.width/2;
-
-	var atX = this.x - this.originX;
-	var atY = this.y - this.originY;
-	console.log(atX, atY);
-	ctx.drawImage(this.image,atX,atY);
+	this.origin = {x:this.image.height/2, y:this.image.width/2};
+	
+	this.image.onload = function(){
+		that.origin.x = that.image.height/2;
+		that.origin.y = that.image.width/2;
+		var atX = that.x - that.origin.x;
+		var atY = that.y - that.origin.y;
+		ctx.drawImage(that.image,atX,atY);
+	};
 }
 

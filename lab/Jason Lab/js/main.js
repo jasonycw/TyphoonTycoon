@@ -4,6 +4,7 @@ var gameMap = new Image();
 gameMap.src="img/map.png";
 gameMap.onload = function() {
 	ctx.drawImage(gameMap,0,0);
+	var towr = new Tower(30, 30, "img/tower.png");
 };
 
 gameCanvas.addEventListener('click', function(event){
