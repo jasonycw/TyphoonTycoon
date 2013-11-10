@@ -1,20 +1,25 @@
 define(["easel"], function(easel) {
+	var stage;
 
-	console.log("ui.js loaded");
-
-	var UI = function() {
-	  this.initialize();
+	function UI(s) {
+		this.stage = s;
 	}
-	
-	var p = UI.prototype = new createjs.Container(); // inherit from Container
 
-	p.Container_initialize = p.initialize;
-	p.initialize = function() {
-		this.Container_initialize();
-		// add custom setup logic here.
-	}
+	UI.prototype = {
+		init: function() {
+			this.prepareBgImg();
+		},
+		prepareBgImg: function() {
+			var that = this;
+			var bgImg = new Image();
+			bgImg.src = "img/map.png";
+			bgImg.onload = function() {
+				var mapBackground = new createjs.Bitmap(bgImg);
+				that.stage.addChildAt(mapBackground, 0); // always at the back
+				that.stage.update();
+			}
+		}
+	};
 
 	return UI;
-
-    }
-);
+});

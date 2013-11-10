@@ -11,35 +11,7 @@ body {
 
 #game-canvas {
 	width: @game-width;
-	margin: 20px auto 0;
+	margin: 10px auto 0;
 	display: block;
 	.box-shadow(@shadow);
-}
-
-#game-control {
-	background-color: @panel-bg-color;
-	width: @game-width;
-	margin: 5px auto 0;
-	padding: 3px;
-	.box-shadow(@shadow);
-	.box-sizing(border-box);
-
-	button {
-		font-family: @font;
-		font-size: 12px;
-		padding: 5px 10px;
-		color: lighten(@panel-bg-color, 35%);
-		border: 1px solid darken(@panel-bg-color, 5%);
-		text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
-		.box-shadow(inset 0 1px 0 rgba(255,255,255,0.15), 0 1px 0 rgba(0,0,0,0.75));
-		.background-image(linear-gradient(to bottom, lighten(@panel-bg-color, 5%) 0%,darken(@panel-bg-color, 3%) 100%));
-		.border-radius(3px);
-
-		&:focus, &:hover {
-			.background-image(linear-gradient(to bottom, lighten(@panel-bg-color, 10%) 0%,darken(@panel-bg-color, 3%) 100%));
-		}
-		&:active {
-			.background-image(linear-gradient(to bottom, darken(@panel-bg-color, 3%) 0%,lighten(@panel-bg-color, 5%) 100%));
-		}
-	}
 }

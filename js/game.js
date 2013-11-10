@@ -15,22 +15,14 @@ define([
 		// Game canvas
 		var stage;
 
-		function prepareBgImg() {
-			var bgImg = new Image();
-			bgImg.src = "img/map.png";
-			bgImg.onload = function() {
-				var mapBackground = new createjs.Bitmap(bgImg);
-				stage.addChildAt(mapBackground, 0); // always at the back
-				stage.update();
-			};
-		}
+		var gameUI;
 
 		return {
 			// Initialize the game
 			init: function() {
 				stage = new createjs.Stage("game-canvas");
-
-				prepareBgImg();
+				gameUI = new UI(stage);
+				gameUI.init();
 				
 				createjs.Ticker.setFPS(30);
 			}

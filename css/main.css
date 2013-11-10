@@ -7,58 +7,9 @@ body {
 }
 #game-canvas {
   width: 960px;
-  margin: 20px auto 0;
+  margin: 10px auto 0;
   display: block;
   -webkit-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
   -moz-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
   box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
-}
-#game-control {
-  background-color: #222b30;
-  width: 960px;
-  margin: 5px auto 0;
-  padding: 3px;
-  -webkit-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
-  -moz-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
-  box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-#game-control button {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  padding: 5px 10px;
-  color: #6d8898;
-  border: 1px solid #171e21;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.15), 0px 1px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.15), 0px 1px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.15), 0px 1px 0px rgba(0, 0, 0, 0.75);
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyZDM4M2YiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFjMjMyNyIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
-  background-image: -webkit-linear-gradient(top, #2d383f 0%, #1c2327 100%);
-  background-image: -moz-linear-gradient(top, #2d383f 0%, #1c2327 100%);
-  background-image: -o-linear-gradient(top, #2d383f 0%, #1c2327 100%);
-  background-image: linear-gradient(to bottom, #2d383f 0%, #1c2327 100%);
-  -webkit-border-radius: 3px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 3px;
-  -moz-background-clip: padding;
-  border-radius: 3px;
-  background-clip: padding-box;
-}
-#game-control button:focus,
-#game-control button:hover {
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzNzQ2NGUiIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzFjMjMyNyIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
-  background-image: -webkit-linear-gradient(top, #37464e 0%, #1c2327 100%);
-  background-image: -moz-linear-gradient(top, #37464e 0%, #1c2327 100%);
-  background-image: -o-linear-gradient(top, #37464e 0%, #1c2327 100%);
-  background-image: linear-gradient(to bottom, #37464e 0%, #1c2327 100%);
-}
-#game-control button:active {
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgMSAxIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48bGluZWFyR3JhZGllbnQgaWQ9Imxlc3NoYXQtZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxYzIzMjciIHN0b3Atb3BhY2l0eT0iMSIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzJkMzgzZiIgc3RvcC1vcGFjaXR5PSIxIi8+PC9saW5lYXJHcmFkaWVudD48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
-  background-image: -webkit-linear-gradient(top, #1c2327 0%, #2d383f 100%);
-  background-image: -moz-linear-gradient(top, #1c2327 0%, #2d383f 100%);
-  background-image: -o-linear-gradient(top, #1c2327 0%, #2d383f 100%);
-  background-image: linear-gradient(to bottom, #1c2327 0%, #2d383f 100%);
 }
