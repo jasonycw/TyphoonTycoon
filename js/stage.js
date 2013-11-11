@@ -25,9 +25,9 @@ define([
 		getHeight: function() {
 			return this.canvas.height;
 		},
-		getCanvas: function() {
+		getCanvas: (function() {
 			return this.canvas;
-		},
+		}),
 		getContext: function() {
 			return this.ctx;
 		},

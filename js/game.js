@@ -26,9 +26,9 @@ define([
 				gameUI = new UI(stage);
 				gameUI.init();
 				stage.addChild(gameUI);
-				stage.getCanvas.addEventListener('click', function(event){
-					var x = event.clientX - gameCanvas.offsetLeft;
-					var y = event.clientY - gameCanvas.offsetTop;
+				stage.canvas.addEventListener('click', function(event){
+					var x = event.clientX - stage.canvas.offsetLeft;
+					var y = event.clientY - stage.canvas.offsetTop;
 					var tower = new Tower(x, y, "sprite/tower.png");
 				});
 			}
