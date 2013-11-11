@@ -1,8 +1,15 @@
 #control-bar {
 	position: absolute;
-	top: 5px;
-	left: 5px;
+	top: 0;
+	left: 0;
+	width: @game-width;
 	z-index: 9999;
+
+	div {
+		margin: 5px;
+		display: inline-block;
+	}
+
 	button {
 		background-image: url('../img/sprite/button.png');
 		border: 0;
@@ -15,6 +22,13 @@
 		background-color: transparent;
 		outline: 0;
 	}
+
+	p {
+		display: inline-block;
+		color: #fff;
+		margin: 5px;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	}
 }
 
 #btn-power-plant {
@@ -23,6 +37,28 @@
 #btn-pause {
 	.btn(-32px);
 }
+
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+.clearfix {
+	*zoom: 1;
+	&:before,
+	&:after {
+		display: table;
+		content: "";
+		// Fixes Opera/contenteditable bug:
+		// http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
+		line-height: 0;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
 
 // Mixin for button rollover
 .btn(@pos-x) {
