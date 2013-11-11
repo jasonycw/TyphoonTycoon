@@ -1,10 +1,10 @@
 var gameCanvas = document.getElementById("game-canvas");
 var ctx = gameCanvas.getContext("2d");
 var gameSize = {width:gameCanvas.width,height:gameCanvas.height};
-var base = new HongKong(370,270);
+var base = new HongKong(374,245);
 var enemy_list=[];
 var tower_list=[];
-var FPS = 30;
+var FPS = 100;
 
 var gameMap = new Image();
 gameMap.src="img/map.png";

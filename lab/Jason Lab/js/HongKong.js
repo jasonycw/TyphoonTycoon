@@ -8,11 +8,9 @@ function HongKong(coordinateX,coordinateY){
 
 	return {
 		getX: function() {
-			console.log(that.origin.y);
 			return that.origin.x;
 		},
 		getY: function() {
-			console.log(that.origin.y);
 			return that.origin.y;
 		}
 	}

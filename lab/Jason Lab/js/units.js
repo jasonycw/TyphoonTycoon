@@ -19,3 +19,14 @@ function Unit(coordinateX,coordinateY,imageSrc){
 	}
 }
 
+
+var u = Unit.prototype;
+
+u.draw = function(){
+	this.origin.x = this.image.width/2;
+	this.origin.y = this.image.height/2;
+	var atX = this.x - this.origin.x;
+	var atY = this.y - this.origin.y;
+	ctx.drawImage(this.image,atX,atY);
+}
+

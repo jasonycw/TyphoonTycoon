@@ -17,20 +17,17 @@ function Enemy(coordinateX,coordinateY,imageSrc){
 var p = Enemy.prototype = new Unit();// = new Unit();
 
 p.on_tick = function(){
-	var atX = this.x - this.origin.x;
-	var atY = this.y - this.origin.y;
-	if(atX!=base.getX() || atY!=base.getY()){
-		console.log("Typhoon move from [ "+atX+" , "+atY+" ] ");
+	if(this.x!=base.getX() || this.y!=base.getY()){
+		console.log("Typhoon move from [ "+this.x+" , "+this.y+" ] ");
 		if(this.x!=base.getX())
 			this.x+=(this.x<base.getX())?1:-1;
 		if(this.y!=base.getY())
 			this.y+=(this.y<base.getY())?1:-1;
-		atX = this.x - this.origin.x;
-		atY = this.y - this.origin.y;
-		console.log("to [ "+atX+" , "+atY+" ]");
+		console.log("to [ "+this.x+" , "+this.y+" ]");
 
-		ctx.drawImage(this.image,atX,atY);
+		this.draw();
 	}
-	else
-		console.log("Typhoon reaches Hong Kong at [ "+atX+" , "+atY+" ] ");
+	else{
+		this.draw();
+	}
 }
