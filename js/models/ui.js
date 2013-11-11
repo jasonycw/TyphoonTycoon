@@ -16,6 +16,7 @@ define(['jquery'], function($) {
 		init: function() {
 			this.prepareBgImg();
 			this.bindBtnEvent();
+			this.bindKeyboardEvent();
 		},
 		prepareBgImg: function() {
 			var that = this;
@@ -30,6 +31,12 @@ define(['jquery'], function($) {
 				// Should be a switch here
 				alert(e.target.id);
 			})
+		},
+		bindKeyboardEvent: function() {
+			$(document).keyup(function(e) {
+				// Should be a switch here
+				console.log('keycode = ' + e.which);
+			});
 		},
 		render: function() {
 			this.ctx.drawImage(this.bgImg, 0, 0);

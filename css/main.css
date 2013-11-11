@@ -33,6 +33,7 @@ body {
   color: transparent;
   text-shadow: none;
   background-color: transparent;
+  outline: 0;
 }
 #btn-power-plant {
   background-position: 0 0;
