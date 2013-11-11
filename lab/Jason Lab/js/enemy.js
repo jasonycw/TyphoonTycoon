@@ -22,11 +22,11 @@ p.on_tick = function(){
 	if(this.x!=base.getOriginX() || this.y!=base.getOriginY()){
 		console.log("blah");
 		
-
 		this.x+=(this.x<=base.getOriginX())?1:-1;
 		this.y+=(this.y<=base.getOriginY())?1:-1;
 		var atX = this.x - this.origin.x;
 		var atY = this.y - this.origin.y;
+
 		ctx.drawImage(this.image,atX,atY);
 	}
 }
