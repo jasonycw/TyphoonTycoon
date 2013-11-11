@@ -16,7 +16,12 @@ define([
 		return {
 			// Initialize the game
 			init: function() {
-				stage = new Stage('game-canvas');
+				try {
+					stage = new Stage('game-canvas');
+				} catch(e) {
+					alert('Cannot obtain the canvas context.');
+					return;
+				}
 				gameUI = new UI(stage);
 				gameUI.init();
 				stage.addChild(gameUI);
