@@ -11,9 +11,14 @@
 </head>
 <body>
 	<div id="game">
-		<div id="control-bar">
-			<button id="btn-power-plant">Power Plant</button>
-			<button id="btn-pause" disabled>Pause</button>
+		<div id="control-bar" class="clearfix">
+			<div class="pull-left">
+				<button id="btn-power-plant" title="Power Plant">Power Plant</button>
+				<button id="btn-pause" title="Pause" disabled>Pause</button>
+			</div>
+			<p class="pull-right">
+				HSI: <span id="hsi">123456</span>
+			</p>
 		</div>
 		<canvas id="game-canvas" width="960" height="600"></canvas>
 	</div>
