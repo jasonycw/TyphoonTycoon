@@ -5,11 +5,57 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
 }
-#game-canvas {
+#game {
   width: 960px;
   margin: 10px auto 0;
+  position: relative;
+}
+#game-canvas {
   display: block;
+  position: absolute;
   -webkit-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
   -moz-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
   box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
+}
+#control-bar {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 9999;
+}
+#control-bar button {
+  background-image: url('../img/sprite/button.png');
+  border: 0;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  outline: 0;
+}
+#btn-power-plant {
+  background-position: 0 0;
+}
+#btn-power-plant:hover {
+  background-position: 0 -32px;
+}
+#btn-power-plant:active {
+  background-position: 0 -64px;
+}
+#btn-power-plant[disabled] {
+  background-position: 0 -96px;
+}
+#btn-pause {
+  background-position: -32px 0;
+}
+#btn-pause:hover {
+  background-position: -32px -32px;
+}
+#btn-pause:active {
+  background-position: -32px -64px;
+}
+#btn-pause[disabled] {
+  background-position: -32px -96px;
 }

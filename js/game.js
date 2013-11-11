@@ -16,7 +16,6 @@ define([
 		return {
 			// Initialize the game
 			init: function() {
-				//stage = document.getElementById('game-canvas');
 				stage = new Stage('game-canvas');
 				gameUI = new UI(stage);
 				gameUI.init();

@@ -9,9 +9,16 @@ body {
 	font-size: 14px;
 }
 
-#game-canvas {
+#game {
 	width: @game-width;
 	margin: 10px auto 0;
+	position: relative;
+}
+
+#game-canvas {
 	display: block;
+	position: absolute;
 	.box-shadow(@shadow);
 }
+
+@import "button";
