@@ -1,32 +1,34 @@
-function Unit(coordinateX,coordinateY,imageSrc){
-	var that = this;
+function Unit(coordinateX,coordinateY,spriteSrc){
+	that = this;
 	this.x = coordinateX;
 	this.y = coordinateY;
-	this.image = new Image();
-	this.image.src = imageSrc;
-	this.origin = {x:this.image.width/2, y:this.image.height/2};
+	this.lastX = this.x;
+	this.lastY = this.y;
+
+	this.sprite = new Image();
+	this.sprite.src = spriteSrc;
+	this.sprite_origin = {x:this.sprite.width/2, y:this.sprite.height/2};
+
+	unit_list.push(this);
 	
-	this.image.onload = function(){
-		that.origin.x = that.image.width/2;
-		that.origin.y = that.image.height/2;
-		var atX = that.x - that.origin.x;
-		var atY = that.y - that.origin.y;
-		ctx.drawImage(that.image,atX,atY);
+	this.sprite.onload = function(){
+		that.sprite_origin = {x:that.sprite.width/2, y:that.sprite.height/2};
+		that.draw();
 	};
 
-	this.setOrigin = function(ori_object){
-		this.origin = ori_object;
+	this.draw = function(){
+		var drawX = this.x - this.sprite_origin.x;
+		var drawY = this.y - this.sprite_origin.y;
+		ctx.drawImage(this.sprite,drawX,drawY);
+	}
+
+	this.setOrigin = function(xx,yy){
+		this.sprite_origin = {x:xx,y:yy};
 	}
 }
 
 
-var u = Unit.prototype;
+var p = Unit.prototype;
 
-u.draw = function(){
-	this.origin.x = this.image.width/2;
-	this.origin.y = this.image.height/2;
-	var atX = this.x - this.origin.x;
-	var atY = this.y - this.origin.y;
-	ctx.drawImage(this.image,atX,atY);
-}
+
 

@@ -1,6 +1,7 @@
 /**
  *
  */
+ var p = Enemy.prototype = new Unit();// = new Unit();
 function Enemy(coordinateX,coordinateY,imageSrc){
 	if (!(this instanceof Enemy)) {
 		throw new TypeError("Constructor cannot be called as a function.");
@@ -14,9 +15,9 @@ function Enemy(coordinateX,coordinateY,imageSrc){
 	enemy_list.push(this);
 }
 
-var p = Enemy.prototype = new Unit();// = new Unit();
 
-p.on_tick = function(){
+
+p.on_tick = function(delta){
 	if(this.x!=base.getX() || this.y!=base.getY()){
 		console.log("Typhoon move from [ "+this.x+" , "+this.y+" ] ");
 		if(this.x!=base.getX())

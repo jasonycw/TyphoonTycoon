@@ -2,8 +2,9 @@
 define([
 	'stage',
 	'models/ui',
-	'utility'
-], function(Stage, UI, Utility) {
+	'utility',
+	'units/tower'
+], function(Stage, UI, Utility,Tower) {
 
 	console.log("game.js loaded");
 
@@ -25,6 +26,11 @@ define([
 				gameUI = new UI(stage);
 				gameUI.init();
 				stage.addChild(gameUI);
+				stage.getCanvas.addEventListener('click', function(event){
+					var x = event.clientX - gameCanvas.offsetLeft;
+					var y = event.clientY - gameCanvas.offsetTop;
+					var tower = new Tower(x, y, "sprite/tower.png");
+				});
 			}
 		}
 	})();

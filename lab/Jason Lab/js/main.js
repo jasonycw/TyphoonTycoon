@@ -4,7 +4,8 @@ var gameSize = {width:gameCanvas.width,height:gameCanvas.height};
 var base = new HongKong(374,245);
 var enemy_list=[];
 var tower_list=[];
-var FPS = 100;
+var unit_list = [];
+var FPS = 1;
 
 var gameMap = new Image();
 gameMap.src="img/map.png";
