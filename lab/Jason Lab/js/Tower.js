@@ -12,6 +12,7 @@ function Tower(coordinateX,coordinateY,imageSrc){
 		var atX = that.x - that.origin.x;
 		var atY = that.y - that.origin.y;
 		ctx.drawImage(that.image,atX,atY);
+		console.log("Tower is built at [ "+atX+" , "+atY+" ]");
 	};
 }
 

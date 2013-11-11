@@ -17,9 +17,16 @@ function Enemy(coordinateX,coordinateY,imageSrc){
 var p = Enemy.prototype = new Unit();// = new Unit();
 
 p.on_tick = function(){
-	console.log("blah");
-	this.x+=10;
-	var atX = this.x - this.origin.x;
-	var atY = this.y - this.origin.y;
-	ctx.drawImage(this.image,atX,atY);
+	console.log(this.x,base.getOriginX());
+	console.log(this.y,base.getOriginY());
+	if(this.x!=base.getOriginX() || this.y!=base.getOriginY()){
+		console.log("blah");
+		
+
+		this.x+=(this.x<=base.getOriginX())?1:-1;
+		this.y+=(this.y<=base.getOriginY())?1:-1;
+		var atX = this.x - this.origin.x;
+		var atY = this.y - this.origin.y;
+		ctx.drawImage(this.image,atX,atY);
+	}
 }
