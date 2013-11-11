@@ -4,14 +4,14 @@ function HongKong(coordinateX,coordinateY){
 	this.Health = 100;
 	this.origin = {x:coordinateX, y:coordinateY};
 
-	console.log(this.origin.x,this.origin.y);
-	
+	console.log("Hong Kong is located at [ "+this.origin.x+" , "+this.origin.y+" ]");
+
 	return {
-		getOriginX: function() {
+		getX: function() {
 			console.log(that.origin.y);
 			return that.origin.x;
 		},
-		getOriginY: function() {
+		getY: function() {
 			console.log(that.origin.y);
 			return that.origin.y;
 		}
