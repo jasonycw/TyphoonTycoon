@@ -1,5 +1,5 @@
 // defines your module and loads any dependencies
-define([], function()
+define(function()
 {
 	console.log("class.js loaded");
 	// encapsulated in a Module Class / Function
