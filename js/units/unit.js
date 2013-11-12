@@ -38,10 +38,14 @@ define([
 		},
 		render:function(ctx){
 			if(this.spriteReady){
+				//call tick function before rendering
+				this.tick();
+				
 				var drawX = this.x - this.spriteOrigin.x;
 				var drawY = this.y - this.spriteOrigin.y;
 				ctx.drawImage(this.sprite,drawX,drawY);
 			}
+
 		}
 	});
 
