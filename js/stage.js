@@ -13,11 +13,11 @@ define([
 		}
 		//mean render item in displayList['stage'] first
 		Stage.displayList = {
-			'Stages':[], 
-			'Units':[], 
-			'Models':[], 
-			'Others':[]  
-		}
+			backdrops: [], 
+			units: [], 
+			typhoons: [], 
+			others: []  
+		};
 
 		//declare static variable 
 		Stage.width = this.canvas.width;
@@ -29,16 +29,17 @@ define([
 		 * @return {Number}       index of the item, use it for removing in display list
 		 */
 		Stage.addChild = function(item, listName) {
-			//default list
+			// default list
 		    if (listName === undefined) {
-		        listName = "Others";
+		        listName = "others";
 		    }
 			this.displayList[listName].push(item);
 			console.log(this.displayList);
 
 			return this.displayList[listName].length - 1;
 		}
-				/**
+
+		/**
 		 * Remove an item from specific display list.
 		 * @param  {Number} index index of the item
 		 */
@@ -46,7 +47,7 @@ define([
 
 			//default list
 		    if (listName === undefined) {
-		        listName = "Others";
+		        listName = "others";
 		    }
 
 			delete this.displayList[listName][index];
@@ -60,7 +61,6 @@ define([
 		 */
 		render: function() {
 			// Clear canvas
-			//console.log(this);
 			this.ctx.clearRect(0, 0, Stage.width, Stage.height);
 
 			// Call the display object's render method

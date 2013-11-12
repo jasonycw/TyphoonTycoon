@@ -28,14 +28,14 @@ define([
 				}
 				gameUI = new UI();
 				gameUI.init();
-				Stage.addChild(gameUI,'Stages');
+				Stage.addChild(gameUI,'backdrops');
 
 				stage.canvas.addEventListener('click', function(event){
 					console.log(  $("#game")[0].offsetLeft  );
 					var x = event.clientX - $("#game")[0].offsetLeft;
 					var y = event.clientY - $("#game")[0].offsetTop;
 					var tower = new Tower(x, y, "sprite/tower.png");
-					tower.towerID = Stage.addChild(tower,'Units');	// TODO: how to put this back to Tower's constructor?
+					tower.towerID = Stage.addChild(tower,'units');	// TODO: how to put this back to Tower's constructor?
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
 
@@ -58,7 +58,7 @@ define([
 						}
 						t = new Enemy(xx, yy, "sprite/typhoon_placeholder.png" );
 						//console.log(t);
-						t.typhoonID = Stage.addChild(t,'Units');	// TODO: how to put this back to Tower's constructor?
+						t.typhoonID = Stage.addChild(t,'typhoons');	// TODO: how to put this back to Tower's constructor?
 						//console.log(Config.hkArea.x);
 						var hk_dir = Utility.point_direction(xx,yy,Config.hkArea.x,Config.hkArea.y);
 						console.log(hk_dir);
