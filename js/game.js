@@ -24,7 +24,7 @@ define([
 					alert('Cannot obtain the canvas context.');
 					return;
 				}
-				gameUI = new UI(stage);
+				gameUI = new UI();
 				gameUI.init();
 				stage.addBackdrop(gameUI);
 
@@ -36,7 +36,6 @@ define([
 					tower._towerID = stage.addTower(tower);	// TODO: how to put this back to Tower's constructor?
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
-
 
 				setInterval(function(){
 					stage.render();

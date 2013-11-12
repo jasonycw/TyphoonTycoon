@@ -1,9 +1,8 @@
 define(['jquery'], function($) {
 	"use strict";
 
-	function UI(stage) {
-		this.stage = stage;
-		//this.ctx = this.stage.getContext();
+	function UI() {
+		this.bgReady = false;
 	}
 
 	UI.prototype = {
@@ -18,7 +17,7 @@ define(['jquery'], function($) {
 			this.bgImg = new Image();
 			this.bgImg.src = "img/map.png";
 			this.bgImg.onload = function() {
-				that.render();
+				this.bgReady = true;
 			}
 		},
 		bindBtnEvent: function() {
@@ -34,11 +33,8 @@ define(['jquery'], function($) {
 			});
 		},
 		render: function(ctx) {
-			try{
+			if (this.bgReady) {
 				ctx.drawImage(this.bgImg, 0, 0);
-			}catch(e){
-				alert("can't use ctx");
-				return;
 			}
 		}
 	};
