@@ -3,10 +3,11 @@ define([
 	'stage',
 	'models/ui',
 	'utility',
+	'config',
 	'units/tower',
 	'units/unit',
 	'units/enemy'
-], function(Stage, UI, Utility,Tower,Unit,Enemy) {
+], function(Stage, UI, Utility,Config,Tower,Unit,Enemy) {
 
 	console.log("game.js loaded");
 
@@ -30,10 +31,7 @@ define([
 				stage.addBackdrop(gameUI);
 
 
-				var typhoon1 = new Enemy(500, 500, "sprite/typhoon_placeholder.png");
-					typhoon1._typhoonID = stage.addTyphoon(typhoon1);	// TODO: how to put this back to Tower's constructor?
-					typhoon1.setMotion(270,2);
-					typhoon1.setForce({dir:60,mag:0.01});
+				
 
 
 				stage.canvas.addEventListener('click', function(event){
@@ -47,7 +45,33 @@ define([
 
 				setInterval(function(){
 					stage.render();
+
 				},10);
+				setInterval(
+					function(){
+						var t;
+						var canvas = $('#game-canvas')[0];
+						//console.log(canvas);
+						var xx,yy;
+						if(Math.random()>0.5){
+							xx = canvas.width;
+							yy = Math.random() * canvas.height;
+						}else{
+							xx = Math.random() * canvas.width;
+							yy = canvas.height;
+						}
+						t = new Enemy(xx, yy, "sprite/typhoon_placeholder.png" );
+						//console.log(t);
+						t.typhoonID = stage.addTyphoon(t);	// TODO: how to put this back to Tower's constructor?
+						//console.log(Config.hkArea.x);
+						var hk_dir = Utility.point_direction(xx,yy,Config.hkArea.x,Config.hkArea.y);
+						console.log(hk_dir);
+						t.setMotion(hk_dir,2);//Math.random()*360 ,2 );
+						
+						//t.setForce({dir:hk_dir,mag:0.01});
+
+					},
+					3000);
 			}
 		}
 	})();
