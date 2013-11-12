@@ -7,7 +7,7 @@ define([
 	'units/tower',
 	'units/unit',
 	'units/enemy'
-], function(Stage, UI, Utility,Config,Tower,Unit,Enemy) {
+], function(Stage, UI, Utility, Config, Tower, Unit, Enemy) {
 
 	console.log("game.js loaded");
 
@@ -28,14 +28,14 @@ define([
 				}
 				gameUI = new UI();
 				gameUI.init();
-				stage.addChild(gameUI,'Stages');
+				Stage.addChild(gameUI,'Stages');
 
 				stage.canvas.addEventListener('click', function(event){
 					console.log(  $("#game")[0].offsetLeft  );
 					var x = event.clientX - $("#game")[0].offsetLeft;
 					var y = event.clientY - $("#game")[0].offsetTop;
 					var tower = new Tower(x, y, "sprite/tower.png");
-					tower.towerID = stage.addChild(tower,'Units');	// TODO: how to put this back to Tower's constructor?
+					tower.towerID = Stage.addChild(tower,'Units');	// TODO: how to put this back to Tower's constructor?
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
 
@@ -58,12 +58,15 @@ define([
 						}
 						t = new Enemy(xx, yy, "sprite/typhoon_placeholder.png" );
 						//console.log(t);
-						t.typhoonID = stage.addChild(t,'Units');	// TODO: how to put this back to Tower's constructor?
+						t.typhoonID = Stage.addChild(t,'Units');	// TODO: how to put this back to Tower's constructor?
 						//console.log(Config.hkArea.x);
 						var hk_dir = Utility.point_direction(xx,yy,Config.hkArea.x,Config.hkArea.y);
 						console.log(hk_dir);
 						t.setMotion(hk_dir,2);//Math.random()*360 ,2 );
 						
+						//uncomment to test static method
+						//console.log(Stage.width);
+
 						//t.setForce({dir:hk_dir,mag:0.01});
 
 					},
