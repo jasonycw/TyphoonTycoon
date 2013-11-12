@@ -33,6 +33,7 @@ define([
 		 */
 		render: function() {
 			// Clear canvas
+			//console.log(this);
 			this.ctx.clearRect(0, 0, this.getWidth(), this.getHeight());
 			
 			// Call the display object's render method

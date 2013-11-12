@@ -3,7 +3,7 @@ define(['jquery'], function($) {
 
 	function UI(stage) {
 		this.stage = stage;
-		this.ctx = this.stage.getContext();
+		//this.ctx = this.stage.getContext();
 	}
 
 	UI.prototype = {
@@ -33,8 +33,13 @@ define(['jquery'], function($) {
 				console.log('keycode = ' + e.which);
 			});
 		},
-		render: function() {
-			this.ctx.drawImage(this.bgImg, 0, 0);
+		render: function(ctx) {
+			try{
+				ctx.drawImage(this.bgImg, 0, 0);
+			}catch(e){
+				alert("can't use ctx");
+				return;
+			}
 		}
 	};
 
