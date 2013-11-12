@@ -5,7 +5,6 @@ define([
 ], function(Class,Stage)
 {
 	console.log("unit.js loaded");
-	stage = Stage;
 	// encapsulated in a Module Class / Function
 	// to enable instantiation
 	
@@ -13,7 +12,7 @@ define([
 		x: 				0,
 		y: 				0,
 		sprite:			"",// HTML5 Image
-		sprite_origin: 	{x:0,y:0},
+		spriteOrigin: 	{x:0,y:0},
 		
 		//constructor
 		init:function(startX,startY,spriteSrc){
@@ -26,7 +25,7 @@ define([
 			// update sprite origin according to sprite size
 			var that = this;
 			this.sprite.onload = function(){
-				that.sprite_origin = {x:that.sprite.width/2, y:that.sprite.height/2};
+				that.spriteOrigin = {x:that.sprite.width/2, y:that.sprite.height/2};
 				that.draw();
 			};
 		},
@@ -35,9 +34,9 @@ define([
 			// empty
 		},
 		draw:function(){
-			var drawX = this.x - this.sprite_origin.x;
-			var drawY = this.y - this.sprite_origin.y;
-			stage.ctx.drawImage(this.sprite,drawX,drawY);
+			var drawX = this.x - this.spriteOrigin.x;
+			var drawY = this.y - this.spriteOrigin.y;
+			Stage.ctx.drawImage(this.sprite,drawX,drawY);
 		}
 	});
 
