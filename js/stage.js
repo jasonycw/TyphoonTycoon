@@ -13,10 +13,10 @@ define([
 		}
 		//mean render item in displayList['stage'] first
 		Stage.displayList = {
-			'Stages':[], 
-			'Units':[], 
-			'Models':[], 
-			'Others':[]  
+			'backdrops': 	[],
+			'towers': 		[],
+			'typhoons': 	[],
+			'others': 		[]
 		}
 
 		//declare static variable 
@@ -31,7 +31,7 @@ define([
 		Stage.addChild = function(item, listName) {
 			//default list
 		    if (listName === undefined) {
-		        listName = "Others";
+		        listName = "others";
 		    }
 			this.displayList[listName].push(item);
 			console.log(this.displayList);
@@ -46,7 +46,7 @@ define([
 
 			//default list
 		    if (listName === undefined) {
-		        listName = "Others";
+		        listName = "others";
 		    }
 
 			delete this.displayList[listName][index];
