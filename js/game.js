@@ -30,8 +30,9 @@ define([
 
 
 				stage.canvas.addEventListener('click', function(event){
-					var x = event.clientX - stage.canvas.offsetLeft;
-					var y = event.clientY - stage.canvas.offsetTop;
+					console.log(  $("#game")[0].offsetLeft  );
+					var x = event.clientX - $("#game")[0].offsetLeft;
+					var y = event.clientY - $("#game")[0].offsetTop;
 					var tower = new Tower(x, y, "sprite/tower.png");
 					tower._towerID = stage.addTower(tower);	// TODO: how to put this back to Tower's constructor?
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy

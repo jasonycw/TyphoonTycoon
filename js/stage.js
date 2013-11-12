@@ -64,8 +64,8 @@ define([
 		 * @return {Number}       index of the item, use it for removing in display list
 		 */
 		addBackdrop: function(item) {
-			console.log(this.backdropDisplayList);
 			this.backdropDisplayList.push(item);
+			console.log(this.backdropDisplayList);
 			return this.backdropDisplayList.length - 1;
 		},
 
@@ -83,8 +83,8 @@ define([
 		 * @return {Number}       index of the item, use it for removing in display list
 		 */
 		addTower: function(item) {
-			console.log(this.towerDisplayList);
 			this.towerDisplayList.push(item);
+			console.log(this.towerDisplayList);
 			return this.towerDisplayList.length - 1;
 		},
 
@@ -102,8 +102,8 @@ define([
 		 * @return {Number}       index of the item, use it for removing in display list
 		 */
 		addTyphoon: function(item) {
-			console.log(this.typhoonDisplayList);
 			this.typhoonDisplayList.push(item);
+			console.log( this.typhoonDisplayList);
 			return this.typhoonDisplayList.length - 1;
 		},
 

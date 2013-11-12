@@ -6,7 +6,7 @@ define([
 	console.log("unit.js loaded");
 	// encapsulated in a Module Class / Function
 	// to enable instantiation
-	console.log(Class);
+	//console.log(Class);
 	var Unit = Class.extend({
 		x: 				0,
 		y: 				0,
@@ -37,9 +37,11 @@ define([
 			// empty
 		},
 		render:function(ctx){
-			var drawX = this.x - this.spriteOrigin.x;
-			var drawY = this.y - this.spriteOrigin.y;
-			ctx.drawImage(this.sprite,drawX,drawY);
+			if(this.spriteReady){
+				var drawX = this.x - this.spriteOrigin.x;
+				var drawY = this.y - this.spriteOrigin.y;
+				ctx.drawImage(this.sprite,drawX,drawY);
+			}
 		}
 	});
 

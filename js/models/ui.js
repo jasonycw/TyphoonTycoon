@@ -17,7 +17,7 @@ define(['jquery'], function($) {
 			this.bgImg = new Image();
 			this.bgImg.src = "img/map.png";
 			this.bgImg.onload = function() {
-				this.bgReady = true;
+				that.bgReady = true;
 			}
 		},
 		bindBtnEvent: function() {
@@ -33,6 +33,7 @@ define(['jquery'], function($) {
 			});
 		},
 		render: function(ctx) {
+			//console.log(this.bgReady);
 			if (this.bgReady) {
 				ctx.drawImage(this.bgImg, 0, 0);
 			}
