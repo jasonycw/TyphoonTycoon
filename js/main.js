@@ -20,10 +20,12 @@ require.config({
 	}
 });
 
+// Start our app
 require([
 	'jquery',
 	'game'
 ], function ($, Game) {
+	// Start the game when DOM tree is ready
 	$(document).ready(function() {
 		Game.init();
 	});

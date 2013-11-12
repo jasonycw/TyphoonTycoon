@@ -1,13 +1,12 @@
 // defines your module and loads any dependencies
 define([
-	'../class',
-	'../stage'
-], function(Class,Stage)
-{
+	'class',
+	'stage'
+], function(Class, Stage) {
 	console.log("unit.js loaded");
 	// encapsulated in a Module Class / Function
 	// to enable instantiation
-	
+	console.log(Class);
 	var Unit = Class.extend({
 		x: 				0,
 		y: 				0,

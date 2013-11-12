@@ -1,10 +1,5 @@
 define(['jquery'], function($) {
 	"use strict";
-	
-	var stage;
-	var ctx;
-
-	var bgImg;
 
 	function UI(stage) {
 		this.stage = stage;

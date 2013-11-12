@@ -2,9 +2,6 @@ define([
 	'jquery',
 	'underscore'
 ], function($, _) {
-	var canvas;
-	var ctx;
-	var displayList = [];
 
 	function Stage(id) {
 		// Get the DOM element
@@ -14,7 +11,12 @@ define([
 		if (!this.ctx) {
 			throw 'Cannot get the canvas context';
 		}
-		this.counter = 0;
+		// Display list for background
+		this.backdropDisplayList = [];
+		// Display list for towers
+		this.towerDisplayList = [];
+		// Display list for typhoons
+		this.typhoonDisplayList = [];
 	}
 
 	Stage.prototype = {
@@ -25,29 +27,91 @@ define([
 		getHeight: function() {
 			return this.canvas.height;
 		},
-		getCanvas: (function() {
-			return this.canvas;
-		}),
-		getContext: function() {
-			return this.ctx;
-		},
+
+		/**
+		 * Render the objects in display lists.
+		 */
 		render: function() {
 			// Clear canvas
 			this.ctx.clearRect(0, 0, this.getWidth(), this.getHeight());
+			
 			// Call the display object's render method
-			_.each(displayList, function(item) {
+			var that = this;
+			// 1. Backdrop
+			_.each(this.backdropDisplayList, function(item) {
 				if (item) {
-					item.render();
+					item.render(that.ctx);
+				}
+			});
+			// 2. Tower
+			_.each(this.towerDisplayList, function(item) {
+				if (item) {
+					item.render(that.ctx);
+				}
+			});
+			// 3. Typhoon
+			_.each(this.typhoonDisplayList, function(item) {
+				if (item) {
+					item.render(that.ctx);
 				}
 			});
 		},
-		addChild: function(item) {
-			console.log(displayList);
-			displayList.push(item);
-			return displayList.length - 1;
+
+		/**
+		 * Add an item to backdrop display list.
+		 * @param  {Object} item  item to be added in the list
+		 * @return {Number}       index of the item, use it for removing in display list
+		 */
+		addBackdrop: function(item) {
+			console.log(this.backdropDisplayList);
+			this.backdropDisplayList.push(item);
+			return this.backdropDisplayList.length - 1;
 		},
-		removeChild: function(index) {
-			delete displayList[index];
+
+		/**
+		 * Remove an item from backdrop display list.
+		 * @param  {Number} index index of the item
+		 */
+		removeBackdrop: function(index) {
+			delete this.backdropDisplayList[index];
+		},
+
+		/**
+		 * Add an item to tower display list.
+		 * @param  {Object} item  item to be added in the list
+		 * @return {Number}       index of the item, use it for removing in display list
+		 */
+		addTower: function(item) {
+			console.log(this.towerDisplayList);
+			this.towerDisplayList.push(item);
+			return this.towerDisplayList.length - 1;
+		},
+
+		/**
+		 * Remove an item from tower display list.
+		 * @param  {Number} index index of the item
+		 */
+		removeTower: function(index) {
+			delete this.towerDisplayList[index];
+		},
+
+		/**
+		 * Add an item to typhoon display list.
+		 * @param  {Object} item  item to be added in the list
+		 * @return {Number}       index of the item, use it for removing in display list
+		 */
+		addTyphoon: function(item) {
+			console.log(this.typhoonDisplayList);
+			this.typhoonDisplayList.push(item);
+			return this.typhoonDisplayList.length - 1;
+		},
+
+		/**
+		 * Remove an item from typhoon display list.
+		 * @param  {Number} index index of the item
+		 */
+		removeTyphoon: function(index) {
+			delete this.typhoonDisplayList[index];
 		}
 	};
 

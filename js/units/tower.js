@@ -1,8 +1,7 @@
 // defines your module and loads any dependencies
 define([
 	'units/unit',
-], function(Unit)
-{
+], function(Unit) {
 	console.log("tower.js loaded");
 	// encapsulated in a Module Class / Function
 	// to enable instantiation
