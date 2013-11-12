@@ -13,9 +13,10 @@ define(['jquery'], function($) {
 			this.bindKeyboardEvent();
 		},
 		prepareBgImg: function() {
-			var that = this;
 			this.bgImg = new Image();
 			this.bgImg.src = "img/map.png";
+
+			var that = this;
 			this.bgImg.onload = function() {
 				that.bgReady = true;
 			}
