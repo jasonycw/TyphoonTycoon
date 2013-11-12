@@ -35,7 +35,15 @@ define([
 			// Clear canvas
 			//console.log(this);
 			this.ctx.clearRect(0, 0, this.getWidth(), this.getHeight());
-			
+
+			// Call the display object's tick method
+			// 3. Typhoon
+			_.each(this.typhoonDisplayList, function(item) {
+				if (item) {
+					item.tick();
+				}
+			});
+
 			// Call the display object's render method
 			var that = this;
 			// 1. Backdrop
