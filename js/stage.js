@@ -29,7 +29,7 @@ define([
 		 * @return {Number}       index of the item, use it for removing in display list
 		 */
 		Stage.addChild = function(item, listName) {
-			//default list
+			// default list
 		    if (listName === undefined) {
 		        listName = "others";
 		    }
@@ -38,7 +38,8 @@ define([
 
 			return this.displayList[listName].length - 1;
 		}
-				/**
+
+		/**
 		 * Remove an item from specific display list.
 		 * @param  {Number} index index of the item
 		 */
@@ -60,7 +61,6 @@ define([
 		 */
 		render: function() {
 			// Clear canvas
-			//console.log(this);
 			this.ctx.clearRect(0, 0, Stage.width, Stage.height);
 
 			// Call the display object's render method
