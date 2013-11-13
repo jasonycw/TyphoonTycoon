@@ -7,6 +7,7 @@ define([
 	'units/tower',
 	'units/unit',
 	'units/enemy'
+	'test'
 ], function(Stage, UI, Utility, Config, Tower, Unit, Enemy) {
 
 	console.log("game.js loaded");
@@ -15,7 +16,7 @@ define([
 		// Game canvas
 		var stage;
 
-		var gameUI;
+		var gameUI;	//TODO should change the name to map or background
 
 		return {
 			// Initialize the game
@@ -28,24 +29,42 @@ define([
 				}
 				gameUI = new UI();
 				gameUI.init();
+				
 				Stage.addChild(gameUI,'backdrops');
 
+
+				//Start game loop when initial
+				setInterval(function(){
+					stage.render();
+				},10);
+
+				/***************************************************************/
+
+				/* TODO
+					Click event handling
+					- click the button for select different type of tower
+						- if then click the map, create the corresponding type of tower
+						- press escape for cancel all selection
+					- click the existing tower for selection (in order to select for upgrade specific tower) 
+				 */ 
+
+
+				//TODO: isolate following testing code
+
+				/*
+					Create Tower when mouse click
+				 */
 				stage.canvas.addEventListener('click', function(event){
 					console.log(  $("#game")[0].offsetLeft  );
 					var x = event.clientX - $("#game")[0].offsetLeft;
 					var y = event.clientY - $("#game")[0].offsetTop;
 					var tower = new Tower(x, y, "sprite/tower.png");
-
-					//done :)
-					//tower.towerID = Stage.addChild(tower,'units');	// TODO: how to put this back to Tower's constructor?
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
 
-				setInterval(function(){
-					stage.render();
-
-				},10);
-
+				/*
+					Create Typhoon at interval time
+				 */
 				setInterval(function(){
 					var t;
 					var xx,yy;
@@ -67,9 +86,9 @@ define([
 					//console.log(Stage.width);
 
 					t.setForce({dir:hk_dir+170,mag:0.007});
-
-
 				},1000);
+
+				/***************************************************************/				
 
 			}
 		}
