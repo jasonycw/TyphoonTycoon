@@ -12,7 +12,7 @@ define([
 		Unit.call(this,startX,startY,spriteSrc);
 
 		//Auto add to stage
-		this.id = Stage.addChild(this,'units');
+		this.id = Stage.addChild(this,'towers');
 	}
 	//subclass extends superclass
 	Tower.prototype = Object.create(Unit.prototype);
