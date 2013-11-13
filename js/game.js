@@ -10,9 +10,8 @@ define([
 	'config',
 	'units/tower',
 	'units/unit',
-	'units/enemy',
-	'test'
-], function(Stage, UI, Utility, Config, Tower, Unit, Enemy) {
+	'units/enemy'
+	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy) {
 
 	console.log("game.js loaded");
 
@@ -27,7 +26,7 @@ define([
 		return {
 			// Initialize the game
 			init: function() {
-				console.log("Game.init() loaded");
+				//console.log("Game.init() loaded");
 				try {
 					stage = new Stage('game-canvas');
 				} catch(e) {
@@ -64,7 +63,7 @@ define([
 				var now = Date.now();
 			    var dt = (now - lastTime) / 1000.0;
 
-			    //this.tick(dt);
+			    Game.tick(dt);
 			    stage.render();
 
 			    lastTime = now;
