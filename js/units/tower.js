@@ -3,25 +3,26 @@ define([
 	'units/unit',
 	'stage'
 ], function(Unit,Stage) {
-	console.log("tower.js loaded");
-	// encapsulated in a Module Class / Function
-	// to enable instantiation
-	var Tower = Unit.extend({
-		//constructor
-		init:function(startX,startY,spriteSrc){
-			//parent constructor
 
-			this._super(startX,startY,spriteSrc);
-			//console.log("1");	//debug: did all the constructors call correctly?
-			//console.log(Stage);
-			//this.TID = Stage.addTower(this); // D: i want it so badly~
-		},
-		// tick event handler
-		tick:function(){	// override
-			
-		},
-		
-	});
+	console.log("tower.js loaded");
+
+	//Create Tower Object and its constructor
+	function Tower(startX,startY,spriteSrc){
+		//call super constructor.
+		Unit.call(this,startX,startY,spriteSrc);
+
+		//Auto add to stage
+		this.id = Stage.addChild(this,'units');
+	}
+	//subclass extends superclass
+	Tower.prototype = Object.create(Unit.prototype);
+	Tower.prototype.constructor = Tower;
+
+
+	// tick event handler
+	Tower.prototype.tick = function(){	// override
+
+	};
 
 	return Tower;
 })

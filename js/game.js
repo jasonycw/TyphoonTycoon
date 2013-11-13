@@ -35,8 +35,9 @@ define([
 					var x = event.clientX - $("#game")[0].offsetLeft;
 					var y = event.clientY - $("#game")[0].offsetTop;
 					var tower = new Tower(x, y, "sprite/tower.png");
-					tower.towerID = Stage.addChild(tower,'units');	// TODO: how to put this back to Tower's constructor?
-					//console.log(tower instanceof Unit);// uncomment to test the hierachy
+					//done :)
+					//tower.towerID = Stage.addChild(tower,'units');	// TODO: how to put this back to Tower's constructor?
+					console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
 
 				setInterval(function(){
@@ -66,7 +67,7 @@ define([
 						
 						//uncomment to test static method
 						//console.log(Stage.width);
-
+						
 						//t.setForce({dir:hk_dir,mag:0.01});
 
 					},
