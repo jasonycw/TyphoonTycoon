@@ -13,11 +13,11 @@ define([
 		}
 		//mean render item in displayList['stage'] first
 		Stage.displayList = {
-			backdrops: [], 
-			units: [], 
-			typhoons: [], 
-			others: []  
-		};
+			'backdrops': 	[],
+			'towers': 		[],
+			'typhoons': 	[],
+			'others': 		[]
+		}
 
 		//declare static variable 
 		Stage.width = this.canvas.width;

@@ -1,7 +1,9 @@
 // defines your module and loads any dependencies
 define([
 	'units/unit',
-], function(Unit)
+	'stage',
+	'utility'
+], function(Unit,Stage,Utility)
 {
 	console.log("enemy.js loaded");
 
@@ -12,19 +14,13 @@ define([
 		this.direction 	= 	0 ;
 		this.speed 		=	0 ;
 		this.force 		= 	{dir:0,mag:0} ;
+		Stage.addChild(this,'typhoons');
 	}
 
 	//subclass extends superclass
 	Enemy.prototype = Object.create(Unit.prototype);
 	Enemy.prototype.constructor = Enemy;
 
-	Enemy.prototype.init = function(startX,startY,spriteSrc){
-		//parent constructor
-		this.prototype.Unit.call(startX,startY,spriteSrc);
-		this.direction=0;
-		this.speed=0;
-		this.force = {dir:0,mag:0};
-	};
 	// tick event handler
 	Enemy.prototype.tick = function(){	// override
 		this.updatePosition();
@@ -66,19 +62,10 @@ define([
 	 *	Call this function every tick to update the motion of a typhoon
 	 */
 	Enemy.prototype.addMotion = function(force_dir,force_magnitude){
-		var ax,ay;
-		var bx,by;
-		var rx,ry;
-		ax = Math.cos(this.direction/180*Math.PI) * this.speed;
-		ay = Math.sin(this.direction/180*Math.PI) * this.speed;
-		bx = Math.cos(force_dir		/180*Math.PI) * force_magnitude;
-		by = Math.sin(force_dir		/180*Math.PI) * force_magnitude;
-		rx = ax+bx;
-		ry = ay+by;
-		var newDir = Math.atan2(ry,rx)/Math.PI * 180;
-		var newSp  = Math.sqrt(rx*rx + ry*ry);
-		this.direction = newDir;
-		this.speed = newSp;
+			newVelo = Utility.vectorSum({dir:this.direction,mag:this.speed},
+										{dir:force_dir,mag:force_magnitude});
+			this.direction  = newVelo.dir;
+			this.speed 		= newVelo.mag;
 	};
 	/**
 	 *	getForce()
@@ -104,21 +91,7 @@ define([
 	 *	Modifies the current force object
 	 */
 	Enemy.prototype.addForce = function(force){
-		var ax,ay;
-		var bx,by;
-		var rx,ry;
-		ax = Math.cos(this.force.dir/180*Math.PI) * this.force.mag;
-		ay = Math.sin(this.force.dir/180*Math.PI) * this.force.mag;
-		bx = Math.cos(force.dir		/180*Math.PI) * force.mag;
-		by = Math.sin(force.dir		/180*Math.PI) * force.mag;
-		rx = ax+bx;
-		ry = ay+by;
-		var newDir = Math.atan2(ry,rx)/Math.PI * 180;
-		var newSp  = Math.sqrt(rx*rx + ry*ry);
-		this.force = {
-			dir: newDir, 
-			mag: newSp
-		};
+			this.force = Utility.vectorSum(this.force,force);
 	};
 	return Enemy;
 })
