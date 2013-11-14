@@ -1,7 +1,8 @@
 define([
 	'jquery',
-	'underscore'
-], function($, _) {
+	'underscore',
+	'stage'
+], function($, _, Stage) {
 
 	console.log("utility.js loaded");
 
@@ -32,7 +33,15 @@ define([
 			var newDir = Math.atan2(ry,rx)/Math.PI * 180;
 			var newMag  = Math.sqrt(rx*rx + ry*ry);
 			return {dir: newDir, mag: newMag};
+		},
+
+		getMouse: function(event) {
+		var mx = event.pageX - Stage.offsetLeft;
+		var my = event.pageY - Stage.offsetTop;
+		//console.log ("mouse:", mx, my, event.pageX, event.pageY, Stage.offsetLeft, Stage.offsetTop);
+		return {x: mx, y: my};
 		}
+
 	};
 
 	return Utility;

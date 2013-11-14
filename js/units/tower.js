@@ -20,8 +20,8 @@ define([
 
 
 	// tick event handler
-	Tower.prototype.tick = function(){	// override
-
+	Tower.prototype.tick = function(dt){	// override
+		
 	};
 
 	return Tower;

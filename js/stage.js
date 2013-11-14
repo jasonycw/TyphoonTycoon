@@ -22,6 +22,8 @@ define([
 		//declare static variable 
 		Stage.width = this.canvas.width;
 		Stage.height = this.canvas.height;
+		Stage.offsetTop = this.canvas.parentNode.offsetTop;
+		Stage.offsetLeft = this.canvas.parentNode.offsetLeft;
 
 		/**
 		 * Add an item to specific display list.
@@ -30,11 +32,11 @@ define([
 		 */
 		Stage.addChild = function(item, listName) {
 			// default list
-		    if (listName === undefined) {
-		        listName = "others";
-		    }
+			if (listName === undefined) {
+				listName = "others";
+			}
 			this.displayList[listName].push(item);
-			console.log(this.displayList);
+			//console.log(this.displayList);
 
 			return this.displayList[listName].length - 1;
 		}
@@ -46,9 +48,9 @@ define([
 		Stage.removeChild = function(index, listName) {
 
 			//default list
-		    if (listName === undefined) {
-		        listName = "others";
-		    }
+			if (listName === undefined) {
+				listName = "others";
+			}
 
 			delete this.displayList[listName][index];
 		}
@@ -73,7 +75,6 @@ define([
 				})
 			});
 		}
-	
 	};
 
 	return Stage;

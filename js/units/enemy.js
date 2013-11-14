@@ -22,7 +22,7 @@ define([
 	Enemy.prototype.constructor = Enemy;
 
 	// tick event handler
-	Enemy.prototype.tick = function(){	// override
+	Enemy.prototype.tick = function(dt){	// override
 		this.updatePosition();
 	};
 	Enemy.prototype.updatePosition = function(){

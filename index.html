@@ -12,6 +12,8 @@
 <body>
 	<div id="game">
 		<div id="control-bar" class="clearfix">
+
+			<!-- bug the div hold a non response area at the top of map -->
 			<div class="pull-left">
 				<button id="btn-power-plant" title="Power Plant">Power Plant</button>
 				<button id="btn-pause" title="Pause" disabled>Pause</button>
@@ -20,7 +22,9 @@
 				HSI: <span id="hsi">123456</span>
 			</p>
 		</div>
-		<canvas id="game-canvas" width="960" height="600"></canvas>
+		<canvas id="game-canvas" width="960" height="600">
+			    This text is displayed if your browser does not support HTML5 Canvas.
+		</canvas>
 	</div>
 </body>
 </html>

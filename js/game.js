@@ -22,6 +22,7 @@ define([
 		var gameUI;	//TODO should change the name to map or background
 
 		var lastTime;
+		var gameTime = 0;
 
 		return {
 			// Initialize the game
@@ -71,7 +72,7 @@ define([
 			},
 
 			/*
-				update() 
+				tick() : 
 				- handling input event
 			 	- handling game level change 
 			 	  - create enemy
@@ -83,31 +84,42 @@ define([
 			*/			
 			tick: function(dt)
 			{
-				/*
+				
 				gameTime += dt;
 
-			    handleInput(dt);
-			    updateEntities(dt);
+			    this.handleInput(dt);
+			    this.updateEntities(dt);
 
 			    // It gets harder over time by adding enemies using this
 			    // equation: 1-.993^gameTime
 			    if(Math.random() < 1 - Math.pow(.993, gameTime)) {
-			        enemies.push({
-			            pos: [canvas.width,
-			                  Math.random() * (canvas.height - 39)],
-			            sprite: new Sprite('img/sprites.png', [0, 78], [80, 39],
-			                               6, [0, 1, 2, 3, 2, 1])
-			        });
+			        // enemies.push({
+			        //     pos: [canvas.width,
+			        //           Math.random() * (canvas.height - 39)],
+			        //     sprite: new Sprite('img/sprites.png', [0, 78], [80, 39],
+			        //                        6, [0, 1, 2, 3, 2, 1])
+			        // });
 			    }
 
-			    checkCollisions();
-			    scoreEl.innerHTML = score;
-			   */
+			    //checkCollisions();
+			    //scoreEl.innerHTML = score;
+			   
 			  
 			  	this.testLoop();
 			  
 			}, //End tick()
-
+			handleInput: function (dt) {
+				// body...
+			},
+			updateEntities: function (dt) {
+				_.each(Stage.displayList, function(renderList) {
+					_.each(renderList, function(item) {
+						if (item && (typeof item.tick === 'function')) {
+							item.tick(dt);
+						}
+					})
+				});
+			},
 			/*
 				isolate following testing code, there are 2 function for 2 different kind of code
 				- testSetup() : for static or event-base code
@@ -119,10 +131,17 @@ define([
 					Create Tower when mouse click
 				 */
 				stage.canvas.addEventListener('click', function(event){
-					console.log(  $("#game")[0].offsetLeft  );
-					var x = event.clientX - $("#game")[0].offsetLeft;
-					var y = event.clientY - $("#game")[0].offsetTop;
-					var tower = new Tower(x, y, "sprite/tower.png");
+					
+					var mousePos = Utility.getMouse(event);
+					//console.log("new mousePos:",mousePos);
+					new Tower(mousePos.x, mousePos.y, "sprite/tower.png");
+
+					//console.log(  $("#game")[0].offsetLeft  );
+					// var x = event.clientX - $("#game")[0].offsetLeft;
+					// var y = event.clientY - $("#game")[0].offsetTop;
+					//console.log("old mousePos:",x, y);
+					// var tower = new Tower(x, y, "sprite/tower.png");
+
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
 
