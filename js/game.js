@@ -10,8 +10,9 @@ define([
 	'config',
 	'units/tower',
 	'units/unit',
-	'units/enemy'
-	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy) {
+	'units/enemy',
+	'underscore'
+	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, _) {
 
 	console.log("game.js loaded");
 
@@ -131,17 +132,8 @@ define([
 					Create Tower when mouse click
 				 */
 				stage.canvas.addEventListener('click', function(event){
-					
 					var mousePos = Utility.getMouse(event);
-					//console.log("new mousePos:",mousePos);
-					new Tower(mousePos.x, mousePos.y, "sprite/tower.png");
-
-					//console.log(  $("#game")[0].offsetLeft  );
-					// var x = event.clientX - $("#game")[0].offsetLeft;
-					// var y = event.clientY - $("#game")[0].offsetTop;
-					//console.log("old mousePos:",x, y);
-					// var tower = new Tower(x, y, "sprite/tower.png");
-
+					var tower = new Tower(mousePos.x, mousePos.y, "sprite/tower.png");
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
 
@@ -163,13 +155,25 @@ define([
 															yy,
 															Config.hkArea.x,
 															Config.hkArea.y  );
-					t.setMotion(hk_dir,2);	//Math.random()*360 ,2 );
+					t.setMotion(hk_dir,Math.random()*3);	//Math.random()*360 ,2 );
 					
 					//uncomment to test static method
 					//console.log(Stage.width);
 
-					t.setForce({dir:hk_dir+170,mag:0.007});
+					//t.setForce({dir:hk_dir+170,mag:0.007});
 				},1000);
+
+
+				setInterval(function(){
+				console.log(Stage.displayList['typhoons']);
+					_.each(Stage.displayList['typhoons'], function(typhoon) {
+						console.log(typhoon);
+						_.each(Stage.displayList['towers'], function(tower){
+							var distanceFromTyphoonToTower = Utility.pointDistance(tower.x,tower.y,typhoon.x,typhoon.y);
+							typhoon.addMotion(Utility.pointDirection(tower.x,tower.y,typhoon.x,typhoon.y),3000/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
+						});
+					});
+				},100);
 
 			},//End testSetup()
 			testLoop: function() {

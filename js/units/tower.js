@@ -1,8 +1,10 @@
 // defines your module and loads any dependencies
 define([
+	'Utility',
 	'units/unit',
-	'stage'
-], function(Unit,Stage) {
+	'stage',
+	'underscore'
+], function(Utility,Unit,Stage,_) {
 
 	console.log("tower.js loaded");
 
@@ -21,7 +23,7 @@ define([
 
 	// tick event handler
 	Tower.prototype.tick = function(dt){	// override
-		
+		//empty		
 	};
 
 	return Tower;
