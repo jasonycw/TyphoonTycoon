@@ -16,7 +16,7 @@ define([
 		this.force 		= 	{dir:0,mag:0} ;
 		this.max_hp 	= 	300;
 		this.hp 		= 	this.max_hp;
-		Stage.addChild(this,'typhoons');
+		this.typhoonID = Stage.addChild(this,'typhoons');
 	}
 
 	//subclass extends superclass
@@ -26,6 +26,18 @@ define([
 	// tick event handler
 	Enemy.prototype.tick = function(){	// override
 		this.updatePosition();
+		if(! this.isWithinCanvas() ){
+
+			this.remove();
+		}
+	};
+	Enemy.prototype.render = function(ctx){
+		if(this.spriteReady){
+			//super
+			Unit.prototype.render.call(this,ctx);
+			ctx.fillText(this.typhoonID,this.x,this.y);
+		}
+
 	};
 	Enemy.prototype.updatePosition = function(){
 		// force -> velocity
@@ -69,16 +81,15 @@ define([
 			this.speed 		= newVelo.mag;
 	};
 	/**
-	 *	getForce()
-	 *
-	 *	returns an object {dir,mag} containing the direction and magnitude of the force
+	 * gets the current total force experienced by the object
+	 * @return {object{dir,mag}} force: direction, magnitude of total force currently received
 	 */
 	Enemy.prototype.getForce = function(){
 		return this.force;
 	};
 	/**
 	 * sets the motion of the typhoon, ignoring previous values
-	 * @param {object{dir,mag}} force direction, magnitude of force applied
+	 * @param {object{dir,mag}} force: direction, magnitude of force applied
 	 */
 	Enemy.prototype.setForce = function(force){
 		this.force = force;
@@ -103,8 +114,20 @@ define([
 			this.kill();
 		}
 	};
+	/**
+	 * kill the unit, with death effect
+	 */
 	Enemy.prototype.kill = function(){
+		// effects here
 
+		// call basic remove function
+		this.remove();
 	};
+	Enemy.prototype.remove = function(){
+		console.log("arhhhhh "+this.typhoonID);
+		Stage.removeChild(this.typhoonID,'typhoons');
+		//Unit.prototype.remove.call(this);
+	};
+	
 	return Enemy;
 })

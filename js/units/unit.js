@@ -47,6 +47,23 @@ define([
 		}
 
 	};
+	/**
+	 * remove the unit, without death effect
+	 */
+	Unit.prototype.remove = function(){
+		// to be overridden
+	}
+	/**
+	 * Check if at least part of the unit is within the canvas
+	 * @return {Boolean} Whether it is within the canvas
+	 */
+	Unit.prototype.isWithinCanvas = function(){
+
+		var drawX = this.x - this.spriteOrigin.x;
+		var drawY = this.y - this.spriteOrigin.y;
+		return 	(0 <=drawX + this.sprite.width) &&(drawX<= Stage.width)&&
+				(0<=drawY + this.sprite.height)&&(drawY<= Stage.height);
+	}
 
 	return Unit;
 })

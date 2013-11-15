@@ -69,7 +69,7 @@ define([
 					t.setForce({dir:hk_dir+170,mag:0.007});
 
 
-				},1000);
+				},100);
 
 			}
 		}
