@@ -35,6 +35,9 @@ define([
 					var x = event.clientX - $("#game")[0].offsetLeft;
 					var y = event.clientY - $("#game")[0].offsetTop;
 					var tower = new Tower(x, y, "sprite/tower.png");
+
+					//done :)
+					//tower.towerID = Stage.addChild(tower,'units');	// TODO: how to put this back to Tower's constructor?
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});
 
@@ -42,6 +45,7 @@ define([
 					stage.render();
 
 				},10);
+
 				setInterval(function(){
 					var t;
 					var xx,yy;
