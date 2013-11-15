@@ -22,9 +22,13 @@ define([
 		//declare static variable 
 		Stage.width = this.canvas.width;
 		Stage.height = this.canvas.height;
-		Stage.offsetTop = this.canvas.parentNode.offsetTop;
-		Stage.offsetLeft = this.canvas.parentNode.offsetLeft;
-
+		var that = this;
+		Stage.getOffsetLeft = function(){
+			return that.canvas.parentNode.offsetLeft;
+		}
+		Stage.getOffsetTop = function(){
+			return that.canvas.parentNode.offsetTop;
+		}
 		/**
 		 * Add an item to specific display list.
 		 * @param  {Object} item  item to be added in the list

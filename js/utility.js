@@ -36,8 +36,8 @@ define([
 		},
 
 		getMouse: function(event) {
-		var mx = event.pageX - Stage.offsetLeft;
-		var my = event.pageY - Stage.offsetTop;
+		var mx = event.pageX - Stage.getOffsetLeft();
+		var my = event.pageY - Stage.getOffsetTop();
 		//console.log ("mouse:", mx, my, event.pageX, event.pageY, Stage.offsetLeft, Stage.offsetTop);
 		return {x: mx, y: my};
 		}
