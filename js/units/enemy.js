@@ -14,8 +14,8 @@ define([
 		this.direction 	= 	0 ;
 		this.speed 		=	0 ;
 		this.force 		= 	{dir:0,mag:0} ;
-		this.max_hp = 300;
-		this.hp = this.max_hp;
+		this.max_hp 	= 	300;
+		this.hp 		= 	this.max_hp;
 		Stage.addChild(this,'typhoons');
 	}
 
