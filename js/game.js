@@ -163,17 +163,18 @@ define([
 					//t.setForce({dir:hk_dir+170,mag:0.007});
 				},1000);
 
-
+				/*
 				setInterval(function(){
-				console.log(Stage.displayList['typhoons']);
+				//console.log(Stage.displayList['typhoons']);
 					_.each(Stage.displayList['typhoons'], function(typhoon) {
-						console.log(typhoon);
+						//console.log(typhoon);
 						_.each(Stage.displayList['towers'], function(tower){
 							var distanceFromTyphoonToTower = Utility.pointDistance(tower.x,tower.y,typhoon.x,typhoon.y);
 							typhoon.addMotion(Utility.pointDirection(tower.x,tower.y,typhoon.x,typhoon.y),3000/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
 						});
 					});
 				},100);
+				*/
 
 			},//End testSetup()
 			testLoop: function() {
