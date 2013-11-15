@@ -19,6 +19,9 @@ define([
 		tick:function(){	// override
 			
 		},
+		findNearestEnemy:function(){
+			
+		}
 		
 	});
 

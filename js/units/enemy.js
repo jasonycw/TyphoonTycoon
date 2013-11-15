@@ -12,6 +12,8 @@ define([
 		direction:0,
 		speed:0,
 		force:{dir:0,mag:0},
+		max_hp:100,
+		hp:100,
 		//constructor
 		init:function(startX,startY,spriteSrc){
 			//parent constructor
@@ -19,12 +21,15 @@ define([
 			this.direction=0;
 			this.speed=0;
 			this.force = {dir:0,mag:0};
+			this.max_hp = 300;
+			this.hp = this.max_hp;
 			Stage.addChild(this,'typhoons');
 		},
 		// tick event handler
 		tick:function(){	// override
 			this.updatePosition();
 		},
+		// <position functions>
 		updatePosition:function(){
 			// force -> velocity
 			if(this.force.mag!=0){
@@ -79,8 +84,12 @@ define([
 		/**
 		 *	setForce(force)
 		 *	
-		 *	sets the motion of the typhoon, ignoring previous values
+		 *	
 		 *
+		 */
+		/**
+		 * sets the motion of the typhoon, ignoring previous values
+		 * @param {[type]} force [description]
 		 */
 		setForce:function(force){
 			this.force = force;
@@ -88,13 +97,39 @@ define([
 		/**
 		 *	addForce(force_dir, force_magnitude)
 		 *
-		 *	takes a force object {dir,mag}
-		 *	Modifies the current force object
+		 *	
+		 */
+		/**
+		 * Modifies the current force object
+		 * @param {object{dir,mag}} force amount of force applied
 		 */
 		addForce:function(force){
 			this.force = Utility.vectorSum(this.force,force);
-		}
+		},
+		// </position functions>
+		/**
+		 * applies damage to itself. this would be killed if it has no hp
+		 * @param  {int/float} dmg amount of damage to apply
+		 * @return {void}
+		 */
+		damage:function(dmg){
+			this.hp-=dmg;
+			if(hp<=max_hp){
+				this.kill();
+			}
+		},
+		kill:function(){
 
+		},
+		/**
+		 *	remove()
+		 *
+		 *	used to remove the unit without calling any updates
+		 *
+		 */
+		remove:function(){
+        
+		}
 		
 	});
 
