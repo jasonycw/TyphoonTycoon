@@ -1,15 +1,12 @@
 define([
 	'jquery',
-	'underscore'
-], function($, _) {
+	'underscore',
+	'stage'
+], function($, _, Stage) {
 
 	console.log("utility.js loaded");
 
 	var Utility = {
-		// Just an example, remove it when you create a new method.
-		test: function() {
-			return true;
-		},
 		pointDistance:function(x1,y1,x2,y2){
 			return Math.sqrt(  (y2-y1)*(y2-y1)  + (x2-x1)*(x2-x1)  );
 		},
@@ -36,7 +33,15 @@ define([
 			var newDir = Math.atan2(ry,rx)/Math.PI * 180;
 			var newMag  = Math.sqrt(rx*rx + ry*ry);
 			return {dir: newDir, mag: newMag};
+		},
+
+		getMouse: function(event) {
+		var mx = event.pageX - Stage.getOffsetLeft();
+		var my = event.pageY - Stage.getOffsetTop();
+		//console.log ("mouse:", mx, my, event.pageX, event.pageY, Stage.offsetLeft, Stage.offsetTop);
+		return {x: mx, y: my};
 		}
+
 	};
 
 	return Utility;

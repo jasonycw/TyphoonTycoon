@@ -14,9 +14,10 @@ define([
 			/*
 				Initialion - all variable/funciton must have "this." before
 				Use "var" to change the variable/funciton become private 
+	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
-			this.x = startX;
-			this.y = startY;
+			this.x = startX || 0;
+			this.y = startY || 0;
 			// prepare sprite
 			this.sprite = new Image();
 			this.sprite.src = spriteSrc;
@@ -32,14 +33,12 @@ define([
 	};
 
 	// tick event handler
-	Unit.prototype.tick = function(){
+	Unit.prototype.tick = function(dt){
 		// empty
 	};
 
 	Unit.prototype.render = function(ctx){
 		if(this.spriteReady){
-			//call tick function before rendering
-			this.tick();
 			//draw image
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;

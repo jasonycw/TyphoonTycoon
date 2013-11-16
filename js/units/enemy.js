@@ -24,7 +24,7 @@ define([
 	Enemy.prototype.constructor = Enemy;
 
 	// tick event handler
-	Enemy.prototype.tick = function(){	// override
+	Enemy.prototype.tick = function(dt){	// override
 		this.updatePosition();
 		if(! this.isWithinCanvas() ){
 
@@ -39,6 +39,7 @@ define([
 		}
 
 	};
+	// <position functions>
 	Enemy.prototype.updatePosition = function(){
 		// force -> velocity
 		if(this.force.mag!=0){
@@ -96,15 +97,14 @@ define([
 	};
 	/**
 	 * Modifies the current force object
-	 * @param {object{dir,mag}} force: direction, magnitude of force applied
+	 * @param {object{dir,mag}} force amount of force applied
 	 */
 	Enemy.prototype.addForce = function(force){
 			this.force = Utility.vectorSum(this.force,force);
 	};
 	// </position functions>
-	
 	/**
-	 * applies damage to itself, and be killed if it has no hp
+	 * applies damage to itself. this would be killed if it has no hp
 	 * @param  {int/float} dmg amount of damage to apply
 	 * @return {void}
 	 */
