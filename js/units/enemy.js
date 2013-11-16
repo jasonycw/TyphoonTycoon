@@ -40,9 +40,8 @@ define([
 		this.y += addY;
 	};
 	/**
-	 *	getMotion()
-	 *
-	 *	returns an object {dir,sp} containing the direction and speed
+	 * get the current motion of the typhoon
+	 * @return {object{dir,sp}} a force object containing direction and speed of the typhoon
 	 */
 	Enemy.prototype.getMotion = function(){
 		return {
@@ -51,18 +50,18 @@ define([
 		};
 	};
 	/**
-	 *	setMotion(new_direction, new_speed)
-	 *	sets the motion of the typhoon, ignoring previous values
-	 *
+	 * Sets the motion of the typhoon, ignoring  previous values
+	 * @param {number} dir Direction of typhoon
+	 * @param {number} sp  Speed of typhoon
 	 */
 	Enemy.prototype.setMotion = function(dir,sp){
 		this.direction = dir;
 		this.speed = sp;
 	};
 	/**
-	 *	addMotion(force_dir, force_magnitude)
-	 *
-	 *	Call this function every tick to update the motion of a typhoon
+	 * alters the motion by a little bit
+	 * @param {number} force_dir       direction of force applied
+	 * @param {number} force_magnitude magnitude of force applied
 	 */
 	Enemy.prototype.addMotion = function(force_dir,force_magnitude){
 			newVelo = Utility.vectorSum({dir:this.direction,mag:this.speed},
@@ -73,7 +72,7 @@ define([
 	/**
 	 *	getForce()
 	 *
-	 *	returns an object {dir,mag} containing the direction and speed of the force
+	 *	returns an object {dir,mag} containing the direction and magnitude of the force
 	 */
 	Enemy.prototype.getForce = function(){
 		return this.force;
@@ -87,7 +86,11 @@ define([
 	};
 	/**
 	 * Modifies the current force object
+<<<<<<< HEAD
 	 * @param {object{dir,mag}} force amount of force applied
+=======
+	 * @param {object{dir,mag}} force: direction, magnitude of force applied
+>>>>>>> 2e9f860e699235dd466c8b3dde7e94d03f190220
 	 */
 	Enemy.prototype.addForce = function(force){
 			this.force = Utility.vectorSum(this.force,force);
