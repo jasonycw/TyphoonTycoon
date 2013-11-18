@@ -12,7 +12,7 @@ define([
 	console.log("attackTower.js loaded");
 
 	//Create Tower Object and its constructor
-	function AttackTower(startX,startY,spriteSrc){
+	function FreezeTower(startX,startY,spriteSrc){
 		//call super constructor.
 		Tower.call(this,startX,startY,spriteSrc);
 
@@ -22,12 +22,12 @@ define([
 		//nearEnemy.setMotion(0,0);
 	}
 	//subclass extends superclass
-	AttackTower.prototype = Object.create(Tower.prototype);
-	AttackTower.prototype.constructor = AttackTower;
+	FreezeTower.prototype = Object.create(Tower.prototype);
+	FreezeTower.prototype.constructor = FreezeTower;
 
 
 	// tick event handler
-	AttackTower.prototype.tick = function(dt){	// override
+	FreezeTower.prototype.tick = function(dt){	// override
 		/**
 		 * finds the enemy closest in distance
 		 * @return {Enemy} the enemy that is nearest
@@ -40,11 +40,11 @@ define([
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "blue");
-				target.targetEnemy.damage(Config.attackTowerDamage);
+				target.targetEnemy.slow(Config.freezeTowerEffect);
 			}
 		}
 	};
 	
 
-	return AttackTower;
+	return FreezeTower;
 })

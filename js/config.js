@@ -7,5 +7,6 @@ define({
 		radius: 33
 	},
 	maxAttackDistance: 100,
-	attackTowerDamage: 5
+	attackTowerDamage: 1,
+	freezeTowerEffect: 0.1
 });

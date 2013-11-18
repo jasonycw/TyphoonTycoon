@@ -115,6 +115,15 @@ define([
 		}
 	};
 	/**
+	 * applies slow to itself.
+	 * @param  {int/float} speed amount to be applied
+	 * @return {void}
+	 */
+	Enemy.prototype.slow = function(speed){
+		if(this.speed-speed>=0.1)
+			this.speed-=speed;
+	};
+	/**
 	 * kill the unit, with death effect
 	 */
 	Enemy.prototype.kill = function(){

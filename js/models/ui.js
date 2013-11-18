@@ -1,8 +1,9 @@
 define([
 	'jquery',
 	'utility',
-	'units/attackTower'
-], function($, Utility,AttackTower) {
+	'units/attackTower',
+	'units/freezeTower'
+], function($, Utility,AttackTower,FreezeTower) {
 	"use strict";
 
 	function UI() {
@@ -48,14 +49,28 @@ define([
 						var mousePos = Utility.getMouse(event);
 						var tower = new AttackTower(mousePos.x, mousePos.y, "sprite/tower.png");
 						break;
+					case 'freezeTower':
+						var mousePos = Utility.getMouse(event);
+						var tower = new FreezeTower(mousePos.x, mousePos.y, "sprite/tower.png");
+						break;
 				}
 				that.activatedMode = null;
 			});
 		},
 		bindKeyboardEvent: function() {
+			var that = this;
 			$(document).keyup(function(e) {
 				// Should be a switch here
 				console.log('keycode = ' + e.which);
+				switch(e.which)
+				{
+					case 81:
+						that.activatedMode = 'attackTower';
+						break;
+					case 87:
+						that.activatedMode = 'freezeTower';
+						break;
+				}
 			});
 		},
 		render: function(ctx) {
