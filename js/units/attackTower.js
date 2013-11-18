@@ -15,6 +15,8 @@ define([
 	function AttackTower(startX,startY,spriteSrc){
 		//call super constructor.
 		Tower.call(this,startX,startY,spriteSrc);
+		this.coolDownTime = 15;
+		this.coolDownCounter = 0;
 
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
@@ -33,17 +35,26 @@ define([
 		 * @return {Enemy} the enemy that is nearest
 		 * @returns {undefined} if no enemy is alive
 		 */
-		var target = this.findNearestEnemy();
-		if(target)
-		{
-			if(target.distance <= Config.maxAttackDistance)
+		if(this.coolDownCounter<=0){
+			var target = this.findNearestEnemy();
+			if(target)
 			{
-				// console.log("tower "+this.x+" "+ this.y);
-				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "red");
-				target.targetEnemy.damage(Config.attackTowerDamage);
+				if(target.distance <= Config.maxAttackDistance)
+				{
+					// console.log("tower "+this.x+" "+ this.y);
+					var enemyWidth = target.targetEnemy.sprite.width;
+					var aimX = target.targetEnemy.x - enemyWidth/8+ Math.random()*enemyWidth/4;
+					var aimY = target.targetEnemy.y - enemyWidth/8+ Math.random()*enemyWidth/4;
+					var laser = new Laser(this.x, this.y, aimX, aimY, "red", 5);
+					target.targetEnemy.damage(Config.attackTowerDamage);
+					this.coolDownCounter = this.coolDownTime;
+				}
 			}
+		}else{
+			this.coolDownCounter--;
 		}
 	};
+
 	
 
 	return AttackTower;

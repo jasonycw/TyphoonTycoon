@@ -13,10 +13,14 @@ define([
 		Unit.call(this,startX,startY,spriteSrc);
 		this.direction 	= 	0 ;
 		this.speed 		=	0 ;
-		this.force 		= 	{dir:0,mag:0} ;
+		this.originalSpeed = 0;
+		this.force 		= 	{dir:0,mag:0};
 		this.max_hp 	= 	300;
 		this.hp 		= 	this.max_hp;
+
+		this.isSlowed	=	0;
 		this.typhoonID = Stage.addChild(this,'typhoons');
+
 	}
 
 	//subclass extends superclass
@@ -25,17 +29,22 @@ define([
 
 	// tick event handler
 	Enemy.prototype.tick = function(dt){	// override
+		console.log("?");
 		this.updatePosition();
 		if(! this.isWithinCanvas() ){
-
 			this.remove();
 		}
 	};
 	Enemy.prototype.render = function(ctx){
 		if(this.spriteReady){
-			//super
-			Unit.prototype.render.call(this,ctx);
+			//draw image
+			ctx.globalAlpha = this.hp/this.max_hp*0.8+0.2;
+			var drawX = this.x - this.spriteOrigin.x;
+			var drawY = this.y - this.spriteOrigin.y;
+			ctx.drawImage(this.sprite,drawX,drawY);
+			ctx.globalAlpha = 1;	
 			// ctx.fillText(this.typhoonID,this.x,this.y);
+			ctx.fillText(this.isSlowed,this.x,this.y);
 		}
 
 	};
@@ -46,8 +55,15 @@ define([
 			this.addMotion(this.force.dir,this.force.mag);
 		}
 		// velocity -> displacement
-		var addX = Math.cos(this.direction/180*Math.PI) * this.speed;
-		var addY = Math.sin(this.direction/180*Math.PI) * this.speed;
+		// apply slow effect
+		var tempSpeed = this.speed;
+		if(this.isSlowed>0) {
+			this.isSlowed-=1;
+			tempSpeed = this.speed* (1-this.isSlowed/150*0.8);
+		}
+		// move it
+		var addX = Math.cos(this.direction/180*Math.PI) * tempSpeed;
+		var addY = Math.sin(this.direction/180*Math.PI) * tempSpeed;
 		this.x += addX;
 		this.y += addY;
 	};
@@ -120,8 +136,8 @@ define([
 	 * @return {void}
 	 */
 	Enemy.prototype.slow = function(speed){
-		if(this.speed-speed>=0.1)
-			this.speed-=speed;
+		if(this.isSlowed<150)
+			this.isSlowed++;
 	};
 	/**
 	 * kill the unit, with death effect

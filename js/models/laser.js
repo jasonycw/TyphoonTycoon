@@ -9,7 +9,7 @@ define([
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
-	function Laser(startX,startY,endX,endY,laserColor){
+	function Laser(startX,startY,endX,endY,laserColor,duration){
 			//console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
 			
 			/*
@@ -17,12 +17,13 @@ define([
 				Use "var" to change the variable/funciton become private 
 	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
-			//Effect.call(startX,startY,endX,endY);
+			//Effect.call();
 			this.startX = startX || 0;
 			this.startY = startY || 0;
 			this.endX = endX || 0;
 			this.endY = endY || 0;
 			this.laserColor = laserColor;
+			this.duration = duration;
 			this.id = Stage.addChild(this,'effects');
 			// console.log(this.startX,this.startY);
 
@@ -35,6 +36,8 @@ define([
 	// tick event handler
 	Laser.prototype.tick = function(dt){
 		// empty
+		this.duration--;
+		if(!this.duration)this.remove();
 	};
 
 	Laser.prototype.render = function(ctx){
@@ -44,13 +47,14 @@ define([
 		ctx.lineTo(this.endX,this.endY);
 		ctx.strokeStyle=this.laserColor;
 		ctx.stroke();
-		Stage.removeChild(this.id,'effects');
+		
 	};
 	/**
 	 * remove the unit, without death effect
 	 */
 	Laser.prototype.remove = function(){
 		// to be overridden
+		Stage.removeChild(this.id,'effects');
 	}
 
 	Laser.prototype.setIndex = function(index){

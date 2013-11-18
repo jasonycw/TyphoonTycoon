@@ -35,7 +35,7 @@ define([
 	
 	Tower.prototype.findNearestEnemy = function(){
 		// console.log("1");
-		var nearestEnemy;
+		var nearestEnemy=null;
 		var nearestDist = 10000000;
 		// console.log(nearestDist);
 		var tempEnemy	// reused variable
@@ -52,7 +52,10 @@ define([
 				nearestDist = dist;
 			}
 		}
-		return {targetEnemy:nearestEnemy,distance:nearestDist};
+		if(typeof nearestEnemy === 'object')
+			return {targetEnemy:nearestEnemy,distance:nearestDist};
+		else 
+			return null;
 	};
 	
 

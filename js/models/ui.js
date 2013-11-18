@@ -64,10 +64,10 @@ define([
 				console.log('keycode = ' + e.which);
 				switch(e.which)
 				{
-					case 81:
+					case 81: //Q
 						that.activatedMode = 'attackTower';
 						break;
-					case 87:
+					case 87: //W
 						that.activatedMode = 'freezeTower';
 						break;
 				}
