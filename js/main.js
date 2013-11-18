@@ -26,20 +26,20 @@ require([
 	'game'
 ], function ($, Game) {
 
-	/*
-		A cross-browser requestAnimationFrame, See
-		https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
-		http://msdn.microsoft.com/zh-tw/library/ie/hh920765(v=vs.85).aspx
+	/**
+	 * A cross-browser requestAnimationFrame, See
+	 * https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
+	 * http://msdn.microsoft.com/zh-tw/library/ie/hh920765(v=vs.85).aspx
 	 */
 	window.requestAnimFrame = (function(){
-	  return  window.requestAnimationFrame       || 
-			  window.webkitRequestAnimationFrame || 
-			  window.mozRequestAnimationFrame    || 
-			  window.oRequestAnimationFrame      || 
-			  window.msRequestAnimationFrame     || 
-			  function( callback ){
+		return window.requestAnimationFrame    || 
+			window.webkitRequestAnimationFrame || 
+			window.mozRequestAnimationFrame    || 
+			window.oRequestAnimationFrame      || 
+			window.msRequestAnimationFrame     || 
+			function(callback) {
 				window.setTimeout(callback, 1000 / 60);
-			  };
+			};
 	})();
 
 	// Start the game when DOM tree is ready

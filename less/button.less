@@ -1,20 +1,16 @@
-#control-bar {
+#btn-bar {
+	padding: 3px;
+	display: inline-block;
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: @game-width;
 	z-index: 9999;
-
-	div {
-		margin: 5px;
-		display: inline-block;
-	}
-
 	button {
 		background-image: url('../img/sprite/button.png');
 		border: 0;
 		width: @btn-width;
 		height: @btn-height;
+		margin: 2px;
 		padding: 0;
 		font: 0/0 a;
 		color: transparent;
@@ -22,43 +18,46 @@
 		background-color: transparent;
 		outline: 0;
 	}
-
-	p {
-		display: inline-block;
-		color: #fff;
-		margin: 5px;
-		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-	}
+}
+#score-bar {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 9999;
+	display: inline-block;
+	font-size: 1.5em;
+	color: #fff;
+	margin: 5px;
+	padding: 5px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
-#btn-power-plant {
+
+#btn-laser-tower {
 	.btn(0);
 }
-#btn-pause {
+#btn-bash-tower {
 	.btn(-32px);
 }
-
-.pull-left {
-	float: left;
+#btn-freeze-tower {
+	.btn(-64px);
 }
-.pull-right {
-	float: right;
+#btn-field-tower {
+	.btn(-96px);
 }
-.clearfix {
-	*zoom: 1;
-	&:before,
-	&:after {
-		display: table;
-		content: "";
-		// Fixes Opera/contenteditable bug:
-		// http://nicolasgallagher.com/micro-clearfix-hack/#comment-36952
-		line-height: 0;
-	}
-	&:after {
-		clear: both;
-	}
+#btn-power-plant {
+	.btn(-128px);
 }
-
+#btn-nuclear-plant {
+	.btn(-160px);
+}
+#btn-university {
+	.btn(-192px);
+}
+#btn-tech-center {
+	.btn(-224px);
+}
 
 // Mixin for button rollover
 .btn(@pos-x) {
@@ -66,7 +65,7 @@
 	&:hover {
 		background-position: @pos-x @btn-hover-y;
 	}
-	&:active {
+	&:active, &[data-activated] {
 		background-position: @pos-x @btn-active-y;
 	}
 	&[disabled] {
