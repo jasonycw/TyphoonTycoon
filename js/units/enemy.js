@@ -35,7 +35,7 @@ define([
 		if(this.spriteReady){
 			//super
 			Unit.prototype.render.call(this,ctx);
-			ctx.fillText(this.typhoonID,this.x,this.y);
+			// ctx.fillText(this.typhoonID,this.x,this.y);
 		}
 
 	};
@@ -110,7 +110,7 @@ define([
 	 */
 	Enemy.prototype.damage = function(dmg){
 		this.hp-=dmg;
-		if(hp<=max_hp){
+		if(this.hp<=0){
 			this.kill();
 		}
 	};

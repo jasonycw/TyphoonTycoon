@@ -5,5 +5,7 @@ define({
 		x: 376,
 		y: 238,
 		radius: 33
-	}
+	},
+	maxAttackDistance: 100,
+	attackTowerDamage: 5
 });

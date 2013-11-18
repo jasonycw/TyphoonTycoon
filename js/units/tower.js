@@ -29,19 +29,19 @@ define([
 	};
 	/**
 	 * finds the enemy closest in distance
-	 * @return {Enemy} the enemy that is nearest
+	 * @return {targetEnemy,distance} the enemy that is nearest
 	 * @returns {undefined} if no enemy is alive
 	 */
 	
 	Tower.prototype.findNearestEnemy = function(){
-		console.log("1");
+		// console.log("1");
 		var nearestEnemy;
 		var nearestDist = 10000000;
-		console.log(nearestDist);
+		// console.log(nearestDist);
 		var tempEnemy	// reused variable
 		var dist;		// reused variable
 		for(var i=0; i <Stage.displayList['typhoons'].length; i++){
-			if(Stage.displayList['typhoons'][i] === null)continue;
+			if(!Stage.displayList['typhoons'][i])continue;
 			
 			tempEnemy = Stage.displayList['typhoons'][i];
 			dist = Utility.pointDistance(	this.x,this.y,
@@ -52,7 +52,7 @@ define([
 				nearestDist = dist;
 			}
 		}
-		return nearestEnemy;
+		return {targetEnemy:nearestEnemy,distance:nearestDist};
 	};
 	
 

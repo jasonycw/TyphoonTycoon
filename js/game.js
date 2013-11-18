@@ -9,10 +9,11 @@ define([
 	'utility',
 	'config',
 	'units/tower',
+	'units/attackTower',
 	'units/unit',
 	'units/enemy',
 	'underscore'
-	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, _) {
+	], function(Stage, UI, Utility, Config, Tower, AttackTower, Unit, Enemy, _) {
 
 	console.log("game.js loaded");
 
@@ -131,11 +132,11 @@ define([
 				/*
 					Create Tower when mouse click
 				 */
-				stage.canvas.addEventListener('click', function(event){
+				/*stage.canvas.addEventListener('click', function(event){
 					var mousePos = Utility.getMouse(event);
-					var tower = new Tower(mousePos.x, mousePos.y, "sprite/tower.png");
+					var tower = new AttackTower(mousePos.x, mousePos.y, "sprite/tower.png");
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
-				});
+				});*/
 
 				/*
 					Create Typhoon at interval time

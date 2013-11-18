@@ -1,8 +1,13 @@
-define(['jquery'], function($) {
+define([
+	'jquery',
+	'utility',
+	'units/attackTower'
+], function($, Utility,AttackTower) {
 	"use strict";
 
 	function UI() {
 		this.bgReady = false;
+		this.activatedMode = null;
 	}
 
 	UI.prototype = {
@@ -11,6 +16,7 @@ define(['jquery'], function($) {
 			this.prepareBgImg();
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
+			this.bindCanvasClickEvent();
 		},
 		prepareBgImg: function() {
 			this.bgImg = new Image();
@@ -22,10 +28,29 @@ define(['jquery'], function($) {
 			}
 		},
 		bindBtnEvent: function() {
+			var that = this;
 			$('#control-bar button').click(function(e) {
 				// Should be a switch here
-				alert(e.target.id);
+				switch(e.target.id)
+				{
+					case 'btn-power-plant':
+						that.activatedMode = 'attackTower';
+						break;
+				}
 			})
+		},
+		bindCanvasClickEvent: function() {
+			var that = this;
+			$('#game-canvas').click(function(event) {
+				console.log(that.activatedMode);
+				switch (that.activatedMode) {
+					case 'attackTower':
+						var mousePos = Utility.getMouse(event);
+						var tower = new AttackTower(mousePos.x, mousePos.y, "sprite/tower.png");
+						break;
+				}
+				that.activatedMode = null;
+			});
 		},
 		bindKeyboardEvent: function() {
 			$(document).keyup(function(e) {
