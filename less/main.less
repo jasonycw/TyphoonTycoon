@@ -18,7 +18,13 @@ body {
 #game-canvas {
 	display: block;
 	position: absolute;
+	z-index: 2;
 	.box-shadow(@shadow);
+}
+
+#back-canvas {
+	position: absolute;
+	z-index: 1;
 }
 
 @import "button";

@@ -1,8 +1,6 @@
 define([
-	'jquery',
-	'underscore',
 	'stage'
-], function($, _, Stage) {
+],function(Stage) {
 
 	console.log("utility.js loaded");
 

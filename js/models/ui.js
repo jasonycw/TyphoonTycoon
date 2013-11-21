@@ -1,9 +1,10 @@
 define([
 	'jquery',
+	'models/MapHitArea',
 	'utility',
 	'units/attackTower',
 	'units/freezeTower'
-], function($, Utility, AttackTower, FreezeTower) {
+], function($, MapHitArea, Utility, AttackTower, FreezeTower) {
 	"use strict";
 
 	function UI() {
@@ -18,6 +19,8 @@ define([
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
+			// Load game hit area
+			MapHitArea.init();
 		},
 		prepareBgImg: function() {
 			this.bgImg = new Image();
@@ -51,11 +54,17 @@ define([
 				switch (that.activatedMode) {
 					case 'attackTower':
 						var mousePos = Utility.getMouse(event);
-						var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
+						// Can only build on land
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
+						}
 						break;
 					case 'freezeTower':
 						var mousePos = Utility.getMouse(event);
-						var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
+						// Can only build on ocean
+						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
+						}
 						break;
 				}
 				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
@@ -76,15 +85,33 @@ define([
 				}
 				var btnId;
 				switch (e.which) {
-					case 81:
-						// Q
+					case 49:
+						// 1
 						that.activatedMode = 'attackTower';
 						btnId = 'btn-laser-tower';
 						break;
-					case 69:
-						// E
+					case 50:
+						// 2
+						break;
+					case 51:
+						// 3
 						that.activatedMode = 'freezeTower';
 						btnId = 'btn-freeze-tower';
+						break;
+					case 52:
+						// 4
+						break;
+					case 81:
+						// Q
+						break;
+					case 87:
+						// W
+						break;
+					case 69:
+						// E
+						break;
+					case 82:
+						// R
 						break;
 				}
 				$('#btn-bar button').attr('disabled', true);
