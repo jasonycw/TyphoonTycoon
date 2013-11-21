@@ -15,8 +15,8 @@ define([
 		Stage.displayList = {
 			'backdrops': 	[],
 			'towers': 		[],
-			'typhoons': 	[],
 			'effects': 		[],
+			'typhoons': 	[],
 			'others': 		[]
 		}
 

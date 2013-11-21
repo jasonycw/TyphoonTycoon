@@ -151,7 +151,7 @@ define([
 						xx = Math.random() * Stage.width;
 						yy = Stage.height;
 					}
-					t = new Enemy(xx, yy, "sprite/typhoon_placeholder.png" );
+					t = new Enemy(xx, yy, "img/typhoon.png" );
 					var hk_dir = Utility.pointDirection(	xx,
 															yy,
 															Config.hkArea.x,
