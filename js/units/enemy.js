@@ -155,4 +155,4 @@ define([
 	};
 	
 	return Enemy;
-})
+});

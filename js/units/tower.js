@@ -60,4 +60,4 @@ define([
 	
 
 	return Tower;
-})
+});

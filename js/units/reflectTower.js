@@ -47,4 +47,4 @@ define([
 	
 
 	return AttackTower;
-})
+});

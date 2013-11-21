@@ -62,4 +62,4 @@ define([
 	}
 
 	return Laser;
-})
+});
