@@ -51,11 +51,11 @@ define([
 				switch (that.activatedMode) {
 					case 'attackTower':
 						var mousePos = Utility.getMouse(event);
-						var tower = new AttackTower(mousePos.x, mousePos.y, "sprite/tower.png");
+						var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
 						break;
 					case 'freezeTower':
 						var mousePos = Utility.getMouse(event);
-						var tower = new FreezeTower(mousePos.x, mousePos.y, "sprite/tower.png");
+						var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
 						break;
 				}
 				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
