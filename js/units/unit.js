@@ -64,5 +64,26 @@ define([
 				(0<=drawY + this.sprite.height)&&(drawY<= Stage.height);
 	}
 
+	Unit.prototype.drawRotatedImage = function(context, image, x, y, angle) { 
+
+		// save the current co-ordinate system 
+		// before we screw with it
+		context.save(); 
+
+		// move to the middle of where we want to draw our image
+		context.translate(x, y);
+
+		// rotate around that point, converting our 
+		// angle from degrees to radians 
+		context.rotate(angle * (Math.PI/180));
+
+		// draw it up and to the left by half the width
+		// and height of the image 
+		context.drawImage(image, -(image.width/2), -(image.height/2));
+
+		// and restore the co-ords to how they were when we began
+		context.restore(); 
+	}
+
 	return Unit;
 });

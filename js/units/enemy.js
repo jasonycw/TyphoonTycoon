@@ -19,10 +19,9 @@ define([
 		this.force 		= 	{dir:0,mag:0};
 		this.max_hp 	= 	Math.random()*Config.maxTyphoonHP;
 		this.hp 		= 	this.max_hp;
-
+		this.numberOfTicks = 0;
 		this.isSlowed	=	0;
 		this.typhoonID = Stage.addChild(this,'typhoons');
-
 	}
 
 	//subclass extends superclass
@@ -35,21 +34,28 @@ define([
 		if(! this.isWithinCanvas() ){
 			this.remove();
 		}
+		this.numberOfTicks++;
 		console.log("Typhoon's tick completed.");
 	};
 	Enemy.prototype.render = function(ctx){
+		
 		if(this.spriteReady){
 			//draw image
+			// ctx.save();
 			ctx.globalAlpha = (this.hp/Config.maxTyphoonHP)*0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
-			ctx.drawImage(this.sprite,drawX,drawY);
+			this.drawRotatedImage(ctx,this.sprite,drawX,drawY,this.numberOfTicks);
+			// ctx.drawImage(this.sprite,drawX,drawY);
+			// ctx.restore();
 			ctx.globalAlpha = 1;	
 			// ctx.fillText(this.typhoonID,this.x,this.y);
 			//ctx.fillText(this.isSlowed,this.x,this.y);
 		}
-
 	};
+
+
+
 	// <position functions>
 	Enemy.prototype.updatePosition = function(){
 		// force -> velocity
