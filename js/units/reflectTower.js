@@ -36,7 +36,7 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= Config.maxAttackDistance)
+			if(target.distance <= Config.maxReflectDistance)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "#FF8000", 20,15);

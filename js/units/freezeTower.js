@@ -36,7 +36,7 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= Config.maxAttackDistance)
+			if(target.distance <= Config.maxFreezeDistance)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);

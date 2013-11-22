@@ -40,7 +40,7 @@ define([
 	Enemy.prototype.render = function(ctx){
 		if(this.spriteReady){
 			//draw image
-			ctx.globalAlpha = this.hp/this.max_hp*0.8+0.2;
+			ctx.globalAlpha = this.hp/this.max_hp*0.9+0.1;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			ctx.drawImage(this.sprite,drawX,drawY);

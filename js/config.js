@@ -7,7 +7,9 @@ define({
 		radius: 33
 	},
 	typhoonHP:300,
-	maxAttackDistance: 100,
+	maxAttackDistance: 150,
+	maxFreezeDistance: 70,
+	maxReflectDistance: 100,
 	attackTowerDamage: 10,
 	freezeTowerEffect: 0.1
 });
