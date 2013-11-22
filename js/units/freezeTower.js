@@ -39,7 +39,7 @@ define([
 			if(target.distance <= Config.maxAttackDistance)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
-				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 15, 1);
+				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);
 				target.targetEnemy.slow(Config.freezeTowerEffect);
 			}
 		}

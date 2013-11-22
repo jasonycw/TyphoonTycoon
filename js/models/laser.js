@@ -24,6 +24,7 @@ define([
 			this.endY = endY || 0;
 			this.laserColor = laserColor;
 			this.duration = duration;
+			this.totalDuration = duration;
 			this.lineWidth = lineWidth;
 			this.id = Stage.addChild(this,'effects');
 			// console.log(this.startX,this.startY);
@@ -49,15 +50,16 @@ define([
 		ctx.lineCap = 'round';
 		ctx.lineJoin = 'miter';
 		ctx.strokeStyle=this.laserColor;
-		ctx.lineWidth = this.lineWidth;
+		var relativeTime = Math.sin(Math.PI*(this.duration/this.totalDuration));
+		ctx.globalAlpha = relativeTime;
+		ctx.lineWidth = this.lineWidth*relativeTime;
 		ctx.stroke();
-		
+		ctx.globalAlpha = 1;
 	};
 	/**
 	 * remove the unit, without death effect
 	 */
 	Laser.prototype.remove = function(){
-		// to be overridden
 		Stage.removeChild(this.id,'effects');
 	}
 
