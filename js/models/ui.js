@@ -128,10 +128,16 @@ define([
 					case 82:
 						// R
 						break;
-
+					default:
+						that.activatedMode = null;
+						btnId = null;
+						break;
 				}
-				$('#btn-bar button').attr('disabled', true);
-				$('#' + btnId).attr('disabled', false).attr('data-activated', 'activated');
+				if(that.activatedMode!==null)
+				{
+					$('#btn-bar button').attr('disabled', true);
+					$('#' + btnId).attr('disabled', false).attr('data-activated', 'activated');
+				}
 			});
 		},
 		render: function(ctx) {
