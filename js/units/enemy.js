@@ -38,14 +38,14 @@ define([
 		console.log("Typhoon's tick completed.");
 	};
 	Enemy.prototype.render = function(ctx){
-		
+
 		if(this.spriteReady){
 			//draw image
 			// ctx.save();
 			ctx.globalAlpha = (this.hp/Config.maxTyphoonHP)*0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
-			this.drawRotatedImage(ctx,this.sprite,drawX,drawY,this.numberOfTicks);
+			this.drawRotatedImage(ctx,this.sprite,this.x,this.y,this.numberOfTicks);
 			// ctx.drawImage(this.sprite,drawX,drawY);
 			// ctx.restore();
 			ctx.globalAlpha = 1;	
