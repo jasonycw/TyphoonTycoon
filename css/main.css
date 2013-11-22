@@ -69,17 +69,17 @@ body {
 #btn-laser-tower[disabled] {
   background-position: 0 -96px;
 }
-#btn-bash-tower {
+#btn-cheung-kong {
   background-position: -32px 0;
 }
-#btn-bash-tower:hover {
+#btn-cheung-kong:hover {
   background-position: -32px -32px;
 }
-#btn-bash-tower:active,
-#btn-bash-tower[data-activated] {
+#btn-cheung-kong:active,
+#btn-cheung-kong[data-activated] {
   background-position: -32px -64px;
 }
-#btn-bash-tower[disabled] {
+#btn-cheung-kong[disabled] {
   background-position: -32px -96px;
 }
 #btn-freeze-tower {
@@ -95,17 +95,17 @@ body {
 #btn-freeze-tower[disabled] {
   background-position: -64px -96px;
 }
-#btn-field-tower {
+#btn-repel-tower {
   background-position: -96px 0;
 }
-#btn-field-tower:hover {
+#btn-repel-tower:hover {
   background-position: -96px -32px;
 }
-#btn-field-tower:active,
-#btn-field-tower[data-activated] {
+#btn-repel-tower:active,
+#btn-repel-tower[data-activated] {
   background-position: -96px -64px;
 }
-#btn-field-tower[disabled] {
+#btn-repel-tower[disabled] {
   background-position: -96px -96px;
 }
 #btn-power-plant {
@@ -147,16 +147,16 @@ body {
 #btn-university[disabled] {
   background-position: -192px -96px;
 }
-#btn-tech-center {
+#btn-research-center {
   background-position: -224px 0;
 }
-#btn-tech-center:hover {
+#btn-research-center:hover {
   background-position: -224px -32px;
 }
-#btn-tech-center:active,
-#btn-tech-center[data-activated] {
+#btn-research-center:active,
+#btn-research-center[data-activated] {
   background-position: -224px -64px;
 }
-#btn-tech-center[disabled] {
+#btn-research-center[disabled] {
   background-position: -224px -96px;
 }

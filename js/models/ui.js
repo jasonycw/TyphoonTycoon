@@ -44,7 +44,7 @@ define([
 					case 'btn-freeze-tower':
 						that.activatedMode = 'freezeTower';
 						break;
-					case 'btn-field-tower':
+					case 'btn-repel-tower':
 						that.activatedMode = 'reflectTower';
 						break;
 				}
@@ -74,7 +74,7 @@ define([
 						var mousePos = Utility.getMouse(event);
 						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
-							var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/field-tower.png");
+							var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
 						}
 						break;
 				}
@@ -100,11 +100,11 @@ define([
 				switch (e.which) {
 					case 49:
 						// 1
-						that.activatedMode = 'attackTower';
-						btnId = 'btn-laser-tower';
 						break;
 					case 50:
 						// 2
+						that.activatedMode = 'attackTower';
+						btnId = 'btn-laser-tower';
 						break;
 					case 51:
 						// 3
@@ -114,7 +114,7 @@ define([
 					case 52:
 						// 4
 						that.activatedMode = 'reflectTower';
-						btnId = 'btn-field-tower';
+						btnId = 'btn-repel-tower';
 						break;
 					case 81:
 						// Q
