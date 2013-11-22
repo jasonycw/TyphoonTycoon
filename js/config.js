@@ -6,6 +6,7 @@ define({
 		y: 238,
 		radius: 33
 	},
+	typhoonHP:300,
 	maxAttackDistance: 100,
 	attackTowerDamage: 10,
 	freezeTowerEffect: 0.1

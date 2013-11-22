@@ -2,8 +2,10 @@
 define([
 	'units/unit',
 	'stage',
-	'utility'
-], function(Unit,Stage,Utility)
+	'utility',
+	'models/mapHitArea',
+	'config'
+], function(Unit,Stage,Utility,MapHitArea,Config)
 {
 	console.log("enemy.js loaded");
 
@@ -15,7 +17,7 @@ define([
 		this.speed 		=	0 ;
 		this.originalSpeed = 0;
 		this.force 		= 	{dir:0,mag:0};
-		this.max_hp 	= 	300;
+		this.max_hp 	= 	Config.typhoonHP;
 		this.hp 		= 	this.max_hp;
 
 		this.isSlowed	=	0;
@@ -66,6 +68,10 @@ define([
 		var addY = Math.sin(this.direction/180*Math.PI) * tempSpeed;
 		this.x += addX;
 		this.y += addY;
+
+		if(MapHitArea.isLand(this.x,this.y))
+			this.damage(2.5);
+
 	};
 	/**
 	 * get the current motion of the typhoon
@@ -153,6 +159,8 @@ define([
 		Stage.removeChild(this.typhoonID,'typhoons');
 		//Unit.prototype.remove.call(this);
 	};
+
+
 	
 	return Enemy;
 });

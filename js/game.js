@@ -12,8 +12,9 @@ define([
 	'units/attackTower',
 	'units/unit',
 	'units/enemy',
+	'models/mapHitArea',
 	'underscore'
-	], function(Stage, UI, Utility, Config, Tower, AttackTower, Unit, Enemy, _) {
+	], function(Stage, UI, Utility, Config, Tower, AttackTower, Unit, Enemy, MapHitArea, _) {
 
 	console.log("game.js loaded");
 
@@ -40,6 +41,7 @@ define([
 				// create background map
 				gameUI = new UI();
 				gameUI.init();
+				MapHitArea.init();
 				Stage.addChild(gameUI,'backdrops');
 
 			    //Start game loop when initial
