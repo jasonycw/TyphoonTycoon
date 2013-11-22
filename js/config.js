@@ -6,7 +6,7 @@ define({
 		y: 238,
 		radius: 33
 	},
-	typhoonHP:300,
+	maxTyphoonHP:300,
 	maxAttackDistance: 150,
 	maxFreezeDistance: 70,
 	maxReflectDistance: 100,

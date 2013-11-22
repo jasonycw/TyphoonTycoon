@@ -17,7 +17,7 @@ define([
 		this.speed 		=	0 ;
 		this.originalSpeed = 0;
 		this.force 		= 	{dir:0,mag:0};
-		this.max_hp 	= 	Config.typhoonHP;
+		this.max_hp 	= 	Math.random()*Config.maxTyphoonHP;
 		this.hp 		= 	this.max_hp;
 
 		this.isSlowed	=	0;
@@ -40,7 +40,7 @@ define([
 	Enemy.prototype.render = function(ctx){
 		if(this.spriteReady){
 			//draw image
-			ctx.globalAlpha = this.hp/this.max_hp;
+			ctx.globalAlpha = (this.hp/this.max_hp)*0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			ctx.drawImage(this.sprite,drawX,drawY);
@@ -70,7 +70,7 @@ define([
 		this.y += addY;
 
 		if(MapHitArea.isLand(this.x,this.y))
-			this.damage(2.5);
+			this.damage(this.max_hp*0.013);
 
 	};
 	/**

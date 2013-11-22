@@ -158,7 +158,7 @@ define([
 															yy,
 															Config.hkArea.x,
 															Config.hkArea.y  );
-					t.setMotion(hk_dir,Math.random()*3);	//Math.random()*360 ,2 );
+					t.setMotion(hk_dir,Math.random()*5);	//Math.random()*360 ,2 );
 					
 					//uncomment to test static method
 					//console.log(Stage.width);
