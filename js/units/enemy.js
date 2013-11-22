@@ -31,11 +31,11 @@ define([
 
 	// tick event handler
 	Enemy.prototype.tick = function(dt){	// override
-		console.log("?");
 		this.updatePosition();
 		if(! this.isWithinCanvas() ){
 			this.remove();
 		}
+		console.log("Typhoon's tick completed.");
 	};
 	Enemy.prototype.render = function(ctx){
 		if(this.spriteReady){
@@ -46,7 +46,7 @@ define([
 			ctx.drawImage(this.sprite,drawX,drawY);
 			ctx.globalAlpha = 1;	
 			// ctx.fillText(this.typhoonID,this.x,this.y);
-			ctx.fillText(this.isSlowed,this.x,this.y);
+			//ctx.fillText(this.isSlowed,this.x,this.y);
 		}
 
 	};
@@ -155,7 +155,7 @@ define([
 		this.remove();
 	};
 	Enemy.prototype.remove = function(){
-		console.log("arhhhhh "+this.typhoonID);
+		console.log("Removed typhoon number "+this.typhoonID);
 		Stage.removeChild(this.typhoonID,'typhoons');
 		//Unit.prototype.remove.call(this);
 	};

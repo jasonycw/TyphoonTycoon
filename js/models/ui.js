@@ -85,8 +85,10 @@ define([
 		bindKeyboardEvent: function() {
 			var that = this;
 			$(document).keyup(function(e) {
+				//console.log(e.which);
+
 				// Esc
-				if (e.which === 27) {
+				if (e.which === 27 || e.which === 32) {
 					$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
 					that.activatedMode = null;
 					return;
@@ -111,6 +113,8 @@ define([
 						break;
 					case 52:
 						// 4
+						that.activatedMode = 'reflectTower';
+						btnId = 'btn-field-tower';
 						break;
 					case 81:
 						// Q
@@ -124,6 +128,7 @@ define([
 					case 82:
 						// R
 						break;
+
 				}
 				$('#btn-bar button').attr('disabled', true);
 				$('#' + btnId).attr('disabled', false).attr('data-activated', 'activated');
