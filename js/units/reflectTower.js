@@ -12,7 +12,7 @@ define([
 	console.log("attackTower.js loaded");
 
 	//Create Tower Object and its constructor
-	function AttackTower(startX,startY,spriteSrc){
+	function ReflectTower(startX,startY,spriteSrc){
 		//call super constructor.
 		Tower.call(this,startX,startY,spriteSrc);
 
@@ -22,12 +22,12 @@ define([
 		//nearEnemy.setMotion(0,0);
 	}
 	//subclass extends superclass
-	AttackTower.prototype = Object.create(Tower.prototype);
-	AttackTower.prototype.constructor = AttackTower;
+	ReflectTower.prototype = Object.create(Tower.prototype);
+	ReflectTower.prototype.constructor = ReflectTower;
 
 
 	// tick event handler
-	AttackTower.prototype.tick = function(dt){	// override
+	ReflectTower.prototype.tick = function(dt){	// override
 		/**
 		 * finds the enemy closest in distance
 		 * @return {Enemy} the enemy that is nearest
@@ -39,12 +39,13 @@ define([
 			if(target.distance <= Config.maxAttackDistance)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
-				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y);
-				target.targetEnemy.damage(Config.attackTowerDamage);
+				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "#FF8000", 20,15);
+				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y);
+				target.targetEnemy.addMotion(Utility.pointDirection(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y),300/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
 			}
 		}
 	};
 	
 
-	return AttackTower;
+	return ReflectTower;
 });

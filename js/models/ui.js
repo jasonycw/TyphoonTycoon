@@ -3,8 +3,9 @@ define([
 	'models/MapHitArea',
 	'utility',
 	'units/attackTower',
-	'units/freezeTower'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower) {
+	'units/freezeTower',
+	'units/reflectTower'
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower) {
 	"use strict";
 
 	function UI() {
@@ -43,6 +44,9 @@ define([
 					case 'btn-freeze-tower':
 						that.activatedMode = 'freezeTower';
 						break;
+					case 'btn-field-tower':
+						that.activatedMode = 'reflectTower';
+						break;
 				}
 				$('#btn-bar button').attr('disabled', true);
 				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
@@ -55,7 +59,7 @@ define([
 					case 'attackTower':
 						var mousePos = Utility.getMouse(event);
 						// Can only build on land
-						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
 						}
 						break;
@@ -64,6 +68,13 @@ define([
 						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
+						}
+						break;
+					case 'reflectTower':
+						var mousePos = Utility.getMouse(event);
+						// Can only build on ocean
+						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/field-tower.png");
 						}
 						break;
 				}

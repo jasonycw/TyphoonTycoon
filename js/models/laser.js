@@ -9,7 +9,7 @@ define([
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
-	function Laser(startX,startY,endX,endY,laserColor,duration){
+	function Laser(startX,startY,endX,endY,laserColor,duration,lineWidth){
 			//console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
 			
 			/*
@@ -24,6 +24,7 @@ define([
 			this.endY = endY || 0;
 			this.laserColor = laserColor;
 			this.duration = duration;
+			this.lineWidth = lineWidth;
 			this.id = Stage.addChild(this,'effects');
 			// console.log(this.startX,this.startY);
 
@@ -45,7 +46,10 @@ define([
 		ctx.beginPath();
 		ctx.moveTo(this.startX,this.startY);
 		ctx.lineTo(this.endX,this.endY);
+		ctx.lineCap = 'round';
+		ctx.lineJoin = 'miter';
 		ctx.strokeStyle=this.laserColor;
+		ctx.lineWidth = this.lineWidth;
 		ctx.stroke();
 		
 	};
