@@ -68,10 +68,19 @@ define([
 		var addY = Math.sin(this.direction/180*Math.PI) * tempSpeed;
 		this.x += addX;
 		this.y += addY;
-
+ 
+		// Calculate if it will decade or recover
 		if(MapHitArea.isLand(this.x,this.y))
 			this.damage(this.max_hp*0.013);
-
+		if(tempSpeed<0.1)
+			this.damage(this.max_hp*0.005);
+		else
+			if(this.hp<Config.maxTyphoonHP)
+			{
+				this.hp += Config.maxTyphoonHP*0.003;
+				if(this.hp > this.max_hp)
+					this.max_hp = this.hp;
+			}
 	};
 	/**
 	 * get the current motion of the typhoon
