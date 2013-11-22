@@ -75,7 +75,7 @@ define([
 
 		// rotate around that point, converting our 
 		// angle from degrees to radians 
-		context.rotate(angle * (Math.PI/180));
+		context.rotate(angle * -(Math.PI/180));
 
 		// draw it up and to the left by half the width
 		// and height of the image 
