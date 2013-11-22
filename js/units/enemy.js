@@ -40,7 +40,7 @@ define([
 	Enemy.prototype.render = function(ctx){
 		if(this.spriteReady){
 			//draw image
-			ctx.globalAlpha = (this.hp/this.max_hp)*0.9;
+			ctx.globalAlpha = (this.hp/Config.maxTyphoonHP)*0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			ctx.drawImage(this.sprite,drawX,drawY);
@@ -91,6 +91,11 @@ define([
 	Enemy.prototype.setMotion = function(dir,sp){
 		this.direction = dir;
 		this.speed = sp;
+		this.max_hp += (10-sp)*10;
+		if(this.max_hp>Config.maxTyphoonHP)
+			this.max_hp = Config.maxTyphoonHP;
+		this.hp = this.max_hp;
+
 	};
 	/**
 	 * alters the motion by a little bit
