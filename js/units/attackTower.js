@@ -47,6 +47,7 @@ define([
 					var aimX = target.targetEnemy.x - enemyWidth/8+ Math.random()*enemyWidth/4;
 					var aimY = target.targetEnemy.y - enemyWidth/8+ Math.random()*enemyWidth/4;
 					var laser = new Laser(this.x, this.y, aimX, aimY, "red", 10, 3);
+					var buildEffect = new BuildEffect(aimX,aimY, "red", 15, 7, 1);
 					target.targetEnemy.damage(Config.attackTowerDamage);
 					this.coolDownCounter = this.coolDownTime;
 				}

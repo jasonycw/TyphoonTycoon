@@ -63,10 +63,10 @@ define([
 			},	//End init
 
 			reset: function() {
-				totalPower = 0;
-				hsi = 9000;
-				UI.setHSI(hsi);
-				UI.setPowerBar(0, 0);
+				// totalPower = 0;
+				// hsi = 9000;
+				// UI.setHSI(hsi);
+				// UI.setPowerBar(0, 0);
 			},
 			/*
 				main game loop
