@@ -17,7 +17,7 @@ define([
 				Use "var" to change the variable/funciton become private 
 	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
-			//Effect.call();
+			Effect.call();
 			this.x = x || 0;
 			this.y = y || 0;
 			this.buildEffectColor = buildEffectColor;
@@ -36,7 +36,6 @@ define([
 
 	// tick event handler
 	BuildEffect.prototype.tick = function(dt){
-		// empty
 		this.duration--;
 		if(!this.duration)this.remove();
 	};
@@ -57,11 +56,11 @@ define([
 	 */
 	BuildEffect.prototype.remove = function(){
 		Stage.removeChild(this.id,'effects');
-	}
+	};
 
 	BuildEffect.prototype.setIndex = function(index){
-		that.effectIndex = index;
-	}
+		this.effectIndex = index;
+	};
 
 	return BuildEffect;
 });

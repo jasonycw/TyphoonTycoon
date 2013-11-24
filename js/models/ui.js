@@ -6,8 +6,9 @@ define([
 	'units/freezeTower',
 	'units/reflectTower',
 	'units/powerPlant',
-	'units/nuclearPlant'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant) {
+	'units/nuclearPlant',
+	'models/hkCircle'
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, HKCircle) {
 	"use strict";
 
 	function UI() {
@@ -23,12 +24,15 @@ define([
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
 			this.queryScoreDOM();
+			
+			//TODO
+			this.drawHKCircle();
+
 			// Load game hit area
 			MapHitArea.init();
-
-			// Set score
-			this.setHSI(9000);
-			this.setPowerBar(0, 0);
+		},
+		drawHKCircle: function() {
+			this.hkCircle = new HKCircle();
 		},
 		prepareBgImg: function() {
 			this.bgImg = new Image();
@@ -38,6 +42,8 @@ define([
 			this.bgImg.onload = function() {
 				that.bgReady = true;
 			}
+
+			
 		},
 		queryScoreDOM: function() {
 			this.$hsi = $('#hsi');

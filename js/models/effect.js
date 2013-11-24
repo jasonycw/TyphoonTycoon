@@ -18,8 +18,7 @@ define([
 			 */
 			
 			
-			// update sprite origin according to sprite size
-			// this.that = this;
+			this.that = this;
 	};
 
 	// tick event handler

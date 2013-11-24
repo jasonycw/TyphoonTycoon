@@ -35,7 +35,7 @@ define([
 			this.remove();
 		}
 		this.numberOfTicks++;
-		//console.log("Typhoon's tick completed.");
+		console.log("Typhoon's tick completed.");
 	};
 	Enemy.prototype.render = function(ctx){
 

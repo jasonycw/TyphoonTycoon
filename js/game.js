@@ -67,6 +67,7 @@ define([
 
 			reset: function() {
 				hsi = 9000;
+				gameTime = 0;
 				powerQuota = powerUsed = 0;
 				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
 				gameUI.setHSI(hsi);
@@ -86,6 +87,8 @@ define([
 
 			    lastTime = now;
 			    requestAnimFrame(Game.loop);
+
+			    //TODO change HSI 
 
 			    gameUI.setHSI(hsi);
 			    // console.log(totalPower +" "+ consumePower +" "+ inputPower)
