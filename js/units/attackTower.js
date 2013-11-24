@@ -19,6 +19,8 @@ define([
 		this.coolDownTime = 15;
 		this.coolDownCounter = 0;
 		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
+		Game.addPower(Config.laserTowerPower);
+
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
 		//var nearEnemy = this.findNearestEnemy();
@@ -40,7 +42,7 @@ define([
 			var target = this.findNearestEnemy();
 			if(target)
 			{
-				if(target.distance <= Config.maxAttackDistance && Game.getPrevPower() > 0)
+				if(target.distance <= Config.maxAttackDistance && Game.getAvailablePower() > 0)
 				{
 					// console.log("tower "+this.x+" "+ this.y);
 					var enemyWidth = target.targetEnemy.sprite.width;
@@ -50,7 +52,7 @@ define([
 					var buildEffect = new BuildEffect(aimX,aimY, "red", 15, 7, 1);
 					target.targetEnemy.damage(Config.attackTowerDamage);
 					this.coolDownCounter = this.coolDownTime;
-					Game.addPower(Config.laserTowerPower);
+					// Game.addPower(Config.laserTowerPower);
 				}
 			}
 		}else{

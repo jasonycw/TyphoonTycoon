@@ -17,6 +17,7 @@ define([
 		//call super constructor.
 		Tower.call(this,startX,startY,spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "#FF8000", 40, 40, 3);
+		Game.addPower(Config.repelTowerPower);
 
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
@@ -38,13 +39,13 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= Config.maxReflectDistance && Game.getPrevPower() > 0)
+			if(target.distance <= Config.maxReflectDistance && Game.getAvailablePower() > 0)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "#FF8000", 20,15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y);
 				target.targetEnemy.addMotion(Utility.pointDirection(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y),300/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
-				Game.addPower(Config.repelTowerPower);
+				// Game.addPower(Config.repelTowerPower);
 			}
 		}
 	};

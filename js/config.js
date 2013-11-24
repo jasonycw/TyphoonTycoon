@@ -13,9 +13,9 @@ define({
 	attackTowerDamage: 10,
 	freezeTowerEffect: 0.1,
 	// Electricity generation and consumption
-	powerPlantPower: 20,
+	powerPlantPower: 10,
 	nuclearPlantPower: 40,
 	laserTowerPower: -3,
 	freezeTowerPower: -3,
-	repelTowerPower: -5
+	repelTowerPower: -10
 });

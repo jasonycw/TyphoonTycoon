@@ -16,6 +16,7 @@ define([
 		//call super constructor.
 		Tower.call(this,startX,startY,spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "aqua", 40, 40, 3);
+		Game.addPower(Config.freezeTowerPower);
 
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
@@ -37,13 +38,13 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= Config.maxFreezeDistance && Game.getPrevPower() > 0)
+			if(target.distance <= Config.maxFreezeDistance && Game.getAvailablePower() > 0)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);
 				var buildEffect = new BuildEffect(target.targetEnemy.x, target.targetEnemy.y, "aqua", 15, 7, 1);
 				target.targetEnemy.slow(Config.freezeTowerEffect);
-				Game.addPower(Config.freezeTowerPower);
+				// Game.addPower(Config.freezeTowerPower);
 			}
 		}
 	};

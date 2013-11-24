@@ -30,12 +30,14 @@ define([
 		
 
 		return {
-			prevInputPower: 0,
-			prevConsumePower: 0,
-			prevTotalPower: 0,
-			inputPower: 0,
-			consumePower: 0,
-			totalPower: 0,
+			// prevInputPower: 0,
+			// prevConsumePower: 0,
+			// prevTotalPower: 0,
+			// inputPower: 0,
+			// consumePower: 0,
+			// totalPower: 0,
+			powerQuota: 0,
+			powerUsed: 0,
 			hsi: 0,
 			// Initialize the game
 			init: function() {
@@ -65,7 +67,8 @@ define([
 
 			reset: function() {
 				hsi = 9000;
-				prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
+				powerQuota = powerUsed = 0;
+				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
 				gameUI.setHSI(hsi);
 				gameUI.setPowerBar(0, 0);
 			},
@@ -73,7 +76,7 @@ define([
 				main game loop
 			 */
 			loop: function() {
-				var beforePower = totalPower
+				// var beforePower = totalPower
 
 				var now = Date.now();
 			    var dt = (now - lastTime) / 1000.0;
@@ -85,15 +88,15 @@ define([
 			    requestAnimFrame(Game.loop);
 
 			    gameUI.setHSI(hsi);
-			    console.log(totalPower +" "+ consumePower +" "+ inputPower)
-				gameUI.setPowerBar(inputPower - consumePower, inputPower);
+			    // console.log(totalPower +" "+ consumePower +" "+ inputPower)
+				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 
 				// Save the values for the tick methods in towers next time
-				prevInputPower = inputPower;
-				prevConsumePower = consumePower;
-				prevTotalPower = totalPower;
-				// Electricity cannot be stored because we don't have such a large battery in real world!
-		    	totalPower = consumePower = inputPower = 0;
+				// prevInputPower = inputPower;
+				// prevConsumePower = consumePower;
+				// prevTotalPower = totalPower;
+				// // Electricity cannot be stored because we don't have such a large battery in real world!
+		  //   	totalPower = consumePower = inputPower = 0;
 			},
 
 			/*
@@ -197,14 +200,14 @@ define([
 			},//End testSetup()
 			addPower: function(p) {
 				if (p > 0) {
-					inputPower += p;
+					powerQuota += p;
 				} else if (p < 0) {
-					consumePower -= p; 
+					powerUsed -= p; 
 				}
-				totalPower += p;
+				// totalPower += p;
 			},
-			getPrevPower: function() {
-				return prevTotalPower;
+			getAvailablePower: function() {
+				return powerQuota-powerUsed;
 			}
 
 		}//End return

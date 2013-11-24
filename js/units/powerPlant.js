@@ -12,6 +12,7 @@ define([
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "green", 40, 40, 3);
+		Game.addPower(Config.powerPlantPower);
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
@@ -22,9 +23,9 @@ define([
 
 
 	// tick event handler
-	PowerPlant.prototype.tick = function(dt) {	// override
-		Game.addPower(Config.powerPlantPower);
-	};
+	// PowerPlant.prototype.tick = function(dt) {	// override
+	// 	Game.addPower(Config.powerPlantPower);
+	// };
 	
 
 	return PowerPlant;
