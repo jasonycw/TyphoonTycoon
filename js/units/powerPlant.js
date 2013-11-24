@@ -15,7 +15,6 @@ define([
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
-		console.log(Game.addPower);
 	}
 	//subclass extends superclass
 	PowerPlant.prototype = Object.create(Unit.prototype);
@@ -24,7 +23,7 @@ define([
 
 	// tick event handler
 	PowerPlant.prototype.tick = function(dt) {	// override
-		Game.addPower(Config.powerPlantGenerate);
+		Game.addPower(Config.powerPlantPower);
 	};
 	
 

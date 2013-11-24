@@ -1,14 +1,13 @@
 // defines your module and loads any dependencies
 define([
-	'Utility',
 	'units/unit',
 	'stage',
 	'units/tower',
 	'models/buildEffect',
 	'models/laser',
 	'config',
-	'underscore'
-], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,_) {
+	'Game'
+], function(Unit,Stage,Tower,BuildEffect,Laser,Config,Game) {
 
 	console.log("attackTower.js loaded");
 
@@ -38,12 +37,13 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= Config.maxFreezeDistance)
+			if(target.distance <= Config.maxFreezeDistance && Game.getPrevPower() > 0)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);
 				var buildEffect = new BuildEffect(target.targetEnemy.x, target.targetEnemy.y, "aqua", 15, 7, 1);
 				target.targetEnemy.slow(Config.freezeTowerEffect);
+				Game.addPower(Config.freezeTowerPower);
 			}
 		}
 	};

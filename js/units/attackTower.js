@@ -7,8 +7,8 @@ define([
 	'models/buildEffect',
 	'models/laser',
 	'config',
-	'underscore'
-], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,_) {
+	'Game'
+], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,Game) {
 
 	console.log("attackTower.js loaded");
 
@@ -40,7 +40,7 @@ define([
 			var target = this.findNearestEnemy();
 			if(target)
 			{
-				if(target.distance <= Config.maxAttackDistance)
+				if(target.distance <= Config.maxAttackDistance && Game.getPrevPower() > 0)
 				{
 					// console.log("tower "+this.x+" "+ this.y);
 					var enemyWidth = target.targetEnemy.sprite.width;
@@ -50,6 +50,7 @@ define([
 					var buildEffect = new BuildEffect(aimX,aimY, "red", 15, 7, 1);
 					target.targetEnemy.damage(Config.attackTowerDamage);
 					this.coolDownCounter = this.coolDownTime;
+					Game.addPower(Config.laserTowerPower);
 				}
 			}
 		}else{

@@ -43,7 +43,6 @@ require([
 
 	// Start the game when DOM tree is ready
 	$(document).ready(function() {
-		var game = new Game();
-		game.init();
+		Game.init();
 	});
 });
