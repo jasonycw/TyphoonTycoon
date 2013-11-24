@@ -6,8 +6,9 @@ define([
 	'units/freezeTower',
 	'units/reflectTower',
 	'units/powerPlant',
-	'units/nuclearPlant'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant) {
+	'units/nuclearPlant',
+	'sound'
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, Sound) {
 	"use strict";
 
 	function UI() {
@@ -25,6 +26,9 @@ define([
 			this.queryScoreDOM();
 			// Load game hit area
 			MapHitArea.init();
+
+			// Sound Effect
+			this.sound = new Sound('sound');
 
 			// Set score
 			this.setHSI(9000);
@@ -79,12 +83,14 @@ define([
 					case 'reflectTower':
 						// Can only build on ocean
 						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							that.sound.play('disabled');
 							return;
 						}
 						break;
 					case 'powerPlant':
 					case 'nuclearPlant':
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							that.sound.play('disabled');
 							return;
 						}
 						break;
@@ -106,6 +112,7 @@ define([
 						var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
 						break;
 				}
+				that.sound.play('plot');
 				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
 				that.activatedMode = null;
 			});
