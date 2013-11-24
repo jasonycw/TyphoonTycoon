@@ -16,6 +16,7 @@ define([
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 	}
+	
 	// subclass extends superclass
 	CheungKong.prototype = Object.create(Unit.prototype);
 	CheungKong.prototype.constructor = CheungKong;

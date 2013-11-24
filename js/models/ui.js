@@ -7,8 +7,11 @@ define([
 	'units/reflectTower',
 	'units/powerPlant',
 	'units/nuclearPlant',
+	'units/university',
+	'units/researchCenter',
+	'units/cheungKong',
 	'sound'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, Sound) {
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong,Sound) {
 	"use strict";
 
 	function UI() {
@@ -68,6 +71,15 @@ define([
 					case 'btn-nuclear-plant':
 						that.activatedMode = 'nuclearPlant';
 						break;
+					case 'btn-university':
+						that.activatedMode = 'university';
+						break;
+					case 'btn-research-center':
+						that.activatedMode = 'researchCenter';
+						break;
+					case 'btn-cheung-kong':
+						that.activatedMode = 'cheungKong';
+						break;
 				}
 				$('#btn-bar button').attr('disabled', true);
 				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
@@ -89,6 +101,9 @@ define([
 						break;
 					case 'powerPlant':
 					case 'nuclearPlant':
+					case 'university':
+					case 'researchCenter':
+					case 'cheungKong':
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							that.sound.play('disabled');
 							return;
@@ -110,6 +125,15 @@ define([
 						break;
 					case 'nuclearPlant':
 						var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
+						break;
+					case 'university':
+						var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
+						break;
+					case 'researchCenter':
+						var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
+						break;
+					case 'cheungKong':
+						var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
 						break;
 				}
 				that.sound.play('plot');
@@ -160,12 +184,18 @@ define([
 						break;
 					case 87:
 						// W
+						that.activatedMode = 'university';
+						btnId = 'btn-university';
 						break;
 					case 69:
 						// E
+						that.activatedMode = 'researchCenter';
+						btnId = 'btn-research-center';
 						break;
 					case 82:
 						// R
+						that.activatedMode = 'cheungKong';
+						btnId = 'btn-cheung-kong';
 						break;
 					default:
 						return;

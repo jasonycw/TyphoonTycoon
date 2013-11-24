@@ -23,7 +23,7 @@ define([
 	}
 	// config
 	Enemy.max_hp = 300;
-	Enemy.decayOnLand = 
+	Enemy.decayOnLand = 1;
 
 	//subclass extends superclass
 	Enemy.prototype = Object.create(Unit.prototype);
@@ -80,10 +80,10 @@ define([
 		// Calculate if it will decade or recover
 		// TODO : MUST PUT IT BACK TO tick()
 		if(MapHitArea.isLand(this.x,this.y)){
-			this.damage(this.max_hp*0.013);
+			this.damage(Enemy.max_hp*0.013);
 		}
 		if(tempSpeed<0.1){
-			this.damage(this.max_hp*0.005);
+			this.damage(Enemy.max_hp*0.005);
 		}else{
 			this.damage(-1*Enemy.max_hp*0.003);
 		}
