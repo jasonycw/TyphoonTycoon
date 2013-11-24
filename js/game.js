@@ -27,6 +27,10 @@ define([
 		var lastTime;
 		var gameTime = 0;
 
+		// Game state
+		var totalPower;
+		var hsi;
+
 		return {
 			// Initialize the game
 			init: function() {
@@ -44,6 +48,10 @@ define([
 				MapHitArea.init();
 				Stage.addChild(gameUI,'backdrops');
 
+				// Reset game state
+				totalPower = 0;
+				hsi = 9000;
+
 			    //Start game loop when initial
 				this.reset();
 			    lastTime = Date.now();
@@ -55,9 +63,10 @@ define([
 			},	//End init
 
 			reset: function() {
-				//console.log("Game.rest() loaded");
-
-				//TODO if necessary
+				totalPower = 0;
+				hsi = 9000;
+				UI.setHSI(hsi);
+				UI.setPowerBar(0, 0);
 			},
 			/*
 				main game loop

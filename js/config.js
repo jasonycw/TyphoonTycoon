@@ -11,5 +11,11 @@ define({
 	maxFreezeDistance: 70,
 	maxReflectDistance: 100,
 	attackTowerDamage: 10,
-	freezeTowerEffect: 0.1
+	freezeTowerEffect: 0.1,
+	// Electricity generation and consumption
+	powerPlantGenerate: 20,
+	nuclearPowerGenerate: 40,
+	laserTowerPowerConsume: 3,
+	freezeTowerPowerConsume: 3,
+	repelTowerPowerConsume: 5
 });
