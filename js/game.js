@@ -37,6 +37,10 @@ define([
 		Game.getHSI = function() {
 			return that.hsi;
 		};
+
+		Game.addPower = function(p) {
+			that.totalPower += p;
+		}
 	};
 
 	Game.prototype = {
@@ -84,6 +88,9 @@ define([
 
 		    that.lastTime = now;
 		    requestAnimFrame(that.loop);
+
+		    // Electricity cannot be stored because we don't have such a large battery in real world!
+		    that.totalPower = 0;
 		},
 
 		/*

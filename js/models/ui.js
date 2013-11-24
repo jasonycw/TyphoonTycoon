@@ -4,8 +4,9 @@ define([
 	'utility',
 	'units/attackTower',
 	'units/freezeTower',
-	'units/reflectTower'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower) {
+	'units/reflectTower',
+	'units/powerPlant'
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant) {
 	"use strict";
 
 	function UI() {
@@ -56,6 +57,9 @@ define([
 					case 'btn-repel-tower':
 						that.activatedMode = 'reflectTower';
 						break;
+					case 'btn-power-plant':
+						that.activatedMode = 'powerPlant';
+						break;
 				}
 				$('#btn-bar button').attr('disabled', true);
 				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
@@ -64,26 +68,29 @@ define([
 		bindCanvasClickEvent: function() {
 			var that = this;
 			$('#game-canvas').click(function(event) {
+				var mousePos = Utility.getMouse(event);
 				switch (that.activatedMode) {
 					case 'attackTower':
-						var mousePos = Utility.getMouse(event);
-						// Can only build on land
+						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
 						}
 						break;
 					case 'freezeTower':
-						var mousePos = Utility.getMouse(event);
 						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
 						}
 						break;
 					case 'reflectTower':
-						var mousePos = Utility.getMouse(event);
 						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
+						}
+						break;
+					case 'powerPlant':
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 						}
 						break;
 				}
@@ -109,6 +116,7 @@ define([
 				switch (e.which) {
 					case 49:
 						// 1
+						that.activatedMode = 'powerPlant';
 						break;
 					case 50:
 						// 2
