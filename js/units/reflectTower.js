@@ -44,7 +44,7 @@ define([
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "#FF8000", 20,15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y);
-				target.targetEnemy.addMotion(Utility.pointDirection(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y),300/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
+				target.targetEnemy.addMotion(Utility.pointDirection(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y),100/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
 				// Game.addPower(Config.repelTowerPower);
 			}
 		}
