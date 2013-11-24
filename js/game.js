@@ -141,7 +141,6 @@ define([
 			- testLoop()  : for time-base code
 		 */
 		testSetup: function() {
-
 			/*
 				Create Tower when mouse click
 			 */

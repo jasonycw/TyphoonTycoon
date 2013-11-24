@@ -42,6 +42,7 @@ define([
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);
+				var buildEffect = new BuildEffect(target.targetEnemy.x, target.targetEnemy.y, "aqua", 15, 7, 1);
 				target.targetEnemy.slow(Config.freezeTowerEffect);
 			}
 		}
