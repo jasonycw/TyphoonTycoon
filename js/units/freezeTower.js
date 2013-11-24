@@ -23,6 +23,11 @@ define([
 		//var nearEnemy = this.findNearestEnemy();
 		//nearEnemy.setMotion(0,0);
 	}
+
+	//config
+	FreezeTower.range = 70;
+	FreezeTower.slowRate = 70;
+	
 	//subclass extends superclass
 	FreezeTower.prototype = Object.create(Tower.prototype);
 	FreezeTower.prototype.constructor = FreezeTower;
@@ -38,12 +43,12 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= Config.maxFreezeDistance && Game.getAvailablePower() > 0)
+			if(target.distance <= FreezeTower.range && Game.getAvailablePower() > 0)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);
 				var buildEffect = new BuildEffect(target.targetEnemy.x, target.targetEnemy.y, "aqua", 15, 7, 1);
-				target.targetEnemy.slow(Config.freezeTowerEffect);
+				target.targetEnemy.slow(FreezeTower.slowRate);
 				// Game.addPower(Config.freezeTowerPower);
 			}
 		}

@@ -6,12 +6,7 @@ define({
 		y: 238,
 		radius: 33
 	},
-	maxTyphoonHP:300,
-	maxAttackDistance: 150,
-	maxFreezeDistance: 70,
-	maxReflectDistance: 100,
-	attackTowerDamage: 10,
-	freezeTowerEffect: 0.1,
+	
 	// Electricity generation and consumption
 	powerPlantPower: 10,
 	nuclearPlantPower: 40,
