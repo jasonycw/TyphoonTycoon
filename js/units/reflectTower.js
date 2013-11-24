@@ -4,10 +4,11 @@ define([
 	'units/unit',
 	'stage',
 	'units/tower',
+	'models/buildEffect',
 	'models/laser',
 	'config',
 	'underscore'
-], function(Utility,Unit,Stage,Tower,Laser,Config,_) {
+], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,_) {
 
 	console.log("attackTower.js loaded");
 
@@ -15,6 +16,7 @@ define([
 	function ReflectTower(startX,startY,spriteSrc){
 		//call super constructor.
 		Tower.call(this,startX,startY,spriteSrc);
+		var buildEffect = new BuildEffect(this.x, this.y, "#FF8000", 40, 40, 3);
 
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');

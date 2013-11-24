@@ -4,12 +4,12 @@ define([
 	'models/effect'
 ], function(Stage, Effect) {
 
-	console.log("laser.js loaded");
+	console.log("buildEffect.js loaded");
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
-	function Laser(startX,startY,endX,endY,laserColor,duration,lineWidth){
+	function BuildEffect(x,y,buildEffectColor,duration,radius,lineWidth){
 			//console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
 			
 			/*
@@ -18,39 +18,35 @@ define([
 	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
 			//Effect.call();
-			this.startX = startX || 0;
-			this.startY = startY || 0;
-			this.endX = endX || 0;
-			this.endY = endY || 0;
-			this.laserColor = laserColor;
+			this.x = x || 0;
+			this.y = y || 0;
+			this.buildEffectColor = buildEffectColor;
 			this.duration = duration;
 			this.totalDuration = duration;
+			this.radius = radius;
 			this.lineWidth = lineWidth;
 			this.id = Stage.addChild(this,'effects');
-			// console.log(this.startX,this.startY);
+			// console.log(this.x,this.y);
 
 			// update sprite origin according to sprite size
 	};
 
-	Laser.prototype = Object.create(Effect.prototype);
-	Laser.prototype.constructor = Laser;
+	BuildEffect.prototype = Object.create(Effect.prototype);
+	BuildEffect.prototype.constructor = BuildEffect;
 
 	// tick event handler
-	Laser.prototype.tick = function(dt){
+	BuildEffect.prototype.tick = function(dt){
 		// empty
 		this.duration--;
 		if(!this.duration)this.remove();
 	};
 
-	Laser.prototype.render = function(ctx){
-		// console.log('render laser ' + this.startX+', '+this.startY);
-		ctx.beginPath();
-		ctx.moveTo(this.startX,this.startY);
-		ctx.lineTo(this.endX,this.endY);
-		ctx.lineCap = 'round';
-		ctx.lineJoin = 'miter';
-		ctx.strokeStyle=this.laserColor;
+	BuildEffect.prototype.render = function(ctx){
+		// console.log('render BuildEffect ' + this.x+', '+this.y);
 		var relativeTime = Math.sin(Math.PI*(this.duration/this.totalDuration));
+		ctx.beginPath();
+		ctx.arc(this.x,this.y,this.radius*((this.totalDuration-this.duration)/this.totalDuration),0,2*Math.PI);
+		ctx.strokeStyle=this.buildEffectColor;
 		ctx.globalAlpha = relativeTime*0.8;
 		ctx.lineWidth = this.lineWidth*relativeTime;
 		ctx.stroke();
@@ -59,13 +55,13 @@ define([
 	/**
 	 * remove the unit, without death effect
 	 */
-	Laser.prototype.remove = function(){
+	BuildEffect.prototype.remove = function(){
 		Stage.removeChild(this.id,'effects');
 	}
 
-	Laser.prototype.setIndex = function(index){
+	BuildEffect.prototype.setIndex = function(index){
 		that.effectIndex = index;
 	}
 
-	return Laser;
+	return BuildEffect;
 });

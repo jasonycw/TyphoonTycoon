@@ -4,10 +4,11 @@ define([
 	'units/unit',
 	'stage',
 	'units/tower',
+	'models/buildEffect',
 	'models/laser',
 	'config',
 	'underscore'
-], function(Utility,Unit,Stage,Tower,Laser,Config,_) {
+], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,_) {
 
 	console.log("attackTower.js loaded");
 
@@ -17,7 +18,7 @@ define([
 		Tower.call(this,startX,startY,spriteSrc);
 		this.coolDownTime = 15;
 		this.coolDownCounter = 0;
-
+		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
 		//var nearEnemy = this.findNearestEnemy();
