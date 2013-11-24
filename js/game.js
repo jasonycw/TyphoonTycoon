@@ -110,29 +110,48 @@ define([
 			http://jlongster.com/Making-Sprite-based-Games-with-Canvas
 			https://github.com/jlongster/canvas-game-bootstrap/blob/a878158f39a91b19725f726675c752683c9e1c08/js/app.js#L22
 			*/			
-			tick: function(dt)
-			{
-				
-				gameTime += dt;
+            tick: function(dt)
+            {
+                this.updateEntities(dt);
 
-			    this.updateEntities(dt);
+                if(dt < 1){         // fix bug coused by lag
+                    gameTime += dt;
+                }
 
-			    // It gets harder over time by adding enemies using this
-			    // equation: 1-.993^gameTime
-			    if(Math.random() < 1 - Math.pow(.993, gameTime)) {
-			        // enemies.push({
-			        //     pos: [canvas.width,
-			        //           Math.random() * (canvas.height - 39)],
-			        //     sprite: new Sprite('img/sprites.png', [0, 78], [80, 39],
-			        //                        6, [0, 1, 2, 3, 2, 1])
-			        // });
-			    }
+                this.updateEntities(dt);
+                /*
+                    Create Enemies with time increasing
+                    - It gets harder over time by adding enemies using this
+                    - orginial equation: 1-.993^gameTime
+                    
+                    TODO: change different kind of enemies
+                 */
+                var difficultLevel = 15; // larger is easier
 
-			    //checkCollisions();
-			    //scoreEl.innerHTML = score;
-			   
-			  
-			}, //End tick()
+                if (Math.random() < 1 - Math.pow(.993, gameTime / difficultLevel)) {
+                    var t,
+                        xx,
+                        yy;
+                    if (Math.random() > 0.5) {
+                        xx = Stage.width;
+                        yy = Math.random() * Stage.height;
+                    } else {
+                        xx = Math.random() * Stage.width;
+                        yy = Stage.height;
+                    }
+                    t = new Enemy(xx, yy, "img/typhoon.png");
+                    var hk_dir = Utility.pointDirection(xx,
+                        yy,
+                        Config.hkArea.x,
+                        Config.hkArea.y);
+                    t.setMotion(hk_dir, Math.random() * 5);
+                }
+
+                //checkCollisions();
+                //scoreEl.innerHTML = score;
+               
+              
+            }, //End tick()
 			updateEntities: function (dt) {
 				_.each(Stage.displayList, function(renderList) {
 					_.each(renderList, function(item) {
@@ -158,31 +177,31 @@ define([
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});*/
 
-				/*
-					Create Typhoon at interval time
-				 */
-				setInterval(function(){
-					var t;
-					var xx,yy;
-					if(Math.random()>0.5){
-						xx = Stage.width;
-						yy = Math.random() * Stage.height;
-					}else{
-						xx = Math.random() * Stage.width;
-						yy = Stage.height;
-					}
-					t = new Enemy(xx, yy, "img/typhoon.png" );
-					var hk_dir = Utility.pointDirection(	xx,
-															yy,
-															Config.hkArea.x,
-															Config.hkArea.y  );
-					t.setMotion(hk_dir,Math.random()*5);	//Math.random()*360 ,2 );
+				// /*
+				// 	Create Typhoon at interval time
+				//  */
+				// setInterval(function(){
+				// 	var t;
+				// 	var xx,yy;
+				// 	if(Math.random()>0.5){
+				// 		xx = Stage.width;
+				// 		yy = Math.random() * Stage.height;
+				// 	}else{
+				// 		xx = Math.random() * Stage.width;
+				// 		yy = Stage.height;
+				// 	}
+				// 	t = new Enemy(xx, yy, "img/typhoon.png" );
+				// 	var hk_dir = Utility.pointDirection(	xx,
+				// 											yy,
+				// 											Config.hkArea.x,
+				// 											Config.hkArea.y  );
+				// 	t.setMotion(hk_dir,Math.random()*5);	//Math.random()*360 ,2 );
 					
-					//uncomment to test static method
-					//console.log(Stage.width);
+				// 	//uncomment to test static method
+				// 	//console.log(Stage.width);
 
-					//t.setForce({dir:hk_dir+170,mag:0.007});
-				},1000);
+				// 	//t.setForce({dir:hk_dir+170,mag:0.007});
+				// },1000);
 
 				/*
 				setInterval(function(){
