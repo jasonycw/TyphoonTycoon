@@ -5,8 +5,9 @@ define([
 	'units/attackTower',
 	'units/freezeTower',
 	'units/reflectTower',
-	'units/powerPlant'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant) {
+	'units/powerPlant',
+	'units/nuclearPlant'
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant) {
 	"use strict";
 
 	function UI() {
@@ -60,6 +61,9 @@ define([
 					case 'btn-power-plant':
 						that.activatedMode = 'powerPlant';
 						break;
+					case 'btn-nuclear-plant':
+						that.activatedMode = 'nuclearPlant';
+						break;
 				}
 				$('#btn-bar button').attr('disabled', true);
 				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
@@ -93,6 +97,11 @@ define([
 							var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 						}
 						break;
+					case 'nuclearPlant':
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
+						}
+						break;
 				}
 				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
 				that.activatedMode = null;
@@ -117,6 +126,7 @@ define([
 					case 49:
 						// 1
 						that.activatedMode = 'powerPlant';
+						btnId = 'btn-power-plant';
 						break;
 					case 50:
 						// 2
@@ -135,6 +145,8 @@ define([
 						break;
 					case 81:
 						// Q
+						that.activatedMode = 'nuclearPlant';
+						btnId = 'btn-nuclear-plant';
 						break;
 					case 87:
 						// W
