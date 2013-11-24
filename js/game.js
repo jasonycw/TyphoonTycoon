@@ -67,6 +67,7 @@ define([
 
 			reset: function() {
 				hsi = 9000;
+				gameTime = 0;
 				powerQuota = powerUsed = 0;
 				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
 				gameUI.setHSI(hsi);
@@ -88,8 +89,10 @@ define([
 				lastTime = now;
 				requestAnimFrame(Game.loop);
 
-				gameUI.setHSI(hsi);
-				// console.log(totalPower +" "+ consumePower +" "+ inputPower)
+			    //TODO change HSI 
+
+			    gameUI.setHSI(hsi);
+			    // console.log(totalPower +" "+ consumePower +" "+ inputPower)
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 
 				// Save the values for the tick methods in towers next time

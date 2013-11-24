@@ -15,15 +15,14 @@ define([
 		Unit.call(this,startX,startY,spriteSrc);
 		this.direction 	= 	0 ;
 		this.speed 		=	0 ;
+		this.originalSpeed = 0;
 		this.force 		= 	{dir:0,mag:0};
-		this.hp 		= 	(Math.random()*0.7+0.3)*Enemy.max_hp;
+		this.max_hp 	= 	Math.random()*Config.maxTyphoonHP;
+		this.hp 		= 	this.max_hp;
 		this.numberOfTicks = 0;
 		this.isSlowed	=	0;
 		this.typhoonID = Stage.addChild(this,'typhoons');
 	}
-	// config
-	Enemy.max_hp = 300;
-	Enemy.decayOnLand = 1;
 
 	//subclass extends superclass
 	Enemy.prototype = Object.create(Unit.prototype);
@@ -32,20 +31,18 @@ define([
 	// tick event handler
 	Enemy.prototype.tick = function(dt){	// override
 		this.updatePosition();
-
-		// remove it if out of stage
 		if(! this.isWithinCanvas() ){
 			this.remove();
 		}
 		this.numberOfTicks++;
-
+		console.log("Typhoon's tick completed.");
 	};
 	Enemy.prototype.render = function(ctx){
 
 		if(this.spriteReady){
 			//draw image
 			// ctx.save();
-			ctx.globalAlpha = (this.hp/Enemy.max_hp)*0.9;
+			ctx.globalAlpha = (this.hp/Config.maxTyphoonHP)*0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			this.drawRotatedImage(ctx,this.sprite,this.x,this.y,this.numberOfTicks);
@@ -75,19 +72,19 @@ define([
 		var addY = Math.sin(this.direction/180*Math.PI) * tempSpeed;
 		this.x += addX;
 		this.y += addY;
-
-		// Calculate if it will decade or recover
-		// TODO : MUST PUT IT BACK TO tick()
-		if(MapHitArea.isLand(this.x,this.y)){
-			this.damage(Enemy.max_hp*0.013);
-		}
-		if(tempSpeed<0.1){
-			this.damage(Enemy.max_hp*0.005);
-		}else{
-			this.damage(-1*Enemy.max_hp*0.003);
-		}
  
-		
+		// Calculate if it will decade or recover
+		if(MapHitArea.isLand(this.x,this.y))
+			this.damage(this.max_hp*0.013);
+		if(tempSpeed<0.1)
+			this.damage(this.max_hp*0.005);
+		else
+			if(this.hp<Config.maxTyphoonHP)
+			{
+				this.hp += Config.maxTyphoonHP*0.003;
+				if(this.hp > this.max_hp)
+					this.max_hp = this.hp;
+			}
 	};
 	/**
 	 * get the current motion of the typhoon
@@ -107,6 +104,10 @@ define([
 	Enemy.prototype.setMotion = function(dir,sp){
 		this.direction = dir;
 		this.speed = sp;
+		this.max_hp += (10-sp)*10;
+		if(this.max_hp>Config.maxTyphoonHP)
+			this.max_hp = Config.maxTyphoonHP;
+		this.hp = this.max_hp;
 
 	};
 	/**
@@ -172,7 +173,9 @@ define([
 		this.remove();
 	};
 	Enemy.prototype.remove = function(){
+		console.log("Removed typhoon number "+this.typhoonID);
 		Stage.removeChild(this.typhoonID,'typhoons');
+		//Unit.prototype.remove.call(this);
 	};
 
 

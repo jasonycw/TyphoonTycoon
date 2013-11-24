@@ -4,7 +4,11 @@ define({
 	hkArea: {
 		x: 376,
 		y: 238,
-		radius: 33
+		radius: 33,
+		color: "black",
+		lineWidth: 33,
+		fillStyle: "rgba(200, 255, 0, 0.1)",
+		cycleDuration: 140
 	},
 	
 	// Electricity generation and consumption

@@ -10,8 +10,10 @@ define([
 	'units/university',
 	'units/researchCenter',
 	'units/cheungKong',
+	'models/hkCircle',
 	'sound'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong,Sound) {
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
+
 	"use strict";
 
 	function UI() {
@@ -27,6 +29,10 @@ define([
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
 			this.queryScoreDOM();
+			
+			//TODO
+			this.drawHKCircle();
+
 			// Load game hit area
 			MapHitArea.init();
 
@@ -36,6 +42,10 @@ define([
 			// Set score
 			this.setHSI(9000);
 			this.setPowerBar(0, 0);
+
+		},
+		drawHKCircle: function() {
+			this.hkCircle = new HKCircle();
 		},
 		prepareBgImg: function() {
 			this.bgImg = new Image();
@@ -45,6 +55,8 @@ define([
 			this.bgImg.onload = function() {
 				that.bgReady = true;
 			}
+
+			
 		},
 		queryScoreDOM: function() {
 			this.$hsi = $('#hsi');
