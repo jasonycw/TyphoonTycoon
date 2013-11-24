@@ -35,7 +35,6 @@ define([
 			this.remove();
 		}
 		this.numberOfTicks++;
-		console.log("Typhoon's tick completed.");
 	};
 	Enemy.prototype.render = function(ctx){
 
@@ -175,9 +174,7 @@ define([
 		this.remove();
 	};
 	Enemy.prototype.remove = function(){
-		console.log("Removed typhoon number "+this.typhoonID);
 		Stage.removeChild(this.typhoonID,'typhoons');
-		//Unit.prototype.remove.call(this);
 	};
 
 

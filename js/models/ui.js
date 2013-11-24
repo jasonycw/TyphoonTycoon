@@ -6,8 +6,9 @@ define([
 	'units/freezeTower',
 	'units/reflectTower',
 	'units/powerPlant',
-	'units/nuclearPlant'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant) {
+	'units/nuclearPlant',
+	'sound'
+], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, Sound) {
 	"use strict";
 
 	function UI() {
@@ -25,6 +26,9 @@ define([
 			this.queryScoreDOM();
 			// Load game hit area
 			MapHitArea.init();
+
+			// Sound effect
+			this.sound = new Sound('sound');
 
 			// Set score
 			this.setHSI(9000);
@@ -78,28 +82,43 @@ define([
 						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
 						}
 						break;
 					case 'freezeTower':
 						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
 						}
 						break;
 					case 'reflectTower':
 						// Can only build on ocean
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
-							var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
+							var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
 						}
 						break;
 					case 'powerPlant':
 						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
 						}
 						break;
 					case 'nuclearPlant':
 						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 							var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
 						}
 						break;
 				}
