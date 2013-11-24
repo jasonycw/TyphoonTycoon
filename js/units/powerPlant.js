@@ -11,7 +11,7 @@ define([
 	function PowerPlant(startX, startY, spriteSrc) {
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
-		var buildEffect = new BuildEffect(this.x, this.y, "green", 40, 40, 3);
+		var buildEffect = new BuildEffect(this.x, this.y, "LawnGreen", 40, 40, 3);
 		Game.addPower(Config.powerPlantPower);
 
 		// Auto add to stage
