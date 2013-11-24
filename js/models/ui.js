@@ -20,8 +20,13 @@ define([
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
+			this.queryScoreDOM();
 			// Load game hit area
 			MapHitArea.init();
+
+			// Set score
+			this.setHSI(9000);
+			this.setPowerBar(0, 0);
 		},
 		prepareBgImg: function() {
 			this.bgImg = new Image();
@@ -31,6 +36,10 @@ define([
 			this.bgImg.onload = function() {
 				that.bgReady = true;
 			}
+		},
+		queryScoreDOM: function() {
+			this.$hsi = $('#hsi');
+			this.$powerBar = $('#power-bar');
 		},
 		bindBtnEvent: function() {
 			var that = this;
@@ -144,6 +153,18 @@ define([
 			if (this.bgReady) {
 				ctx.drawImage(this.bgImg, 0, 0);
 			}
+		},
+		setHSI: function(index) {
+			this.$hsi.html(index);
+		},
+		setPowerBar: function(remain, total) {
+			var power;
+			if (total == 0) {
+				power = 0;
+			} else {
+				power = remain / total * 100;
+			}
+			this.$powerBar.css('width', power + '%');
 		}
 	};
 
