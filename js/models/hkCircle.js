@@ -48,15 +48,21 @@ define([
 
 		//Inner Circle 
 		ctx.beginPath();
-		ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
-		ctx.fillStyle = Config.hkArea.fillStyle;
-		ctx.fill();
+		ctx.arc(this.x,this.y,this.radius,1.85*Math.PI,1.1*Math.PI);
+		ctx.strokeStyle = Config.hkArea.color;
+		ctx.lineWidth = 2;
+		ctx.stroke();
+		// ctx.fillStyle = Config.hkArea.fillStyle;
+		// ctx.fill();
 
 		//Outer Circle 
 		ctx.beginPath();
-		ctx.arc(this.x,this.y,this.radius*3,0,2*Math.PI);
-		ctx.fillStyle = Config.hkArea.fillStyle;
-		ctx.fill();
+		ctx.arc(this.x,this.y,this.radius*3,1.85*Math.PI,0.85*Math.PI);
+		ctx.strokeStyle = Config.hkArea.color;
+		ctx.lineWidth = 2;
+		ctx.stroke();
+		// ctx.fillStyle = Config.hkArea.fillStyle;
+		// ctx.fill();
 
 	};
 	/**
