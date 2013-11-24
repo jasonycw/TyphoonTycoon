@@ -40,10 +40,9 @@ define([
 		// console.log(nearestDist);
 		var tempEnemy	// reused variable
 		var dist;		// reused variable
-		for(var i=0; i <Stage.displayList['typhoons'].length; i++){
-			if(!Stage.displayList['typhoons'][i])continue;
+		for(var t in Stage.displayList['typhoons']){
 			
-			tempEnemy = Stage.displayList['typhoons'][i];
+			tempEnemy = Stage.displayList['typhoons'][t];
 			dist = Utility.pointDistance(	this.x,this.y,
 											tempEnemy.x,tempEnemy.y);
 			
@@ -52,6 +51,7 @@ define([
 				nearestDist = dist;
 			}
 		}
+
 		if(typeof nearestEnemy === 'object')
 			return {targetEnemy:nearestEnemy,distance:nearestDist};
 		else 
