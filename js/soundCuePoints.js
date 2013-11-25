@@ -23,5 +23,9 @@ define({
 	outOfPower: {
 		start: 8.135,
 		end: 10
+	},
+	gameOver: {
+		start: 11.078,
+		end: 13.2
 	}
 });
