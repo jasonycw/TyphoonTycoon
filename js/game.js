@@ -32,6 +32,11 @@ define([
 			powerUsed: 0,
 			hsi: 0,
 			hsiInterest: 0,
+			Built: {
+				university: false,
+				researchCenter: false,
+				cheungKongLimited: false
+			},
 			// Initialize the game
 			init: function() {
 				//console.log("Game.init() loaded");
@@ -255,6 +260,24 @@ define([
 			//just getter, will not display 
 			setHSI: function(value) {
 				hsi = value;
+			},
+			built: function(name) {
+				var that = this;
+				if(name == "University")
+					that.Built.university = true;
+				if(name == "ResearchCenter")
+					that.Built.researchCenter = true;
+				if(name == "CheungKongLimited")
+					that.Built.cheungKongLimited = true;
+			},
+			isBuilt: function(name) {
+				var that = this;
+				if(name == "University")
+					return that.Built.university;
+				if(name == "ResearchCenter")
+					return that.Built.researchCenter;
+				if(name == "CheungKongLimited")
+					return that.Built.cheungKongLimited;
 			}
 
 		}//End return

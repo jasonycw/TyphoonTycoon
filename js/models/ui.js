@@ -116,29 +116,36 @@ define([
 						that.activatedMode = 'attackTower';
 						break;
 					case 'btn-freeze-tower':
-						that.activatedMode = 'freezeTower';
+						if(Game.isBuilt('University'))
+							that.activatedMode = 'freezeTower';
 						break;
 					case 'btn-repel-tower':
-						that.activatedMode = 'reflectTower';
+						if(Game.isBuilt('ResearchCenter'))
+							that.activatedMode = 'reflectTower';
 						break;
 					case 'btn-power-plant':
 						that.activatedMode = 'powerPlant';
 						break;
 					case 'btn-nuclear-plant':
-						that.activatedMode = 'nuclearPlant';
+						if(Game.isBuilt('ResearchCenter'))
+							that.activatedMode = 'nuclearPlant';
 						break;
 					case 'btn-university':
 						that.activatedMode = 'university';
 						break;
 					case 'btn-research-center':
-						that.activatedMode = 'researchCenter';
+						if(Game.isBuilt('University'))
+							that.activatedMode = 'researchCenter';
 						break;
 					case 'btn-cheung-kong':
 						that.activatedMode = 'cheungKong';
 						break;
 				}
-				$('#btn-bar button').attr('disabled', true);
-				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
+				if(that.activatedMode!==null)
+				{
+					$('#btn-bar button').attr('disabled', true);
+					$(e.target).attr('disabled', false).attr('data-activated', 'activated');
+				}
 			})
 		},
 		// Check the tower can be build on land
@@ -379,18 +386,27 @@ define([
 						break;
 					case 51:
 						// 3
-						that.activatedMode = 'freezeTower';
-						btnId = 'btn-freeze-tower';
+						if(Game.isBuilt('University'))
+						{
+							that.activatedMode = 'freezeTower';
+							btnId = 'btn-freeze-tower';
+						}
 						break;
 					case 52:
 						// 4
-						that.activatedMode = 'reflectTower';
-						btnId = 'btn-repel-tower';
+						if(Game.isBuilt('ResearchCenter'))
+						{
+							that.activatedMode = 'reflectTower';
+							btnId = 'btn-repel-tower';
+						}
 						break;
 					case 81:
 						// Q
-						that.activatedMode = 'nuclearPlant';
-						btnId = 'btn-nuclear-plant';
+						if(Game.isBuilt('ResearchCenter'))
+						{
+							that.activatedMode = 'nuclearPlant';
+							btnId = 'btn-nuclear-plant';
+						}
 						break;
 					case 87:
 						// W
@@ -399,8 +415,11 @@ define([
 						break;
 					case 69:
 						// E
-						that.activatedMode = 'researchCenter';
-						btnId = 'btn-research-center';
+						if(Game.isBuilt('University'))
+						{
+							that.activatedMode = 'researchCenter';
+							btnId = 'btn-research-center';
+						}
 						break;
 					case 82:
 						// R
