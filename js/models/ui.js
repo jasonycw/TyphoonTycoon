@@ -100,6 +100,7 @@ define([
 		},
 		queryDOM: function() {
 			this.$hsi = $('#hsi');
+			this.$powerTitle = $('#power-title');
 			this.$powerBar = $('#power-bar');
 			this.$canvas = $('#game-canvas');
 		},
@@ -321,6 +322,11 @@ define([
 				power = remain / total * 100;
 			}
 			this.$powerBar.css('width', power + '%');
+			if (power <= 0) {
+				this.$powerTitle.addClass('title-danger').html('No Power!');
+			} else {
+				this.$powerTitle.removeClass('title-danger').html('Power');
+			}
 		}
 	};
 
