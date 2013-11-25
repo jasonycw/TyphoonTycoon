@@ -30,7 +30,7 @@ define([
 			powerQuota: 0,
 			powerUsed: 0,
 			hsi: 0,
-			hsiInterest: 0,
+			cash: 0,
 			level:1,
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
@@ -63,7 +63,7 @@ define([
 
 				setInterval(function(){
 					Game.updateHSI();
-				}, 1000 );
+				}, 100 );
 
 				
 				//setup experiment/testing
@@ -73,7 +73,7 @@ define([
 
 			reset: function() {
 				hsi = Config.HSI.init;
-				hsiInterest = 0;
+				cash = 0;
 				gameTime = 0;
 				powerQuota = powerUsed = 0;
 				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
@@ -198,6 +198,8 @@ define([
 				//TODO could be optimize
 				//
 				that = this;
+				var hsiChange = (Config.HSI.increment+Math.round(Math.random()*Config.HSI.upperOfRandom)+Math.round(Math.random()*Config.HSI.lowerOfRandom));
+
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
 					var distance;
@@ -205,51 +207,58 @@ define([
 						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
 					} catch(err){}
 					finally{
-
 						if( distance!==NaN && e!= null){
-
-							if( distance > (Config.hkArea.radius/2+e.radius) &&  distance <= (Config.hkArea.radius+e.radius)) {
-								console.log("inside outer circle");
-
-								if(hsiInterest > 0)
-									hsiInterest = hsiInterest - hsiInterest/5;
-								else
-									hsiInterest = hsiInterest + hsiInterest/5;
-
-
-								// penalty = -( Math.random() * hsiInterest ) - 20;
-								
-							}
-							else if (distance < (Config.hkArea.radius/2+e.radius) )
+							// console.log(Config.enemy.damage*(Config.hkArea.effectAreaRadius-Math.round(distance)));
+							if(distance <= Config.hkArea.effectAreaRadius)
 							{
-								console.log("inside inner circle");
+								console.log(Config.enemy.damage*(Config.hkArea.effectAreaRadius-Math.round(distance)));
+								hsiChange = -(Config.enemy.damage*Math.round((Config.hkArea.effectAreaRadius-Math.round(distance))*0.1));
+							}
+
+							// if( distance > (Config.hkArea.radius/2+e.radius) &&  distance <= (Config.hkArea.radius+e.radius)) {
+							// 	console.log("inside outer circle");
+
+							// 	if(hsiInterest > 0)
+							// 		hsiInterest = hsiInterest - hsiInterest/5;
+							// 	else
+							// 		hsiInterest = hsiInterest + hsiInterest/5;
 
 
-								if(hsiInterest > 0)
-									hsiInterest = hsiInterest - hsiInterest/3;
-								else
-									hsiInterest = hsiInterest + hsiInterest/3;
-
-								penalty =  -( Math.random() * hsiInterest * 3 ) - 100;
-
-							}//End if 
-
-							// if(distance <= Config.hkArea.effectAreaRadius)
-							// {
-							// 	console.log("HSI before damage:  " + hsi);
-							// 	hsi -= Config.enemy.damage;
-							// 	console.log("HSI after damage:  " + hsi);
+							// 	// penalty = -( Math.random() * hsiInterest ) - 20;
+								
 							// }
+							// else if (distance < (Config.hkArea.radius/2+e.radius) )
+							// {
+							// 	console.log("inside inner circle");
+
+
+							// 	if(hsiInterest > 0)
+							// 		hsiInterest = hsiInterest - hsiInterest/3;
+							// 	else
+							// 		hsiInterest = hsiInterest + hsiInterest/3;
+
+							// 	penalty =  -( Math.random() * hsiInterest * 3 ) - 100;
+
+							// }//End if 
+
+							// // if(distance <= Config.hkArea.effectAreaRadius)
+							// // {
+							// // 	console.log("HSI before damage:  " + hsi);
+							// // 	hsi -= Config.enemy.damage;
+							// // 	console.log("HSI after damage:  " + hsi);
+							// // }
 						}//End if
 
 					}//End try..finally
 				} //End for
-				if (penalty > 0) penalty *= -1;
-				hsiInterest += Math.random()*Config.HSI.increment + penalty;
-				console.log("hsiInterest:" +hsiInterest, "penalty:" + penalty);
-				hsi += Math.round(hsiInterest);
-				this.setHSI(hsi);
+				// if (penalty > 0) penalty *= -1;
+				// hsiInterest += Math.random()*Config.HSI.increment + penalty;
+				// console.log("hsiInterest:" +hsiInterest, "penalty:" + penalty);
+				// hsi += Math.round(hsiInterest);
+				// this.setHSI(hsi);
 
+
+				this.affectHSI(hsiChange);
 				gameUI.setHsiDisplayValue(hsi);
 				//console.log(hsi, hsiInterest);
 			},

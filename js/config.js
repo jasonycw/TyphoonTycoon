@@ -4,20 +4,21 @@ define({
 	hkArea: {
 		x: 376,
 		y: 238,
-		effectAreaRadius: 50,
+		effectAreaRadius: 100,
 		radius: 165,
 		color: "rgba(200, 255, 0, 0.1)",
 		lineWidth: 33,
 		fillStyle: "rgba(200, 255, 0, 0.1)",
 		cycleDuration: 140
 	},
+
 	nearestBuildingDistance: 40,
 	
 
 	enemy:{
 		max_hp : 300,
 		decayOnLand : 1,
-		damage: 500,
+		damage: 50,
 		typhoonAbsorbRate: 10,
 		intiMinAmong: 1,
 		intiMaxAmong: 20,
@@ -68,8 +69,8 @@ define({
 	// Hang Sang Index
 	HSI:{
 		init: 9000,
-		upperOfRandom: 20,
-		lowerOfRandom: -20,
+		upperOfRandom: 10,
+		lowerOfRandom: -10,
 		increment: 20
 	}
 });
