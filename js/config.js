@@ -5,7 +5,7 @@ define({
 		x: 376,
 		y: 238,
 		radius: 33,
-		color: "black",
+		color: "rgba(200, 255, 0, 0.1)",
 		lineWidth: 33,
 		fillStyle: "rgba(200, 255, 0, 0.1)",
 		cycleDuration: 140
