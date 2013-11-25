@@ -6,8 +6,9 @@ define([
 	'models/buildEffect',
 	'models/laser',
 	'config',
-	'Game'
-], function(Unit,Stage,Tower,BuildEffect,Laser,Config,Game) {
+	'Game',
+	'sound'
+], function(Unit,Stage,Tower,BuildEffect,Laser,Config,Game,Sound) {
 
 	console.log("freezeTower.js loaded");
 
@@ -20,6 +21,8 @@ define([
 
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
+
+		this.sound = new Sound('freezeTowerSound');
 		//var nearEnemy = this.findNearestEnemy();
 		//nearEnemy.setMotion(0,0);
 	}
@@ -43,6 +46,7 @@ define([
 			if(target.distance <= Config.freezeTower.range && Game.getAvailablePower() > 0)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
+				this.sound.play('wrap');
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);
 				var buildEffect = new BuildEffect(target.targetEnemy.x, target.targetEnemy.y, "aqua", 15, 7, 1);
 				target.targetEnemy.slow(Config.freezeTower.slowRate);
