@@ -4,7 +4,7 @@ define({
 	hkArea: {
 		x: 376,
 		y: 238,
-		radius: 33,
+		radius: 165,
 		color: "rgba(200, 255, 0, 0.1)",
 		lineWidth: 33,
 		fillStyle: "rgba(200, 255, 0, 0.1)",
@@ -32,4 +32,5 @@ define({
 	universityHSI: -2500,
 	researchCenterHSI: -4000,
 	cheungKongHSI: -10000
+
 });

@@ -48,7 +48,7 @@ define([
 
 		//Inner Circle 
 		ctx.beginPath();
-		ctx.arc(this.x,this.y,this.radius,1.85*Math.PI,1.1*Math.PI);
+		ctx.arc(this.x,this.y,this.radius,1.91*Math.PI,0.9*Math.PI);
 		ctx.strokeStyle = Config.hkArea.color;
 		ctx.lineWidth = 2;
 		ctx.stroke();
@@ -57,7 +57,7 @@ define([
 
 		//Outer Circle 
 		ctx.beginPath();
-		ctx.arc(this.x,this.y,this.radius*3,1.85*Math.PI,0.85*Math.PI);
+		ctx.arc(this.x,this.y,this.radius*2,1.87*Math.PI,0.9*Math.PI);
 		ctx.strokeStyle = Config.hkArea.color;
 		ctx.lineWidth = 2;
 		ctx.stroke();

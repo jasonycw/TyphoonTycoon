@@ -127,7 +127,7 @@ define([
 				var nearestBuilding = that.findNearestBuilding(mousePos.x,mousePos.y);
 				if(nearestBuilding)
 				{
-					console.log(nearestBuilding.distance);
+					// console.log(nearestBuilding.distance);
 					if(that.findNearestBuilding(mousePos.x,mousePos.y).distance >= Config.nearestBuildingDistance)
 						switch (that.activatedMode) {
 							case 'attackTower':
