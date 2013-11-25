@@ -3,12 +3,13 @@ define([
 	'Utility',
 	'units/unit',
 	'stage',
+	'sound',
 	'units/tower',
 	'models/buildEffect',
 	'models/laser',
 	'config',
 	'Game'
-], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,Game) {
+], function(Utility,Unit,Stage,Sound,Tower,BuildEffect,Laser,Config,Game) {
 
 	console.log("attackTower.js loaded");
 
@@ -20,6 +21,7 @@ define([
 		this.coolDownCounter = 0;
 		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
 		Game.addPower(Config.laserTower.power);
+		this.sound = new Sound('sound');
 
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
@@ -43,6 +45,7 @@ define([
 		 * @returns {undefined} if no enemy is alive
 		 */
 		if(this.coolDownCounter<=0){
+			var that = this;
 			var target = this.findNearestEnemy();
 			if(target)
 			{
@@ -53,6 +56,7 @@ define([
 					var aimX = target.targetEnemy.x - enemyWidth/8+ Math.random()*enemyWidth/4;
 					var aimY = target.targetEnemy.y - enemyWidth/8+ Math.random()*enemyWidth/4;
 					var laser = new Laser(this.x, this.y, aimX, aimY, "red", 10, 3);
+					that.sound.play('laser');
 					var buildEffect = new BuildEffect(aimX,aimY, "red", 15, 7, 1);
 					target.targetEnemy.damage(Config.laserTower.attackDamage);
 					this.coolDownCounter = this.coolDownTime;
