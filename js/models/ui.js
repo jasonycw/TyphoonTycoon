@@ -161,7 +161,7 @@ define([
 				$('#btn-research-center').attr('disabled', true);
 			}
 
-			if (Game.getHSI() >= Config.cheungKong.cost) {
+			if (Game.getHSI() >= Config.cheungKong.cost && Game.isBuilt('ResearchCenter')) {
 				$('#btn-cheung-kong').attr('disabled', false);
 			} else {
 				$('#btn-cheung-kong').attr('disabled', true);
@@ -200,7 +200,8 @@ define([
 							that.activatedMode = 'researchCenter';
 						break;
 					case 'btn-cheung-kong':
-						that.activatedMode = 'cheungKong';
+						if(Game.isBuilt('ResearchCenter'))
+							that.activatedMode = 'cheungKong';
 						break;
 				}
 				if(that.activatedMode!==null)
@@ -315,7 +316,7 @@ define([
 							case 'university':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.university.cost) {
 									var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
-									Game.setHSI(Game.getHSI()+Config.university.cost);
+									Game.setHSI(Game.getHSI()-Config.university.cost);
 
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -329,7 +330,7 @@ define([
 							case 'researchCenter':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.researchCenter.cost) {
 									var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
-									Game.setHSI(Game.getHSI()+Config.researchCenter.cost);
+									Game.setHSI(Game.getHSI()-Config.researchCenter.cost);
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -344,7 +345,7 @@ define([
 									var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
 
 									that.buildSound.play('plot');
-									Game.setHSI(Game.getHSI()+Config.cheungKong.cost);
+									Game.setHSI(Game.getHSI()-Config.cheungKong.cost);
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -438,8 +439,14 @@ define([
 						break;
 					case 82:
 						// R
-						that.activatedMode = 'cheungKong';
-						btnId = 'btn-cheung-kong';
+						if(Game.isBuilt('ResearchCenter'))
+						{
+							that.activatedMode = 'cheungKong';
+							btnId = 'btn-cheung-kong';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					default:
 						that.activatedMode = null;

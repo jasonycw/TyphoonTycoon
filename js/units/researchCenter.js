@@ -15,6 +15,13 @@ define([
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
+
+		Config.attackTower.range += 5;
+		Config.attackTower.attackDamage += 3;
+		Config.attackTower.cost += 100;
+		Config.freezeTower.range += 10;
+		Config.freezeTower.slowRate += 10;
+		Config.freezeTower.cost += 100;
 		Game.built('ResearchCenter');
 		Game.addPower(Config.researchCenter.power);
 	}

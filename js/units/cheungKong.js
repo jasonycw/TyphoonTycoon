@@ -16,6 +16,12 @@ define([
 		
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
+
+		Config.HSI.increment *= 2;
+		Config.repelTower.range += 20;
+		Config.repelTower.range -= 3;
+		Config.repelTower.cost -= 300;
+
 		Game.built('CheungKongLimited');
 		Game.addPower(Config.cheungKong.power);
 	}

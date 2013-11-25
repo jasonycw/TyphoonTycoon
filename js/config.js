@@ -35,14 +35,15 @@ define({
 	},
 	freezeTower:{
 		range : 	70,
-		slowRate : 	70,
+		attackDamage : 	5,
+		slowRate : 	80,
 		power: 		-6,
-		cost:		1500
+		cost:		700
 	},
 	repelTower:{
 		range : 100,
 		power : -10,
-		cost:	3000
+		cost:	2500
 	},
 
 	// structures	=============================
@@ -64,7 +65,7 @@ define({
 	},
 	cheungKong:{
 		power: 	-50,
-		cost:	10000
+		cost:	7000
 	},
 	// Hang Sang Index
 	HSI:{

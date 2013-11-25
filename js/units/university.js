@@ -15,6 +15,10 @@ define([
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
+
+		Config.attackTower.range += 2;
+		Config.attackTower.attackDamage += 5;
+		Config.attackTower.cost += 20;
 		Game.built("University");
 		Game.addPower(Config.university.power);
 	}
