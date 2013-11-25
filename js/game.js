@@ -35,6 +35,7 @@ define([
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
+			updateHSIIntervalID: null,
 			Built: {
 				university: false,
 				researchCenter: false,
@@ -61,7 +62,7 @@ define([
 				lastTime = Date.now();
 				this.loop();
 
-				setInterval(function(){
+				updateHSIIntervalID = setInterval(function(){
 					Game.updateHSI();
 				}, 100 );
 
@@ -96,7 +97,6 @@ define([
 				stage.render();
 
 				lastTime = now;
-				requestAnimFrame(Game.loop);
 
 			    //TODO change HSI 
 
@@ -109,6 +109,12 @@ define([
 				// prevTotalPower = totalPower;
 				// // Electricity cannot be stored because we don't have such a large battery in real world!
 		  //   	totalPower = consumePower = inputPower = 0;
+		  		if (hsi <= 0) {
+		  			gameUI.showGameOver();
+		  			clearInterval(updateHSIIntervalID)
+		  		} else {
+					requestAnimFrame(Game.loop);
+		  		}
 			},
 			/*
 				tick() : 
