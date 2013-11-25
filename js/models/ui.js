@@ -26,11 +26,12 @@ define([
 	UI.prototype = {
 		constructor: UI,
 		init: function() {
+			this.queryDOM();
 			this.prepareBgImg();
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
-			this.queryScoreDOM();
+			this.bindCanvasMouseMoveEvent();
 			
 			//TODO
 			this.drawHKCircle();
@@ -81,9 +82,26 @@ define([
 			else 
 				return null;
 		},
-		queryScoreDOM: function() {
+		bindCanvasMouseMoveEvent: function() {
+			var that = this;
+			this.$canvas.mousemove(function(e) {
+				if (!that.activatedMode) {
+					that.$canvas.css('cursor', 'default');
+					return;
+				}
+				var mousePos = Utility.getMouse(e);
+				var nearestBuilding = that.findNearestBuilding(mousePos.x, mousePos.y);
+				if (nearestBuilding && nearestBuilding.distance >= Config.nearestBuildingDistance && that.canBuildOnLand(that.activatedMode) == MapHitArea.isLand(mousePos.x, mousePos.y)) {
+					that.$canvas.css('cursor', 'default');
+				} else {
+					that.$canvas.css('cursor', 'not-allowed');
+				}
+			});
+		},
+		queryDOM: function() {
 			this.$hsi = $('#hsi');
 			this.$powerBar = $('#power-bar');
+			this.$canvas = $('#game-canvas');
 		},
 		bindBtnEvent: function() {
 			var that = this;
@@ -120,6 +138,27 @@ define([
 				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
 			})
 		},
+		// Check the tower can be build on land
+		canBuildOnLand: function(tower) {
+			switch (tower) {
+				case 'attackTower':
+					return false;
+				case 'freezeTower':
+					return false;
+				case 'reflectTower':
+					return false;
+				case 'powerPlant':
+					return true;
+				case 'nuclearPlant':
+					return true;
+				case 'university':
+					return true;
+				case 'researchCenter':
+					return true;
+				case 'cheungKong':
+					return true;
+			}
+		},
 		bindCanvasClickEvent: function() {
 			var that = this;
 			$('#game-canvas').click(function(event) {
@@ -127,7 +166,6 @@ define([
 				var nearestBuilding = that.findNearestBuilding(mousePos.x,mousePos.y);
 				if(nearestBuilding)
 				{
-					console.log(nearestBuilding.distance);
 					if(that.findNearestBuilding(mousePos.x,mousePos.y).distance >= Config.nearestBuildingDistance)
 						switch (that.activatedMode) {
 							case 'attackTower':
@@ -208,7 +246,7 @@ define([
 			$(document).keyup(function(e) {
 				//console.log(e.which);
 
-				// Esc
+				// Esc or Space bar
 				if (e.which === 27 || e.which === 32) {
 					$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
 					that.activatedMode = null;

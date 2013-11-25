@@ -10,7 +10,7 @@ define({
 		fillStyle: "rgba(200, 255, 0, 0.1)",
 		cycleDuration: 140
 	},
-	nearestBuildingDistance: 20,
+	nearestBuildingDistance: 40,
 	
 	// Electricity generation and consumption
 	powerPlantPower: 10,
