@@ -2,6 +2,7 @@ define([
 	'jquery',
 	'models/MapHitArea',
 	'utility',
+	'config',
 	'units/attackTower',
 	'units/freezeTower',
 	'units/reflectTower',
@@ -12,7 +13,7 @@ define([
 	'units/cheungKong',
 	'models/hkCircle',
 	'sound'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
+], function($, MapHitArea, Utility, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
 
 	"use strict";
 
@@ -40,7 +41,7 @@ define([
 			this.sound = new Sound('sound');
 
 			// Set score
-			this.setHSI(9000);
+			this.setHSI(Config.initHSI);
 			this.setPowerBar(0, 0);
 
 		},
@@ -229,11 +230,6 @@ define([
 						// R
 						that.activatedMode = 'cheungKong';
 						btnId = 'btn-cheung-kong';
-						break;
-					default:
-						return;
-						// that.activatedMode = null;
-						// btnId = null;
 						break;
 				}
 				if(that.activatedMode!==null)

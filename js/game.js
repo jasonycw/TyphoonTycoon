@@ -66,7 +66,7 @@ define([
 			},	//End init
 
 			reset: function() {
-				hsi = 9000;
+				hsi = Config.initHSI;
 				gameTime = 0;
 				powerQuota = powerUsed = 0;
 				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
