@@ -1,7 +1,8 @@
 // defines your module and loads any dependencies
 define([
-	'stage'
-], function(Stage) {
+	'stage',
+	'config'
+], function(Stage,Config) {
 
 	console.log("unit.js loaded");
 	/*
@@ -45,6 +46,12 @@ define([
 			var drawY = this.y - this.spriteOrigin.y;
 			ctx.drawImage(this.sprite,drawX,drawY);
 		}
+		ctx.beginPath();
+		ctx.arc(this.x,this.y,Config.nearestBuildingDistance,0,2*Math.PI);
+		ctx.fillStyle="silver";
+		ctx.globalAlpha = 0.1;
+		ctx.fill();
+		ctx.globalAlpha = 1;
 
 	};
 	/**

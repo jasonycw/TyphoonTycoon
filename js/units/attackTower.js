@@ -46,19 +46,19 @@ define([
 		 */
 		if(this.coolDownCounter<=0){
 			var that = this;
-			var target = this.findNearestEnemy();
-			if(target)
+			var nearestEnemy = this.findNearestEnemyWithin(Config.attackTower.range);
+			if(nearestEnemy)
 			{
-				if(target.distance <= Config.attackTower.range && Game.getAvailablePower() > 0)
+				if(nearestEnemy.distance <= Config.attackTower.range && Game.getAvailablePower() > 0)
 				{
 					// console.log("tower "+this.x+" "+ this.y);
-					var enemyWidth = target.targetEnemy.sprite.width;
-					var aimX = target.targetEnemy.x - enemyWidth/8+ Math.random()*enemyWidth/4;
-					var aimY = target.targetEnemy.y - enemyWidth/8+ Math.random()*enemyWidth/4;
+					var enemyWidth = nearestEnemy.target.sprite.width;
+					var aimX = nearestEnemy.target.x - enemyWidth/8+ Math.random()*enemyWidth/4;
+					var aimY = nearestEnemy.target.y - enemyWidth/8+ Math.random()*enemyWidth/4;
 					var laser = new Laser(this.x, this.y, aimX, aimY, "red", 10, 3);
 					that.sound.play('laser');
 					var buildEffect = new BuildEffect(aimX,aimY, "red", 15, 7, 1);
-					target.targetEnemy.damage(Config.attackTower.attackDamage);
+					nearestEnemy.target.damage(Config.attackTower.attackDamage);
 					this.coolDownCounter = this.coolDownTime;
 					// Game.addPower(Config.Config.attackTower.power);
 				}

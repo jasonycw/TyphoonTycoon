@@ -12,12 +12,13 @@ define({
 		cycleDuration: 140
 	},
 	nearestBuildingDistance: 40,
-	typhoonAbsorbRate: 10,
+	
 
 	enemy:{
 		max_hp : 300,
 		decayOnLand : 1,
 		damage: 500
+		typhoonAbsorbRate: 10,
 		intiMinAmong: 1,
 		intiMaxAmong: 20,
 		difficulty: 15, //larger is easier

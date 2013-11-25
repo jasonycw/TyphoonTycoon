@@ -196,7 +196,8 @@ define([
 				}
 				if(that.activatedMode!==null)
 				{
-					$('#btn-bar button').attr('disabled', true);
+					//$('#btn-bar button').attr('disabled', true);
+					$('#btn-bar button').removeAttr('data-activated');
 					$(e.target).attr('disabled', false).attr('data-activated', 'activated');
 				}
 			})
@@ -436,7 +437,8 @@ define([
 						btnId = null;
 				}
 				if (that.activatedMode !== null) {
-					$('#btn-bar button').attr('disabled', true);
+					//$('#btn-bar button').attr('disabled', true);
+					$('#btn-bar button').removeAttr('data-activated');
 					$('#' + btnId).attr('disabled', false).attr('data-activated', 'activated');
 				} else {
 					$('#btn-bar button').removeAttr('data-activated');

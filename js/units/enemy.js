@@ -38,13 +38,13 @@ define([
 			if(nearestTyphoon.distance <= 30)
 			{
 				//console.log("2 typhoons are nearby.");
-				var absorbRate = Config.typhoonAbsorbRate;
-				if(this.hp<nearestTyphoon.targetTyphoon.hp)
-					absorbRate = -Config.typhoonAbsorbRate;
-				//console.log("original: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
-				nearestTyphoon.targetTyphoon.damage(absorbRate);
+				var absorbRate = Config.enemy.absorbRate;
+				if(this.hp<nearestTyphoon.target.hp)
+					absorbRate = -Config.enemy.absorbRate;
+				//console.log("original: "+this.hp+"   "+nearestTyphoon.target.hp);
+				nearestTyphoon.target.damage(absorbRate);
 				this.damage(-absorbRate);
-				//console.log("changed: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
+				//console.log("changed: "+this.hp+"   "+nearestTyphoon.target.hp);
 			}
 		}
 		// if(Utility.pointDistance(this.x,this.y,Config.hkArea.x,Config.hkArea.y) <= Config.hkArea.effectAreaRadius)
@@ -69,7 +69,7 @@ define([
 			// ctx.restore();
 			ctx.globalAlpha = 1;
 			// ctx.fillText(this.typhoonID,this.x,this.y);
-			//ctx.fillText(this.isSlowed,this.x,this.y);
+			// ctx.fillText(this.isSlowed,this.x,this.y);
 		}
 	};
 
@@ -211,7 +211,7 @@ define([
 		}
 
 		if(typeof nearestTyphoon === 'object')
-			return {targetTyphoon:nearestTyphoon,distance:nearestDist};
+			return {target:nearestTyphoon,distance:nearestDist};
 		else 
 			return null;
 	};
