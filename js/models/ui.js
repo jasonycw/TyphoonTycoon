@@ -107,6 +107,9 @@ define([
 			this.$canvas = $('#game-canvas');
 		},
 		setButtonState: function() {
+			if (this.activatedMode !== null) {
+				return;
+			}
 			if (Game.getHSI() >= Config.attackTower.cost) {
 				$('#btn-laser-tower').attr('disabled', false);
 			} else {
@@ -230,18 +233,14 @@ define([
 						switch (that.activatedMode) {
 							case 'attackTower':
 								// Can only build on ocean
-								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
-									
-									if(Game.getHSI() >= Config.attackTower.cost){
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.attackTower.cost) {
+									var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
+									Game.setHSI(Game.getHSI()-Config.attackTower.cost);
 
-										var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
-										Game.setHSI(Game.getHSI()-Config.attackTower.cost);
-
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -249,18 +248,14 @@ define([
 								break;
 							case 'freezeTower':
 								// Can only build on ocean
-								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.freezeTower.cost) {
+									var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
+									Game.setHSI(Game.getHSI()-Config.freezeTower.cost);
 
-									if(Game.getHSI() >= Config.freezeTower.cost){
-
-										var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
-										Game.setHSI(Game.getHSI()-Config.freezeTower.cost);
-
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -268,100 +263,82 @@ define([
 								break;
 							case 'reflectTower':
 								// Can only build on ocean
-								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
-
-									if(Game.getHSI() >= Config.repelTower.cost){
-
-										var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
-										Game.setHSI(Game.getHSI()-Config.repelTower.cost);
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.repelTower.cost) {
+									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
+									Game.setHSI(Game.getHSI()-Config.repelTower.cost);
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'powerPlant':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-									if(Game.getHSI() >= Config.powerPlant.cost){
-
-										var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.powerPlant.cost) {
+									var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
+									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()-Config.powerPlant.cost);
+									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
-										Game.setHSI(Game.getHSI()-Config.powerPlant.cost);
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'nuclearPlant':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-									if(Game.getHSI() >= Config.nuclearPlant.cost){
-										var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
-										Game.setHSI(Game.getHSI()-Config.nuclearPlant.cost);
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.nuclearPlant.cost) {
+									var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
+									Game.setHSI(Game.getHSI()-Config.nuclearPlant.cost);
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'university':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-									if(Game.getHSI() >= Config.university.cost){
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.university.cost) {
+									var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
+									Game.setHSI(Game.getHSI()+Config.university.cost);
 
-										var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
-										Game.setHSI(Game.getHSI()+Config.university.cost);
-
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'researchCenter':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-									if(Game.getHSI() >= Config.researchCenter.cost){
-
-										var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
-										Game.setHSI(Game.getHSI()+Config.researchCenter.cost);
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.researchCenter.cost) {
+									var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
+									Game.setHSI(Game.getHSI()+Config.researchCenter.cost);
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'cheungKong':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-									if(Game.getHSI() >= Config.cheungKong.cost){
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.cheungKong.cost) {
+									var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
 
-										var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
-
+									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.cheungKong.cost);
+									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
-										Game.setHSI(Game.getHSI()+Config.cheungKong.cost);
-										if (Game.getAvailablePower() > 0) {
-											that.buildSound.play('plot');
-										} else {
-											that.buildSound.play('outOfPower');
-										}
+									} else {
+										that.buildSound.play('outOfPower');
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -369,9 +346,9 @@ define([
 								break;
 						}
 				}
+				that.activatedMode = null;
 				that.setButtonState();
 				$('#btn-bar button').removeAttr('data-activated');
-				that.activatedMode = null;
 			});
 		},
 		bindKeyboardEvent: function() {
@@ -382,8 +359,8 @@ define([
 				// Esc or Space bar
 				if (e.which === 27 || e.which === 32) {
 					$('#btn-bar button').removeAttr('data-activated');
-					that.setButtonState();
 					that.activatedMode = null;
+					that.setButtonState();
 					return;
 				}
 				// if (that.activatedMode !== null) {
@@ -403,10 +380,12 @@ define([
 						break;
 					case 51:
 						// 3
-						if(Game.isBuilt('University'))
-						{
+						if(Game.isBuilt('University')) {
 							that.activatedMode = 'freezeTower';
 							btnId = 'btn-freeze-tower';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
 						}
 						break;
 					case 52:
@@ -415,6 +394,9 @@ define([
 						{
 							that.activatedMode = 'reflectTower';
 							btnId = 'btn-repel-tower';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
 						}
 						break;
 					case 81:
@@ -423,6 +405,9 @@ define([
 						{
 							that.activatedMode = 'nuclearPlant';
 							btnId = 'btn-nuclear-plant';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
 						}
 						break;
 					case 87:
@@ -436,6 +421,9 @@ define([
 						{
 							that.activatedMode = 'researchCenter';
 							btnId = 'btn-research-center';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
 						}
 						break;
 					case 82:
@@ -443,11 +431,16 @@ define([
 						that.activatedMode = 'cheungKong';
 						btnId = 'btn-cheung-kong';
 						break;
+					default:
+						that.activatedMode = null;
+						btnId = null;
 				}
-				if(that.activatedMode!==null)
-				{
+				if (that.activatedMode !== null) {
 					$('#btn-bar button').attr('disabled', true);
 					$('#' + btnId).attr('disabled', false).attr('data-activated', 'activated');
+				} else {
+					$('#btn-bar button').removeAttr('data-activated');
+					that.setButtonState();
 				}
 			});
 		},
