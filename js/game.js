@@ -112,7 +112,6 @@ define([
 					gameTime += dt;
 				}
 
-				this.updateEntities(dt);
 				/*
 					Create Enemies with time increasing
 					- It gets harder over time by adding enemies using this
