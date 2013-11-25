@@ -165,11 +165,10 @@ define([
 
 							//TODO: change different kind of enemies
 							t = new Enemy(xx, yy, "img/typhoon.png");
-							var hk_dir = Utility.pointDirection(xx,
-								yy,
-								Config.hkArea.x,
-								Config.hkArea.y);
-							t.setMotion(hk_dir, Math.random() * this.level+1 +0.5);
+							var hk_dir = Utility.pointDirection(
+								xx,	yy,
+								Config.hkArea.x, Config.hkArea.y);
+							t.setMotion(hk_dir+Math.random()*120-60, Math.random() * this.level+1 +0.5);
 
 							this.enemyCounter+=1;
 						}; //End for

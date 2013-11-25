@@ -29,6 +29,10 @@ define([
 
 	// tick event handler
 	Enemy.prototype.tick = function(dt){	// override
+		this.addMotion(
+						Utility.pointDirection(this.x,this.y,Config.hkArea.x,Config.hkArea.y),
+						0.05
+						);
 		this.updatePosition();
 
 		// absorb the nearby weak enemy
@@ -70,6 +74,7 @@ define([
 			ctx.globalAlpha = 1;
 			// ctx.fillText(this.typhoonID,this.x,this.y);
 			// ctx.fillText(this.isSlowed,this.x,this.y);
+			ctx.fillText(this.hp,this.x,this.y);
 		}
 	};
 
