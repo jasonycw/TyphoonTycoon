@@ -13,8 +13,9 @@ define([
 	'units/researchCenter',
 	'units/cheungKong',
 	'models/hkCircle',
-	'sound'
-], function($, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
+	'sound',
+	'Game'
+], function($, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Game) {
 
 	"use strict";
 
@@ -35,7 +36,6 @@ define([
 			this.bindCanvasClickEvent();
 			this.bindCanvasMouseMoveEvent();
 			
-			//TODO
 			this.drawHKCircle();
 
 			// Load game hit area
@@ -176,7 +176,11 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
-									that.buildSound.play('plot');
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -185,7 +189,11 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
-									that.buildSound.play('plot');
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -194,7 +202,11 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
-									that.buildSound.play('plot');
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -202,7 +214,11 @@ define([
 							case 'powerPlant':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
-									that.buildSound.play('plot');
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -210,15 +226,22 @@ define([
 							case 'nuclearPlant':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
-									that.buildSound.play('plot');
-								} else {
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'university':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
-									that.buildSound.play('plot');
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -226,7 +249,11 @@ define([
 							case 'researchCenter':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
-									that.buildSound.play('plot');
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -234,7 +261,11 @@ define([
 							case 'cheungKong':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
-									that.buildSound.play('plot');
+									if (Game.getAvailablePower() > 0) {
+										that.buildSound.play('plot');
+									} else {
+										that.buildSound.play('outOfPower');
+									}
 								} else {
 									that.buildSound.play('disabled');
 								}
