@@ -27,8 +27,6 @@ define([
 		var lastTime;
 		var gameTime = 0;
 
-		
-
 		return {
 			// prevInputPower: 0,
 			// prevConsumePower: 0,
@@ -84,7 +82,6 @@ define([
 
 				Game.tick(dt);
 				stage.render();
-				
 
 				lastTime = now;
 				requestAnimFrame(Game.loop);
@@ -102,7 +99,6 @@ define([
 				// // Electricity cannot be stored because we don't have such a large battery in real world!
 		  //   	totalPower = consumePower = inputPower = 0;
 			},
-
 			/*
 				tick() : 
 				- handling input event
@@ -166,6 +162,12 @@ define([
 					})
 				});
 				//console.timeEnd("updateEntities");
+			},
+			/*
+				update HSI
+			 */
+			updateHSI: function () {
+				
 			},
 			/*
 				isolate following testing code, there are 2 function for 2 different kind of code

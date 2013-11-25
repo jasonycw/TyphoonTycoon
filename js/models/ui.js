@@ -15,6 +15,7 @@ define([
 	function UI() {
 		this.bgReady = false;
 		this.activatedMode = null;
+		this.HSI;
 	}
 
 	UI.prototype = {
@@ -36,8 +37,8 @@ define([
 			this.sound = new Sound('sound');
 
 			// Set score
-			this.setHSI(9000);
-			this.setPowerBar(0, 0);
+			// this.setHSI(9000);
+			// this.setPowerBar(0, 0);
 
 		},
 		drawHKCircle: function() {
@@ -198,6 +199,10 @@ define([
 		},
 		setHSI: function(index) {
 			this.$hsi.html(index);
+			this.HSI = index;
+		},
+		getHSI: function() {
+			return	this.HSI;
 		},
 		setPowerBar: function(remain, total) {
 			var power;

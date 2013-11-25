@@ -2,8 +2,10 @@
 define([
 	'stage',
 	'models/effect',
-	'config'
-], function(Stage, Effect, Config) {
+	'config',
+	'utility',
+	'models/ui'
+], function(Stage, Effect, Config, Utility, UI) {
 
 	console.log("hkCircle.js loaded");
 	/*
@@ -22,10 +24,10 @@ define([
 			this.radius = Config.hkArea.radius;
 			this.lineWidth = Config.hkArea.lineWidth;
 			this.id = Stage.addChild(this,'effects');
-			
+			this.hsiInterest = 0;
 			// this.duration = Config.hkArea.cycleDuration;
 			// this.totalDuration = Config.hkArea.cycleDuration;
-
+			//this.totalDt = 0;
 	};
 
 	HKCircle.prototype = Object.create(Effect.prototype);
@@ -33,9 +35,41 @@ define([
 
 	// tick event handler
 	HKCircle.prototype.tick = function(dt){
-		// this.duration--;
-		// if(!this.duration) 
-		// 	this.duration = Config.hkArea.cycleDuration;
+
+		// this.totalDt+=dt;
+		// if(Math.round(this.totalDt)%2 == 0) {
+			//TODO change to at time intervew
+			this.hsiInterest += Math.ceil(dt);
+
+			//check any typhoon within the circle
+			//TODO could be optimize
+			for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
+				var e = Stage.displayList['typhoons'][i];
+				var distance;
+				try{
+					distance = Utility.pointDistance(this.x, this.y, e.x, e.y);
+				} catch(err){}
+				finally{
+					if( distance!=NaN ){
+						if( distance > this.radius &&  distance <= this.radius*3){
+							this.hsiInterest -= Math.ceil(dt)*10;	
+							//TODO warning
+						}
+						else if (distance < this.radius )
+						{
+							this.hsiInterest -= Math.ceil(dt)*this.hsiInterest*100;	
+						}//End if 
+					}//End if
+
+				}//End try..finally
+			} //End for
+
+			// this.hsiInterest = Math.round(this.hsiInterest);
+			console.log (this.hsiInterest);
+			//TODO static the HSI ???
+			
+			//this.gameUI.setHSI( this.hsiInterest + this.gameUI.getHSI() );
+		//}
 	};
 
 	HKCircle.prototype.render = function(ctx){
