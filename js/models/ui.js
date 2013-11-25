@@ -29,6 +29,7 @@ define([
 		constructor: UI,
 		init: function() {
 			this.queryDOM();
+			this.setButtonTitles();
 			this.prepareBgImg();
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
@@ -48,6 +49,14 @@ define([
 			this.setPowerBar(0, 0);
 			this.lowPowerAlerted = false;
 
+		},
+		setButtonTitles: function() {
+			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
+			var configIds = ['powerPlant', 'attackTower', 'freezeTower', 'repelTower', 'nuclearPlant', 'university', 'researchCenter', 'cheungKong'];
+			var titles = ['Power Plant', 'Laser Tower', 'Freeze Tower', 'Repel Tower', 'Nuclear Power Plant', 'University', 'Research Center', 'Cheung Kong (Holdings) Limited'];
+			for (var i = 0; i < btnIds.length; i++) {
+				$('#' + btnIds[i]).attr('title', titles[i] + ' (Cost: ' + Config[configIds[i]].cost + ', Power: ' + Config[configIds[i]].power + ')');
+			}
 		},
 		drawHKCircle: function() {
 			this.hkCircle = new HKCircle();
