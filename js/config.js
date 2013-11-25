@@ -19,44 +19,44 @@ define({
 	},
 
 	// towers		=============================
-	laserTower:{
+	attackTower:{
 		range : 		150,
 		attackDamage : 	10,
 		power: 			-3,
-		cost: 			-800
+		cost: 			800
 	},
 	freezeTower:{
 		range : 	70,
 		slowRate : 	70,
 		power: 		-6,
-		cost:		-3000
+		cost:		3000
 	},
 	repelTower:{
 		range : 100,
 		power : -10,
-		cost:	-4500
+		cost:	4500
 	},
 
 	// structures	=============================
 	powerPlant:{
 		power: 	10,
-		cost:	-1500
+		cost:	1500
 	},
 	nuclearPlant:{
 		power: 	40,
-		cost:	-7000
+		cost:	7000
 	},
 	university:{
 		power: 	-20,
-		cost:	-2500
+		cost:	2500
 	},
 	researchCenter:{
 		power: 	-30,
-		cost:	-4000
+		cost:	4000
 	},
 	cheungKong:{
 		power: 	-50,
-		cost:	-10000
+		cost:	10000
 	},
 	// Hang Sang Index
 	HSI:{

@@ -126,7 +126,7 @@ define([
 					
 					TODO: change different kind of enemies
 				 */
-				var difficultLevel = 15; // larger is easier
+				var difficultLevel = 20; // larger is easier
 
 				if (Math.random() < 1 - Math.pow(.993, gameTime / difficultLevel)) {
 					var t,

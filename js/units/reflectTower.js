@@ -7,8 +7,9 @@ define([
 	'models/buildEffect',
 	'models/laser',
 	'config',
-	'Game'
-], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,Game) {
+	'Game',
+	'sound'
+], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,Game,Sound) {
 
 	console.log("reflectTower.js loaded");
 	//Create Tower Object and its constructor
@@ -22,6 +23,7 @@ define([
 		this.id = Stage.addChild(this,'towers');
 		//var nearEnemy = this.findNearestEnemy();
 		//nearEnemy.setMotion(0,0);
+		this.sound = new Sound('reflectTowerSound');
 	}
 	
 
@@ -42,6 +44,7 @@ define([
 		{
 			if(target.distance <= Config.repelTower.range && Game.getAvailablePower() > 0)
 			{
+				this.sound.play('electricity');
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "#FF8000", 20,15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y);
