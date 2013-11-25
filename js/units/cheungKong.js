@@ -16,7 +16,7 @@ define([
 		
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
-
+		Game.built('CheungKongLimited');
 		Game.addPower(Config.cheungKong.power);
 	}
 	

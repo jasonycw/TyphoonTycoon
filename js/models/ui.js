@@ -106,6 +106,56 @@ define([
 			this.$powerBar = $('#power-bar');
 			this.$canvas = $('#game-canvas');
 		},
+		setButtonState: function() {
+			if (Game.getHSI() >= Config.attackTower.cost) {
+				$('#btn-laser-tower').attr('disabled', false);
+			} else {
+				$('#btn-laser-tower').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.freezeTower.cost && Game.isBuilt('University')) {
+				$('#btn-freeze-tower').attr('disabled', false);
+			} else {
+				$('#btn-freeze-tower').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.repelTower.cost && Game.isBuilt('ResearchCenter')) {
+				$('#btn-repel-tower').attr('disabled', false);
+			} else {
+				$('#btn-repel-tower').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.powerPlant.cost) {
+				$('#btn-power-plant').attr('disabled', false);
+			} else {
+				$('#btn-power-plant').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.powerPlant.cost && Game.isBuilt('ResearchCenter')) {
+				$('#btn-nuclear-plant').attr('disabled', false);
+			} else {
+				$('#btn-nuclear-plant').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.university.cost) {
+				$('#btn-university').attr('disabled', false);
+			} else {
+				$('#btn-university').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.researchCenter.cost && Game.isBuilt('University')) {
+				$('#btn-research-center').attr('disabled', false);
+			} else {
+				$('#btn-research-center').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.cheungKong.cost) {
+				$('#btn-cheung-kong').attr('disabled', false);
+			} else {
+				$('#btn-cheung-kong').attr('disabled', true);
+			}
+
+		},
 		bindBtnEvent: function() {
 			var that = this;
 			$('#btn-bar button').click(function(e) {
@@ -116,29 +166,36 @@ define([
 						that.activatedMode = 'attackTower';
 						break;
 					case 'btn-freeze-tower':
-						that.activatedMode = 'freezeTower';
+						if(Game.isBuilt('University'))
+							that.activatedMode = 'freezeTower';
 						break;
 					case 'btn-repel-tower':
-						that.activatedMode = 'reflectTower';
+						if(Game.isBuilt('ResearchCenter'))
+							that.activatedMode = 'reflectTower';
 						break;
 					case 'btn-power-plant':
 						that.activatedMode = 'powerPlant';
 						break;
 					case 'btn-nuclear-plant':
-						that.activatedMode = 'nuclearPlant';
+						if(Game.isBuilt('ResearchCenter'))
+							that.activatedMode = 'nuclearPlant';
 						break;
 					case 'btn-university':
 						that.activatedMode = 'university';
 						break;
 					case 'btn-research-center':
-						that.activatedMode = 'researchCenter';
+						if(Game.isBuilt('University'))
+							that.activatedMode = 'researchCenter';
 						break;
 					case 'btn-cheung-kong':
 						that.activatedMode = 'cheungKong';
 						break;
 				}
-				$('#btn-bar button').attr('disabled', true);
-				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
+				if(that.activatedMode!==null)
+				{
+					$('#btn-bar button').attr('disabled', true);
+					$(e.target).attr('disabled', false).attr('data-activated', 'activated');
+				}
 			})
 		},
 		// Check the tower can be build on land
@@ -186,10 +243,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -209,11 +262,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
-
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -232,11 +280,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else {
-										//TODO no money sound
-									}
-
-
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -254,17 +297,12 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'nuclearPlant':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-
 									if(Game.getHSI() >= Config.nuclearPlant.cost){
 										var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
 										Game.setHSI(Game.getHSI()-Config.nuclearPlant.cost);
@@ -273,13 +311,8 @@ define([
 										} else {
 											that.buildSound.play('outOfPower');
 										}
-									} else
-									{
-										//TODO no money sound
-									}			
-
+									}
 								} else {
-
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -296,10 +329,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -315,9 +344,6 @@ define([
 										} else {
 											that.buildSound.play('outOfPower');
 										}
-									}else
-									{
-										//TODO no money sound
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -337,17 +363,14 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 						}
 				}
-				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
+				that.setButtonState();
+				$('#btn-bar button').removeAttr('data-activated');
 				that.activatedMode = null;
 			});
 		},
@@ -358,7 +381,8 @@ define([
 
 				// Esc or Space bar
 				if (e.which === 27 || e.which === 32) {
-					$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
+					$('#btn-bar button').removeAttr('data-activated');
+					that.setButtonState();
 					that.activatedMode = null;
 					return;
 				}
@@ -379,18 +403,27 @@ define([
 						break;
 					case 51:
 						// 3
-						that.activatedMode = 'freezeTower';
-						btnId = 'btn-freeze-tower';
+						if(Game.isBuilt('University'))
+						{
+							that.activatedMode = 'freezeTower';
+							btnId = 'btn-freeze-tower';
+						}
 						break;
 					case 52:
 						// 4
-						that.activatedMode = 'reflectTower';
-						btnId = 'btn-repel-tower';
+						if(Game.isBuilt('ResearchCenter'))
+						{
+							that.activatedMode = 'reflectTower';
+							btnId = 'btn-repel-tower';
+						}
 						break;
 					case 81:
 						// Q
-						that.activatedMode = 'nuclearPlant';
-						btnId = 'btn-nuclear-plant';
+						if(Game.isBuilt('ResearchCenter'))
+						{
+							that.activatedMode = 'nuclearPlant';
+							btnId = 'btn-nuclear-plant';
+						}
 						break;
 					case 87:
 						// W
@@ -399,8 +432,11 @@ define([
 						break;
 					case 69:
 						// E
-						that.activatedMode = 'researchCenter';
-						btnId = 'btn-research-center';
+						if(Game.isBuilt('University'))
+						{
+							that.activatedMode = 'researchCenter';
+							btnId = 'btn-research-center';
+						}
 						break;
 					case 82:
 						// R
@@ -422,6 +458,7 @@ define([
 		},
 		setHsiDisplayValue: function(index) {
 			this.$hsi.html(index);
+			this.setButtonState();
 		},
 		setPowerBar: function(remain, total) {
 			var power;

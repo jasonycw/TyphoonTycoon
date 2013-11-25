@@ -15,7 +15,7 @@ define([
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
-
+		Game.built('ResearchCenter');
 		Game.addPower(Config.researchCenter.power);
 	}
 	// subclass extends superclass
