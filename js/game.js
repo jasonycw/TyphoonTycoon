@@ -64,7 +64,7 @@ define([
 			},	//End init
 
 			reset: function() {
-				hsi = Config.initHSI;
+				hsi = Config.HSI.init;
 				hsiInterest = 0;
 				gameTime = 0;
 				powerQuota = powerUsed = 0;
@@ -167,7 +167,8 @@ define([
 				update HSI
 			 */
 			updateHSI: function () {
-				hsiInterest += 1;
+
+				hsiInterest += Config.HSI.increment;
 				hsi += hsiInterest;
 				//console.log(hsi, hsiInterest);
 				gameUI.setHSI(hsi);				

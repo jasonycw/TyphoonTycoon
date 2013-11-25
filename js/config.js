@@ -23,44 +23,46 @@ define({
 		range : 		150,
 		attackDamage : 	10,
 		power: 			-3,
-		HSI: 			-800
+		cost: 			-800
 	},
 	freezeTower:{
 		range : 	70,
 		slowRate : 	70,
 		power: 		-6,
-		HSI:		-3000
+		cost:		-3000
 	},
 	repelTower:{
 		range : 100,
 		power : -10,
-		HSI:	-4500
+		cost:	-4500
 	},
 
 	// structures	=============================
 	powerPlant:{
 		power: 	10,
-		HSI:	-1500
+		cost:	-1500
 	},
 	nuclearPlant:{
 		power: 	40,
-		HSI:	-7000
+		cost:	-7000
 	},
 	university:{
 		power: 	-20,
-		HSI:	-2500
+		cost:	-2500
 	},
 	researchCenter:{
 		power: 	-30,
-		HSI:	-4000
+		cost:	-4000
 	},
 	cheungKong:{
 		power: 	-50,
-		HSI:	-10000
+		cost:	-10000
 	},
-	
-
 	// Hang Sang Index
-	initHSI: 9000
-
+	HSI:{
+		init: 9000,
+		upperOfRandom: 200,
+		lowerOfRandom: -100,
+		increment: 2
+	}
 });
