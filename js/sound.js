@@ -4,7 +4,6 @@ define([
 	'soundCuePoints'
 ], function($, CuePoints) {
 
-	//Create Tower Object and its constructor
 	function Sound(playerId) {
 		this.loaded = false;
 		this.player = $('#' + playerId)[0];
@@ -17,9 +16,12 @@ define([
 
 	Sound.prototype = {
 		constructor: Sound,
+		finishLoading: function() {
+			this.loaded = true;
+		},
 		play: function(id) {
 			if (!this.loaded) {
-				return;
+				//return;
 			}
 			var start = CuePoints[id].start;
 			var end = CuePoints[id].end;
