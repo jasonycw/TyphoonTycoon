@@ -21,30 +21,30 @@ define({
 	// towers		=============================
 	attackTower:{
 		range : 		150,
-		attackDamage : 	10,
+		attackDamage : 	20,
 		power: 			-3,
-		cost: 			800
+		cost: 			500
 	},
 	freezeTower:{
 		range : 	70,
 		slowRate : 	70,
 		power: 		-6,
-		cost:		3000
+		cost:		2000
 	},
 	repelTower:{
 		range : 100,
 		power : -10,
-		cost:	4500
+		cost:	3500
 	},
 
 	// structures	=============================
 	powerPlant:{
 		power: 	10,
-		cost:	1500
+		cost:	1000
 	},
 	nuclearPlant:{
 		power: 	40,
-		cost:	7000
+		cost:	5000
 	},
 	university:{
 		power: 	-20,
@@ -61,8 +61,8 @@ define({
 	// Hang Sang Index
 	HSI:{
 		init: 9000,
-		upperOfRandom: 200,
-		lowerOfRandom: -100,
-		increment: 5
+		upperOfRandom: 20,
+		lowerOfRandom: -20,
+		increment: 20
 	}
 });

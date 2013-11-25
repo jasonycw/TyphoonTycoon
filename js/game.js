@@ -168,8 +168,43 @@ define([
 			 */
 			updateHSI: function () {
 
-				hsiInterest += Config.HSI.increment;
-				hsi += hsiInterest;
+				var penalty = 0;
+				//check any typhoon within the circle
+				//TODO could be optimize
+				//
+				that = this;
+				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
+					var e = Stage.displayList['typhoons'][i];
+					var distance;
+					try{
+						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
+					} catch(err){}
+					finally{
+
+						if( distance!==NaN && e!= null){
+
+							if( distance > (Config.hkArea.radius/2+e.radius) &&  distance <= (Config.hkArea.radius+e.radius)) {
+								console.log("inside outer circle");
+								hsiInterest = hsiInterest - hsiInterest/50;
+								penalty = Math.random()*-(hsiInterest/30);
+
+							}
+							else if (distance < (Config.hkArea.radius/2+e.radius) )
+							{
+								console.log("inside inner circle");
+								hsiInterest = hsiInterest - hsiInterest/20;
+								penalty = Math.random()*-(hsiInterest/20);
+
+								//TODO warning
+							}//End if 
+						}//End if
+
+					}//End try..finally
+				} //End for
+
+				hsiInterest += Math.random()*Config.HSI.increment + penalty;
+				console.log(Math.round(hsiInterest), penalty);
+				hsi += Math.round(hsiInterest);
 				this.setHSI(hsi);
 				//console.log(hsi, hsiInterest);
 			},

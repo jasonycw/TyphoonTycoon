@@ -188,7 +188,7 @@ define([
 									}
 									else
 									{
-										//TODO gameover
+										//TODO no money sound
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -211,7 +211,7 @@ define([
 									}
 									else
 									{
-										//TODO gameover
+										//TODO no money sound
 									}
 
 								} else {
@@ -233,7 +233,7 @@ define([
 										}
 									}
 									else {
-										//TODO gameover
+										//TODO no money sound
 									}
 
 
@@ -256,7 +256,7 @@ define([
 									}
 									else
 									{
-										//TODO gameover
+										//TODO no money sound
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -275,7 +275,7 @@ define([
 										}
 									} else
 									{
-										//TODO gameover
+										//TODO no money sound
 									}			
 
 								} else {
@@ -298,7 +298,7 @@ define([
 									}
 									else
 									{
-										//TODO gameover
+										//TODO no money sound
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -317,7 +317,7 @@ define([
 										}
 									}else
 									{
-										//TODO gameover
+										//TODO no money sound
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -339,7 +339,7 @@ define([
 									}
 									else
 									{
-										//TODO gameover
+										//TODO no money sound
 									}
 								} else {
 									that.buildSound.play('disabled');

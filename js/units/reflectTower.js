@@ -26,11 +26,9 @@ define([
 		this.sound = new Sound('reflectTowerSound');
 	}
 	
-
 	//subclass extends superclass
 	ReflectTower.prototype = Object.create(Tower.prototype);
 	ReflectTower.prototype.constructor = ReflectTower;
-
 
 	// tick event handler
 	ReflectTower.prototype.tick = function(dt){	// override
