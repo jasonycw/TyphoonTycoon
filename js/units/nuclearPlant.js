@@ -12,7 +12,7 @@ define([
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "LawnGreen", 40, 40, 3);
-		Game.addPower(Config.nuclearPlantPower);
+		Game.addPower(Config.nuclearPlant.power);
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
