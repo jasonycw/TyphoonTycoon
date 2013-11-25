@@ -44,9 +44,9 @@ define([
 			{
 				this.sound.play('electricity');
 				// console.log("tower "+this.x+" "+ this.y);
-				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "#FF8000", 20,15);
-				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y);
-				target.targetEnemy.addMotion(Utility.pointDirection(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y),100/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
+				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "#FF8000", 20,15);
+				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.target.x,target.target.y);
+				target.target.addMotion(Utility.pointDirection(this.x,this.y,target.target.x,target.target.y),100/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
 				// Game.addPower(Config.repelTower.power);
 			}
 		}
