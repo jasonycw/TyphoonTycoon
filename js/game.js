@@ -218,7 +218,7 @@ define([
 									hsiInterest = hsiInterest + hsiInterest/5;
 
 
-								penalty = -( Math.random() * hsiInterest ) - 20;
+								// penalty = -( Math.random() * hsiInterest ) - 20;
 								
 							}
 							else if (distance < (Config.hkArea.radius/2+e.radius) )
@@ -235,12 +235,12 @@ define([
 
 							}//End if 
 
-							if(distance <= Config.hkArea.effectAreaRadius)
-							{
-								console.log("HSI before damage:  " + hsi);
-								hsi -= Config.enemy.damage;
-								console.log("HSI after damage:  " + hsi);
-							}
+							// if(distance <= Config.hkArea.effectAreaRadius)
+							// {
+							// 	console.log("HSI before damage:  " + hsi);
+							// 	hsi -= Config.enemy.damage;
+							// 	console.log("HSI after damage:  " + hsi);
+							// }
 						}//End if
 
 					}//End try..finally

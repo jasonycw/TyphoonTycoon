@@ -21,7 +21,7 @@ define({
 		typhoonAbsorbRate: 10,
 		intiMinAmong: 1,
 		intiMaxAmong: 20,
-		difficulty: 15, //larger is easier
+		difficulty: 50, //larger is easier
 		initDelay: 10 //1000 = 1 second
 	},
 
