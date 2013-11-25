@@ -69,7 +69,7 @@ define([
 				gameTime = 0;
 				powerQuota = powerUsed = 0;
 				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
-				gameUI.setHSI(hsi);
+				gameUI.setHsiDisplayValue(hsi);
 				gameUI.setPowerBar(0, 0);
 			},
 			/*
@@ -89,7 +89,7 @@ define([
 
 			    //TODO change HSI 
 
-			    gameUI.setHSI(hsi);
+			    gameUI.setHsiDisplayValue(hsi);
 			    // console.log(totalPower +" "+ consumePower +" "+ inputPower)
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 
@@ -170,8 +170,8 @@ define([
 
 				hsiInterest += Config.HSI.increment;
 				hsi += hsiInterest;
+				this.setHSI(hsi);
 				//console.log(hsi, hsiInterest);
-				gameUI.setHSI(hsi);				
 			},
 			/*
 				isolate following testing code, there are 2 function for 2 different kind of code
@@ -239,6 +239,12 @@ define([
 			},
 			getAvailablePower: function() {
 				return powerQuota-powerUsed;
+			},
+			getHSI: function() {
+				return hsi;
+			},
+			setHSI: function(value) {
+				hsi = value;
 			}
 
 		}//End return

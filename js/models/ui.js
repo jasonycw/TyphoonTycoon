@@ -13,15 +13,15 @@ define([
 	'units/researchCenter',
 	'units/cheungKong',
 	'models/hkCircle',
-	'sound'
-], function($, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
+	'sound',
+	'Game'
+], function($, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Game) {
 
 	"use strict";
 
 	function UI() {
 		this.bgReady = false;
 		this.activatedMode = null;
-		this.HSI;
 	}
 
 	UI.prototype = {
@@ -34,7 +34,7 @@ define([
 			this.bindCanvasClickEvent();
 			this.bindCanvasMouseMoveEvent();
 			
-			//TODO
+			//
 			this.drawHKCircle();
 
 			// Load game hit area
@@ -44,7 +44,7 @@ define([
 			this.buildSound = new Sound('buildSound');
 
 			// Set score
-			this.setHSI(Config.initHSI);
+			this.setHsiDisplayValue(Config.initHSI);
 			this.setPowerBar(0, 0);
 
 		},
@@ -175,6 +175,7 @@ define([
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
 									that.buildSound.play('plot');
+									
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -184,6 +185,7 @@ define([
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
 									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.freezeTower.cost);
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -193,6 +195,7 @@ define([
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
 									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.reflectTower.cost);
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -201,6 +204,7 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.powerPlant.cost);
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -209,6 +213,7 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
 									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.nuclearPlant.cost);
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -217,6 +222,7 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
 									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.university.cost);
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -225,6 +231,7 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
 									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.researchCenter.cost);
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -233,6 +240,7 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
 									var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
 									that.buildSound.play('plot');
+									Game.setHSI(Game.getHSI()+Config.cheungKong.cost);
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -312,12 +320,8 @@ define([
 				ctx.drawImage(this.bgImg, 0, 0);
 			}
 		},
-		setHSI: function(index) {
+		setHsiDisplayValue: function(index) {
 			this.$hsi.html(index);
-			this.HSI = index;
-		},
-		getHSI: function() {
-			return	this.HSI;
 		},
 		setPowerBar: function(remain, total) {
 			var power;
