@@ -486,6 +486,13 @@ define([
 		showGameOver: function() {
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
+			console.log(Game);
+			console.log(Game.init);
+			$('#btn-restart').click(function() {
+				console.log(Game);
+				console.log(Game.init);
+				Game.init();
+			});
 		}
 	};
 
