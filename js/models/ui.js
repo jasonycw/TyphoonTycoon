@@ -53,9 +53,27 @@ define([
 		setButtonTitles: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['powerPlant', 'attackTower', 'freezeTower', 'repelTower', 'nuclearPlant', 'university', 'researchCenter', 'cheungKong'];
-			var titles = ['Power Plant', 'Laser Tower', 'Freeze Tower', 'Repel Tower', 'Nuclear Power Plant', 'University', 'Research Center', 'Cheung Kong (Holdings) Limited'];
+			var titles = [
+				'Power Plant', 
+				'Laser Tower', 
+				'Freeze Tower', 
+				'Repel Tower', 
+				'Nuclear Power Plant', 
+				'University', 
+				'Research Center', 
+				'Cheung Kong (Holdings) Limited'];
+			var description = [
+				'Simple power plant.',
+				'Shoot laser beam.',
+				'Slow down the time',
+				'Repel everything.',
+				'Strong nuclear plant.',
+				'Upgrade for Laser Tower and unlock Freeze Tower.',
+				'Upgrade for Laser and Freeze Tower and unlock Repel Tower.',
+				'Earn double and upgrade Repel Tower.'
+			];
 			for (var i = 0; i < btnIds.length; i++) {
-				$('#' + btnIds[i]).attr('title', titles[i] + ' (Cost: ' + Config[configIds[i]].cost + ', Power: ' + Config[configIds[i]].power + ')');
+				$('#' + btnIds[i]).attr('title', '                  ' + titles[i] + '                                                                Cost: ' + Config[configIds[i]].cost + '                                                                       Power: ' + Config[configIds[i]].power + '                                                                       ' + description[i]);
 			}
 		},
 		drawHKCircle: function() {
