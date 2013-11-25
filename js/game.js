@@ -205,7 +205,8 @@ define([
 				//
 				that = this;
 				var hsiChange = (Config.HSI.increment+Math.round(Math.random()*Config.HSI.upperOfRandom)+Math.round(Math.random()*Config.HSI.lowerOfRandom));
-
+				if(that.built.cheungKongLimited)
+					hsiChange *= Config.cheungKong.hsiIncrementMultiplier;
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
 					var distance;
