@@ -15,7 +15,11 @@ define({
 
 	enemy:{
 		max_hp : 300,
-		decayOnLand : 1
+		decayOnLand : 1,
+		intiMinAmong: 1,
+		intiMaxAmong: 20,
+		difficulty: 15, //larger is easier
+		initDelay: 10 //1000 = 1 second
 	},
 
 	// towers		=============================
@@ -29,12 +33,12 @@ define({
 		range : 	70,
 		slowRate : 	70,
 		power: 		-6,
-		cost:		2000
+		cost:		1500
 	},
 	repelTower:{
 		range : 100,
 		power : -10,
-		cost:	3500
+		cost:	3000
 	},
 
 	// structures	=============================

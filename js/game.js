@@ -32,6 +32,10 @@ define([
 			powerUsed: 0,
 			hsi: 0,
 			hsiInterest: 0,
+			level:1,
+			enemyCounter: 0,
+			minAmongOfEnemy: 0,
+			maxAmongOfEnemy: 0,
 			// Initialize the game
 			init: function() {
 				//console.log("Game.init() loaded");
@@ -71,6 +75,9 @@ define([
 				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
 				gameUI.setHsiDisplayValue(hsi);
 				gameUI.setPowerBar(0, 0);
+
+				minAmongOfEnemy = Config.enemy.intiMinAmong;
+				maxAmongOfEnemy = Config.enemy.intiMaxAmong;
 			},
 			/*
 				main game loop
@@ -89,7 +96,6 @@ define([
 
 			    //TODO change HSI 
 
-			    gameUI.setHsiDisplayValue(hsi);
 			    // console.log(totalPower +" "+ consumePower +" "+ inputPower)
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 
@@ -119,38 +125,54 @@ define([
 					gameTime += dt;
 				}
 
-				/*
-					Create Enemies with time increasing
-					- It gets harder over time by adding enemies using this
-					- orginial equation: 1-.993^gameTime
-					
-					TODO: change different kind of enemies
-				 */
-				var difficultLevel = 20; // larger is easier
-
-				if (Math.random() < 1 - Math.pow(.993, gameTime / difficultLevel)) {
-					var t,
-						xx,
-						yy;
-					if (Math.random() > 0.5) {
-						xx = Stage.width;
-						yy = Math.random() * Stage.height;
-					} else {
-						xx = Math.random() * Stage.width;
-						yy = Stage.height;
+				if( gameTime > Config.enemy.initDelay)
+				{
+					//reset and next level 
+					if(this.enemyCounter >= maxAmongOfEnemy)
+					{	
+						maxAmongOfEnemy+=(minAmongOfEnemy*2);
+						minAmongOfEnemy+=1;
+						this.level+=1;
+						gameTime = Config.enemy.initDelay;
+						this.enemyCounter = 0;
 					}
-					t = new Enemy(xx, yy, "img/typhoon.png");
-					var hk_dir = Utility.pointDirection(xx,
-						yy,
-						Config.hkArea.x,
-						Config.hkArea.y);
-					t.setMotion(hk_dir, Math.random() * 2+0.5);
-				}
+					/*
+						Create Enemies with time increasing
+						- It gets harder over time by adding enemies using this
+						- orginial equation: 1-.993^gameTime
+						
+					 */
+					if (Math.random() < 1 - Math.pow(.993, gameTime / Config.enemy.difficulty)) {
 
-				//checkCollisions();
-				//scoreEl.innerHTML = score;
-			   
-			  
+						for (var i = minAmongOfEnemy - 1; i >= 0; i-=1) {
+							var t,
+								xx,
+								yy;
+							if (Math.random() > 0.5) {
+								xx = Stage.width;
+								yy = Math.random() * Stage.height;
+							} else {
+								xx = Math.random() * Stage.width;
+								yy = Stage.height;
+							}//End if
+
+							//TODO: change different kind of enemies
+							t = new Enemy(xx, yy, "img/typhoon.png");
+							var hk_dir = Utility.pointDirection(xx,
+								yy,
+								Config.hkArea.x,
+								Config.hkArea.y);
+							t.setMotion(hk_dir, Math.random() * this.level+1 +0.5);
+
+							this.enemyCounter+=1;
+						}; //End for
+
+					}//End if
+
+					//console.log('this.enemyCounter:'+this.enemyCounter, 'gameTime:'+gameTime);
+
+				}//End if
+
 			}, //End tick()
 			updateEntities: function (dt) {
 				//console.time("updateEntities");
@@ -185,27 +207,44 @@ define([
 
 							if( distance > (Config.hkArea.radius/2+e.radius) &&  distance <= (Config.hkArea.radius+e.radius)) {
 								console.log("inside outer circle");
-								hsiInterest = hsiInterest - hsiInterest/50;
-								penalty = Math.random()*-(hsiInterest/30);
 
+								if(hsiInterest > 0)
+									hsiInterest = hsiInterest - hsiInterest/5;
+								else
+									hsiInterest = hsiInterest + hsiInterest/5;
+
+
+								penalty = -( Math.random() * hsiInterest ) - 20;
+								
 							}
 							else if (distance < (Config.hkArea.radius/2+e.radius) )
 							{
 								console.log("inside inner circle");
-								hsiInterest = hsiInterest - hsiInterest/20;
-								penalty = Math.random()*-(hsiInterest/20);
 
-								//TODO warning
+
+								if(hsiInterest > 0)
+									hsiInterest = hsiInterest - hsiInterest/3;
+								else
+									hsiInterest = hsiInterest + hsiInterest/3;
+
+								penalty =  -( Math.random() * hsiInterest * 3 ) - 100;
+
 							}//End if 
 						}//End if
 
 					}//End try..finally
 				} //End for
 
+				if (penalty > 0) penalty *= -1;
+
 				hsiInterest += Math.random()*Config.HSI.increment + penalty;
-				console.log(Math.round(hsiInterest), penalty);
+
+				console.log("hsiInterest:" +hsiInterest, "penalty:" + penalty);
+
 				hsi += Math.round(hsiInterest);
 				this.setHSI(hsi);
+
+				gameUI.setHsiDisplayValue(hsi);
 				//console.log(hsi, hsiInterest);
 			},
 			/*
