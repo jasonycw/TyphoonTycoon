@@ -19,5 +19,9 @@ define({
 	electricity: {
 		start: 6.336,
 		end: 7.135
+	},
+	outOfPower: {
+		start: 8.135,
+		end: 10
 	}
 });

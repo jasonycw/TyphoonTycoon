@@ -22,6 +22,7 @@ define([
 		this.bgReady = false;
 		this.activatedMode = null;
 		this.HSI;
+		this.lowPowerAlerted = false;
 	}
 
 	UI.prototype = {
@@ -46,6 +47,7 @@ define([
 			// Set score
 			this.setHSI(Config.initHSI);
 			this.setPowerBar(0, 0);
+			this.lowPowerAlerted = false;
 
 		},
 		drawHKCircle: function() {
@@ -329,8 +331,13 @@ define([
 			this.$powerBar.css('width', power + '%');
 			if (power <= 0) {
 				this.$powerTitle.addClass('title-danger').html('No Power!');
+				if (this.lowPowerAlerted == false) {
+					this.buildSound.play('outOfPower');
+				}
+				this.lowPowerAlerted = true;
 			} else {
 				this.$powerTitle.removeClass('title-danger').html('Power');
+				this.lowPowerAlerted = false;
 			}
 		}
 	};
