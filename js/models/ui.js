@@ -222,10 +222,10 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
 
-									if(Game.getHSI() >= Config.reflectTower.cost){
+									if(Game.getHSI() >= Config.repelTower.cost){
 
 										var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
-										Game.setHSI(Game.getHSI()-Config.reflectTower.cost);
+										Game.setHSI(Game.getHSI()-Config.repelTower.cost);
 										if (Game.getAvailablePower() > 0) {
 											that.buildSound.play('plot');
 										} else {

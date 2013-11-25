@@ -189,32 +189,6 @@ define([
 					//console.log(tower instanceof Unit);// uncomment to test the hierachy
 				});*/
 
-				// /*
-				// 	Create Typhoon at interval time
-				//  */
-				// setInterval(function(){
-				// 	var t;
-				// 	var xx,yy;
-				// 	if(Math.random()>0.5){
-				// 		xx = Stage.width;
-				// 		yy = Math.random() * Stage.height;
-				// 	}else{
-				// 		xx = Math.random() * Stage.width;
-				// 		yy = Stage.height;
-				// 	}
-				// 	t = new Enemy(xx, yy, "img/typhoon.png" );
-				// 	var hk_dir = Utility.pointDirection(	xx,
-				// 											yy,
-				// 											Config.hkArea.x,
-				// 											Config.hkArea.y  );
-				// 	t.setMotion(hk_dir,Math.random()*5);	//Math.random()*360 ,2 );
-					
-				// 	//uncomment to test static method
-				// 	//console.log(Stage.width);
-
-				// 	//t.setForce({dir:hk_dir+170,mag:0.007});
-				// },1000);
-
 				/*
 				setInterval(function(){
 				//console.log(Stage.displayList['typhoons']);
@@ -243,6 +217,7 @@ define([
 			getHSI: function() {
 				return hsi;
 			},
+			//just getter, will not display 
 			setHSI: function(value) {
 				hsi = value;
 			}

@@ -63,6 +63,6 @@ define({
 		init: 9000,
 		upperOfRandom: 200,
 		lowerOfRandom: -100,
-		increment: 2
+		increment: 5
 	}
 });
