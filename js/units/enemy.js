@@ -33,6 +33,23 @@ define([
 	Enemy.prototype.tick = function(dt){	// override
 		this.updatePosition();
 
+		// absorb the nearby weak enemy
+		var nearestTyphoon = this.findNearestTyphoon();
+		if(nearestTyphoon)
+		{
+			if(nearestTyphoon.distance <= 30)
+			{
+				console.log("2 typhoons are nearby.");
+				var absorbRate = Config.typhoonAbsorbRate;
+				if(this.hp<nearestTyphoon.targetTyphoon.hp)
+					absorbRate = -Config.typhoonAbsorbRate;
+				console.log("original: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
+				nearestTyphoon.targetTyphoon.damage(absorbRate);
+				this.damage(-absorbRate);
+				console.log("changed: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
+			}
+		}
+
 		// remove it if out of stage
 		if(! this.isWithinCanvas() ){
 			this.remove();
@@ -76,8 +93,8 @@ define([
 		this.x += addX;
 		this.y += addY;
 
+
 		// Calculate if it will decade or recover
-		// TODO : MUST PUT IT BACK TO tick()
 		if(MapHitArea.isLand(this.x,this.y)){
 			this.damage(Enemy.max_hp*0.013);
 		}
@@ -86,8 +103,6 @@ define([
 		}else{
 			this.damage(-1*Enemy.max_hp*0.003);
 		}
- 
-		
 	};
 	/**
 	 * get the current motion of the typhoon
@@ -175,7 +190,32 @@ define([
 		Stage.removeChild(this.typhoonID,'typhoons');
 	};
 
+	Enemy.prototype.findNearestTyphoon = function(){
+		// console.log("1");
+		var nearestTyphoon=null;
+		var nearestDist = 10000000;
+		// console.log(nearestDist);
+		var tempEnemy	// reused variable
+		var dist;		// reused variable
+		for(var t in Stage.displayList['typhoons']){
+			if(t == this.typhoonID)
+				continue;
+			
+			tempEnemy = Stage.displayList['typhoons'][t];
+			dist = Utility.pointDistance(	this.x,this.y,
+											tempEnemy.x,tempEnemy.y);
+			
+			if(dist<nearestDist){
+				nearestTyphoon = tempEnemy;
+				nearestDist = dist;
+			}
+		}
 
+		if(typeof nearestTyphoon === 'object')
+			return {targetTyphoon:nearestTyphoon,distance:nearestDist};
+		else 
+			return null;
+	};
 	
 	return Enemy;
 });

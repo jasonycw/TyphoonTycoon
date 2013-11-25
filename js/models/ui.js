@@ -2,6 +2,8 @@ define([
 	'jquery',
 	'models/MapHitArea',
 	'utility',
+	'stage',
+	'config',
 	'units/attackTower',
 	'units/freezeTower',
 	'units/reflectTower',
@@ -12,7 +14,7 @@ define([
 	'units/cheungKong',
 	'models/hkCircle',
 	'sound'
-], function($, MapHitArea, Utility, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
+], function($, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
 
 	"use strict";
 
@@ -25,11 +27,12 @@ define([
 	UI.prototype = {
 		constructor: UI,
 		init: function() {
+			this.queryDOM();
 			this.prepareBgImg();
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
-			this.queryScoreDOM();
+			this.bindCanvasMouseMoveEvent();
 			
 			//TODO
 			this.drawHKCircle();
@@ -41,8 +44,8 @@ define([
 			this.sound = new Sound('sound');
 
 			// Set score
-			// this.setHSI(9000);
-			// this.setPowerBar(0, 0);
+			this.setHSI(Config.initHSI);
+			this.setPowerBar(0, 0);
 
 		},
 		drawHKCircle: function() {
@@ -56,12 +59,51 @@ define([
 			this.bgImg.onload = function() {
 				that.bgReady = true;
 			}
-
-			
 		},
-		queryScoreDOM: function() {
+		findNearestBuilding: function(x,y) {
+			// console.log("1");
+			var nearestBuilding=null;
+			var nearestDist = 10000000;
+			// console.log(nearestDist);
+			var tempBuilding	// reused variable
+			var dist;			// reused variable
+			for(var t in Stage.displayList['towers']){
+				
+				tempBuilding = Stage.displayList['towers'][t];
+				dist = Utility.pointDistance(x,y,tempBuilding.x,tempBuilding.y);
+				
+				if(dist<nearestDist){
+					nearestBuilding = tempBuilding;
+					nearestDist = dist;
+				}
+			}
+
+			if(typeof nearestBuilding === 'object')
+				return {targetBuilding:nearestBuilding,distance:nearestDist};
+			else 
+				return null;
+		},
+		bindCanvasMouseMoveEvent: function() {
+			var that = this;
+			this.$canvas.mousemove(function(e) {
+				if (!that.activatedMode) {
+					that.$canvas.css('cursor', 'default');
+					return;
+				}
+				var mousePos = Utility.getMouse(e);
+				var nearestBuilding = that.findNearestBuilding(mousePos.x, mousePos.y);
+				if (nearestBuilding && nearestBuilding.distance >= Config.nearestBuildingDistance && that.canBuildOnLand(that.activatedMode) == MapHitArea.isLand(mousePos.x, mousePos.y)) {
+					that.$canvas.css('cursor', 'default');
+				} else {
+					that.$canvas.css('cursor', 'not-allowed');
+				}
+			});
+		},
+		queryDOM: function() {
 			this.$hsi = $('#hsi');
+			this.$powerTitle = $('#power-title');
 			this.$powerBar = $('#power-bar');
+			this.$canvas = $('#game-canvas');
 		},
 		bindBtnEvent: function() {
 			var that = this;
@@ -98,58 +140,105 @@ define([
 				$(e.target).attr('disabled', false).attr('data-activated', 'activated');
 			})
 		},
+		// Check the tower can be build on land
+		canBuildOnLand: function(tower) {
+			switch (tower) {
+				case 'attackTower':
+					return false;
+				case 'freezeTower':
+					return false;
+				case 'reflectTower':
+					return false;
+				case 'powerPlant':
+					return true;
+				case 'nuclearPlant':
+					return true;
+				case 'university':
+					return true;
+				case 'researchCenter':
+					return true;
+				case 'cheungKong':
+					return true;
+			}
+		},
 		bindCanvasClickEvent: function() {
 			var that = this;
 			$('#game-canvas').click(function(event) {
 				var mousePos = Utility.getMouse(event);
-				switch (that.activatedMode) {
-					case 'attackTower':
-					case 'freezeTower':
-					case 'reflectTower':
-						// Can only build on ocean
-						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-							that.sound.play('disabled');
-							return;
+				var nearestBuilding = that.findNearestBuilding(mousePos.x,mousePos.y);
+				if(nearestBuilding)
+				{
+					if(that.findNearestBuilding(mousePos.x,mousePos.y).distance >= Config.nearestBuildingDistance)
+						switch (that.activatedMode) {
+							case 'attackTower':
+								// Can only build on ocean
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
+							case 'freezeTower':
+								// Can only build on ocean
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
+							case 'reflectTower':
+								// Can only build on ocean
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
+							case 'powerPlant':
+								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
+							case 'nuclearPlant':
+								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
+							case 'university':
+								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
+							case 'researchCenter':
+								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
+							case 'cheungKong':
+								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+									var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
+									that.sound.play('plot');
+								} else {
+									that.sound.play('disabled');
+								}
+								break;
 						}
-						break;
-					case 'powerPlant':
-					case 'nuclearPlant':
-					case 'university':
-					case 'researchCenter':
-					case 'cheungKong':
-						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
-							that.sound.play('disabled');
-							return;
-						}
-						break;
 				}
-				switch (that.activatedMode) {
-					case 'attackTower':
-						var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
-						break;
-					case 'freezeTower':
-						var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
-						break;
-					case 'reflectTower':
-						var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
-						break;
-					case 'powerPlant':
-						var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
-						break;
-					case 'nuclearPlant':
-						var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
-						break;
-					case 'university':
-						var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
-						break;
-					case 'researchCenter':
-						var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
-						break;
-					case 'cheungKong':
-						var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
-						break;
-				}
-				that.sound.play('plot');
 				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
 				that.activatedMode = null;
 			});
@@ -159,7 +248,7 @@ define([
 			$(document).keyup(function(e) {
 				//console.log(e.which);
 
-				// Esc
+				// Esc or Space bar
 				if (e.which === 27 || e.which === 32) {
 					$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
 					that.activatedMode = null;
@@ -210,11 +299,6 @@ define([
 						that.activatedMode = 'cheungKong';
 						btnId = 'btn-cheung-kong';
 						break;
-					default:
-						return;
-						// that.activatedMode = null;
-						// btnId = null;
-						break;
 				}
 				if(that.activatedMode!==null)
 				{
@@ -243,6 +327,11 @@ define([
 				power = remain / total * 100;
 			}
 			this.$powerBar.css('width', power + '%');
+			if (power <= 0) {
+				this.$powerTitle.addClass('title-danger').html('No Power!');
+			} else {
+				this.$powerTitle.removeClass('title-danger').html('Power');
+			}
 		}
 	};
 

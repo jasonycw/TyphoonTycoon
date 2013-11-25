@@ -15,6 +15,8 @@ define([
 		
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
+
+		Game.addPower(Config.cheungKongPower);
 	}
 	
 	// subclass extends superclass

@@ -186,3 +186,6 @@ body {
   height: 6px;
   background-color: #00cc00;
 }
+.title-danger {
+  color: #ff4d4d;
+}
