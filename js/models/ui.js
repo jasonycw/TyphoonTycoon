@@ -161,7 +161,7 @@ define([
 				$('#btn-power-plant').attr('disabled', true);
 			}
 
-			if (Game.getHSI() >= Config.powerPlant.cost && Game.isBuilt('ResearchCenter')) {
+			if (Game.getHSI() >= Config.nuclearPlant.cost && Game.isBuilt('ResearchCenter')) {
 				$('#btn-nuclear-plant').attr('disabled', false);
 			} else {
 				$('#btn-nuclear-plant').attr('disabled', true);
