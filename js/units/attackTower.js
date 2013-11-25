@@ -29,10 +29,8 @@ define([
 		//nearEnemy.setMotion(0,0);
 	}
 
-	// config
 	// TODO replace all magic number with const static variables
-	AttackTower.range = 150;
-	AttackTower.attackDamage = 10;
+	
 
 	//subclass extends superclass
 	AttackTower.prototype = Object.create(Tower.prototype);
@@ -51,7 +49,7 @@ define([
 			var target = this.findNearestEnemy();
 			if(target)
 			{
-				if(target.distance <= AttackTower.range && Game.getAvailablePower() > 0)
+				if(target.distance <= Config.laserTower.range && Game.getAvailablePower() > 0)
 				{
 					// console.log("tower "+this.x+" "+ this.y);
 					var enemyWidth = target.targetEnemy.sprite.width;
@@ -60,9 +58,9 @@ define([
 					var laser = new Laser(this.x, this.y, aimX, aimY, "red", 10, 3);
 					that.sound.play('laser');
 					var buildEffect = new BuildEffect(aimX,aimY, "red", 15, 7, 1);
-					target.targetEnemy.damage(AttackTower.attackDamage);
+					target.targetEnemy.damage(Config.laserTower.attackDamage);
 					this.coolDownCounter = this.coolDownTime;
-					// Game.addPower(Config.laserTowerPower);
+					// Game.addPower(Config.Config.laserTower.power);
 				}
 			}
 		}else{

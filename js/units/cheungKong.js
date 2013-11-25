@@ -6,6 +6,7 @@ define([
 	'config',
 	'Game'
 ], function(Unit, Stage, BuildEffect, Config, Game) {
+	console.log("cheungKong.js loaded");
 
 	//Create Tower Object and its constructor
 	function CheungKong(startX, startY, spriteSrc) {
@@ -16,7 +17,7 @@ define([
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 
-		Game.addPower(Config.cheungKongPower);
+		Game.addPower(Config.cheungKong.power);
 	}
 	
 	// subclass extends superclass

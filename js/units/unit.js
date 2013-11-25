@@ -23,12 +23,13 @@ define([
 			this.sprite.src = spriteSrc;
 			this.spriteOrigin = {x:0,y:0};
 			this.spriteReady=false;
-
+			this.radius = 0;
 			// update sprite origin according to sprite size
 			var that = this;
 			this.sprite.onload = function(){
 				that.spriteOrigin = {x:that.sprite.width/2, y:that.sprite.height/2};
 				that.spriteReady=true;
+				that.radius = that.sprite.width/2;
 			};
 	};
 
