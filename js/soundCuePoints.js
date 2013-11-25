@@ -7,5 +7,9 @@ define({
 	disabled: {
 		start: 2,
 		end: 2.6
+	},
+	laser: {
+		start: 3.6,
+		end: 3.76
 	}
 });
