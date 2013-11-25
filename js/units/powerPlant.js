@@ -6,13 +6,14 @@ define([
 	'config',
 	'Game'
 ], function(Unit, Stage, BuildEffect, Config, Game) {
+	console.log("powerPlant.js loaded");
 
 	//Create Tower Object and its constructor
 	function PowerPlant(startX, startY, spriteSrc) {
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "LawnGreen", 40, 40, 3);
-		Game.addPower(Config.powerPlantPower);
+		Game.addPower(Config.powerPlant.power);
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
@@ -24,7 +25,7 @@ define([
 
 	// tick event handler
 	// PowerPlant.prototype.tick = function(dt) {	// override
-	// 	Game.addPower(Config.powerPlantPower);
+	// 	Game.addPower(Config.powerPlant.power);
 	// };
 	
 

@@ -16,14 +16,12 @@ define([
 		this.direction 	= 	0 ;
 		this.speed 		=	0 ;
 		this.force 		= 	{dir:0,mag:0};
-		this.hp 		= 	(Math.random()*0.7+0.3)*Enemy.max_hp;
+		this.hp 		= 	(Math.random()*0.7+0.3)*Config.enemy.max_hp;
 		this.numberOfTicks = 0;
 		this.isSlowed	=	0;
 		this.typhoonID = Stage.addChild(this,'typhoons');
 	}
-	// config
-	Enemy.max_hp = 300;
-	Enemy.decayOnLand = 1;
+	
 
 	//subclass extends superclass
 	Enemy.prototype = Object.create(Unit.prototype);
@@ -39,14 +37,14 @@ define([
 		{
 			if(nearestTyphoon.distance <= 30)
 			{
-				console.log("2 typhoons are nearby.");
+				//console.log("2 typhoons are nearby.");
 				var absorbRate = Config.typhoonAbsorbRate;
 				if(this.hp<nearestTyphoon.targetTyphoon.hp)
 					absorbRate = -Config.typhoonAbsorbRate;
-				console.log("original: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
+				//console.log("original: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
 				nearestTyphoon.targetTyphoon.damage(absorbRate);
 				this.damage(-absorbRate);
-				console.log("changed: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
+				//console.log("changed: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
 			}
 		}
 
@@ -62,13 +60,13 @@ define([
 		if(this.spriteReady){
 			//draw image
 			// ctx.save();
-			ctx.globalAlpha = (this.hp/Enemy.max_hp)*0.9;
+			ctx.globalAlpha = (this.hp/Config.enemy.max_hp)*0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			this.drawRotatedImage(ctx,this.sprite,this.x,this.y,this.numberOfTicks);
 			// ctx.drawImage(this.sprite,drawX,drawY);
 			// ctx.restore();
-			ctx.globalAlpha = 1;	
+			ctx.globalAlpha = 1;
 			// ctx.fillText(this.typhoonID,this.x,this.y);
 			//ctx.fillText(this.isSlowed,this.x,this.y);
 		}
@@ -96,12 +94,12 @@ define([
 
 		// Calculate if it will decade or recover
 		if(MapHitArea.isLand(this.x,this.y)){
-			this.damage(Enemy.max_hp*0.013);
+			this.damage(Config.enemy.max_hp*0.013);
 		}
 		if(tempSpeed<0.1){
-			this.damage(Enemy.max_hp*0.005);
+			this.damage(Config.enemy.max_hp*0.005);
 		}else{
-			this.damage(-1*Enemy.max_hp*0.003);
+			this.damage(-1*Config.enemy.max_hp*0.003);
 		}
 	};
 	/**

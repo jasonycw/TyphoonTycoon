@@ -10,13 +10,13 @@ define([
 	'Game'
 ], function(Utility,Unit,Stage,Tower,BuildEffect,Laser,Config,Game) {
 
-	console.log("attackTower.js loaded");
+	console.log("reflectTower.js loaded");
 	//Create Tower Object and its constructor
 	function ReflectTower(startX,startY,spriteSrc){
 		//call super constructor.
 		Tower.call(this,startX,startY,spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "#FF8000", 40, 40, 3);
-		Game.addPower(Config.repelTowerPower);
+		Game.addPower(Config.repelTower.power);
 		
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');
@@ -24,8 +24,6 @@ define([
 		//nearEnemy.setMotion(0,0);
 	}
 	
-	// config
-	ReflectTower.range = 100;
 
 	//subclass extends superclass
 	ReflectTower.prototype = Object.create(Tower.prototype);
@@ -42,13 +40,13 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= ReflectTower.range && Game.getAvailablePower() > 0)
+			if(target.distance <= Config.repelTower.range && Game.getAvailablePower() > 0)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "#FF8000", 20,15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y);
 				target.targetEnemy.addMotion(Utility.pointDirection(this.x,this.y,target.targetEnemy.x,target.targetEnemy.y),100/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
-				// Game.addPower(Config.repelTowerPower);
+				// Game.addPower(Config.repelTower.power);
 			}
 		}
 	};
