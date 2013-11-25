@@ -21,7 +21,7 @@ define([
 		this.coolDownCounter = 0;
 		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
 		Game.addPower(Config.laserTowerPower);
-		this.sound = new Sound('sound');
+		this.sound = new Sound('laserTowerSound');
 
 		//Auto add to stage
 		this.id = Stage.addChild(this,'towers');

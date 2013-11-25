@@ -20,17 +20,20 @@ define([
 			this.loaded = true;
 		},
 		play: function(id) {
+			var that = this;
 			if (!this.loaded) {
 				//return;
 			}
-			var start = CuePoints[id].start;
-			var end = CuePoints[id].end;
-			this.player.currentTime = start;
-			this.player.play();
-			var that = this;
-			setTimeout(function() {
-				that.player.pause();
-			}, (end - start) * 1000);
+
+			if(this.player.paused) {
+				var start = CuePoints[id].start;
+				var end = CuePoints[id].end;
+				this.player.currentTime = start;
+				that.player.play();
+				setTimeout(function() {
+					that.player.pause();
+				}, (end - start) * 1000);
+			}
 		}
 	};
 
