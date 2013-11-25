@@ -484,7 +484,6 @@ define([
 			}
 		},
 		showGameOver: function() {
-			console.log('game over');
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
 		}
