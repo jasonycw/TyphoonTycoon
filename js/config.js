@@ -15,6 +15,9 @@ define({
 	powerPlantPower: 10,
 	nuclearPlantPower: 40,
 	laserTowerPower: -3,
-	freezeTowerPower: -3,
-	repelTowerPower: -10
+	freezeTowerPower: -6,
+	repelTowerPower: -10,
+	universityPower: -20,
+	researchCenterPower: -30,
+	cheungKongPower: -50
 });
