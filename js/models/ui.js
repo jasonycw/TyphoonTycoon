@@ -103,52 +103,73 @@ define([
 				var mousePos = Utility.getMouse(event);
 				switch (that.activatedMode) {
 					case 'attackTower':
+						// Can only build on ocean
+						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
+						}
+						break;
 					case 'freezeTower':
+						// Can only build on ocean
+						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
+						}
+						break;
 					case 'reflectTower':
 						// Can only build on ocean
-						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-							that.sound.play('disabled');
-							return;
-						}
-						break;
-					case 'powerPlant':
-					case 'nuclearPlant':
-					case 'university':
-					case 'researchCenter':
-					case 'cheungKong':
 						if (!MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
+							that.sound.play('plot');
+						} else {
 							that.sound.play('disabled');
-							return;
+						}
+						break;
+					case 'powerPlant':
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
+						}
+						break;
+					case 'nuclearPlant':
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
+						}
+						break;
+					case 'university':
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
+						}
+						break;
+					case 'researchCenter':
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
+						}
+						break;
+					case 'cheungKong':
+						if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
+							var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
+							that.sound.play('plot');
+						} else {
+							that.sound.play('disabled');
 						}
 						break;
 				}
-				switch (that.activatedMode) {
-					case 'attackTower':
-						var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
-						break;
-					case 'freezeTower':
-						var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
-						break;
-					case 'reflectTower':
-						var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
-						break;
-					case 'powerPlant':
-						var tower = new PowerPlant(mousePos.x, mousePos.y, "img/sprite/power-plant.png");
-						break;
-					case 'nuclearPlant':
-						var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
-						break;
-					case 'university':
-						var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
-						break;
-					case 'researchCenter':
-						var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
-						break;
-					case 'cheungKong':
-						var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
-						break;
-				}
-				that.sound.play('plot');
 				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
 				that.activatedMode = null;
 			});
