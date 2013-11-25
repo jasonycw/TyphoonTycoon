@@ -482,6 +482,11 @@ define([
 				this.$powerTitle.removeClass('title-danger').html('Power');
 				this.lowPowerAlerted = false;
 			}
+		},
+		showGameOver: function() {
+			console.log('game over');
+			$('#game-over').show();
+			this.buildSound.play('gameOver');
 		}
 	};
 

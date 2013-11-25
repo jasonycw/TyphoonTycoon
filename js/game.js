@@ -109,6 +109,9 @@ define([
 				// prevTotalPower = totalPower;
 				// // Electricity cannot be stored because we don't have such a large battery in real world!
 		  //   	totalPower = consumePower = inputPower = 0;
+		  		if (hsi <= 0) {
+		  			gameUI.showGameOver();
+		  		}
 			},
 			/*
 				tick() : 
