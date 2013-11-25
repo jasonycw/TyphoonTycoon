@@ -28,12 +28,6 @@ define([
 		var gameTime = 0;
 
 		return {
-			// prevInputPower: 0,
-			// prevConsumePower: 0,
-			// prevTotalPower: 0,
-			// inputPower: 0,
-			// consumePower: 0,
-			// totalPower: 0,
 			powerQuota: 0,
 			powerUsed: 0,
 			hsi: 0,
