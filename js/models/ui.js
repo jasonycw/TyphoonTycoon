@@ -447,6 +447,7 @@ define([
 				if(that.activatedMode!==null)
 				{
 					$('#btn-bar button').attr('disabled', true);
+					$('#btn-bar button').removeAttr('data-activated');
 					$('#' + btnId).attr('disabled', false).attr('data-activated', 'activated');
 				}
 			});

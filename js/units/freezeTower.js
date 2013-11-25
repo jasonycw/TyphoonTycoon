@@ -47,9 +47,9 @@ define([
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				this.sound.play('wrap');
-				var laser = new Laser(this.x, this.y, target.targetEnemy.x, target.targetEnemy.y, "aqua", 20, 5);
-				var buildEffect = new BuildEffect(target.targetEnemy.x, target.targetEnemy.y, "aqua", 15, 7, 1);
-				target.targetEnemy.slow(Config.freezeTower.slowRate);
+				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "aqua", 20, 5);
+				var buildEffect = new BuildEffect(target.target.x, target.target.y, "aqua", 15, 7, 1);
+				target.target.slow(Config.freezeTower.slowRate);
 				// Game.addPower(Config.freezeTower.power);
 			}
 		}
