@@ -47,7 +47,8 @@ define([
 				//console.log("changed: "+this.hp+"   "+nearestTyphoon.targetTyphoon.hp);
 			}
 		}
-
+		// if(Utility.pointDistance(this.x,this.y,Config.hkArea.x,Config.hkArea.y) <= Config.hkArea.effectAreaRadius)
+		// 	Game.affectHSI(-Config.enemy.damage);
 		// remove it if out of stage
 		if(! this.isWithinCanvas() ){
 			this.remove();

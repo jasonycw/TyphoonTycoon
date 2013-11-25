@@ -9,12 +9,11 @@ define([
 	'utility',
 	'config',
 	'units/tower',
-	'units/attackTower',
 	'units/unit',
 	'units/enemy',
 	'models/mapHitArea',
 	'underscore'
-	], function(Stage, UI, Utility, Config, Tower, AttackTower, Unit, Enemy, MapHitArea, _) {
+	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, _) {
 
 	console.log("game.js loaded");
 
@@ -202,13 +201,19 @@ define([
 
 								//TODO warning
 							}//End if 
+
+							if(distance <= Config.hkArea.effectAreaRadius)
+							{
+								console.log("HSI before damage:  " + hsi);
+								hsi -= Config.enemy.damage;
+								console.log("HSI after damage:  " + hsi);
+							}
 						}//End if
 
 					}//End try..finally
 				} //End for
-
 				hsiInterest += Math.random()*Config.HSI.increment + penalty;
-				console.log(Math.round(hsiInterest), penalty);
+				// console.log(Math.round(hsiInterest), penalty);
 				hsi += Math.round(hsiInterest);
 				this.setHSI(hsi);
 				//console.log(hsi, hsiInterest);
@@ -260,6 +265,9 @@ define([
 			//just getter, will not display 
 			setHSI: function(value) {
 				hsi = value;
+			},
+			affectHSI: function(value) {
+				hsi += value;
 			},
 			built: function(name) {
 				var that = this;
