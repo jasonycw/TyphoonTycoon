@@ -106,6 +106,56 @@ define([
 			this.$powerBar = $('#power-bar');
 			this.$canvas = $('#game-canvas');
 		},
+		setButtonState: function() {
+			if (Game.getHSI() >= Config.attackTower.cost) {
+				$('#btn-laser-tower').attr('disabled', false);
+			} else {
+				$('#btn-laser-tower').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.freezeTower.cost && Game.isBuilt('University')) {
+				$('#btn-freeze-tower').attr('disabled', false);
+			} else {
+				$('#btn-freeze-tower').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.repelTower.cost && Game.isBuilt('ResearchCenter')) {
+				$('#btn-repel-tower').attr('disabled', false);
+			} else {
+				$('#btn-repel-tower').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.powerPlant.cost) {
+				$('#btn-power-plant').attr('disabled', false);
+			} else {
+				$('#btn-power-plant').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.powerPlant.cost && Game.isBuilt('ResearchCenter')) {
+				$('#btn-nuclear-plant').attr('disabled', false);
+			} else {
+				$('#btn-nuclear-plant').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.university.cost) {
+				$('#btn-university').attr('disabled', false);
+			} else {
+				$('#btn-university').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.researchCenter.cost && Game.isBuilt('University')) {
+				$('#btn-research-center').attr('disabled', false);
+			} else {
+				$('#btn-research-center').attr('disabled', true);
+			}
+
+			if (Game.getHSI() >= Config.cheungKong.cost) {
+				$('#btn-cheung-kong').attr('disabled', false);
+			} else {
+				$('#btn-cheung-kong').attr('disabled', true);
+			}
+
+		},
 		bindBtnEvent: function() {
 			var that = this;
 			$('#btn-bar button').click(function(e) {
@@ -193,10 +243,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -216,11 +262,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
-
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -239,11 +280,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else {
-										//TODO no money sound
-									}
-
-
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -261,17 +297,12 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 							case 'nuclearPlant':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y)) {
-
 									if(Game.getHSI() >= Config.nuclearPlant.cost){
 										var tower = new NuclearPlant(mousePos.x, mousePos.y, "img/sprite/nuclear.png");
 										Game.setHSI(Game.getHSI()-Config.nuclearPlant.cost);
@@ -280,13 +311,8 @@ define([
 										} else {
 											that.buildSound.play('outOfPower');
 										}
-									} else
-									{
-										//TODO no money sound
-									}			
-
+									}
 								} else {
-
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -303,10 +329,6 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -322,9 +344,6 @@ define([
 										} else {
 											that.buildSound.play('outOfPower');
 										}
-									}else
-									{
-										//TODO no money sound
 									}
 								} else {
 									that.buildSound.play('disabled');
@@ -344,17 +363,14 @@ define([
 											that.buildSound.play('outOfPower');
 										}
 									}
-									else
-									{
-										//TODO no money sound
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
 								break;
 						}
 				}
-				$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
+				that.setButtonState();
+				$('#btn-bar button').removeAttr('data-activated');
 				that.activatedMode = null;
 			});
 		},
@@ -365,7 +381,8 @@ define([
 
 				// Esc or Space bar
 				if (e.which === 27 || e.which === 32) {
-					$('#btn-bar button').attr('disabled', false).removeAttr('data-activated');
+					$('#btn-bar button').removeAttr('data-activated');
+					that.setButtonState();
 					that.activatedMode = null;
 					return;
 				}
@@ -441,6 +458,7 @@ define([
 		},
 		setHsiDisplayValue: function(index) {
 			this.$hsi.html(index);
+			this.setButtonState();
 		},
 		setPowerBar: function(remain, total) {
 			var power;
