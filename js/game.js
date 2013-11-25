@@ -31,6 +31,7 @@ define([
 			powerQuota: 0,
 			powerUsed: 0,
 			hsi: 0,
+			hsiInterest: 0,
 			// Initialize the game
 			init: function() {
 				//console.log("Game.init() loaded");
@@ -51,6 +52,11 @@ define([
 				this.reset();
 				lastTime = Date.now();
 				this.loop();
+
+				setInterval(function(){
+					Game.updateHSI();
+				}, 1000 );
+
 				
 				//setup experiment/testing
 				this.testSetup();
@@ -59,6 +65,7 @@ define([
 
 			reset: function() {
 				hsi = Config.initHSI;
+				hsiInterest = 0;
 				gameTime = 0;
 				powerQuota = powerUsed = 0;
 				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
@@ -160,7 +167,10 @@ define([
 				update HSI
 			 */
 			updateHSI: function () {
-				
+				hsiInterest += 1;
+				hsi += hsiInterest;
+				//console.log(hsi, hsiInterest);
+				gameUI.setHSI(hsi);				
 			},
 			/*
 				isolate following testing code, there are 2 function for 2 different kind of code
