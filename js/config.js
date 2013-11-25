@@ -11,6 +11,7 @@ define({
 		cycleDuration: 140
 	},
 	nearestBuildingDistance: 40,
+	typhoonAbsorbRate: 10,
 	
 	// Electricity generation and consumption
 	powerPlantPower: 10,
