@@ -91,6 +91,8 @@ define([
 			if( dist < this.radius){
 				//course damge 
 				console.log('affect:'+ tempBuilding.id );
+				Stage.removeChild(tempBuilding.id,'towers');
+
 			}//End if
 		}//End for
 	};

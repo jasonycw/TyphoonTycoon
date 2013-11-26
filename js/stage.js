@@ -54,6 +54,7 @@ define([
 		 */
 		Stage.removeChild = function(index, listName) {
 
+			console.log(index, listName, this.displayList[listName], this.displayList[listName][index]);
 			//default list
 			if (listName === undefined) {
 				listName = "others";

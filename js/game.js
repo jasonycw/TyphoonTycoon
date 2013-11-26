@@ -147,6 +147,13 @@ define([
 						console.log('Level Up ->'+this.level);
 						gameTime = Config.enemy.initDelay;
 						this.enemyCounter = 0;
+
+						//random time launch a eathquake in each level
+						setTimeout(function(){
+							var targetX = Config.hkArea.x + Math.random()*700 - 350;
+							var targetY = Config.hkArea.y + Math.random()*700 - 350;
+							var earthquake = new Earthquake(targetX, targetY);
+						}, Math.random * 60000);
 					}
 					/*
 						Create Enemies with time increasing
@@ -317,6 +324,13 @@ define([
 			 */
 			testSetup: function() {
 
+
+				setInterval(function(){
+					var targetX = Config.hkArea.x + Math.random()*40 - 20;
+					var targetY = Config.hkArea.y + Math.random()*40 - 20;
+					var earthquake = new Earthquake(targetX, targetY);
+				}, 3000);
+
 				/*
 					Create Tower when mouse click
 				 */
@@ -338,13 +352,6 @@ define([
 					});
 				},100);
 				*/
-				setInterval(function(){
-
-					var targetX = Config.hkArea.x + Math.random()*700 - 350;
-					var targetY = Config.hkArea.y + Math.random()*700 - 350;
-					var earthquake = new Earthquake(targetX, targetY);
-
-				}, 3000 );
 			}//End testSetup()
 
 		}//End return
