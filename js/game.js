@@ -21,14 +21,18 @@ define([
 
 	var Game = (function() {
 		// Game canvas
-		var stage;
+		// var stage;
 
-		var gameUI;
+		// var gameUI;
 
-		var lastTime;
-		var gameTime = 0;
+		// var lastTime;
+		// var gameTime = 0;
 		that = this;
 		return {
+			stage: null,
+			gameUI: null,
+			lastTime: 0,
+			gameTime: 0,
 			powerQuota: 0,
 			powerUsed: 0,
 			hsi: 0,
@@ -55,9 +59,10 @@ define([
 
 				// create background map
 				gameUI = new UI();
+
 				gameUI.init();
 				MapHitArea.init();
-				Stage.addChild(gameUI,'backdrops');
+				Stage.addChild(gameUI, 'backdrops');
 
 				//Start game loop when initial
 				this.reset();
@@ -80,7 +85,6 @@ define([
 				cash = 0;
 				gameTime = 0;
 				powerQuota = powerUsed = 0;
-				// prevInputPower = prevConsumePower = prevTotalPower = inputPower = consumePower = totalPower = 0;
 				gameUI.setHsiDisplayValue(hsi);
 				gameUI.setPowerBar(0, 0);
 
@@ -101,7 +105,6 @@ define([
 
 				lastTime = now;
 
-			    // console.log(totalPower +" "+ consumePower +" "+ inputPower)
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 
 				// Save the values for the tick methods in towers next time
@@ -112,7 +115,7 @@ define([
 		  //   	totalPower = consumePower = inputPower = 0;
 		  		if (hsi <= 0) {
 		  			gameUI.showGameOver(that);
-		  			clearInterval(updateHSIIntervalID)
+		  			clearInterval(updateHSIIntervalID);
 		  		} else {
 					requestAnimFrame(Game.loop);
 		  		}

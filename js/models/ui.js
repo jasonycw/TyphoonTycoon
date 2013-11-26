@@ -512,6 +512,8 @@ define([
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
 			$('#btn-restart').click(function() {
+				console.log(game);
+				$('#game-over').hide();
 				game.init();
 			});
 		}
