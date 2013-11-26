@@ -68,7 +68,7 @@ define([
 					var buildEffect = new BuildEffect(aimX, aimY, "red", 15, 7, 1);
 					nearestEnemy.target.damage(attackDamage);
 					this.coolDownCounter = this.coolDownTime;
-					console.log("laser tower attack:", range, attackDamage);
+					//console.log("laser tower attack:", range, attackDamage);
 				}
 			}
 		} else {

@@ -21,6 +21,8 @@ define([
 	var Game = (function() {
 		var that = this;
 		var intervalId = null;
+		var earthquakeTimer = [];
+		var frameId;
 		var Built = {
 			university: false,
 			researchCenter: false,
@@ -83,18 +85,23 @@ define([
 				hsi = Config.HSI.init;
 				cash = 0;
 				gameTime = 0;
+				lastTime = 0;
 				powerQuota = powerUsed = 0;
 				gameUI.setHsiDisplayValue(hsi);
 				gameUI.setPowerBar(0, 0);
-
+				level: 1;
+				enemyCounter= 0;
 				minAmongOfEnemy = Config.enemy.intiMinAmong;
 				maxAmongOfEnemy = Config.enemy.intiMaxAmong;
+
 
 				Built = {
 					university: false,
 					researchCenter: false,
 					cheungKongLimited: false
 				};
+
+
 			},
 			/*
 				main game loop
@@ -108,14 +115,22 @@ define([
 				Game.tick(dt);
 				stage.render();
 
+				//console.log(dt);
+
 				lastTime = now;
 
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 				if (hsi <= 0) {
+
+					cancelAnimationFrame(frameId);
 					clearInterval(intervalId);
+					for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
+						clearTimeout(earthquakeTimer[i]);
+					};
 					gameUI.showGameOver();
+
 				} else {
-					requestAnimFrame(Game.loop);
+					frameId = requestAnimationFrame(Game.loop);
 				}
 			},
 			/*
@@ -147,11 +162,11 @@ define([
 
 						//random time launch a eathquake in each level
 						for (var i = minAmongOfEnemy - 1; i >= 0; i--) {
-							setTimeout(function() {
+							earthquakeTimer.push(setTimeout(function() {
 								var targetX = Config.hkArea.x + Math.random() * 600 - 300;
 								var targetY = Config.hkArea.y + Math.random() * 600 - 300;
 								var earthquake = new Earthquake(targetX, targetY);
-							}, Math.random * 60000);
+							}, Math.random * 60000));
 
 						};
 					}

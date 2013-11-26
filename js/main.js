@@ -30,16 +30,57 @@ require([
 	 * https://hacks.mozilla.org/2011/08/animating-with-javascript-from-setinterval-to-requestanimationframe/
 	 * http://msdn.microsoft.com/zh-tw/library/ie/hh920765(v=vs.85).aspx
 	 */
-	window.requestAnimFrame = (function() {
-		return window.requestAnimationFrame ||
-			window.webkitRequestAnimationFrame ||
-			window.mozRequestAnimationFrame ||
-			window.oRequestAnimationFrame ||
-			window.msRequestAnimationFrame ||
-			function(callback) {
-				window.setTimeout(callback, 1000 / 60);
-		};
-	})();
+		
+	(function() {
+	    var lastTime = 0,
+	        vendors = ['ms', 'moz', 'webkit', 'o'],
+	        x,
+	        length,
+	        currTime,
+	        timeToCall;
+
+	    for(x = 0, length = vendors.length; x < length && !window.requestAnimationFrame; ++x) {
+	        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+	        window.cancelAnimationFrame = 
+	          window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+	    }
+
+	    if (!window.requestAnimationFrame)
+	        window.requestAnimationFrame = function(callback, element) {
+	            currTime = new Date().getTime();
+	            timeToCall = Math.max(0, 16 - (currTime - lastTime));
+	            lastTime = currTime + timeToCall;
+	            return window.setTimeout(function() { callback(currTime + timeToCall); }, 
+	              timeToCall);
+	        };
+
+	    if (!window.cancelAnimationFrame)
+	        window.cancelAnimationFrame = function(id) {
+	            clearTimeout(id);
+	        };
+	}());
+
+	
+	// window.cancelRequestAnimFrame = ( function() {
+	//     return window.cancelAnimationFrame          ||
+	//         window.webkitCancelRequestAnimationFrame    ||
+	//         window.mozCancelRequestAnimationFrame       ||
+	//         window.oCancelRequestAnimationFrame     ||
+	//         window.msCancelRequestAnimationFrame        ||
+	//         window.clearTimeout
+	// } )();
+
+
+	// window.requestAnimFrame = (function() {
+	// 	return window.requestAnimationFrame ||
+	// 		window.webkitRequestAnimationFrame ||
+	// 		window.mozRequestAnimationFrame ||
+	// 		window.oRequestAnimationFrame ||
+	// 		window.msRequestAnimationFrame ||
+	// 		function(callback) {
+	// 			window.setTimeout(callback, 1000 / 60);
+	// 	};
+	// })();
 
 	// Start the game when DOM tree is ready
 	$(document).ready(function() {
