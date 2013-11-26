@@ -149,11 +149,14 @@ define([
 						this.enemyCounter = 0;
 
 						//random time launch a eathquake in each level
-						setTimeout(function(){
-							var targetX = Config.hkArea.x + Math.random()*700 - 350;
-							var targetY = Config.hkArea.y + Math.random()*700 - 350;
-							var earthquake = new Earthquake(targetX, targetY);
-						}, Math.random * 60000);
+						for (var i = minAmongOfEnemy - 1; i >= 0; i--) {
+							setTimeout(function(){
+								var targetX = Config.hkArea.x + Math.random()*600 - 300;
+								var targetY = Config.hkArea.y + Math.random()*600 - 300;
+								var earthquake = new Earthquake(targetX, targetY);
+							}, Math.random * 60000);
+							
+						};
 					}
 					/*
 						Create Enemies with time increasing
@@ -286,6 +289,10 @@ define([
 				}
 				// totalPower += p;
 			},
+			reducePower: function(p)
+			{
+				powerQuota -= p;
+			},
 			getAvailablePower: function() {
 				return powerQuota-powerUsed;
 			},
@@ -324,12 +331,14 @@ define([
 			 */
 			testSetup: function() {
 
-
-				setInterval(function(){
-					var targetX = Config.hkArea.x + Math.random()*40 - 20;
-					var targetY = Config.hkArea.y + Math.random()*40 - 20;
-					var earthquake = new Earthquake(targetX, targetY);
-				}, 3000);
+				/**
+				 * test earthquake
+				 */
+				// setInterval(function(){
+				// 	var targetX = Config.hkArea.x + Math.random()*40 - 20;
+				// 	var targetY = Config.hkArea.y + Math.random()*40 - 20;
+				// 	var earthquake = new Earthquake(targetX, targetY);
+				// }, 3000);
 
 				/*
 					Create Tower when mouse click

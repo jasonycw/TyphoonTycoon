@@ -20,7 +20,7 @@ define([
 		Game.addPower(Config.repelTower.power);
 		
 		//Auto add to stage
-		this.id = Stage.addChild(this,'towers');
+		//this.id = Stage.addChild(this,'towers');
 		//var nearEnemy = this.findNearestEnemy();
 		//nearEnemy.setMotion(0,0);
 		this.sound = new Sound('reflectTowerSound');

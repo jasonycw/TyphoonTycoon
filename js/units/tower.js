@@ -90,6 +90,12 @@ define([
 		Unit.prototype.render.call(this,ctx);
 	};
 
+	/**
+	 * remove the unit, without death effect
+	 */
+	Tower.prototype.remove = function(){
+		Stage.removeChild(this.id, 'towers');
+	}
 
 	return Tower;
 });
