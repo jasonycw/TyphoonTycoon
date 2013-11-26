@@ -71,6 +71,8 @@ define([
 
 	Earthquake.prototype.render = function(ctx){
 		 // console.log('render Earthquake ' + this.x+', '+this.y);
+		ctx.fillStyle = "#FFFFFF";
+		ctx.fillText('Earthquake',this.x,this.y+20);
 	};
 
 	/**
