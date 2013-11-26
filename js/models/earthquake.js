@@ -78,6 +78,10 @@ define([
 			tempBuilding = Stage.displayList['towers'][t];
 			dist = Utility.pointDistance(tx, ty, tempBuilding.x, tempBuilding.y);
 			if (dist < this.radius) {
+				//TODO: 
+				//  remove flags if last university/research center/ckl is destroyed
+				//  recalculate power
+
 				// cause damge 
 				Stage.removeChild(tempBuilding.id, 'towers');
 			} //End if
