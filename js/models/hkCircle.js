@@ -12,32 +12,31 @@ define([
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
-	function HKCircle(){
-			/*
+	function HKCircle() {
+		/*
 				Initialion - all variable/funciton must have "this." before
 				Use "var" to change the variable/funciton become private 
 	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
-			Effect.call();
-			this.x = Config.hkArea.x || 0;
-			this.y = Config.hkArea.y || 0;
-			this.radius = Config.hkArea.radius;
-			this.lineWidth = Config.hkArea.lineWidth;
-			this.id = Stage.addChild(this,'effects');
-			//this.hsiInterest = 0;
-			// this.duration = Config.hkArea.cycleDuration;
-			// this.totalDuration = Config.hkArea.cycleDuration;
-			//this.totalDt = 0;
+		Effect.call();
+		this.x = Config.hkArea.x || 0;
+		this.y = Config.hkArea.y || 0;
+		this.radius = Config.hkArea.radius;
+		this.lineWidth = Config.hkArea.lineWidth;
+		this.id = Stage.addChild(this, 'effects');
+		//this.hsiInterest = 0;
+		// this.duration = Config.hkArea.cycleDuration;
+		// this.totalDuration = Config.hkArea.cycleDuration;
+		//this.totalDt = 0;
 	};
 
 	HKCircle.prototype = Object.create(Effect.prototype);
 	HKCircle.prototype.constructor = HKCircle;
 
 	// tick event handler
-	HKCircle.prototype.tick = function(dt){
-	};
+	HKCircle.prototype.tick = function(dt) {};
 
-	HKCircle.prototype.render = function(ctx){
+	HKCircle.prototype.render = function(ctx) {
 
 		// var relativeTime = Math.sin(Math.PI*(this.duration/this.totalDuration));
 		// ctx.beginPath();
@@ -47,7 +46,7 @@ define([
 
 		//Inner Circle 
 		ctx.beginPath();
-		ctx.arc(this.x,this.y,this.radius,1.91*Math.PI,0.9*Math.PI);
+		ctx.arc(this.x, this.y, this.radius, 1.91 * Math.PI, 0.9 * Math.PI);
 		ctx.strokeStyle = Config.hkArea.color;
 		ctx.lineWidth = 2;
 		ctx.stroke();
@@ -56,7 +55,7 @@ define([
 
 		//Outer Circle 
 		ctx.beginPath();
-		ctx.arc(this.x,this.y,this.radius*2,1.87*Math.PI,0.9*Math.PI);
+		ctx.arc(this.x, this.y, this.radius * 2, 1.87 * Math.PI, 0.9 * Math.PI);
 		ctx.strokeStyle = Config.hkArea.color;
 		ctx.lineWidth = 2;
 		ctx.stroke();
@@ -67,11 +66,11 @@ define([
 	/**
 	 * remove the unit, without death effect
 	 */
-	HKCircle.prototype.remove = function(){
+	HKCircle.prototype.remove = function() {
 		// Stage.removeChild(this.id,'effects');
 	};
 
-	HKCircle.prototype.setIndex = function(index){
+	HKCircle.prototype.setIndex = function(index) {
 		this.effectIndex = index;
 	};
 
