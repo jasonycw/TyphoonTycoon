@@ -17,7 +17,6 @@ define([
 	'underscore' //must be last item
 ], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect, _) {
 
-	console.log("game.js loaded");
 
 	var Game = (function() {
 		var that = this;
@@ -44,7 +43,6 @@ define([
 
 			// Initialize the game
 			init: function() {
-				console.log("Game.init() loaded");
 				try {
 					stage = new Stage('game-canvas');
 				} catch (e) {
@@ -60,9 +58,6 @@ define([
 				gameUI.init();
 				MapHitArea.init();
 				Stage.addChild(gameUI, 'backdrops');
-
-				//setup experiment/testing
-				this.testSetup();
 
 				if (typeof firstRun == 'undefined') {
 					gameUI.showWelcome();
@@ -82,7 +77,6 @@ define([
 				intervalId = setInterval(function() {
 					Game.updateHSI();
 				}, 100);
-				console.log(intervalId);
 				this.loop();
 			},
 			reset: function() {
@@ -148,7 +142,6 @@ define([
 						maxAmongOfEnemy += (minAmongOfEnemy * 2);
 						minAmongOfEnemy += 1;
 						this.level += 1;
-						console.log('Level Up ->' + this.level);
 						gameTime = Config.enemy.initDelay;
 						this.enemyCounter = 0;
 
@@ -188,13 +181,11 @@ define([
 								xx, yy,
 								Config.hkArea.x, Config.hkArea.y);
 							t.setMotion(hk_dir + Math.random() * 120 - 60, Math.random() * this.level + 1 + 0.5);
-							console.log('Enemy:' + t.typhoonID, 'HP:' + t.hp);
 							this.enemyCounter += 1;
 						}; //End for
 
 					} //End if
 
-					//console.log('this.enemyCounter:'+this.enemyCounter, 'gameTime:'+gameTime);
 
 				} //End if
 
@@ -230,58 +221,14 @@ define([
 						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
 					} catch (err) {} finally {
 						if (!isNaN(distance) && e != null) {
-							// console.log(Config.enemy.damage*(Config.hkArea.effectAreaRadius-Math.round(distance)));
 							if (distance <= Config.hkArea.effectAreaRadius) {
-								console.log(Config.enemy.damage * (Config.hkArea.effectAreaRadius - Math.round(distance)));
 								hsiChange = -(Config.enemy.damage * Math.round((Config.hkArea.effectAreaRadius - Math.round(distance)) * 0.1));
 							}
-
-							// if( distance > (Config.hkArea.radius/2+e.radius) &&  distance <= (Config.hkArea.radius+e.radius)) {
-							// 	console.log("inside outer circle");
-
-							// 	if(hsiInterest > 0)
-							// 		hsiInterest = hsiInterest - hsiInterest/5;
-							// 	else
-							// 		hsiInterest = hsiInterest + hsiInterest/5;
-
-
-							// 	// penalty = -( Math.random() * hsiInterest ) - 20;
-
-							// }
-							// else if (distance < (Config.hkArea.radius/2+e.radius) )
-							// {
-							// 	console.log("inside inner circle");
-
-
-							// 	if(hsiInterest > 0)
-							// 		hsiInterest = hsiInterest - hsiInterest/3;
-							// 	else
-							// 		hsiInterest = hsiInterest + hsiInterest/3;
-
-							// 	penalty =  -( Math.random() * hsiInterest * 3 ) - 100;
-
-							// }//End if 
-
-							// // if(distance <= Config.hkArea.effectAreaRadius)
-							// // {
-							// // 	console.log("HSI before damage:  " + hsi);
-							// // 	hsi -= Config.enemy.damage;
-							// // 	console.log("HSI after damage:  " + hsi);
-							// // }
 						} //End if
-
 					} //End try..finally
 				} //End for
-				// if (penalty > 0) penalty *= -1;
-				// hsiInterest += Math.random()*Config.HSI.increment + penalty;
-				// console.log("hsiInterest:" +hsiInterest, "penalty:" + penalty);
-				// hsi += Math.round(hsiInterest);
-				// this.setHSI(hsi);
-
-
 				this.affectHSI(hsiChange);
 				gameUI.setHsiDisplayValue(hsi);
-				//console.log(hsi, hsiInterest);
 			},
 			addPower: function(p) {
 				if (p > 0) {
@@ -308,7 +255,7 @@ define([
 				hsi += value;
 			},
 			built: function(name) {
-				if(name == "University")
+				if (name == "University")
 					Built.university = true;
 				if (name == "ResearchCenter")
 					Built.researchCenter = true;
@@ -323,45 +270,6 @@ define([
 				if (name == "CheungKongLimited")
 					return Built.cheungKongLimited;
 			},
-			/*
-				isolate following testing code, there are 2 function for 2 different kind of code
-				- testSetup() : for static or event-base code
-				- testLoop()  : for time-base code
-			 */
-			testSetup: function() {
-
-				/**
-				 * test earthquake
-				 */
-				// setInterval(function(){
-				// 	var targetX = Config.hkArea.x + Math.random()*40 - 20;
-				// 	var targetY = Config.hkArea.y + Math.random()*40 - 20;
-				// 	var earthquake = new Earthquake(targetX, targetY);
-				// }, 3000);
-
-				/*
-					Create Tower when mouse click
-				 */
-				/*stage.canvas.addEventListener('click', function(event){
-					var mousePos = Utility.getMouse(event);
-					var tower = new AttackTower(mousePos.x, mousePos.y, "sprite/tower.png");
-					//console.log(tower instanceof Unit);// uncomment to test the hierachy
-				});*/
-
-				/*
-				setInterval(function(){
-				//console.log(Stage.displayList['typhoons']);
-					_.each(Stage.displayList['typhoons'], function(typhoon) {
-						//console.log(typhoon);
-						_.each(Stage.displayList['towers'], function(tower){
-							var distanceFromTyphoonToTower = Utility.pointDistance(tower.x,tower.y,typhoon.x,typhoon.y);
-							typhoon.addMotion(Utility.pointDirection(tower.x,tower.y,typhoon.x,typhoon.y),3000/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
-						});
-					});
-				},100);
-				*/
-			} //End testSetup()
-
 		} //End return
 	})();
 

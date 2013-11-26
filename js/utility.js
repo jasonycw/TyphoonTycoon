@@ -2,7 +2,6 @@ define([
 	'stage'
 ], function(Stage) {
 
-	console.log("utility.js loaded");
 
 	var Utility = {
 		pointDistance: function(x1, y1, x2, y2) {
@@ -39,7 +38,6 @@ define([
 		getMouse: function(event) {
 			var mx = event.pageX - Stage.getOffsetLeft();
 			var my = event.pageY - Stage.getOffsetTop();
-			//console.log ("mouse:", mx, my, event.pageX, event.pageY, Stage.offsetLeft, Stage.offsetTop);
 			return {
 				x: mx,
 				y: my

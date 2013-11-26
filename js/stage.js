@@ -38,12 +38,10 @@ define([
 		Stage.addChild = function(item, listName) {
 			// default list
 
-			//console.log(item, listName);
 			if (listName === undefined) {
 				listName = "others";
 			}
 			this.displayList[listName].push(item);
-			//console.log(this.displayList);
 
 			return this.displayList[listName].length - 1;
 		}
@@ -54,7 +52,6 @@ define([
 		 */
 		Stage.removeChild = function(index, listName) {
 
-			//console.log(index, listName, this.displayList[listName], this.displayList[listName][index]);
 			//default list
 			if (listName === undefined) {
 				listName = "others";
@@ -75,9 +72,7 @@ define([
 			// Call the display object's render method
 			var that = this;
 			_.each(Stage.displayList, function(renderList) {
-				//console.log(renderList);
 				_.each(renderList, function(item) {
-					//console.log(item);
 					if (item) {
 						item.render(that.ctx);
 					}
