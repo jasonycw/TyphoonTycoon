@@ -12,8 +12,10 @@ define([
 	'units/unit',
 	'units/enemy',
 	'models/mapHitArea',
-	'underscore'
-	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, _) {
+	'models/earthquake',
+	'models/buildEffect',
+	'underscore' //must be last item
+	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect, _) {
 
 	console.log("game.js loaded");
 
@@ -25,7 +27,7 @@ define([
 
 		var lastTime;
 		var gameTime = 0;
-
+		that = this;
 		return {
 			powerQuota: 0,
 			powerUsed: 0,
@@ -43,7 +45,7 @@ define([
 			},
 			// Initialize the game
 			init: function() {
-				//console.log("Game.init() loaded");
+				console.log("Game.init() loaded");
 				try {
 					stage = new Stage('game-canvas');
 				} catch(e) {
@@ -65,6 +67,7 @@ define([
 				updateHSIIntervalID = setInterval(function(){
 					Game.updateHSI();
 				}, 100 );
+
 
 				
 				//setup experiment/testing
@@ -98,8 +101,6 @@ define([
 
 				lastTime = now;
 
-			    //TODO change HSI 
-
 			    // console.log(totalPower +" "+ consumePower +" "+ inputPower)
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 
@@ -110,7 +111,7 @@ define([
 				// // Electricity cannot be stored because we don't have such a large battery in real world!
 		  //   	totalPower = consumePower = inputPower = 0;
 		  		if (hsi <= 0) {
-		  			gameUI.showGameOver();
+		  			gameUI.showGameOver(that);
 		  			clearInterval(updateHSIIntervalID)
 		  		} else {
 					requestAnimFrame(Game.loop);
@@ -268,36 +269,6 @@ define([
 				gameUI.setHsiDisplayValue(hsi);
 				//console.log(hsi, hsiInterest);
 			},
-			/*
-				isolate following testing code, there are 2 function for 2 different kind of code
-				- testSetup() : for static or event-base code
-				- testLoop()  : for time-base code
-			 */
-			testSetup: function() {
-
-				/*
-					Create Tower when mouse click
-				 */
-				/*stage.canvas.addEventListener('click', function(event){
-					var mousePos = Utility.getMouse(event);
-					var tower = new AttackTower(mousePos.x, mousePos.y, "sprite/tower.png");
-					//console.log(tower instanceof Unit);// uncomment to test the hierachy
-				});*/
-
-				/*
-				setInterval(function(){
-				//console.log(Stage.displayList['typhoons']);
-					_.each(Stage.displayList['typhoons'], function(typhoon) {
-						//console.log(typhoon);
-						_.each(Stage.displayList['towers'], function(tower){
-							var distanceFromTyphoonToTower = Utility.pointDistance(tower.x,tower.y,typhoon.x,typhoon.y);
-							typhoon.addMotion(Utility.pointDirection(tower.x,tower.y,typhoon.x,typhoon.y),3000/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
-						});
-					});
-				},100);
-				*/
-
-			},//End testSetup()
 			addPower: function(p) {
 				if (p > 0) {
 					powerQuota += p;
@@ -336,7 +307,43 @@ define([
 					return that.Built.researchCenter;
 				if(name == "CheungKongLimited")
 					return that.Built.cheungKongLimited;
-			}
+			},
+			/*
+				isolate following testing code, there are 2 function for 2 different kind of code
+				- testSetup() : for static or event-base code
+				- testLoop()  : for time-base code
+			 */
+			testSetup: function() {
+
+				/*
+					Create Tower when mouse click
+				 */
+				/*stage.canvas.addEventListener('click', function(event){
+					var mousePos = Utility.getMouse(event);
+					var tower = new AttackTower(mousePos.x, mousePos.y, "sprite/tower.png");
+					//console.log(tower instanceof Unit);// uncomment to test the hierachy
+				});*/
+
+				/*
+				setInterval(function(){
+				//console.log(Stage.displayList['typhoons']);
+					_.each(Stage.displayList['typhoons'], function(typhoon) {
+						//console.log(typhoon);
+						_.each(Stage.displayList['towers'], function(tower){
+							var distanceFromTyphoonToTower = Utility.pointDistance(tower.x,tower.y,typhoon.x,typhoon.y);
+							typhoon.addMotion(Utility.pointDirection(tower.x,tower.y,typhoon.x,typhoon.y),3000/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
+						});
+					});
+				},100);
+				*/
+			
+					var targetX = Config.hkArea.x + Math.random()*40 - 20;
+					var targetY = Config.hkArea.y + Math.random()*40 - 20;
+					//var buildEffect = new BuildEffect(targetX, targetY, "red", 40, 40, 3);
+
+					var earthquake = new Earthquake(targetX, targetY ,'red',40,40,30,3);
+
+			}//End testSetup()
 
 		}//End return
 	})();

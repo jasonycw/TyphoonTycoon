@@ -72,5 +72,8 @@ define({
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
 		increment: 20
+	},
+	earthquake:{
+		
 	}
 });

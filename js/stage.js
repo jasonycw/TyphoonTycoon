@@ -37,6 +37,8 @@ define([
 		 */
 		Stage.addChild = function(item, listName) {
 			// default list
+			// 
+			//console.log(item, listName);
 			if (listName === undefined) {
 				listName = "others";
 			}
@@ -73,7 +75,9 @@ define([
 			// Call the display object's render method
 			var that = this;
 			_.each(Stage.displayList, function(renderList) {
+				//console.log(renderList);
 				_.each(renderList, function(item) {
+					//console.log(item);
 					if (item) {
 						item.render(that.ctx);
 					}

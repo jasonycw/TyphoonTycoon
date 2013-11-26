@@ -483,15 +483,11 @@ define([
 				this.lowPowerAlerted = false;
 			}
 		},
-		showGameOver: function() {
+		showGameOver: function(game) {
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
-			console.log(Game);
-			console.log(Game.init);
 			$('#btn-restart').click(function() {
-				console.log(Game);
-				console.log(Game.init);
-				Game.init();
+				game.init();
 			});
 		}
 	};
