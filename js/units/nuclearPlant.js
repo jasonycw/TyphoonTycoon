@@ -1,4 +1,3 @@
-// defines your module and loads any dependencies
 define([
 	'units/unit',
 	'stage',
@@ -6,8 +5,7 @@ define([
 	'config',
 	'Game'
 ], function(Unit, Stage, BuildEffect, Config, Game) {
-
-	//Create Tower Object and its constructor
+	// Create Tower Object and its constructor
 	function NuclearPlant(startX, startY, spriteSrc) {
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
@@ -17,16 +15,9 @@ define([
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 	}
-	//subclass extends superclass
+	// subclass extends superclass
 	NuclearPlant.prototype = Object.create(Unit.prototype);
 	NuclearPlant.prototype.constructor = NuclearPlant;
-
-
-	// tick event handler
-	// NuclearPlant.prototype.tick = function(dt) {	// override
-	// 	Game.addPower(Config.NuclearPlantPower);
-	// };
-
 
 	return NuclearPlant;
 });

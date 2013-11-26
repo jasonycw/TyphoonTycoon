@@ -72,7 +72,7 @@ define({
 		freezeTowerSlowRateIncrease: 10,
 		freezeTowerRangeIncrease: 10,
 		freezeTowerAttackIncrease: 5,
-		freezeTowerCostIncrease: 100
+		freezeTowerCostIncrease: 10
 	},
 	cheungKong: {
 		power: -50,
@@ -80,7 +80,7 @@ define({
 		hsiIncrementMultiplier: 1.5,
 		repelTowerRangeIncrease: 20,
 		repelTowerForceIncrease: 50,
-		repelTowerCostDecrease: 300
+		repelTowerCostDecrease: 30
 	},
 	// Hang Sang Index
 	HSI: {

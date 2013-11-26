@@ -1,17 +1,12 @@
-// defines your module and loads any dependencies
 define([
 	'stage',
 	'models/effect'
 ], function(Stage, Effect) {
-
-	console.log("buildEffect.js loaded");
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
 	function BuildEffect(x, y, buildEffectColor, duration, radius, lineWidth) {
-		//console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
-
 		/*
 				Initialion - all variable/funciton must have "this." before
 				Use "var" to change the variable/funciton become private 
@@ -26,7 +21,6 @@ define([
 		this.radius = radius;
 		this.lineWidth = lineWidth;
 		this.id = Stage.addChild(this, 'effects');
-		// console.log(this.x,this.y);
 
 		// update sprite origin according to sprite size
 	};
@@ -41,7 +35,6 @@ define([
 	};
 
 	BuildEffect.prototype.render = function(ctx) {
-		// console.log('render BuildEffect ' + this.x+', '+this.y);
 		var relativeTime = Math.sin(Math.PI * (this.duration / this.totalDuration));
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius * ((this.totalDuration - this.duration) / this.totalDuration), 0, 2 * Math.PI);

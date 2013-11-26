@@ -1,17 +1,12 @@
-// defines your module and loads any dependencies
 define([
 	'stage',
 	'config'
 ], function(Stage, Config) {
-
-	console.log("unit.js loaded");
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
 	function Unit(startX, startY, spriteSrc) {
-		//console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
-
 		/*
 				Initialion - all variable/funciton must have "this." before
 				Use "var" to change the variable/funciton become private 

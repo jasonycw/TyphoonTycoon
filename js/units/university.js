@@ -1,4 +1,3 @@
-// defines your module and loads any dependencies
 define([
 	'units/unit',
 	'stage',

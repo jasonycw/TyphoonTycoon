@@ -1,4 +1,3 @@
-// defines your module and loads any dependencies
 define([
 	'units/unit',
 	'stage',
@@ -6,9 +5,7 @@ define([
 	'config',
 	'Game'
 ], function(Unit, Stage, BuildEffect, Config, Game) {
-	console.log("cheungKong.js loaded");
-
-	//Create Tower Object and its constructor
+	// Create Tower Object and its constructor
 	function CheungKong(startX, startY, spriteSrc) {
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
