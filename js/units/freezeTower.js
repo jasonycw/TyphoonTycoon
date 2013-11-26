@@ -41,16 +41,29 @@ define([
 		 * @returns {undefined} if no enemy is alive
 		 */
 		var target = this.findNearestEnemy();
+
+		var range = Config.freezeTower.range;
+		var slowRate = Config.freezeTower.slowRate;
+		var attackDamage = Config.freezeTower.attackDamage;
+		if(Game.isBuilt('ResearchCenter'))
+		{
+			range += Config.researchCenter.freezeTowerRangeIncrease;
+			slowRate += Config.researchCenter.freezeTowerSlowRateIncrease;
+			attackDamage += Config.researchCenter.freezeTowerAttackIncrease;
+		}
+
+
 		if(target)
 		{
-			if(target.distance <= Config.freezeTower.range && Game.getAvailablePower() > 0)
+			if(target.distance <= range && Game.getAvailablePower() > 0)
 			{
 				// console.log("tower "+this.x+" "+ this.y);
 				this.sound.play('wrap');
 				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "aqua", 20, 5);
 				var buildEffect = new BuildEffect(target.target.x, target.target.y, "aqua", 15, 7, 1);
-				target.target.slow(Config.freezeTower.slowRate);
-				target.target.damage(Config.freezeTower.attackDamage);
+				target.target.slow(slowRate);
+				target.target.damage(attackDamage);
+				console.log("freeze tower attack:",range,slowRate,attackDamage);
 			}
 		}
 	};

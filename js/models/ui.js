@@ -262,7 +262,12 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.attackTower.cost) {
 									var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
-									Game.setHSI(Game.getHSI()-Config.attackTower.cost);
+									var cost = Config.attackTower.cost;
+									if(Game.isBuilt('University'))
+										cost  += Config.university.attackTowerCostIncrease;
+									if(Game.isBuilt('ResearchCenter'))
+										cost += Config.researchCenter.attackTowerCostIncrease;
+									Game.setHSI(Game.getHSI()-cost);
 
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -277,7 +282,11 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.freezeTower.cost) {
 									var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
-									Game.setHSI(Game.getHSI()-Config.freezeTower.cost);
+
+									var cost = Config.freezeTower.cost;
+									if(Game.isBuilt('ResearchCenter'))
+										cost += Config.researchCenter.freezeTowerCostIncrease;
+									Game.setHSI(Game.getHSI()-cost);
 
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -291,8 +300,11 @@ define([
 							case 'reflectTower':
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.repelTower.cost) {
-									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
-									Game.setHSI(Game.getHSI()-Config.repelTower.cost);
+									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
+									var cost = Config.repelTower.cost;
+									if(Game.isBuilt('CheungKongLimited'))
+										cost += Config.cheungKong.repelTowerCostDecrease;
+									Game.setHSI(Game.getHSI()-cost);
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -397,17 +409,30 @@ define([
 				switch (e.which) {
 					case 49:
 						// 1
-						that.activatedMode = 'powerPlant';
-						btnId = 'btn-power-plant';
+						if(Game.getHSI() >= Config.powerPlant.cost)
+						{
+							that.activatedMode = 'powerPlant';
+							btnId = 'btn-power-plant';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					case 50:
 						// 2
-						that.activatedMode = 'attackTower';
-						btnId = 'btn-laser-tower';
+						if(Game.getHSI() >= Config.attackTower.cost)
+						{
+							that.activatedMode = 'attackTower';
+							btnId = 'btn-laser-tower';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					case 51:
 						// 3
-						if(Game.isBuilt('University')) {
+						if(Game.getHSI() >= Config.freezeTower.cost && Game.isBuilt('University'))
+						{
 							that.activatedMode = 'freezeTower';
 							btnId = 'btn-freeze-tower';
 						} else {
@@ -417,7 +442,7 @@ define([
 						break;
 					case 52:
 						// 4
-						if(Game.isBuilt('ResearchCenter'))
+						if(Game.getHSI() >= Config.repelTower.cost && Game.isBuilt('ResearchCenter'))
 						{
 							that.activatedMode = 'reflectTower';
 							btnId = 'btn-repel-tower';
@@ -428,7 +453,7 @@ define([
 						break;
 					case 81:
 						// Q
-						if(Game.isBuilt('ResearchCenter'))
+						if(Game.getHSI() >= Config.nuclearPlant.cost && Game.isBuilt('ResearchCenter'))
 						{
 							that.activatedMode = 'nuclearPlant';
 							btnId = 'btn-nuclear-plant';
@@ -439,12 +464,18 @@ define([
 						break;
 					case 87:
 						// W
-						that.activatedMode = 'university';
-						btnId = 'btn-university';
+						if(Game.getHSI() >= Config.university.cost)
+						{
+							that.activatedMode = 'university';
+							btnId = 'btn-university';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					case 69:
 						// E
-						if(Game.isBuilt('University'))
+						if(Game.getHSI() >= Config.researchCenter.cost && Game.isBuilt('University'))
 						{
 							that.activatedMode = 'researchCenter';
 							btnId = 'btn-research-center';
@@ -455,7 +486,7 @@ define([
 						break;
 					case 82:
 						// R
-						if(Game.isBuilt('ResearchCenter'))
+						if(Game.getHSI() >= Config.cheungKong.cost && Game.isBuilt('ResearchCenter'))
 						{
 							that.activatedMode = 'cheungKong';
 							btnId = 'btn-cheung-kong';

@@ -42,6 +42,7 @@ define({
 	},
 	repelTower:{
 		range : 100,
+		force: 170,
 		power : -10,
 		cost:	2500
 	},
@@ -59,17 +60,18 @@ define({
 		power: 	-20,
 		cost:	2500,
 		attackTowerAttackIncrease: 5,
-		attackTowerRangeIncrease: 2,
+		attackTowerRangeIncrease: 5,
 		attackTowerCostIncrease: 20
 	},
 	researchCenter:{
 		power: 	-30,
 		cost:	4000,
 		attackTowerAttackIncrease: 3,
-		attackTowerRangeIncrease: 5,
+		attackTowerRangeIncrease: 10,
 		attackTowerCostIncrease: 100,
 		freezeTowerSlowRateIncrease: 10,
 		freezeTowerRangeIncrease: 10,
+		freezeTowerAttackIncrease: 5,
 		freezeTowerCostIncrease: 100
 	},
 	cheungKong:{
@@ -77,12 +79,14 @@ define({
 		cost:	7000,
 		hsiIncrementMultiplier: 1.5,
 		repelTowerRangeIncrease: 20,
-		repelTowerPowerDecrease: 3,
+		repelTowerForceIncrease: 50,
 		repelTowerCostDecrease: 300
 	},
 	// Hang Sang Index
 	HSI:{
-		init: 9000,
+		// init: 9000,
+		//GOD MODE:
+		init: 90000,
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
 		increment: 20
