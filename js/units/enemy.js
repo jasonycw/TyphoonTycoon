@@ -75,6 +75,7 @@ define([
 			// ctx.fillText(this.typhoonID,this.x,this.y);
 			// ctx.fillText(this.isSlowed,this.x,this.y);
 			ctx.fillText(this.hp,this.x,this.y);
+
 		}
 	};
 
@@ -167,7 +168,12 @@ define([
 	 * @return {void}
 	 */
 	Enemy.prototype.damage = function(dmg){
-		this.hp-=dmg;
+
+		if(!isNaN(dmg))
+			this.hp-=dmg;
+		else
+			console.log(this.tyhoonID, this.hp, dmg);
+		
 		if(this.hp<=0){
 			this.kill();
 		}

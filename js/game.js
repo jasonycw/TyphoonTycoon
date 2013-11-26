@@ -144,6 +144,7 @@ define([
 						maxAmongOfEnemy+=(minAmongOfEnemy*2);
 						minAmongOfEnemy+=1;
 						this.level+=1;
+						console.log('Level Up ->'+this.level);
 						gameTime = Config.enemy.initDelay;
 						this.enemyCounter = 0;
 					}
@@ -173,7 +174,7 @@ define([
 								xx,	yy,
 								Config.hkArea.x, Config.hkArea.y);
 							t.setMotion(hk_dir+Math.random()*120-60, Math.random() * this.level+1 +0.5);
-
+							console.log(t.typhoonID, t.hp);
 							this.enemyCounter+=1;
 						}; //End for
 
