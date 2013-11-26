@@ -23,9 +23,9 @@ define([
 		var that = this;
 		var intervalId = null;
 		var Built = {
-				university: false,
-				researchCenter: false,
-				cheungKongLimited: false
+			university: false,
+			researchCenter: false,
+			cheungKongLimited: false
 		};
 		return {
 			firstRun: true,
@@ -41,7 +41,7 @@ define([
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
-			
+
 			// Initialize the game
 			init: function() {
 				console.log("Game.init() loaded");
@@ -117,10 +117,10 @@ define([
 				lastTime = now;
 
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
-		  		if (hsi <= 0) {
-		  			clearInterval(intervalId);
-		  			gameUI.showGameOver();
-		  		} else {
+				if (hsi <= 0) {
+					clearInterval(intervalId);
+					gameUI.showGameOver();
+				} else {
 					requestAnimFrame(Game.loop);
 				}
 			},
@@ -310,17 +310,17 @@ define([
 			built: function(name) {
 				if(name == "University")
 					Built.university = true;
-				if(name == "ResearchCenter")
+				if (name == "ResearchCenter")
 					Built.researchCenter = true;
-				if(name == "CheungKongLimited")
+				if (name == "CheungKongLimited")
 					Built.cheungKongLimited = true;
 			},
 			isBuilt: function(name) {
-				if(name == "University")
+				if (name == "University")
 					return Built.university;
-				if(name == "ResearchCenter")
+				if (name == "ResearchCenter")
 					return Built.researchCenter;
-				if(name == "CheungKongLimited")
+				if (name == "CheungKongLimited")
 					return Built.cheungKongLimited;
 			},
 			/*

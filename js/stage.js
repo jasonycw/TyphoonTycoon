@@ -13,21 +13,21 @@ define([
 		}
 		//mean render item in displayList['stage'] first
 		Stage.displayList = {
-			'backdrops': 	[],
-			'towers': 		[],
-			'effects': 		[],
-			'typhoons': 	[],
-			'others': 		[]
+			'backdrops': [],
+			'towers': [],
+			'effects': [],
+			'typhoons': [],
+			'others': []
 		}
 
 		//declare static variable 
 		Stage.width = this.canvas.width;
 		Stage.height = this.canvas.height;
 		var that = this;
-		Stage.getOffsetLeft = function(){
+		Stage.getOffsetLeft = function() {
 			return that.canvas.parentNode.offsetLeft;
 		}
-		Stage.getOffsetTop = function(){
+		Stage.getOffsetTop = function() {
 			return that.canvas.parentNode.offsetTop;
 		}
 		/**
@@ -37,7 +37,7 @@ define([
 		 */
 		Stage.addChild = function(item, listName) {
 			// default list
-			
+
 			//console.log(item, listName);
 			if (listName === undefined) {
 				listName = "others";
