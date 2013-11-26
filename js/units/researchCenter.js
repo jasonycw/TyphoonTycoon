@@ -21,5 +21,9 @@ define([
 	ResearchCenter.prototype = Object.create(Unit.prototype);
 	ResearchCenter.prototype.constructor = ResearchCenter;
 
+	ResearchCenter.prototype.remove = function() {
+		Game.destroyBuilding('ResearchCenter');
+	};
+	
 	return ResearchCenter;
 });

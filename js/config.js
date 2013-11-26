@@ -21,7 +21,7 @@ define({
 		damage: 150,
 		typhoonAbsorbRate: 10,
 		intiMinAmong: 1,
-		intiMaxAmong: 20,
+		intiMaxAmong: 1,
 		difficulty: 50, //larger is easier
 		initDelay: 8 //1 = 1 second
 	},
@@ -84,10 +84,10 @@ define({
 	},
 	// Hang Sang Index
 	HSI: {
-		init: 9000,
+		init: 900000,
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
-		increment: 20
+		increment: 2000
 	},
 	earthquake: {
 		affectRadius: 30,

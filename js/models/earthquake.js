@@ -2,9 +2,8 @@ define([
 	'stage',
 	'models/buildEffect',
 	'config',
-	'utility',
-	'Game'
-], function(Stage, BuildEffect, Config, Utility, Game) {
+	'utility'
+], function(Stage, BuildEffect, Config, Utility) {
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
@@ -72,15 +71,14 @@ define([
 	};
 
 	Earthquake.prototype.damageNearBuilding = function(tx, ty) {
-
 		for (var t in Stage.displayList['towers']) { //TODO don't use for in
 
 			tempBuilding = Stage.displayList['towers'][t];
 			dist = Utility.pointDistance(tx, ty, tempBuilding.x, tempBuilding.y);
 			if (dist < this.radius) {
 				//TODO: 
-				//  remove flags if last university/research center/ckl is destroyed
 				//  recalculate power
+				tempBuilding.remove();
 
 				// cause damge 
 				Stage.removeChild(tempBuilding.id, 'towers');

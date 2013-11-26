@@ -22,5 +22,9 @@ define([
 	CheungKong.prototype = Object.create(Unit.prototype);
 	CheungKong.prototype.constructor = CheungKong;
 
+	CheungKong.prototype.remove = function() {
+		Game.destroyBuilding('CheungKongLimited');
+	};
+	
 	return CheungKong;
 });

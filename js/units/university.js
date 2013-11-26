@@ -22,5 +22,9 @@ define([
 	University.prototype = Object.create(Unit.prototype);
 	University.prototype.constructor = University;
 
+	University.prototype.remove = function() {
+		Game.destroyBuilding('University');
+	};
+
 	return University;
 });

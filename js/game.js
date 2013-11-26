@@ -24,9 +24,9 @@ define([
 		var earthquakeTimer = [];
 		var frameId;
 		var Built = {
-			university: false,
-			researchCenter: false,
-			cheungKongLimited: false
+			numberOfUniversity: 0,
+			numberOfResearchCenter: 0,
+			numberOfCheungKongLimited: 0,
 		};
 		return {
 			firstRun: true,
@@ -96,9 +96,9 @@ define([
 
 
 				Built = {
-					university: false,
-					researchCenter: false,
-					cheungKongLimited: false
+					numberOfUniversity: 0,
+					numberOfResearchCenter: 0,
+					numberOfCheungKongLimited: 0,
 				};
 
 
@@ -271,20 +271,28 @@ define([
 			},
 			built: function(name) {
 				if (name == "University")
-					Built.university = true;
+					Built.numberOfUniversity++;
 				if (name == "ResearchCenter")
-					Built.researchCenter = true;
+					Built.numberOfResearchCenter++;
 				if (name == "CheungKongLimited")
-					Built.cheungKongLimited = true;
+					Built.numberOfCheungKongLimited++;
 			},
 			isBuilt: function(name) {
 				if (name == "University")
-					return Built.university;
+					return (Built.numberOfUniversity>0);
 				if (name == "ResearchCenter")
-					return Built.researchCenter;
+					return (Built.numberOfResearchCenter>0);
 				if (name == "CheungKongLimited")
-					return Built.cheungKongLimited;
+					return (Built.numberOfCheungKongLimited>0);
 			},
+			destroyBuilding: function(name) {
+				if (name == "University")
+					Built.numberOfUniversity--;
+				if (name == "ResearchCenter")
+					Built.numberOfResearchCenter--;
+				if (name == "CheungKongLimited")
+					Built.numberOfCheungKongLimited--;
+			}
 		} //End return
 	})();
 
