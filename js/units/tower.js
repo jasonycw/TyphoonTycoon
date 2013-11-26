@@ -1,15 +1,9 @@
-// defines your module and loads any dependencies
 define([
 	'Utility',
 	'units/unit',
-	'stage',
-	'config',
-	'underscore'
-], function(Utility, Unit, Stage, Config, _) {
-
-	console.log("tower.js loaded");
-
-	//Create Tower Object and its constructor
+	'stage'
+], function(Utility, Unit, Stage) {
+	// Create Tower Object and its constructor
 	function Tower(startX, startY, spriteSrc) {
 		//call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
@@ -35,10 +29,8 @@ define([
 	 */
 
 	Tower.prototype.findNearestEnemy = function() {
-		// console.log("1");
 		var nearestEnemy = null;
 		var nearestDist = 10000000;
-		// console.log(nearestDist);
 		var tempEnemy // reused variable
 		var dist; // reused variable
 		for (var t in Stage.displayList['typhoons']) { //TODO don't use for in
@@ -62,14 +54,11 @@ define([
 			return null;
 	};
 	Tower.prototype.findNearestEnemyWithin = function(rng) {
-		// console.log("1");
 		var nearestEnemy = null;
 		var nearestDist = 10000000;
-		// console.log(nearestDist);
 		var tempEnemy // reused variable
 		var dist; // reused variable
 		for (var t in Stage.displayList['typhoons']) {
-
 			tempEnemy = Stage.displayList['typhoons'][t];
 			// prune the enemies definitely out of range
 			if (Math.abs(this.x - tempEnemy.x) > rng || Math.abs(this.y - tempEnemy.y) > rng)

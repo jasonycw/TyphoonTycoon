@@ -1,4 +1,3 @@
-// defines your module and loads any dependencies
 define([
 	'units/unit',
 	'stage',
@@ -6,8 +5,6 @@ define([
 	'models/mapHitArea',
 	'config'
 ], function(Unit, Stage, Utility, MapHitArea, Config) {
-	console.log("enemy.js loaded");
-
 	// TODO: rename it back to Typhoon when Earthquake is created
 	function Enemy(startX, startY, spriteSrc) {
 		//call super constructor.
@@ -37,22 +34,16 @@ define([
 			this.remove();
 		}
 		this.numberOfTicks++;
-		console.log("Typhoon's tick completed.");
 	};
 	Enemy.prototype.render = function(ctx) {
 
 		if (this.spriteReady) {
-			//draw image
-			// ctx.save();
+			// draw image
 			ctx.globalAlpha = (this.hp / Config.maxTyphoonHP) * 0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			this.drawRotatedImage(ctx, this.sprite, this.x, this.y, this.numberOfTicks);
-			// ctx.drawImage(this.sprite,drawX,drawY);
-			// ctx.restore();
 			ctx.globalAlpha = 1;
-			// ctx.fillText(this.typhoonID,this.x,this.y);
-			//ctx.fillText(this.isSlowed,this.x,this.y);
 		}
 	};
 
@@ -179,9 +170,7 @@ define([
 		this.remove();
 	};
 	Enemy.prototype.remove = function() {
-		console.log("Removed typhoon number " + this.typhoonID);
 		Stage.removeChild(this.typhoonID, 'typhoons');
-		//Unit.prototype.remove.call(this);
 	};
 
 

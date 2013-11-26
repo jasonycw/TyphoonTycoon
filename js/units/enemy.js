@@ -1,4 +1,3 @@
-// defines your module and loads any dependencies
 define([
 	'units/unit',
 	'stage',
@@ -6,8 +5,6 @@ define([
 	'models/mapHitArea',
 	'config'
 ], function(Unit, Stage, Utility, MapHitArea, Config) {
-	console.log("enemy.js loaded");
-
 	// TODO: rename it back to Typhoon when Earthquake is created
 	function Enemy(startX, startY, spriteSrc) {
 		//call super constructor.
@@ -25,7 +22,7 @@ define([
 	}
 
 
-	//subclass extends superclass
+	// subclass extends superclass
 	Enemy.prototype = Object.create(Unit.prototype);
 	Enemy.prototype.constructor = Enemy;
 
@@ -41,18 +38,13 @@ define([
 		var nearestTyphoon = this.findNearestTyphoon();
 		if (nearestTyphoon) {
 			if (nearestTyphoon.distance <= 30) {
-				//console.log("2 typhoons are nearby.");
 				var absorbRate = Config.enemy.absorbRate;
 				if (this.hp < nearestTyphoon.target.hp)
 					absorbRate = -Config.enemy.absorbRate;
-				//console.log("original: "+this.hp+"   "+nearestTyphoon.target.hp);
 				nearestTyphoon.target.damage(absorbRate);
 				this.damage(-absorbRate);
-				//console.log("changed: "+this.hp+"   "+nearestTyphoon.target.hp);
 			}
 		}
-		// if(Utility.pointDistance(this.x,this.y,Config.hkArea.x,Config.hkArea.y) <= Config.hkArea.effectAreaRadius)
-		// 	Game.affectHSI(-Config.enemy.damage);
 		// remove it if out of stage
 		if (!this.isWithinCanvas()) {
 			this.remove();
@@ -63,17 +55,12 @@ define([
 	Enemy.prototype.render = function(ctx) {
 
 		if (this.spriteReady) {
-			//draw image
-			// ctx.save();
+			// draw image
 			ctx.globalAlpha = (this.hp / Config.enemy.max_hp) * 0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			this.drawRotatedImage(ctx, this.sprite, this.x, this.y, this.numberOfTicks);
-			// ctx.drawImage(this.sprite,drawX,drawY);
-			// ctx.restore();
 			ctx.globalAlpha = 1;
-			// ctx.fillText(this.typhoonID,this.x,this.y);
-			// ctx.fillText(this.isSlowed,this.x,this.y);
 
 			ctx.fillStyle = "#333333";
 			ctx.fillText('HP:' + this.hp.toFixed(0), this.x - 16, this.y - 22);
@@ -175,12 +162,8 @@ define([
 	 * @return {void}
 	 */
 	Enemy.prototype.damage = function(dmg) {
-
 		if (!isNaN(dmg))
 			this.hp -= dmg;
-		// else
-		// 	console.log(this.tyhoonID, this.hp, dmg);
-
 		if (this.hp <= 0) {
 			this.kill();
 		}
@@ -208,10 +191,8 @@ define([
 	};
 
 	Enemy.prototype.findNearestTyphoon = function() {
-		// console.log("1");
 		var nearestTyphoon = null;
 		var nearestDist = 10000000;
-		// console.log(nearestDist);
 		var tempEnemy // reused variable
 		var dist; // reused variable
 		for (var t in Stage.displayList['typhoons']) {
