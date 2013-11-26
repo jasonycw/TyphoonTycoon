@@ -23,7 +23,7 @@ define({
 		intiMinAmong: 1,
 		intiMaxAmong: 20,
 		difficulty: 50, //larger is easier
-		initDelay: 10 //1000 = 1 second
+		initDelay: 8 //1 = 1 second
 	},
 
 	// towers		=============================
@@ -74,7 +74,7 @@ define({
 	},
 	cheungKong:{
 		power: 	-50,
-		cost:	7000
+		cost:	7000,
 		hsiIncrementMultiplier: 1.5,
 		repelTowerRangeIncrease: 20,
 		repelTowerPowerDecrease: 3,

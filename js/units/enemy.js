@@ -74,8 +74,9 @@ define([
 			ctx.globalAlpha = 1;
 			// ctx.fillText(this.typhoonID,this.x,this.y);
 			// ctx.fillText(this.isSlowed,this.x,this.y);
+			
 			ctx.fillStyle = "#333333";
-			ctx.fillText('HP:'+this.hp.toFixed(0),this.x-8,this.y-22);
+			ctx.fillText('HP:'+this.hp.toFixed(0),this.x-16,this.y-22);
 
 		}
 	};
