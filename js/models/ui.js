@@ -100,15 +100,13 @@ define([
 			var nearestDist = 10000000;
 			var tempBuilding // reused variable
 			var dist; // reused variable
-			for (var t in Stage.displayList['towers']) {
-				tempBuilding = Stage.displayList['towers'][t];
+			_.each(Stage.displayList['towers'], function(tempBuilding) {
 				dist = Utility.pointDistance(x, y, tempBuilding.x, tempBuilding.y);
-
 				if (dist < nearestDist) {
 					nearestBuilding = tempBuilding;
 					nearestDist = dist;
 				}
-			}
+			});
 
 			if (typeof nearestBuilding === 'object')
 				return {
@@ -229,7 +227,6 @@ define([
 						break;
 				}
 				if (that.activatedMode !== null) {
-					//$('#btn-bar button').attr('disabled', true);
 					$('#btn-bar button').removeAttr('data-activated');
 					$(e.target).attr('disabled', false).attr('data-activated', 'activated');
 				}
