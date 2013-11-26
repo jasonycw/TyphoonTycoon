@@ -411,17 +411,30 @@ define([
 				switch (e.which) {
 					case 49:
 						// 1
-						that.activatedMode = 'powerPlant';
-						btnId = 'btn-power-plant';
+						if(Game.getHSI() >= Config.powerPlant.cost)
+						{
+							that.activatedMode = 'powerPlant';
+							btnId = 'btn-power-plant';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					case 50:
 						// 2
-						that.activatedMode = 'attackTower';
-						btnId = 'btn-laser-tower';
+						if(Game.getHSI() >= Config.attackTower.cost)
+						{
+							that.activatedMode = 'attackTower';
+							btnId = 'btn-laser-tower';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					case 51:
 						// 3
-						if(Game.isBuilt('University')) {
+						if(Game.getHSI() >= Config.freezeTower.cost && Game.isBuilt('University'))
+						{
 							that.activatedMode = 'freezeTower';
 							btnId = 'btn-freeze-tower';
 						} else {
@@ -431,7 +444,7 @@ define([
 						break;
 					case 52:
 						// 4
-						if(Game.isBuilt('ResearchCenter'))
+						if(Game.getHSI() >= Config.repelTower.cost && Game.isBuilt('ResearchCenter'))
 						{
 							that.activatedMode = 'reflectTower';
 							btnId = 'btn-repel-tower';
@@ -442,7 +455,7 @@ define([
 						break;
 					case 81:
 						// Q
-						if(Game.isBuilt('ResearchCenter'))
+						if(Game.getHSI() >= Config.nuclearPlant.cost && Game.isBuilt('ResearchCenter'))
 						{
 							that.activatedMode = 'nuclearPlant';
 							btnId = 'btn-nuclear-plant';
@@ -453,12 +466,18 @@ define([
 						break;
 					case 87:
 						// W
-						that.activatedMode = 'university';
-						btnId = 'btn-university';
+						if(Game.getHSI() >= Config.university.cost)
+						{
+							that.activatedMode = 'university';
+							btnId = 'btn-university';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					case 69:
 						// E
-						if(Game.isBuilt('University'))
+						if(Game.getHSI() >= Config.researchCenter.cost && Game.isBuilt('University'))
 						{
 							that.activatedMode = 'researchCenter';
 							btnId = 'btn-research-center';
@@ -469,7 +488,7 @@ define([
 						break;
 					case 82:
 						// R
-						if(Game.isBuilt('ResearchCenter'))
+						if(Game.getHSI() >= Config.cheungKong.cost && Game.isBuilt('ResearchCenter'))
 						{
 							that.activatedMode = 'cheungKong';
 							btnId = 'btn-cheung-kong';
