@@ -41,7 +41,7 @@ define([
 		// console.log(nearestDist);
 		var tempEnemy	// reused variable
 		var dist;		// reused variable
-		for(var t in Stage.displayList['typhoons']){
+		for(var t in Stage.displayList['typhoons']){	//TODO don't use for in
 			
 			tempEnemy = Stage.displayList['typhoons'][t];
 			dist = Utility.pointDistance(	this.x,this.y,

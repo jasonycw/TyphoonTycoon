@@ -88,6 +88,11 @@ define({
 		increment: 20
 	},
 	earthquake:{
-		
+		affectRadius: 30,
+		effectColor:'#C71585',
+		radius:40,
+		lineWidth:3,
+		duration:30,
+		cycle:3
 	}
 });
