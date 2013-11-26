@@ -531,6 +531,7 @@ define([
 			$('#welcome').show();
 			var that = this;
 			$('#btn-start').click(function() {
+				$('#btn-start').unbind('click');
 				$('#welcome').hide();
 				// Set score
 				that.setHsiDisplayValue(Config.initHSI);
@@ -540,9 +541,12 @@ define([
 			});
 		},
 		showGameOver: function() {
+			console.log('called show gameover');
+			$('#btn-restart').attr('disabled', false);
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
 			$('#btn-restart').click(function() {
+				$('#btn-restart').attr('disabled', true).unbind('click');
 				$('#game-over').hide();
 				Game.init();
 				Game.start();
