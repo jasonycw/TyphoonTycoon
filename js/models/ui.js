@@ -396,7 +396,6 @@ define([
 		bindKeyboardEvent: function() {
 			var that = this;
 			$(document).keyup(function(e) {
-
 				// Esc or Space bar
 				if (e.which === 27 || e.which === 32) {
 					$('#btn-bar button').removeAttr('data-activated');
@@ -404,9 +403,6 @@ define([
 					that.setButtonState();
 					return;
 				}
-				// if (that.activatedMode !== null) {
-				// 	return;
-				// }
 				var btnId;
 				switch (e.which) {
 					case 49:
@@ -496,7 +492,6 @@ define([
 						btnId = null;
 				}
 				if (that.activatedMode !== null) {
-					//$('#btn-bar button').attr('disabled', true);
 					$('#btn-bar button').removeAttr('data-activated');
 					$('#' + btnId).attr('disabled', false).attr('data-activated', 'activated');
 				} else {
