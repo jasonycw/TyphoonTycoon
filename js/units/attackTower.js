@@ -45,9 +45,23 @@ define([
 		if(this.coolDownCounter<=0){
 			var that = this;
 			var nearestEnemy = this.findNearestEnemyWithin(Config.attackTower.range);
+
+			var range = Config.attackTower.range;
+			var attackDamage = Config.attackTower.attackDamage;
+			if(Game.isBuilt('University'))
+			{
+				range += Config.university.attackTowerRangeIncrease;
+				attackDamage += Config.university.attackTowerAttackIncrease;
+			}
+			if(Game.isBuilt('ResearchCenter'))
+			{
+				range += Config.researchCenter.attackTowerRangeIncrease;
+				attackDamage += Config.researchCenter.attackTowerAttackIncrease;
+			}
+			
 			if(nearestEnemy)
 			{
-				if(nearestEnemy.distance <= Config.attackTower.range && Game.getAvailablePower() > 0)
+				if(nearestEnemy.distance <= range && Game.getAvailablePower() > 0)
 				{
 					// console.log("tower "+this.x+" "+ this.y);
 					var enemyWidth = nearestEnemy.target.sprite.width;
@@ -56,9 +70,9 @@ define([
 					var laser = new Laser(this.x, this.y, aimX, aimY, "red", 10, 3);
 					that.sound.play('laser');
 					var buildEffect = new BuildEffect(aimX,aimY, "red", 15, 7, 1);
-					nearestEnemy.target.damage(Config.attackTower.attackDamage);
+					nearestEnemy.target.damage(attackDamage);
 					this.coolDownCounter = this.coolDownTime;
-					// Game.addPower(Config.Config.attackTower.power);
+					console.log("laser tower attack:",range,attackDamage);
 				}
 			}
 		}else{

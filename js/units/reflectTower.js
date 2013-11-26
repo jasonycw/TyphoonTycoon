@@ -40,14 +40,22 @@ define([
 		var target = this.findNearestEnemy();
 		if(target)
 		{
-			if(target.distance <= Config.repelTower.range && Game.getAvailablePower() > 0)
+			var range = Config.repelTower.range;
+			var force = Config.repelTower.force;
+
+			if(Game.isBuilt('CheungKongLimited'))
+			{
+				range += Config.cheungKong.repelTowerRangeIncrease;
+				force += Config.cheungKong.repelTowerForceIncrease;
+			}
+			if(target.distance <= range && Game.getAvailablePower() > 0)
 			{
 				this.sound.play('electricity');
 				// console.log("tower "+this.x+" "+ this.y);
 				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "#FF8000", 20,15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x,this.y,target.target.x,target.target.y);
-				target.target.addMotion(Utility.pointDirection(Config.hkArea.x,Config.hkArea.y,target.target.x,target.target.y),100/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
-				// Game.addPower(Config.repelTower.power);
+				target.target.addMotion(Utility.pointDirection(Config.hkArea.x,Config.hkArea.y,target.target.x,target.target.y),force/distanceFromTyphoonToTower/distanceFromTyphoonToTower);
+				console.log("reflect tower attack:",range);
 			}
 		}
 	};

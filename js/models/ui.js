@@ -264,7 +264,12 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.attackTower.cost) {
 									var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
-									Game.setHSI(Game.getHSI()-Config.attackTower.cost);
+									var cost = Config.attackTower.cost;
+									if(Game.isBuilt('University'))
+										cost  += Config.university.attackTowerCostIncrease;
+									if(Game.isBuilt('ResearchCenter'))
+										cost += Config.researchCenter.attackTowerCostIncrease;
+									Game.setHSI(Game.getHSI()-cost);
 
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -279,7 +284,11 @@ define([
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.freezeTower.cost) {
 									var tower = new FreezeTower(mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
-									Game.setHSI(Game.getHSI()-Config.freezeTower.cost);
+
+									var cost = Config.freezeTower.cost;
+									if(Game.isBuilt('ResearchCenter'))
+										cost += Config.researchCenter.freezeTowerCostIncrease;
+									Game.setHSI(Game.getHSI()-cost);
 
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -293,8 +302,11 @@ define([
 							case 'reflectTower':
 								// Can only build on ocean
 								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.repelTower.cost) {
-									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png")
-									Game.setHSI(Game.getHSI()-Config.repelTower.cost);
+									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
+									var cost = Config.repelTower.cost;
+									if(Game.isBuilt('CheungKongLimited'))
+										cost += Config.cheungKong.repelTowerCostDecrease;
+									Game.setHSI(Game.getHSI()-cost);
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
