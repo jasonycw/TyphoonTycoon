@@ -115,13 +115,10 @@ define([
 				Game.tick(dt);
 				stage.render();
 
-				//console.log(dt);
-
 				lastTime = now;
 
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 				if (hsi <= 0) {
-
 					cancelAnimationFrame(frameId);
 					clearInterval(intervalId);
 					for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
