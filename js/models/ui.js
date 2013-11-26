@@ -467,8 +467,6 @@ define([
 						break;
 					case 69:
 						// E
-							console.log(Game.isBuilt('University'));
-						
 						if (Game.getHSI() >= Config.researchCenter.cost && Game.isBuilt('University')) {
 							that.activatedMode = 'researchCenter';
 							btnId = 'btn-research-center';
