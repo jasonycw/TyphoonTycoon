@@ -3,13 +3,11 @@ define([
 	'stage'
 ], function(Stage) {
 
-	console.log("effect.js loaded");
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
 	function Effect() {
-		//console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
 
 		/*
 				Initialion - all variable/funciton must have "this." before

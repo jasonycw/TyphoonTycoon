@@ -4,13 +4,11 @@ define([
 	'models/effect'
 ], function(Stage, Effect) {
 
-	console.log("laser.js loaded");
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
 	function Laser(startX, startY, endX, endY, laserColor, duration, lineWidth) {
-		//console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
 
 		/*
 				Initialion - all variable/funciton must have "this." before
@@ -27,7 +25,6 @@ define([
 		this.totalDuration = duration;
 		this.lineWidth = lineWidth;
 		this.id = Stage.addChild(this, 'effects');
-		// console.log(this.startX,this.startY);
 
 		// update sprite origin according to sprite size
 	};
@@ -43,7 +40,6 @@ define([
 	};
 
 	Laser.prototype.render = function(ctx) {
-		// console.log('render laser ' + this.startX+', '+this.startY);
 		ctx.beginPath();
 		ctx.moveTo(this.startX, this.startY);
 		ctx.lineTo(this.endX, this.endY);
