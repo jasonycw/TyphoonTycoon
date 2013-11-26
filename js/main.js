@@ -38,7 +38,7 @@ require([
 			window.msRequestAnimationFrame ||
 			function(callback) {
 				window.setTimeout(callback, 1000 / 60);
-		};
+			};
 	})();
 
 	// Start the game when DOM tree is ready

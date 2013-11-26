@@ -1,28 +1,20 @@
-// defines your module and loads any dependencies
 define([
 	'stage',
 	'models/buildEffect',
 	'config',
 	'utility',
-	// 'units/powerPlant',
-	// 'units/nuclearPlant',
 	'Game'
-], function(Stage, BuildEffect, Config, Utility, Game) { //NuclearPlant, PowerPlant
-
-	console.log("earthquake.js loaded");
+], function(Stage, BuildEffect, Config, Utility, Game) {
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
 	function Earthquake(x, y) {
-		// console.log("Unit Constructor is called");	//debug: did all the constructors call correctly?
-
 		/*
 				Initialion - all variable/funciton must have "this." before
 				Use "var" to change the variable/funciton become private 
 	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
-		//Effect.call();
 		this.x = x || 0;
 		this.y = y || 0;
 		this.effectColor = Config.earthquake.effectColor;
@@ -32,7 +24,6 @@ define([
 		this.radius = Config.earthquake.radius;
 		this.lineWidth = Config.earthquake.lineWidth;
 		this.id = Stage.addChild(this, 'effects');
-		//console.log('id:', this.id);
 		this.cycle = Config.earthquake.cycle || 2;
 		this.xArray = [];
 		this.yArray = [];
@@ -40,8 +31,6 @@ define([
 		this.init();
 	};
 
-	// Earthquake.prototype = Object.create(Effect.prototype);
-	// Earthquake.prototype.constructor = Earthquake;
 
 	Earthquake.prototype.init = function() {
 		for (var i = 3 - 1; i >= 0; i--) {
@@ -52,12 +41,9 @@ define([
 
 	// tick event handler
 	Earthquake.prototype.tick = function(dt) {
-		//console.log('tick Earthquake ', this.duration, this.cycle, dt);
-
 		this.duration--;
 		if (this.duration == 0) {
 			for (var i = 3 - 1; i >= 0; i--) {
-				//console.log(this.xArray, this.yArray, BuildEffect);
 				this.buildEffect.push(new BuildEffect(this.xArray[i], this.yArray[i], this.effectColor, this.radius, this.initDuration, this.lineWidth));
 				this.damageNearBuilding(this.xArray[i], this.yArray[i]);
 			}
@@ -70,7 +56,6 @@ define([
 	};
 
 	Earthquake.prototype.render = function(ctx) {
-		// console.log('render Earthquake ' + this.x+', '+this.y);
 		ctx.fillStyle = "#FFFFFF";
 		ctx.fillText('Earthquake', this.x, this.y + 20);
 	};
@@ -79,7 +64,6 @@ define([
 	 * remove the unit, without death effect
 	 */
 	Earthquake.prototype.remove = function() {
-		// console.log('remove:' + this.id);
 		Stage.removeChild(this.id, 'effects');
 	};
 
@@ -94,22 +78,8 @@ define([
 			tempBuilding = Stage.displayList['towers'][t];
 			dist = Utility.pointDistance(tx, ty, tempBuilding.x, tempBuilding.y);
 			if (dist < this.radius) {
-				//course damge 
-				console.log('distroy:' + tempBuilding.id);
-				//tempBuilding.remove();
+				// cause damge 
 				Stage.removeChild(tempBuilding.id, 'towers');
-
-				// if(tempBuilding instanceof PowerPlant)
-				// {
-				// 	Game.reducePower(Config.powerPlant.power);
-				// }
-
-				// if(tempBuilding instanceof NuclearPlant)
-				// {
-				// 	Game.reducePower(Config.nuclearPlant.power);
-				// }
-
-
 			} //End if
 		} //End for
 	};
