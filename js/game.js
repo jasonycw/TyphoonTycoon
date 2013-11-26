@@ -32,7 +32,7 @@ define([
 			powerUsed: 0,
 			hsi: 0,
 			cash: 0,
-			level:1,
+			level: 1,
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
@@ -46,7 +46,7 @@ define([
 				console.log("Game.init() loaded");
 				try {
 					stage = new Stage('game-canvas');
-				} catch(e) {
+				} catch (e) {
 					alert('Cannot obtain the canvas context.');
 					return;
 				}
@@ -63,12 +63,12 @@ define([
 				//setup experiment/testing
 				this.testSetup();
 
-				if (typeof firstRun  == 'undefined') {
+				if (typeof firstRun == 'undefined') {
 					gameUI.showWelcome();
 					firstRun = false;
 				}
 
-			},	//End init
+			}, //End init
 			firstRender: function() {
 				stage.render();
 			},
@@ -78,9 +78,9 @@ define([
 				lastTime = Date.now();
 				this.loop();
 
-				intervalId = setInterval(function(){
+				intervalId = setInterval(function() {
 					Game.updateHSI();
-				}, 100 );
+				}, 100);
 				console.log(intervalId);
 				this.loop();
 			},
@@ -111,12 +111,12 @@ define([
 
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 				console.log(intervalId);
-		  		if (hsi <= 0) {
-		  			clearInterval(intervalId);
-		  			gameUI.showGameOver();
-		  		} else {
+				if (hsi <= 0) {
+					clearInterval(intervalId);
+					gameUI.showGameOver();
+				} else {
 					requestAnimFrame(Game.loop);
-		  		}
+				}
 			},
 			/*
 				tick() : 
@@ -128,35 +128,32 @@ define([
 				- handling random game event (eg. disaster)
 			http://jlongster.com/Making-Sprite-based-Games-with-Canvas
 			https://github.com/jlongster/canvas-game-bootstrap/blob/a878158f39a91b19725f726675c752683c9e1c08/js/app.js#L22
-			*/			
-			tick: function(dt)
-			{
+			*/
+			tick: function(dt) {
 				this.updateEntities(dt);
 
-				if(dt < 1){         // fix bug coused by lag
+				if (dt < 1) { // fix bug coused by lag
 					gameTime += dt;
 				}
 
-				if( gameTime > Config.enemy.initDelay)
-				{
+				if (gameTime > Config.enemy.initDelay) {
 					//reset and next level 
-					if(this.enemyCounter >= maxAmongOfEnemy)
-					{	
-						maxAmongOfEnemy+=(minAmongOfEnemy*2);
-						minAmongOfEnemy+=1;
-						this.level+=1;
-						console.log('Level Up ->'+this.level);
+					if (this.enemyCounter >= maxAmongOfEnemy) {
+						maxAmongOfEnemy += (minAmongOfEnemy * 2);
+						minAmongOfEnemy += 1;
+						this.level += 1;
+						console.log('Level Up ->' + this.level);
 						gameTime = Config.enemy.initDelay;
 						this.enemyCounter = 0;
 
 						//random time launch a eathquake in each level
 						for (var i = minAmongOfEnemy - 1; i >= 0; i--) {
-							setTimeout(function(){
-								var targetX = Config.hkArea.x + Math.random()*600 - 300;
-								var targetY = Config.hkArea.y + Math.random()*600 - 300;
+							setTimeout(function() {
+								var targetX = Config.hkArea.x + Math.random() * 600 - 300;
+								var targetY = Config.hkArea.y + Math.random() * 600 - 300;
 								var earthquake = new Earthquake(targetX, targetY);
 							}, Math.random * 60000);
-							
+
 						};
 					}
 					/*
@@ -167,7 +164,7 @@ define([
 					 */
 					if (Math.random() < 1 - Math.pow(.993, gameTime / Config.enemy.difficulty)) {
 
-						for (var i = minAmongOfEnemy - 1; i >= 0; i-=1) {
+						for (var i = minAmongOfEnemy - 1; i >= 0; i -= 1) {
 							var t,
 								xx,
 								yy;
@@ -177,26 +174,26 @@ define([
 							} else {
 								xx = Math.random() * Stage.width;
 								yy = Stage.height;
-							}//End if
+							} //End if
 
 							//TODO: change different kind of enemies
 							t = new Enemy(xx, yy, "img/typhoon.png");
 							var hk_dir = Utility.pointDirection(
-								xx,	yy,
+								xx, yy,
 								Config.hkArea.x, Config.hkArea.y);
-							t.setMotion(hk_dir+Math.random()*120-60, Math.random() * this.level+1 +0.5);
-							console.log('Enemy:'+t.typhoonID, 'HP:'+t.hp);
-							this.enemyCounter+=1;
+							t.setMotion(hk_dir + Math.random() * 120 - 60, Math.random() * this.level + 1 + 0.5);
+							console.log('Enemy:' + t.typhoonID, 'HP:' + t.hp);
+							this.enemyCounter += 1;
 						}; //End for
 
-					}//End if
+					} //End if
 
 					//console.log('this.enemyCounter:'+this.enemyCounter, 'gameTime:'+gameTime);
 
-				}//End if
+				} //End if
 
 			}, //End tick()
-			updateEntities: function (dt) {
+			updateEntities: function(dt) {
 				//console.time("updateEntities");
 				_.each(Stage.displayList, function(renderList) {
 					_.each(renderList, function(item) {
@@ -210,29 +207,27 @@ define([
 			/*
 				update HSI
 			 */
-			updateHSI: function () {
+			updateHSI: function() {
 
 				var penalty = 0;
 				//check any typhoon within the circle
 				//TODO could be optimize
 				//
 				that = this;
-				var hsiChange = (Config.HSI.increment+Math.round(Math.random()*Config.HSI.upperOfRandom)+Math.round(Math.random()*Config.HSI.lowerOfRandom));
-				if(that.built.cheungKongLimited)
+				var hsiChange = (Config.HSI.increment + Math.round(Math.random() * Config.HSI.upperOfRandom) + Math.round(Math.random() * Config.HSI.lowerOfRandom));
+				if (that.built.cheungKongLimited)
 					hsiChange *= Config.cheungKong.hsiIncrementMultiplier;
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
 					var distance;
-					try{
+					try {
 						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
-					} catch(err){}
-					finally{
-						if( !isNaN(distance)  && e!=null){
+					} catch (err) {} finally {
+						if (!isNaN(distance) && e != null) {
 							// console.log(Config.enemy.damage*(Config.hkArea.effectAreaRadius-Math.round(distance)));
-							if(distance <= Config.hkArea.effectAreaRadius)
-							{
-								console.log(Config.enemy.damage*(Config.hkArea.effectAreaRadius-Math.round(distance)));
-								hsiChange = -(Config.enemy.damage*Math.round((Config.hkArea.effectAreaRadius-Math.round(distance))*0.1));
+							if (distance <= Config.hkArea.effectAreaRadius) {
+								console.log(Config.enemy.damage * (Config.hkArea.effectAreaRadius - Math.round(distance)));
+								hsiChange = -(Config.enemy.damage * Math.round((Config.hkArea.effectAreaRadius - Math.round(distance)) * 0.1));
 							}
 
 							// if( distance > (Config.hkArea.radius/2+e.radius) &&  distance <= (Config.hkArea.radius+e.radius)) {
@@ -245,7 +240,7 @@ define([
 
 
 							// 	// penalty = -( Math.random() * hsiInterest ) - 20;
-								
+
 							// }
 							// else if (distance < (Config.hkArea.radius/2+e.radius) )
 							// {
@@ -267,9 +262,9 @@ define([
 							// // 	hsi -= Config.enemy.damage;
 							// // 	console.log("HSI after damage:  " + hsi);
 							// // }
-						}//End if
+						} //End if
 
-					}//End try..finally
+					} //End try..finally
 				} //End for
 				// if (penalty > 0) penalty *= -1;
 				// hsiInterest += Math.random()*Config.HSI.increment + penalty;
@@ -286,16 +281,15 @@ define([
 				if (p > 0) {
 					powerQuota += p;
 				} else if (p < 0) {
-					powerUsed -= p; 
+					powerUsed -= p;
 				}
 				// totalPower += p;
 			},
-			reducePower: function(p)
-			{
+			reducePower: function(p) {
 				powerQuota -= p;
 			},
 			getAvailablePower: function() {
-				return powerQuota-powerUsed;
+				return powerQuota - powerUsed;
 			},
 			getHSI: function() {
 				return hsi;
@@ -309,20 +303,20 @@ define([
 			},
 			built: function(name) {
 				var that = this;
-				if(name == "University")
+				if (name == "University")
 					that.Built.university = true;
-				if(name == "ResearchCenter")
+				if (name == "ResearchCenter")
 					that.Built.researchCenter = true;
-				if(name == "CheungKongLimited")
+				if (name == "CheungKongLimited")
 					that.Built.cheungKongLimited = true;
 			},
 			isBuilt: function(name) {
 				var that = this;
-				if(name == "University")
+				if (name == "University")
 					return that.Built.university;
-				if(name == "ResearchCenter")
+				if (name == "ResearchCenter")
 					return that.Built.researchCenter;
-				if(name == "CheungKongLimited")
+				if (name == "CheungKongLimited")
 					return that.Built.cheungKongLimited;
 			},
 			/*
@@ -362,10 +356,10 @@ define([
 					});
 				},100);
 				*/
-			}//End testSetup()
+			} //End testSetup()
 
-		}//End return
+		} //End return
 	})();
-	
+
 	return Game;
 });
