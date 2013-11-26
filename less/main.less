@@ -27,6 +27,31 @@ body {
 	z-index: 1;
 }
 
+#welcome {
+	display: none;
+	width: @game-width;
+	height: @game-height;
+	.box-sizing(border-box);
+	position: absolute;
+	z-index: 199;
+	color: #fff;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.5);
+	h1 {
+		text-shadow: @shadow;
+		font-size: 4em;
+		margin: 150px 0 40px;
+	}
+	p {
+		text-shadow: @shadow;
+		font-size: 1.5em;
+		margin: 20px 0;
+	}
+	button {
+		.largeButton(#000);
+	}
+}
+
 #game-over {
 	display: none;
 	width: @game-width;
@@ -43,16 +68,20 @@ body {
 		margin: 150px 0 80px;
 	}
 	button {
-		color: #fff;
-		font-size: 2em;
-		padding: 10px 20px;
-		.border-radius(10px);
-		background: none;
-		border: 2px solid #fff;
-		&:hover, &:active {
-			color: #bb0000;
-			background-color: #fff;
-		}
+		.largeButton(#bb0000);
+	}
+}
+
+.largeButton(@color) {
+	color: #fff;
+	font-size: 2em;
+	padding: 10px 20px;
+	.border-radius(10px);
+	background: none;
+	border: 2px solid #fff;
+	&:hover, &:active {
+		color: @color;
+		background-color: #fff;
 	}
 }
 

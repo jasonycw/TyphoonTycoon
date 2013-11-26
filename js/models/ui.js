@@ -44,10 +44,7 @@ define([
 			// Sound Effect
 			this.buildSound = new Sound('buildSound');
 
-			// Set score
-			this.setHsiDisplayValue(Config.initHSI);
-			this.setPowerBar(0, 0);
-			this.lowPowerAlerted = false;
+			
 
 		},
 		setButtonTitles: function() {
@@ -86,6 +83,7 @@ define([
 			var that = this;
 			this.bgImg.onload = function() {
 				that.bgReady = true;
+				Game.firstRender();
 			}
 		},
 		findNearestBuilding: function(x,y) {
@@ -508,13 +506,25 @@ define([
 				this.lowPowerAlerted = false;
 			}
 		},
-		showGameOver: function(game) {
+		showWelcome: function() {
+			$('#welcome').show();
+			var that = this;
+			$('#btn-start').click(function() {
+				$('#welcome').hide();
+				// Set score
+			that.setHsiDisplayValue(Config.initHSI);
+			that.setPowerBar(0, 0);
+			that.lowPowerAlerted = false;
+				Game.start();
+			});
+		},
+		showGameOver: function() {
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
 			$('#btn-restart').click(function() {
-				console.log(game);
 				$('#game-over').hide();
-				game.init();
+				Game.init();
+				Game.start();
 			});
 		}
 	};

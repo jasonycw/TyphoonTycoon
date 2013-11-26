@@ -22,6 +22,47 @@ body {
   position: absolute;
   z-index: 1;
 }
+#welcome {
+  display: none;
+  width: 960px;
+  height: 600px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 199;
+  color: #fff;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+#welcome h1 {
+  text-shadow: 0 2px 6px rgba(20, 20, 20, 0.5);
+  font-size: 4em;
+  margin: 150px 0 40px;
+}
+#welcome p {
+  text-shadow: 0 2px 6px rgba(20, 20, 20, 0.5);
+  font-size: 1.5em;
+  margin: 20px 0;
+}
+#welcome button {
+  color: #fff;
+  font-size: 2em;
+  padding: 10px 20px;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 10px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  background-clip: padding-box;
+  background: none;
+  border: 2px solid #fff;
+}
+#welcome button:hover,
+#welcome button:active {
+  color: #000000;
+  background-color: #fff;
+}
 #game-over {
   display: none;
   width: 960px;

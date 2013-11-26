@@ -15,20 +15,14 @@ define([
 	'models/earthquake',
 	'models/buildEffect',
 	'underscore' //must be last item
-	], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect, _) {
+], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect, _) {
 
 	console.log("game.js loaded");
 
 	var Game = (function() {
-		// Game canvas
-		// var stage;
-
-		// var gameUI;
-
-		// var lastTime;
-		// var gameTime = 0;
-		that = this;
+		var that = this;
 		return {
+			firstRun: true,
 			stage: null,
 			gameUI: null,
 			lastTime: 0,
@@ -58,13 +52,28 @@ define([
 				}
 
 				// create background map
-				gameUI = new UI();
+				if (typeof gameUI == 'undefined') {
+					gameUI = new UI();
+				}
 
 				gameUI.init();
 				MapHitArea.init();
 				Stage.addChild(gameUI, 'backdrops');
 
-				//Start game loop when initial
+				//setup experiment/testing
+				this.testSetup();
+
+				if (typeof firstRun  == 'undefined') {
+					gameUI.showWelcome();
+					firstRun = false;
+				}
+
+			},	//End init
+			firstRender: function() {
+				stage.render();
+			},
+			// Start game loop
+			start: function() {
 				this.reset();
 				lastTime = Date.now();
 				this.loop();
@@ -73,13 +82,8 @@ define([
 					Game.updateHSI();
 				}, 100 );
 
-
-				
-				//setup experiment/testing
-				this.testSetup();
-
-			},	//End init
-
+				this.loop();
+			},
 			reset: function() {
 				hsi = Config.HSI.init;
 				cash = 0;
@@ -114,7 +118,7 @@ define([
 				// // Electricity cannot be stored because we don't have such a large battery in real world!
 		  //   	totalPower = consumePower = inputPower = 0;
 		  		if (hsi <= 0) {
-		  			gameUI.showGameOver(that);
+		  			gameUI.showGameOver();
 		  			clearInterval(updateHSIIntervalID);
 		  		} else {
 					requestAnimFrame(Game.loop);
