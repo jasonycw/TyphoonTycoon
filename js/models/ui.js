@@ -548,7 +548,10 @@ define([
 			});
 		},
 		showGameOver: function() {
+			// Hide tooltip
+			$('#tooltip').hide();
 			$('#btn-bar button').unbind('hover');
+
 			$('#btn-restart').attr('disabled', false);
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
