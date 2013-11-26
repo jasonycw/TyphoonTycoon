@@ -22,6 +22,11 @@ define([
 	var Game = (function() {
 		var that = this;
 		var intervalId = null;
+		var Built = {
+				university: false,
+				researchCenter: false,
+				cheungKongLimited: false
+		};
 		return {
 			firstRun: true,
 			stage: null,
@@ -36,11 +41,7 @@ define([
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
-			Built: {
-				university: false,
-				researchCenter: false,
-				cheungKongLimited: false
-			},
+			
 			// Initialize the game
 			init: function() {
 				console.log("Game.init() loaded");
@@ -70,18 +71,16 @@ define([
 
 			},	//End init
 			firstRender: function() {
+				// Render the stage first to show the game map before player start the game
 				stage.render();
 			},
 			// Start game loop
 			start: function() {
 				this.reset();
 				lastTime = Date.now();
-				this.loop();
-
 				intervalId = setInterval(function(){
 					Game.updateHSI();
 				}, 100 );
-				console.log(intervalId);
 				this.loop();
 			},
 			reset: function() {
@@ -94,6 +93,12 @@ define([
 
 				minAmongOfEnemy = Config.enemy.intiMinAmong;
 				maxAmongOfEnemy = Config.enemy.intiMaxAmong;
+
+				Built = {
+					university: false,
+					researchCenter: false,
+					cheungKongLimited: false
+				};
 			},
 			/*
 				main game loop
@@ -110,7 +115,6 @@ define([
 				lastTime = now;
 
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
-				console.log(intervalId);
 		  		if (hsi <= 0) {
 		  			clearInterval(intervalId);
 		  			gameUI.showGameOver();
@@ -308,22 +312,20 @@ define([
 				hsi += value;
 			},
 			built: function(name) {
-				var that = this;
 				if(name == "University")
-					that.Built.university = true;
+					Built.university = true;
 				if(name == "ResearchCenter")
-					that.Built.researchCenter = true;
+					Built.researchCenter = true;
 				if(name == "CheungKongLimited")
-					that.Built.cheungKongLimited = true;
+					Built.cheungKongLimited = true;
 			},
 			isBuilt: function(name) {
-				var that = this;
 				if(name == "University")
-					return that.Built.university;
+					return Built.university;
 				if(name == "ResearchCenter")
-					return that.Built.researchCenter;
+					return Built.researchCenter;
 				if(name == "CheungKongLimited")
-					return that.Built.cheungKongLimited;
+					return Built.cheungKongLimited;
 			},
 			/*
 				isolate following testing code, there are 2 function for 2 different kind of code
