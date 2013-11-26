@@ -31,12 +31,12 @@ define([
 			var range = Config.attackTower.range;
 			var attackDamage = Config.attackTower.attackDamage;
 			if (Game.isBuilt('University')) {
-				range += Config.university.attackTowerRangeIncrease;
-				attackDamage += Config.university.attackTowerAttackIncrease;
+				range += Config.university.attackTowerRangeIncrease*Game.numberOfBuilding('University');
+				attackDamage += Config.university.attackTowerAttackIncrease*Game.numberOfBuilding('University');
 			}
 			if (Game.isBuilt('ResearchCenter')) {
-				range += Config.researchCenter.attackTowerRangeIncrease;
-				attackDamage += Config.researchCenter.attackTowerAttackIncrease;
+				range += Config.researchCenter.attackTowerRangeIncrease*Game.numberOfBuilding('ResearchCenter');
+				attackDamage += Config.researchCenter.attackTowerAttackIncrease*Game.numberOfBuilding('ResearchCenter');
 			}
 
 			if (nearestEnemy) {

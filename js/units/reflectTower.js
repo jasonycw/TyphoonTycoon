@@ -29,8 +29,8 @@ define([
 			var force = Config.repelTower.force;
 
 			if (Game.isBuilt('CheungKongLimited')) {
-				range += Config.cheungKong.repelTowerRangeIncrease;
-				force += Config.cheungKong.repelTowerForceIncrease;
+				range += Config.cheungKong.repelTowerRangeIncrease*Game.numberOfBuilding('CheungKongLimited');
+				force += Config.cheungKong.repelTowerForceIncrease*Game.numberOfBuilding('CheungKongLimited');
 			}
 			if (target.distance <= range && Game.getAvailablePower() > 0) {
 				this.sound.play('electricity');

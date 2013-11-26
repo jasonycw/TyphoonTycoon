@@ -32,9 +32,9 @@ define([
 		var slowRate = Config.freezeTower.slowRate;
 		var attackDamage = Config.freezeTower.attackDamage;
 		if (Game.isBuilt('ResearchCenter')) {
-			range += Config.researchCenter.freezeTowerRangeIncrease;
-			slowRate += Config.researchCenter.freezeTowerSlowRateIncrease;
-			attackDamage += Config.researchCenter.freezeTowerAttackIncrease;
+			range += Config.researchCenter.freezeTowerRangeIncrease*Game.numberOfBuilding('ResearchCenter');
+			slowRate += Config.researchCenter.freezeTowerSlowRateIncrease*Game.numberOfBuilding('ResearchCenter');
+			attackDamage += Config.researchCenter.freezeTowerAttackIncrease*Game.numberOfBuilding('ResearchCenter');
 		}
 
 

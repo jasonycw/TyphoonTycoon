@@ -274,6 +274,14 @@ define([
 				if (name == "CheungKongLimited")
 					Built.numberOfCheungKongLimited++;
 			},
+			numberOfBuilding: function(name) {
+				if (name == "University")
+					return Built.numberOfUniversity;
+				if (name == "ResearchCenter")
+					return Built.numberOfResearchCenter;
+				if (name == "CheungKongLimited")
+					return Built.numberOfCheungKongLimited;
+			},
 			isBuilt: function(name) {
 				if (name == "University")
 					return (Built.numberOfUniversity>0);

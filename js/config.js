@@ -77,9 +77,9 @@ define({
 	cheungKong: {
 		power: -50,
 		cost: 7000,
-		hsiIncrementMultiplier: 1.5,
+		hsiIncrementMultiplier: 2,
 		repelTowerRangeIncrease: 20,
-		repelTowerForceIncrease: 50,
+		repelTowerForceIncrease: 70,
 		repelTowerCostDecrease: 30
 	},
 	// Hang Sang Index

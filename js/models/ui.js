@@ -144,19 +144,19 @@ define([
 			if (this.activatedMode !== null) {
 				return;
 			}
-			if (Game.getHSI() >= Config.attackTower.cost) {
+			if (Game.getHSI() >= Config.attackTower.cost+Config.university.attackTowerCostIncrease*Game.numberOfBuilding('University')+Config.researchCenter.attackTowerCostIncrease*Game.numberOfBuilding('ResearchCenter')) {
 				$('#btn-laser-tower').attr('disabled', false);
 			} else {
 				$('#btn-laser-tower').attr('disabled', true);
 			}
 
-			if (Game.getHSI() >= Config.freezeTower.cost && Game.isBuilt('University')) {
+			if (Game.getHSI() >= Config.freezeTower.cost+Config.researchCenter.freezeTowerCostIncrease*Game.numberOfBuilding('ResearchCenter') && Game.isBuilt('University')) {
 				$('#btn-freeze-tower').attr('disabled', false);
 			} else {
 				$('#btn-freeze-tower').attr('disabled', true);
 			}
 
-			if (Game.getHSI() >= Config.repelTower.cost && Game.isBuilt('ResearchCenter')) {
+			if (Game.getHSI() >= Config.repelTower.cost-Config.cheungKong.repelTowerCostDecrease*Game.numberOfBuilding('CheungKongLimited') && Game.isBuilt('ResearchCenter')) {
 				$('#btn-repel-tower').attr('disabled', false);
 			} else {
 				$('#btn-repel-tower').attr('disabled', true);
@@ -270,9 +270,9 @@ define([
 									var tower = new AttackTower(mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
 									var cost = Config.attackTower.cost;
 									if (Game.isBuilt('University'))
-										cost += Config.university.attackTowerCostIncrease;
+										cost += Config.university.attackTowerCostIncrease*Game.numberOfBuilding('University');
 									if (Game.isBuilt('ResearchCenter'))
-										cost += Config.researchCenter.attackTowerCostIncrease;
+										cost += Config.researchCenter.attackTowerCostIncrease*Game.numberOfBuilding('ResearchCenter');
 									Game.setHSI(Game.getHSI() - cost);
 
 									if (Game.getAvailablePower() > 0) {
@@ -291,7 +291,7 @@ define([
 
 									var cost = Config.freezeTower.cost;
 									if (Game.isBuilt('ResearchCenter'))
-										cost += Config.researchCenter.freezeTowerCostIncrease;
+										cost += Config.researchCenter.freezeTowerCostIncrease*Game.numberOfBuilding('ResearchCenter');
 									Game.setHSI(Game.getHSI() - cost);
 
 									if (Game.getAvailablePower() > 0) {
@@ -309,7 +309,7 @@ define([
 									var tower = new ReflectTower(mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
 									var cost = Config.repelTower.cost;
 									if (Game.isBuilt('CheungKongLimited'))
-										cost += Config.cheungKong.repelTowerCostDecrease;
+										cost -= Config.cheungKong.repelTowerCostDecrease*Game.numberOfBuilding('CheungKongLimited');
 									Game.setHSI(Game.getHSI() - cost);
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -424,7 +424,7 @@ define([
 						break;
 					case 50:
 						// 2
-						if (Game.getHSI() >= Config.attackTower.cost) {
+						if (Game.getHSI() >= Config.attackTower.cost+Config.university.attackTowerCostIncrease*Game.numberOfBuilding('University')+Config.researchCenter.attackTowerCostIncrease*Game.numberOfBuilding('ResearchCenter')) {
 							that.activatedMode = 'attackTower';
 							btnId = 'btn-laser-tower';
 						} else {
@@ -434,7 +434,7 @@ define([
 						break;
 					case 51:
 						// 3
-						if (Game.getHSI() >= Config.freezeTower.cost && Game.isBuilt('University')) {
+						if (Game.getHSI() >= Config.freezeTower.cost+Config.researchCenter.freezeTowerCostIncrease*Game.numberOfBuilding('ResearchCenter') && Game.isBuilt('University')) {
 							that.activatedMode = 'freezeTower';
 							btnId = 'btn-freeze-tower';
 						} else {
@@ -444,7 +444,7 @@ define([
 						break;
 					case 52:
 						// 4
-						if (Game.getHSI() >= Config.repelTower.cost && Game.isBuilt('ResearchCenter')) {
+						if (Game.getHSI() >= Config.repelTower.cost-Config.cheungKong.repelTowerCostDecrease*Game.numberOfBuilding('CheungKongLimited') && Game.isBuilt('ResearchCenter')) {
 							that.activatedMode = 'reflectTower';
 							btnId = 'btn-repel-tower';
 						} else {
