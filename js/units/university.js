@@ -22,6 +22,6 @@ define([
 	// subclass extends superclass
 	University.prototype = Object.create(Unit.prototype);
 	University.prototype.constructor = University;
-	
+
 	return University;
 });

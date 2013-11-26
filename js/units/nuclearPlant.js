@@ -26,7 +26,7 @@ define([
 	// NuclearPlant.prototype.tick = function(dt) {	// override
 	// 	Game.addPower(Config.NuclearPlantPower);
 	// };
-	
+
 
 	return NuclearPlant;
 });

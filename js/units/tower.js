@@ -5,17 +5,17 @@ define([
 	'stage',
 	'config',
 	'underscore'
-], function(Utility,Unit,Stage,Config,_) {
+], function(Utility, Unit, Stage, Config, _) {
 
 	console.log("tower.js loaded");
 
 	//Create Tower Object and its constructor
-	function Tower(startX,startY,spriteSrc){
+	function Tower(startX, startY, spriteSrc) {
 		//call super constructor.
-		Unit.call(this,startX,startY,spriteSrc);
+		Unit.call(this, startX, startY, spriteSrc);
 
 		//Auto add to stage
-		this.id = Stage.addChild(this,'towers');
+		this.id = Stage.addChild(this, 'towers');
 		//var nearEnemy = this.findNearestEnemy();
 		//nearEnemy.setMotion(0,0);
 	}
@@ -25,7 +25,7 @@ define([
 
 
 	// tick event handler
-	Tower.prototype.tick = function(dt){	// override
+	Tower.prototype.tick = function(dt) { // override
 		//empty		
 	};
 	/**
@@ -33,67 +33,73 @@ define([
 	 * @return {target,distance} the enemy that is nearest
 	 * @returns {undefined} if no enemy is alive
 	 */
-	
-	Tower.prototype.findNearestEnemy = function(){
+
+	Tower.prototype.findNearestEnemy = function() {
 		// console.log("1");
-		var nearestEnemy=null;
+		var nearestEnemy = null;
 		var nearestDist = 10000000;
 		// console.log(nearestDist);
-		var tempEnemy	// reused variable
-		var dist;		// reused variable
-		for(var t in Stage.displayList['typhoons']){	//TODO don't use for in
-			
+		var tempEnemy // reused variable
+		var dist; // reused variable
+		for (var t in Stage.displayList['typhoons']) { //TODO don't use for in
+
 			tempEnemy = Stage.displayList['typhoons'][t];
-			dist = Utility.pointDistance(	this.x,this.y,
-											tempEnemy.x,tempEnemy.y);
-			
-			if(dist<nearestDist){
+			dist = Utility.pointDistance(this.x, this.y,
+				tempEnemy.x, tempEnemy.y);
+
+			if (dist < nearestDist) {
 				nearestEnemy = tempEnemy;
 				nearestDist = dist;
 			}
 		}
 
-		if(typeof nearestEnemy === 'object')
-			return {target:nearestEnemy,distance:nearestDist};
-		else 
+		if (typeof nearestEnemy === 'object')
+			return {
+				target: nearestEnemy,
+				distance: nearestDist
+			};
+		else
 			return null;
 	};
-	Tower.prototype.findNearestEnemyWithin = function(rng){
+	Tower.prototype.findNearestEnemyWithin = function(rng) {
 		// console.log("1");
-		var nearestEnemy=null;
+		var nearestEnemy = null;
 		var nearestDist = 10000000;
 		// console.log(nearestDist);
-		var tempEnemy	// reused variable
-		var dist;		// reused variable
-		for(var t in Stage.displayList['typhoons']){
-			
+		var tempEnemy // reused variable
+		var dist; // reused variable
+		for (var t in Stage.displayList['typhoons']) {
+
 			tempEnemy = Stage.displayList['typhoons'][t];
 			// prune the enemies definitely out of range
-			if(Math.abs(this.x - tempEnemy.x)>rng || Math.abs(this.y - tempEnemy.y)>rng)
+			if (Math.abs(this.x - tempEnemy.x) > rng || Math.abs(this.y - tempEnemy.y) > rng)
 				continue;
-			dist = Utility.pointDistance(	this.x,this.y,
-											tempEnemy.x,tempEnemy.y);
-			if(dist <=rng)	//&&, js have no short-circuit
-			if(dist<nearestDist){
-				nearestEnemy = tempEnemy;
-				nearestDist = dist;
-			}
+			dist = Utility.pointDistance(this.x, this.y,
+				tempEnemy.x, tempEnemy.y);
+			if (dist <= rng) //&&, js have no short-circuit
+				if (dist < nearestDist) {
+					nearestEnemy = tempEnemy;
+					nearestDist = dist;
+				}
 		}
 
-		if(typeof nearestEnemy === 'object')
-			return {target:nearestEnemy,distance:nearestDist};
-		else 
+		if (typeof nearestEnemy === 'object')
+			return {
+				target: nearestEnemy,
+				distance: nearestDist
+			};
+		else
 			return null;
 	};
 
-	Tower.prototype.render = function(ctx){
-		Unit.prototype.render.call(this,ctx);
+	Tower.prototype.render = function(ctx) {
+		Unit.prototype.render.call(this, ctx);
 	};
 
 	/**
 	 * remove the unit, without death effect
 	 */
-	Tower.prototype.remove = function(){
+	Tower.prototype.remove = function() {
 		Stage.removeChild(this.id, 'towers');
 	}
 

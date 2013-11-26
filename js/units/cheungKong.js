@@ -13,17 +13,17 @@ define([
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "Red", 40, 40, 3);
-		
+
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 
 		Game.built('CheungKongLimited');
 		Game.addPower(Config.cheungKong.power);
 	}
-	
+
 	// subclass extends superclass
 	CheungKong.prototype = Object.create(Unit.prototype);
 	CheungKong.prototype.constructor = CheungKong;
-	
+
 	return CheungKong;
 });
