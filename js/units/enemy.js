@@ -74,7 +74,8 @@ define([
 			ctx.globalAlpha = 1;
 			// ctx.fillText(this.typhoonID,this.x,this.y);
 			// ctx.fillText(this.isSlowed,this.x,this.y);
-			ctx.fillText(this.hp,this.x,this.y);
+			ctx.fillStyle = "#333333";
+			ctx.fillText('HP:'+this.hp.toFixed(0),this.x-8,this.y-22);
 
 		}
 	};
@@ -171,8 +172,8 @@ define([
 
 		if(!isNaN(dmg))
 			this.hp-=dmg;
-		else
-			console.log(this.tyhoonID, this.hp, dmg);
+		// else
+		// 	console.log(this.tyhoonID, this.hp, dmg);
 		
 		if(this.hp<=0){
 			this.kill();

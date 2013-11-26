@@ -174,7 +174,7 @@ define([
 								xx,	yy,
 								Config.hkArea.x, Config.hkArea.y);
 							t.setMotion(hk_dir+Math.random()*120-60, Math.random() * this.level+1 +0.5);
-							console.log(t.typhoonID, t.hp);
+							console.log('Enemy:'+t.typhoonID, 'HP:'+t.hp);
 							this.enemyCounter+=1;
 						}; //End for
 
@@ -215,7 +215,7 @@ define([
 						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
 					} catch(err){}
 					finally{
-						if( distance!==NaN && e!= null){
+						if( !isNaN(distance)  && e!=null){
 							// console.log(Config.enemy.damage*(Config.hkArea.effectAreaRadius-Math.round(distance)));
 							if(distance <= Config.hkArea.effectAreaRadius)
 							{
@@ -338,11 +338,9 @@ define([
 				},100);
 				*/
 			
-					var targetX = Config.hkArea.x + Math.random()*40 - 20;
-					var targetY = Config.hkArea.y + Math.random()*40 - 20;
-					//var buildEffect = new BuildEffect(targetX, targetY, "red", 40, 40, 3);
-
-					var earthquake = new Earthquake(targetX, targetY ,'red',40,40,30,3);
+					// var targetX = Config.hkArea.x + Math.random()*40 - 20;
+					// var targetY = Config.hkArea.y + Math.random()*40 - 20;
+					// var earthquake = new Earthquake(targetX, targetY ,'red',40,40,30,3);
 
 			}//End testSetup()
 
