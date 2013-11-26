@@ -50,7 +50,7 @@ define([
 				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "aqua", 20, 5);
 				var buildEffect = new BuildEffect(target.target.x, target.target.y, "aqua", 15, 7, 1);
 				target.target.slow(Config.freezeTower.slowRate);
-				// Game.addPower(Config.freezeTower.power);
+				target.target.damage(Config.freezeTower.attackDamage);
 			}
 		}
 	};

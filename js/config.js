@@ -18,7 +18,7 @@ define({
 	enemy:{
 		max_hp : 300,
 		decayOnLand : 1,
-		damage: 50,
+		damage: 150,
 		typhoonAbsorbRate: 10,
 		intiMinAmong: 1,
 		intiMaxAmong: 20,
@@ -35,14 +35,15 @@ define({
 	},
 	freezeTower:{
 		range : 	70,
-		slowRate : 	70,
+		attackDamage : 	5,
+		slowRate : 	80,
 		power: 		-6,
-		cost:		1500
+		cost:		700
 	},
 	repelTower:{
 		range : 100,
 		power : -10,
-		cost:	3000
+		cost:	2500
 	},
 
 	// structures	=============================
@@ -56,15 +57,28 @@ define({
 	},
 	university:{
 		power: 	-20,
-		cost:	2500
+		cost:	2500,
+		attackTowerAttackIncrease: 5,
+		attackTowerRangeIncrease: 2,
+		attackTowerCostIncrease: 20
 	},
 	researchCenter:{
 		power: 	-30,
-		cost:	4000
+		cost:	4000,
+		attackTowerAttackIncrease: 3,
+		attackTowerRangeIncrease: 5,
+		attackTowerCostIncrease: 100,
+		freezeTowerSlowRateIncrease: 10,
+		freezeTowerRangeIncrease: 10,
+		freezeTowerCostIncrease: 100
 	},
 	cheungKong:{
 		power: 	-50,
-		cost:	10000
+		cost:	7000
+		hsiIncrementMultiplier: 1.5,
+		repelTowerRangeIncrease: 20,
+		repelTowerPowerDecrease: 3,
+		repelTowerCostDecrease: 300
 	},
 	// Hang Sang Index
 	HSI:{

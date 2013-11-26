@@ -53,9 +53,27 @@ define([
 		setButtonTitles: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['powerPlant', 'attackTower', 'freezeTower', 'repelTower', 'nuclearPlant', 'university', 'researchCenter', 'cheungKong'];
-			var titles = ['Power Plant', 'Laser Tower', 'Freeze Tower', 'Repel Tower', 'Nuclear Power Plant', 'University', 'Research Center', 'Cheung Kong (Holdings) Limited'];
+			var titles = [
+				'Power Plant', 
+				'Laser Tower', 
+				'Freeze Tower', 
+				'Repel Tower', 
+				'Nuclear Power Plant', 
+				'University', 
+				'Research Center', 
+				'Cheung Kong (Holdings) Limited'];
+			var description = [
+				'Simple power plant.',
+				'Shoot laser beam.',
+				'Slow down the time',
+				'Repel everything.',
+				'Strong nuclear plant.',
+				'Upgrade for Laser Tower and unlock Freeze Tower.',
+				'Upgrade for Laser and Freeze Tower and unlock Repel Tower.',
+				'Earn double and upgrade Repel Tower.'
+			];
 			for (var i = 0; i < btnIds.length; i++) {
-				$('#' + btnIds[i]).attr('title', titles[i] + ' (Cost: ' + Config[configIds[i]].cost + ', Power: ' + Config[configIds[i]].power + ')');
+				$('#' + btnIds[i]).attr('title', '                  ' + titles[i] + '                                                                Cost: ' + Config[configIds[i]].cost + '                                                                       Power: ' + Config[configIds[i]].power + '                                                                       ' + description[i]);
 			}
 		},
 		drawHKCircle: function() {
@@ -143,7 +161,7 @@ define([
 				$('#btn-power-plant').attr('disabled', true);
 			}
 
-			if (Game.getHSI() >= Config.powerPlant.cost && Game.isBuilt('ResearchCenter')) {
+			if (Game.getHSI() >= Config.nuclearPlant.cost && Game.isBuilt('ResearchCenter')) {
 				$('#btn-nuclear-plant').attr('disabled', false);
 			} else {
 				$('#btn-nuclear-plant').attr('disabled', true);
@@ -161,7 +179,7 @@ define([
 				$('#btn-research-center').attr('disabled', true);
 			}
 
-			if (Game.getHSI() >= Config.cheungKong.cost) {
+			if (Game.getHSI() >= Config.cheungKong.cost && Game.isBuilt('ResearchCenter')) {
 				$('#btn-cheung-kong').attr('disabled', false);
 			} else {
 				$('#btn-cheung-kong').attr('disabled', true);
@@ -200,7 +218,8 @@ define([
 							that.activatedMode = 'researchCenter';
 						break;
 					case 'btn-cheung-kong':
-						that.activatedMode = 'cheungKong';
+						if(Game.isBuilt('ResearchCenter'))
+							that.activatedMode = 'cheungKong';
 						break;
 				}
 				if(that.activatedMode!==null)
@@ -315,7 +334,7 @@ define([
 							case 'university':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.university.cost) {
 									var tower = new University(mousePos.x, mousePos.y, "img/sprite/university.png");
-									Game.setHSI(Game.getHSI()+Config.university.cost);
+									Game.setHSI(Game.getHSI()-Config.university.cost);
 
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -329,7 +348,7 @@ define([
 							case 'researchCenter':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && Game.getHSI() >= Config.researchCenter.cost) {
 									var tower = new ResearchCenter(mousePos.x, mousePos.y, "img/sprite/research-center.png");
-									Game.setHSI(Game.getHSI()+Config.researchCenter.cost);
+									Game.setHSI(Game.getHSI()-Config.researchCenter.cost);
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -344,7 +363,7 @@ define([
 									var tower = new CheungKong(mousePos.x, mousePos.y, "img/sprite/ckh.png");
 
 									that.buildSound.play('plot');
-									Game.setHSI(Game.getHSI()+Config.cheungKong.cost);
+									Game.setHSI(Game.getHSI()-Config.cheungKong.cost);
 									if (Game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -438,8 +457,14 @@ define([
 						break;
 					case 82:
 						// R
-						that.activatedMode = 'cheungKong';
-						btnId = 'btn-cheung-kong';
+						if(Game.isBuilt('ResearchCenter'))
+						{
+							that.activatedMode = 'cheungKong';
+							btnId = 'btn-cheung-kong';
+						} else {
+							that.activatedMode = null;
+							btnId = null;
+						}
 						break;
 					default:
 						that.activatedMode = null;
