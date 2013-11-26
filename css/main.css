@@ -99,6 +99,27 @@ body {
   color: #bb0000;
   background-color: #fff;
 }
+#tooltip {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 299;
+  width: 250px;
+  padding: 10px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-border-radius: 5px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 5px;
+  -moz-background-clip: padding;
+  border-radius: 5px;
+  background-clip: padding-box;
+  display: none;
+}
+#tooltip em {
+  font-size: 0.8em;
+}
 #btn-bar {
   padding: 3px;
   display: inline-block;

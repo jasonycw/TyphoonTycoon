@@ -1,5 +1,6 @@
 define([
 	'jquery',
+	'underscore',
 	'models/MapHitArea',
 	'utility',
 	'stage',
@@ -15,7 +16,7 @@ define([
 	'models/hkCircle',
 	'sound',
 	'Game'
-], function($, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Game) {
+], function($, _, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Game) {
 
 	"use strict";
 
@@ -29,12 +30,12 @@ define([
 		constructor: UI,
 		init: function() {
 			this.queryDOM();
-			this.setButtonTitles();
 			this.prepareBgImg();
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
 			this.bindCanvasMouseMoveEvent();
+			this.showButtonTooltip();
 
 			this.drawHKCircle();
 
@@ -43,11 +44,8 @@ define([
 
 			// Sound Effect
 			this.buildSound = new Sound('buildSound');
-
-
-
 		},
-		setButtonTitles: function() {
+		showButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['powerPlant', 'attackTower', 'freezeTower', 'repelTower', 'nuclearPlant', 'university', 'researchCenter', 'cheungKong'];
 			var titles = [
@@ -70,9 +68,19 @@ define([
 				'Upgrade for Laser and Freeze Tower and unlock Repel Tower.',
 				'Earn double and upgrade Repel Tower.'
 			];
-			for (var i = 0; i < btnIds.length; i++) {
-				$('#' + btnIds[i]).attr('title', '                  ' + titles[i] + '                                                                Cost: ' + Config[configIds[i]].cost + '                                                                       Power: ' + Config[configIds[i]].power + '                                                                       ' + description[i]);
-			}
+			$('#btn-bar button').hover(function(e) {
+				var left = e.pageX;
+        		var top = e.pageY + 16;
+				var idx = _.indexOf(btnIds, e.target.id);
+				$('#tooltip')
+					.html('<strong>' + titles[idx] + '</strong><br /><em>' 
+						+ description[idx] + '</em><br />Cost: ' 
+						+ Config[configIds[idx]].cost + '<br />Power: '
+						+ Config[configIds[idx]].power)
+					.css('top', top).css('left', left).show();
+			}, function(e) {
+				$('#tooltip').hide();
+			});
 		},
 		drawHKCircle: function() {
 			this.hkCircle = new HKCircle();
@@ -93,7 +101,6 @@ define([
 			var tempBuilding // reused variable
 			var dist; // reused variable
 			for (var t in Stage.displayList['towers']) {
-
 				tempBuilding = Stage.displayList['towers'][t];
 				dist = Utility.pointDistance(x, y, tempBuilding.x, tempBuilding.y);
 
@@ -541,6 +548,7 @@ define([
 			});
 		},
 		showGameOver: function() {
+			$('#btn-bar button').unbind('hover');
 			$('#btn-restart').attr('disabled', false);
 			$('#game-over').show();
 			this.buildSound.play('gameOver');
