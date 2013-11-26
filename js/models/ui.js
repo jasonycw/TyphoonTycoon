@@ -517,7 +517,7 @@ define([
 				power = remain / total * 100;
 			}
 			this.$powerBar.css('width', power + '%');
-			if (power <= 0) {
+			if (power < 0) {
 				this.$powerTitle.addClass('title-danger').html('No Power!');
 				if (this.lowPowerAlerted == false) {
 					this.buildSound.play('outOfPower');
