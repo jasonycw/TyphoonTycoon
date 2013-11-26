@@ -20,7 +20,7 @@ define([
 		Game.addPower(Config.freezeTower.power);
 
 		//Auto add to stage
-		this.id = Stage.addChild(this,'towers');
+		//this.id = Stage.addChild(this,'towers');
 
 		this.sound = new Sound('freezeTowerSound');
 		//var nearEnemy = this.findNearestEnemy();

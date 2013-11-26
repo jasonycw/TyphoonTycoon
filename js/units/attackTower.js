@@ -24,13 +24,11 @@ define([
 		this.sound = new Sound('attackTowerSound');
 
 		//Auto add to stage
-		this.id = Stage.addChild(this,'towers');
+		//this.id = Stage.addChild(this,'towers');
 		//var nearEnemy = this.findNearestEnemy();
 		//nearEnemy.setMotion(0,0);
 	}
 
-	// TODO replace all magic number with const static variables
-	
 
 	//subclass extends superclass
 	AttackTower.prototype = Object.create(Tower.prototype);

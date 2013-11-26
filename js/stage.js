@@ -37,7 +37,7 @@ define([
 		 */
 		Stage.addChild = function(item, listName) {
 			// default list
-			// 
+			
 			//console.log(item, listName);
 			if (listName === undefined) {
 				listName = "others";
@@ -54,12 +54,11 @@ define([
 		 */
 		Stage.removeChild = function(index, listName) {
 
-			console.log(index, listName, this.displayList[listName], this.displayList[listName][index]);
+			//console.log(index, listName, this.displayList[listName], this.displayList[listName][index]);
 			//default list
 			if (listName === undefined) {
 				listName = "others";
 			}
-
 			delete this.displayList[listName][index];
 		}
 	}

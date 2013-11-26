@@ -3,8 +3,11 @@ define([
 	'stage',
 	'models/buildEffect',
 	'config',
-	'utility'
-], function(Stage, BuildEffect, Config, Utility) {
+	'utility',
+	// 'units/powerPlant',
+	// 'units/nuclearPlant',
+	'Game'
+], function(Stage, BuildEffect, Config, Utility, Game) { //NuclearPlant, PowerPlant
 
 	console.log("earthquake.js loaded");
 	/*
@@ -68,6 +71,8 @@ define([
 
 	Earthquake.prototype.render = function(ctx){
 		 // console.log('render Earthquake ' + this.x+', '+this.y);
+		ctx.fillStyle = "#FFFFFF";
+		ctx.fillText('Earthquake',this.x,this.y+20);
 	};
 
 	/**
@@ -90,8 +95,20 @@ define([
 			dist = Utility.pointDistance( tx, ty, tempBuilding.x, tempBuilding.y);
 			if( dist < this.radius){
 				//course damge 
-				console.log('affect:'+ tempBuilding.id );
-				Stage.removeChild(tempBuilding.id,'towers');
+				console.log('distroy:'+ tempBuilding.id);
+				//tempBuilding.remove();
+				Stage.removeChild(tempBuilding.id, 'towers');
+
+				// if(tempBuilding instanceof PowerPlant)
+				// {
+				// 	Game.reducePower(Config.powerPlant.power);
+				// }
+
+				// if(tempBuilding instanceof NuclearPlant)
+				// {
+				// 	Game.reducePower(Config.nuclearPlant.power);
+				// }
+
 
 			}//End if
 		}//End for
