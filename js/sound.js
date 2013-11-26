@@ -5,6 +5,7 @@ define([
 ], function($, CuePoints) {
 
 	function Sound(playerId) {
+		this.playerId = playerId;
 		this.loaded = false;
 		this.player = $('#' + playerId)[0];
 		var that = this;
@@ -25,7 +26,7 @@ define([
 				//return;
 			}
 
-			if(this.player.paused) {
+			if (this.playerId == 'buildSound' || this.player.paused) {
 				var start = CuePoints[id].start;
 				var end = CuePoints[id].end;
 				this.player.currentTime = start;
