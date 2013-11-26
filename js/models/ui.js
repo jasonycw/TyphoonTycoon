@@ -88,10 +88,8 @@ define([
 			}
 		},
 		findNearestBuilding: function(x, y) {
-			// console.log("1");
 			var nearestBuilding = null;
 			var nearestDist = 10000000;
-			// console.log(nearestDist);
 			var tempBuilding // reused variable
 			var dist; // reused variable
 			for (var t in Stage.displayList['towers']) {
@@ -394,7 +392,6 @@ define([
 		bindKeyboardEvent: function() {
 			var that = this;
 			$(document).keyup(function(e) {
-				//console.log(e.which);
 
 				// Esc or Space bar
 				if (e.which === 27 || e.which === 32) {

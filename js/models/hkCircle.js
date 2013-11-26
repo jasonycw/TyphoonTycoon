@@ -7,7 +7,6 @@ define([
 	'models/ui'
 ], function(Stage, Effect, Config, Utility, UI) {
 
-	console.log("hkCircle.js loaded");
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
