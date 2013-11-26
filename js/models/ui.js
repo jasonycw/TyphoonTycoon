@@ -541,7 +541,6 @@ define([
 			});
 		},
 		showGameOver: function() {
-			console.log('called show gameover');
 			$('#btn-restart').attr('disabled', false);
 			$('#game-over').show();
 			this.buildSound.play('gameOver');

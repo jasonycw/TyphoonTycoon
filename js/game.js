@@ -45,7 +45,6 @@ define([
 
 			// Initialize the game
 			init: function() {
-				console.log('called game init');
 				try {
 					stage = new Stage('game-canvas');
 				} catch (e) {
@@ -74,18 +73,15 @@ define([
 			},
 			// Start game loop
 			start: function() {
-				console.log('called game start');
 				this.reset();
 				lastTime = Date.now();
 
 				intervalId = setInterval(function() {
 					Game.updateHSI();
 				}, 100);
-				console.log("FIRST intervalId: " + intervalId);
 				this.loop();
 			},
 			reset: function() {
-				console.log('called game reset');
 				hsi = Config.HSI.init;
 				cash = 0;
 				gameTime = 0;
@@ -119,14 +115,11 @@ define([
 				Game.tick(dt);
 				stage.render();
 
-				//console.log(dt);
-
 				lastTime = now;
 
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 				if (hsi <= 0) {
 					cancelAnimationFrame(frameId);
-					console.log("ZREO intervalId: " + intervalId);
 					clearInterval(intervalId);
 					for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
 						clearTimeout(earthquakeTimer[i]);
