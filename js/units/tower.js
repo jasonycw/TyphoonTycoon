@@ -1,5 +1,5 @@
 define([
-	'Utility',
+	'utility',
 	'units/unit',
 	'stage'
 ], function(Utility, Unit, Stage) {

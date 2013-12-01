@@ -1,7 +1,7 @@
 define([
 	'jquery',
 	'underscore',
-	'models/MapHitArea',
+	'models/mapHitArea',
 	'utility',
 	'stage',
 	'config',
