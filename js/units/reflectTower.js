@@ -1,18 +1,18 @@
 define([
-	'Utility',
+	'utility',
 	'units/tower',
 	'models/buildEffect',
 	'models/laser',
 	'config',
-	'Game',
 	'sound'
-], function(Utility, Tower, BuildEffect, Laser, Config, Game, Sound) {
+], function(Utility, Tower, BuildEffect, Laser, Config, Sound) {
 	// Create Tower Object and its constructor
-	function ReflectTower(startX, startY, spriteSrc) {
+	function ReflectTower(game, startX, startY, spriteSrc) {
+		this.game = game;
 		// call super constructor.
 		Tower.call(this, startX, startY, spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "#FF8000", 40, 40, 3);
-		Game.addPower(Config.repelTower.power);
+		this.game.addPower(Config.repelTower.power);
 
 		this.sound = new Sound('reflectTowerSound');
 	}
@@ -28,11 +28,11 @@ define([
 			var range = Config.repelTower.range;
 			var force = Config.repelTower.force;
 
-			if (Game.isBuilt('CheungKongLimited')) {
-				range += Config.cheungKong.repelTowerRangeIncrease*Game.numberOfBuilding('CheungKongLimited');
-				force += Config.cheungKong.repelTowerForceIncrease*Game.numberOfBuilding('CheungKongLimited');
+			if (this.game.isBuilt('CheungKongLimited')) {
+				range += Config.cheungKong.repelTowerRangeIncrease*this.game.numberOfBuilding('CheungKongLimited');
+				force += Config.cheungKong.repelTowerForceIncrease*this.game.numberOfBuilding('CheungKongLimited');
 			}
-			if (target.distance <= range && Game.getAvailablePower() > 0) {
+			if (target.distance <= range && this.game.getAvailablePower() > 0) {
 				this.sound.play('electricity');
 				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "#FF8000", 20, 15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x, this.y, target.target.x, target.target.y);

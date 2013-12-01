@@ -3,17 +3,17 @@ define([
 	'units/tower',
 	'models/buildEffect',
 	'models/laser',
-	'config',
-	'Game'
-], function(Sound, Tower, BuildEffect, Laser, Config, Game) {
+	'config'
+], function(Sound, Tower, BuildEffect, Laser, Config) {
 	// Create Tower Object and its constructor
-	function AttackTower(startX, startY, spriteSrc) {
+	function AttackTower(game, startX, startY, spriteSrc) {
+		this.game = game;
 		//call super constructor.
 		Tower.call(this, startX, startY, spriteSrc);
 		this.coolDownTime = 15;
 		this.coolDownCounter = 0;
 		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
-		Game.addPower(Config.attackTower.power);
+		this.game.addPower(Config.attackTower.power);
 		this.sound = new Sound('attackTowerSound');
 	}
 
@@ -30,17 +30,17 @@ define([
 
 			var range = Config.attackTower.range;
 			var attackDamage = Config.attackTower.attackDamage;
-			if (Game.isBuilt('University')) {
-				range += Config.university.attackTowerRangeIncrease*Game.numberOfBuilding('University');
-				attackDamage += Config.university.attackTowerAttackIncrease*Game.numberOfBuilding('University');
+			if (this.game.isBuilt('University')) {
+				range += Config.university.attackTowerRangeIncrease*this.game.numberOfBuilding('University');
+				attackDamage += Config.university.attackTowerAttackIncrease*this.game.numberOfBuilding('University');
 			}
-			if (Game.isBuilt('ResearchCenter')) {
-				range += Config.researchCenter.attackTowerRangeIncrease*Game.numberOfBuilding('ResearchCenter');
-				attackDamage += Config.researchCenter.attackTowerAttackIncrease*Game.numberOfBuilding('ResearchCenter');
+			if (this.game.isBuilt('ResearchCenter')) {
+				range += Config.researchCenter.attackTowerRangeIncrease*this.game.numberOfBuilding('ResearchCenter');
+				attackDamage += Config.researchCenter.attackTowerAttackIncrease*this.game.numberOfBuilding('ResearchCenter');
 			}
 
 			if (nearestEnemy) {
-				if (nearestEnemy.distance <= range && Game.getAvailablePower() > 0) {
+				if (nearestEnemy.distance <= range && this.game.getAvailablePower() > 0) {
 					var enemyWidth = nearestEnemy.target.sprite.width;
 					var aimX = nearestEnemy.target.x - enemyWidth / 8 + Math.random() * enemyWidth / 4;
 					var aimY = nearestEnemy.target.y - enemyWidth / 8 + Math.random() * enemyWidth / 4;

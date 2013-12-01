@@ -2,12 +2,12 @@ define([
 	'units/unit',
 	'stage',
 	'models/buildEffect',
-	'config',
-	'Game'
-], function(Unit, Stage, BuildEffect, Config, Game) {
+	'config'
+], function(Unit, Stage, BuildEffect, Config) {
 
 	//Create Tower Object and its constructor
-	function University(startX, startY, spriteSrc) {
+	function University(game, startX, startY, spriteSrc) {
+		this.game = game;
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "#f2b7ff", 40, 40, 3);
@@ -15,15 +15,15 @@ define([
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 
-		Game.built("University");
-		Game.addPower(Config.university.power);
+		this.game.built("University");
+		this.game.addPower(Config.university.power);
 	}
 	// subclass extends superclass
 	University.prototype = Object.create(Unit.prototype);
 	University.prototype.constructor = University;
 
 	University.prototype.remove = function() {
-		Game.destroyBuilding('University');
+		this.game.destroyBuilding('University');
 	};
 
 	return University;

@@ -4,6 +4,7 @@
 	2. loop
  */
 define([
+	'underscore',
 	'stage',
 	'models/ui',
 	'utility',
@@ -14,8 +15,7 @@ define([
 	'models/mapHitArea',
 	'models/earthquake',
 	'models/buildEffect',
-	'underscore' //must be last item
-], function(Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect, _) {
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect) {
 
 
 	var Game = (function() {
@@ -54,7 +54,7 @@ define([
 
 				// create background map
 				if (typeof gameUI == 'undefined') {
-					gameUI = new UI();
+					gameUI = new UI(this);
 				}
 
 				gameUI.init();

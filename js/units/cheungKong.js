@@ -2,11 +2,11 @@ define([
 	'units/unit',
 	'stage',
 	'models/buildEffect',
-	'config',
-	'Game'
-], function(Unit, Stage, BuildEffect, Config, Game) {
+	'config'
+], function(Unit, Stage, BuildEffect, Config) {
 	// Create Tower Object and its constructor
-	function CheungKong(startX, startY, spriteSrc) {
+	function CheungKong(game, startX, startY, spriteSrc) {
+		this.game = game;
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
 		var buildEffect = new BuildEffect(this.x, this.y, "Red", 40, 40, 3);
@@ -14,8 +14,8 @@ define([
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 
-		Game.built('CheungKongLimited');
-		Game.addPower(Config.cheungKong.power);
+		this.game.built('CheungKongLimited');
+		this.game.addPower(Config.cheungKong.power);
 	}
 
 	// subclass extends superclass
@@ -23,7 +23,7 @@ define([
 	CheungKong.prototype.constructor = CheungKong;
 
 	CheungKong.prototype.remove = function() {
-		Game.destroyBuilding('CheungKongLimited');
+		this.game.destroyBuilding('CheungKongLimited');
 	};
 	
 	return CheungKong;
