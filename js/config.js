@@ -87,7 +87,7 @@ define({
 		init: 9000,
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
-		increment: 20
+		increment: 40
 	},
 	earthquake: {
 		affectRadius: 30,
