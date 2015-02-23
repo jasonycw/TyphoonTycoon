@@ -1,4 +1,4 @@
-# Typhoon Tycoon - CS4386 AI Game Programming Project
+# Typhoon Tycoon
 
 ## Team Members
 Name                | Role
