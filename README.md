@@ -13,5 +13,8 @@ In the year 21XX, the Li’s field (李氏力場) becomes reality, in a form of 
 
 ![alt tag](http://i.imgur.com/0QTJuur.png)
 
+## Play Online now
+http://jasonycw.github.io/TyphoonTycoon/
+
 ## Important Note
 We only tested on the latest stable version of Google Chrome. Please open the project using Google Chrome.
