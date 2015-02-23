@@ -3,9 +3,9 @@
 ## Team Members
 Name                | Role
 --------------------|-----------
-Chui Hin Wah        |Game Design and Programming
-Cheung Chun Lung    |Programming
-Li Kwai Shing       |Graphic and Programming
+Chui Hin Wah        |Game Play Design
+Cheung Chun Lung    |OO Design
+Li Kwai Shing       |Graphic and Management
 Yu Chun Wah         |Game Theme, Game Play and Animation Design
 
 ## Background
