@@ -13,7 +13,7 @@ In the year 21XX, the Li’s field (李氏力場) becomes reality, in a form of 
 
 ![alt tag](http://i.imgur.com/0QTJuur.png)
 
-## Play Online now
+## Play Online Now
 http://jasonycw.github.io/TyphoonTycoon/
 
 ## Important Note
