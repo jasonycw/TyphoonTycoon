@@ -1,12 +1,12 @@
 # Typhoon Tycoon - CS4386 AI Game Programming Project
 
 ## Team Members
-Name                | Student ID
+Name                | Role
 --------------------|-----------
-Cheung Chun Lung    |52684730
-Li Kwai Shing       |52745578
-Yu Chun Wah         |52633870
-Chui Hin Wah        |52940593
+Chui Hin Wah        |Game Design and Programming
+Cheung Chun Lung    |Programming
+Li Kwai Shing       |Graphic and Programming
+Yu Chun Wah         |Game Design and Programming
 
 ## Background
 In the year 21XX, the Li’s field (李氏力場) becomes reality, in a form of a tower defence system. The system seeks to weaken, if not totally destroy, incoming typhoons into Hong Kong. Li’s enterprise has appointed Player to control the typhoon defence system for Li. The game genre are strategy and tower defence game.
