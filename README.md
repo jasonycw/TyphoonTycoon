@@ -19,5 +19,5 @@ http://jasonycw.github.io/TyphoonTycoon/
 ## Important Note
 The whole project is written in HTML5 and Javascript, no plugin is required.<p></p>
 We only tested on the latest stable version of Google Chrome.<p></p>
-Firfox may work but we did not test it.<p></p>
+Firefox may work but we did not test it.<p></p>
 IE? Use it to download Chrome or Firefox please. Thank you.<p></p>
