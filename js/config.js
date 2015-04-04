@@ -10,7 +10,7 @@ define({
 		lineWidth: 33,
 		fillStyle: "rgba(200, 255, 0, 0.1)",
 		cycleDuration: 140
-	},
+	}, 
 
 	nearestBuildingDistance: 40,
 
