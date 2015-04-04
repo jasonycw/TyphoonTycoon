@@ -1,8 +1,9 @@
 define([
 	'utility',
 	'units/unit',
-	'stage'
-], function(Utility, Unit, Stage) {
+	'stage',
+	'config'
+], function(Utility, Unit, Stage, Config) {
 	// Create Tower Object and its constructor
 	function Tower(startX, startY, spriteSrc) {
 		//call super constructor.
@@ -10,6 +11,8 @@ define([
 
 		//Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
+
+		this.power = 0;
 		//var nearEnemy = this.findNearestEnemy();
 		//nearEnemy.setMotion(0,0);
 	}

@@ -13,7 +13,8 @@ define([
 		this.coolDownTime = 15;
 		this.coolDownCounter = 0;
 		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
-		this.game.addPower(Config.attackTower.power);
+		this.power = Config.attackTower.power;
+		this.game.addPower(this.power);
 		this.sound = new Sound('attackTowerSound');
 	}
 
