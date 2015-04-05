@@ -20,5 +20,10 @@ define([
 	PowerPlant.prototype = Object.create(Unit.prototype);
 	PowerPlant.prototype.constructor = PowerPlant;
 
+	PowerPlant.prototype.remove = function() {
+		// return the power it got
+		this.game.reducePower(Config[this.name].power);
+	}
+
 	return PowerPlant;
 });

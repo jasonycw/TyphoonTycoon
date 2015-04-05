@@ -249,10 +249,16 @@ define([
 				} else if (p < 0) {
 					powerUsed -= p;
 				}
+				//console.log("add: " + p + "= " + this.getAvailablePower());
 				// totalPower += p;
 			},
 			reducePower: function(p) {
-				powerQuota -= p;
+				if (p > 0) {
+					powerQuota -= p;
+				} else if (p < 0) {
+					powerUsed += p;
+				}
+				//console.log("remove: " + p + "= " + this.getAvailablePower());
 			},
 			getAvailablePower: function() {
 				return powerQuota - powerUsed;

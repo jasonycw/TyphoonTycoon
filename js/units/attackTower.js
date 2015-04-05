@@ -8,8 +8,7 @@ define([
 	// Create Tower Object and its constructor
 	function AttackTower(game, startX, startY, spriteSrc) {
 		//call super constructor.
-		Tower.call(this, startX, startY, spriteSrc);
-		this.game = game;
+		Tower.call(this, startX, startY, spriteSrc, game);
 		this.name = "AttackTower";
 		this.coolDownTime = 15;
 		this.coolDownCounter = 0;

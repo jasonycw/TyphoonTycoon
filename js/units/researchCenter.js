@@ -7,9 +7,8 @@ define([
 	// Create Tower Object and its constructor
 	function ResearchCenter(game, startX, startY, spriteSrc) {
 		// Call super constructor.
-		Unit.call(this, startX, startY, spriteSrc);
+		Unit.call(this, startX, startY, spriteSrc, game);
 		this.name = "ResearchCenter";
-		this.game = game;
 		var buildEffect = new BuildEffect(this.x, this.y, "#ffcb8e", 40, 40, 3);
 
 		// Auto add to stage
@@ -24,6 +23,8 @@ define([
 
 	ResearchCenter.prototype.remove = function() {
 		this.game.destroyBuilding('ResearchCenter');
+		// return the power it got
+		this.game.reducePower(Config[this.name].power);
 	};
 	
 	return ResearchCenter;

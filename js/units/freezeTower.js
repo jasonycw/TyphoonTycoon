@@ -10,8 +10,7 @@ define([
 	// Create Tower Object and its constructor
 	function FreezeTower(game, startX, startY, spriteSrc) {
 		// call super constructor.
-		Tower.call(this, startX, startY, spriteSrc);
-		this.game = game;
+		Tower.call(this, startX, startY, spriteSrc, game);
 		this.name = "FreezeTower";
 		var buildEffect = new BuildEffect(this.x, this.y, "aqua", 40, 40, 3);
 		this.game.addPower(Config.FreezeTower.power);

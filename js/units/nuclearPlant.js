@@ -19,5 +19,10 @@ define([
 	NuclearPlant.prototype = Object.create(Unit.prototype);
 	NuclearPlant.prototype.constructor = NuclearPlant;
 
+	NuclearPlant.prototype.remove = function() {
+		// return the power it got
+		this.game.reducePower(Config[this.name].power);
+	}
+
 	return NuclearPlant;
 });

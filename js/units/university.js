@@ -8,8 +8,7 @@ define([
 	//Create Tower Object and its constructor
 	function University(game, startX, startY, spriteSrc) {
 		// Call super constructor.
-		Unit.call(this, startX, startY, spriteSrc);
-		this.game = game;
+		Unit.call(this, startX, startY, spriteSrc, game);
 		this.name = "University";
 		var buildEffect = new BuildEffect(this.x, this.y, "#f2b7ff", 40, 40, 3);
 
@@ -25,6 +24,8 @@ define([
 
 	University.prototype.remove = function() {
 		this.game.destroyBuilding('University');
+		// return the power it got
+		this.game.reducePower(Config[this.name].power);
 	};
 
 	return University;
