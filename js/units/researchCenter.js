@@ -6,16 +6,17 @@ define([
 ], function(Unit, Stage, BuildEffect, Config) {
 	// Create Tower Object and its constructor
 	function ResearchCenter(game, startX, startY, spriteSrc) {
-		this.game = game;
 		// Call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
+		this.name = "ResearchCenter";
+		this.game = game;
 		var buildEffect = new BuildEffect(this.x, this.y, "#ffcb8e", 40, 40, 3);
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 
 		this.game.built('ResearchCenter');
-		this.game.addPower(Config.researchCenter.power);
+		this.game.addPower(Config.ResearchCenter.power);
 	}
 	// subclass extends superclass
 	ResearchCenter.prototype = Object.create(Unit.prototype);

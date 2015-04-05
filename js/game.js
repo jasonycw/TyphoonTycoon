@@ -69,6 +69,7 @@ define([
 			}, //End init
 			firstRender: function() {
 				// Render the stage first to show the game map before player start the game
+				console.log("first render is called");
 				stage.render();
 			},
 			// Start game loop
@@ -225,7 +226,7 @@ define([
 				that = this;
 				var hsiChange = (Config.HSI.increment + Math.round(Math.random() * Config.HSI.upperOfRandom) + Math.round(Math.random() * Config.HSI.lowerOfRandom));
 				if (that.built.cheungKongLimited)
-					hsiChange *= Config.cheungKong.hsiIncrementMultiplier;
+					hsiChange *= Config.CheungKong.hsiIncrementMultiplier;
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
 					var distance;

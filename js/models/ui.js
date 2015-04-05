@@ -47,7 +47,7 @@ define([
 		},
 		showButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
-			var configIds = ['powerPlant', 'attackTower', 'freezeTower', 'repelTower', 'nuclearPlant', 'university', 'researchCenter', 'cheungKong'];
+			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
 			var titles = [
 				'Power Plant',
 				'Laser Tower',
@@ -142,49 +142,49 @@ define([
 			if (this.activatedMode !== null) {
 				return;
 			}
-			if (this.game.getHSI() >= Config.attackTower.cost+Config.university.attackTowerCostIncrease*this.game.numberOfBuilding('University')+Config.researchCenter.attackTowerCostIncrease*this.game.numberOfBuilding('ResearchCenter')) {
+			if (this.game.getHSI() >= Config.AttackTower.cost+Config.University.attackTowerCostIncrease*this.game.numberOfBuilding('University')+Config.ResearchCenter.attackTowerCostIncrease*this.game.numberOfBuilding('ResearchCenter')) {
 				$('#btn-laser-tower').attr('disabled', false);
 			} else {
 				$('#btn-laser-tower').attr('disabled', true);
 			}
 
-			if (this.game.getHSI() >= Config.freezeTower.cost+Config.researchCenter.freezeTowerCostIncrease*this.game.numberOfBuilding('ResearchCenter') && this.game.isBuilt('University')) {
+			if (this.game.getHSI() >= Config.FreezeTower.cost+Config.ResearchCenter.freezeTowerCostIncrease*this.game.numberOfBuilding('ResearchCenter') && this.game.isBuilt('University')) {
 				$('#btn-freeze-tower').attr('disabled', false);
 			} else {
 				$('#btn-freeze-tower').attr('disabled', true);
 			}
 
-			if (this.game.getHSI() >= Config.repelTower.cost-Config.cheungKong.repelTowerCostDecrease*this.game.numberOfBuilding('CheungKongLimited') && this.game.isBuilt('ResearchCenter')) {
+			if (this.game.getHSI() >= Config.RepelTower.cost-Config.CheungKong.repelTowerCostDecrease*this.game.numberOfBuilding('CheungKongLimited') && this.game.isBuilt('ResearchCenter')) {
 				$('#btn-repel-tower').attr('disabled', false);
 			} else {
 				$('#btn-repel-tower').attr('disabled', true);
 			}
 
-			if (this.game.getHSI() >= Config.powerPlant.cost) {
+			if (this.game.getHSI() >= Config.PowerPlant.cost) {
 				$('#btn-power-plant').attr('disabled', false);
 			} else {
 				$('#btn-power-plant').attr('disabled', true);
 			}
 
-			if (this.game.getHSI() >= Config.nuclearPlant.cost && this.game.isBuilt('ResearchCenter')) {
+			if (this.game.getHSI() >= Config.NuclearPlant.cost && this.game.isBuilt('ResearchCenter')) {
 				$('#btn-nuclear-plant').attr('disabled', false);
 			} else {
 				$('#btn-nuclear-plant').attr('disabled', true);
 			}
 
-			if (this.game.getHSI() >= Config.university.cost) {
+			if (this.game.getHSI() >= Config.University.cost) {
 				$('#btn-university').attr('disabled', false);
 			} else {
 				$('#btn-university').attr('disabled', true);
 			}
 
-			if (this.game.getHSI() >= Config.researchCenter.cost && this.game.isBuilt('University')) {
+			if (this.game.getHSI() >= Config.ResearchCenter.cost && this.game.isBuilt('University')) {
 				$('#btn-research-center').attr('disabled', false);
 			} else {
 				$('#btn-research-center').attr('disabled', true);
 			}
 
-			if (this.game.getHSI() >= Config.cheungKong.cost && this.game.isBuilt('ResearchCenter')) {
+			if (this.game.getHSI() >= Config.CheungKong.cost && this.game.isBuilt('ResearchCenter')) {
 				$('#btn-cheung-kong').attr('disabled', false);
 			} else {
 				$('#btn-cheung-kong').attr('disabled', true);
@@ -259,17 +259,17 @@ define([
 				var mousePos = Utility.getMouse(event);
 				var nearestBuilding = that.findNearestBuilding(mousePos.x, mousePos.y);
 				if (nearestBuilding) {
-					if (that.findNearestBuilding(mousePos.x, mousePos.y).distance >= Config.nearestBuildingDistance)
+					if (nearestBuilding.distance >= Config.nearestBuildingDistance)
 						switch (that.activatedMode) {
 							case 'attackTower':
 								// Can only build on ocean
-								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.attackTower.cost) {
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.AttackTower.cost) {
 									var tower = new AttackTower(that.game, mousePos.x, mousePos.y, "img/sprite/laser-tower.png");
-									var cost = Config.attackTower.cost;
+									var cost = Config.AttackTower.cost;
 									if (that.game.isBuilt('University'))
-										cost += Config.university.attackTowerCostIncrease*that.game.numberOfBuilding('University');
+										cost += Config.University.attackTowerCostIncrease*that.game.numberOfBuilding('University');
 									if (that.game.isBuilt('ResearchCenter'))
-										cost += Config.researchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
+										cost += Config.ResearchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.setHSI(that.game.getHSI() - cost);
 
 									if (that.game.getAvailablePower() > 0) {
@@ -283,12 +283,12 @@ define([
 								break;
 							case 'freezeTower':
 								// Can only build on ocean
-								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.freezeTower.cost) {
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.FreezeTower.cost) {
 									var tower = new FreezeTower(that.game, mousePos.x, mousePos.y, "img/sprite/freeze-tower.png");
 
-									var cost = Config.freezeTower.cost;
+									var cost = Config.FreezeTower.cost;
 									if (that.game.isBuilt('ResearchCenter'))
-										cost += Config.researchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
+										cost += Config.ResearchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.setHSI(that.game.getHSI() - cost);
 
 									if (that.game.getAvailablePower() > 0) {
@@ -302,11 +302,11 @@ define([
 								break;
 							case 'reflectTower':
 								// Can only build on ocean
-								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.repelTower.cost) {
+								if (!MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.RepelTower.cost) {
 									var tower = new ReflectTower(that.game, mousePos.x, mousePos.y, "img/sprite/repel-tower.png");
-									var cost = Config.repelTower.cost;
+									var cost = Config.RepelTower.cost;
 									if (that.game.isBuilt('CheungKongLimited'))
-										cost -= Config.cheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
+										cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
 									that.game.setHSI(that.game.getHSI() - cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -318,10 +318,10 @@ define([
 								}
 								break;
 							case 'powerPlant':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.powerPlant.cost) {
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.PowerPlant.cost) {
 									var tower = new PowerPlant(that.game, mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 									that.buildSound.play('plot');
-									that.game.setHSI(that.game.getHSI() - Config.powerPlant.cost);
+									that.game.setHSI(that.game.getHSI() - Config.PowerPlant.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -332,9 +332,9 @@ define([
 								}
 								break;
 							case 'nuclearPlant':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.nuclearPlant.cost) {
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.NuclearPlant.cost) {
 									var tower = new NuclearPlant(that.game, mousePos.x, mousePos.y, "img/sprite/nuclear.png");
-									that.game.setHSI(that.game.getHSI() - Config.nuclearPlant.cost);
+									that.game.setHSI(that.game.getHSI() - Config.NuclearPlant.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -345,9 +345,9 @@ define([
 								}
 								break;
 							case 'university':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.university.cost) {
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.University.cost) {
 									var tower = new University(that.game, mousePos.x, mousePos.y, "img/sprite/university.png");
-									that.game.setHSI(that.game.getHSI() - Config.university.cost);
+									that.game.setHSI(that.game.getHSI() - Config.University.cost);
 
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -359,9 +359,9 @@ define([
 								}
 								break;
 							case 'researchCenter':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.researchCenter.cost) {
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.ResearchCenter.cost) {
 									var tower = new ResearchCenter(that.game, mousePos.x, mousePos.y, "img/sprite/research-center.png");
-									that.game.setHSI(that.game.getHSI() - Config.researchCenter.cost);
+									that.game.setHSI(that.game.getHSI() - Config.ResearchCenter.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -372,11 +372,11 @@ define([
 								}
 								break;
 							case 'cheungKong':
-								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.cheungKong.cost) {
+								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.CheungKong.cost) {
 									var tower = new CheungKong(that.game, mousePos.x, mousePos.y, "img/sprite/ckh.png");
 
 									that.buildSound.play('plot');
-									that.game.setHSI(that.game.getHSI() - Config.cheungKong.cost);
+									that.game.setHSI(that.game.getHSI() - Config.CheungKong.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -407,7 +407,7 @@ define([
 				switch (e.which) {
 					case 49:
 						// 1
-						if (that.game.getHSI() >= Config.powerPlant.cost) {
+						if (that.game.getHSI() >= Config.PowerPlant.cost) {
 							that.activatedMode = 'powerPlant';
 							btnId = 'btn-power-plant';
 						} else {
@@ -417,7 +417,7 @@ define([
 						break;
 					case 50:
 						// 2
-						if (that.game.getHSI() >= Config.attackTower.cost+Config.university.attackTowerCostIncrease*that.game.numberOfBuilding('University')+Config.researchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter')) {
+						if (that.game.getHSI() >= Config.AttackTower.cost+Config.University.attackTowerCostIncrease*that.game.numberOfBuilding('University')+Config.ResearchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter')) {
 							that.activatedMode = 'attackTower';
 							btnId = 'btn-laser-tower';
 						} else {
@@ -427,7 +427,7 @@ define([
 						break;
 					case 51:
 						// 3
-						if (that.game.getHSI() >= Config.freezeTower.cost+Config.researchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter') && that.game.isBuilt('University')) {
+						if (that.game.getHSI() >= Config.FreezeTower.cost+Config.ResearchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter') && that.game.isBuilt('University')) {
 							that.activatedMode = 'freezeTower';
 							btnId = 'btn-freeze-tower';
 						} else {
@@ -437,7 +437,7 @@ define([
 						break;
 					case 52:
 						// 4
-						if (that.game.getHSI() >= Config.repelTower.cost-Config.cheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited') && that.game.isBuilt('ResearchCenter')) {
+						if (that.game.getHSI() >= Config.RepelTower.cost-Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited') && that.game.isBuilt('ResearchCenter')) {
 							that.activatedMode = 'reflectTower';
 							btnId = 'btn-repel-tower';
 						} else {
@@ -447,7 +447,7 @@ define([
 						break;
 					case 81:
 						// Q
-						if (that.game.getHSI() >= Config.nuclearPlant.cost && that.game.isBuilt('ResearchCenter')) {
+						if (that.game.getHSI() >= Config.NuclearPlant.cost && that.game.isBuilt('ResearchCenter')) {
 							that.activatedMode = 'nuclearPlant';
 							btnId = 'btn-nuclear-plant';
 						} else {
@@ -457,7 +457,7 @@ define([
 						break;
 					case 87:
 						// W
-						if (that.game.getHSI() >= Config.university.cost) {
+						if (that.game.getHSI() >= Config.University.cost) {
 							that.activatedMode = 'university';
 							btnId = 'btn-university';
 						} else {
@@ -467,7 +467,7 @@ define([
 						break;
 					case 69:
 						// E
-						if (that.game.getHSI() >= Config.researchCenter.cost && that.game.isBuilt('University')) {
+						if (that.game.getHSI() >= Config.ResearchCenter.cost && that.game.isBuilt('University')) {
 							that.activatedMode = 'researchCenter';
 							btnId = 'btn-research-center';
 						} else {
@@ -477,7 +477,7 @@ define([
 						break;
 					case 82:
 						// R
-						if (that.game.getHSI() >= Config.cheungKong.cost && that.game.isBuilt('ResearchCenter')) {
+						if (that.game.getHSI() >= Config.CheungKong.cost && that.game.isBuilt('ResearchCenter')) {
 							that.activatedMode = 'cheungKong';
 							btnId = 'btn-cheung-kong';
 						} else {
