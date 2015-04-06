@@ -39,7 +39,7 @@ define({
 		cost: 700,
 		buildEffectColor: "aqua",
 		range: 70,
-		attackDamage: 5,
+		attackDamage: 1,
 		slowRate: 80
 	},
 	RepelTower: {
@@ -78,7 +78,7 @@ define({
 		attackTowerCostIncrease: 100,
 		freezeTowerSlowRateIncrease: 10,
 		freezeTowerRangeIncrease: 10,
-		freezeTowerAttackIncrease: 5,
+		freezeTowerAttackIncrease: 1,
 		freezeTowerCostIncrease: 10
 	},
 	CheungKong: {

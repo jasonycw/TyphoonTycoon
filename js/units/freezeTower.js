@@ -23,25 +23,27 @@ define([
 
 	// tick event handler
 	FreezeTower.prototype.tick = function(dt) { // override
-		var target = this.findNearestEnemy();
 
-		var range = Config.FreezeTower.range;
-		var slowRate = Config.FreezeTower.slowRate;
-		var attackDamage = Config.FreezeTower.attackDamage;
+		// calculate power based on structures built
+		var range = this.config.range;
+		var slowRate = this.config.slowRate;
+		var attackDamage = this.config.attackDamage;
 		if (this.game.isBuilt('ResearchCenter')) {
 			range += Config.ResearchCenter.freezeTowerRangeIncrease*this.game.numberOfBuilding('ResearchCenter');
 			slowRate += Config.ResearchCenter.freezeTowerSlowRateIncrease*this.game.numberOfBuilding('ResearchCenter');
 			attackDamage += Config.ResearchCenter.freezeTowerAttackIncrease*this.game.numberOfBuilding('ResearchCenter');
 		}
+		
+		// actual attack
+		var nearestEnemy = this.findNearestEnemyWithin(range);
 
-
-		if (target) {
-			if (target.distance <= range && this.game.getAvailablePower() > 0) {
+		if (nearestEnemy) {
+			if (nearestEnemy.distance <= range && this.game.getAvailablePower() > 0) {
 				this.sound.play('wrap');
-				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "aqua", 20, 5);
-				var buildEffect = new BuildEffect(target.target.x, target.target.y, "aqua", 15, 7, 1);
-				target.target.slow(slowRate);
-				target.target.damage(attackDamage);
+				var laser = new Laser(this.x, this.y, nearestEnemy.target.x, nearestEnemy.target.y, "aqua", 20, 5);
+				var buildEffect = new BuildEffect(nearestEnemy.target.x, nearestEnemy.target.y, "aqua", 15, 7, 1);
+				nearestEnemy.target.slow(slowRate);
+				nearestEnemy.target.damage(attackDamage);
 			}
 		}
 	};

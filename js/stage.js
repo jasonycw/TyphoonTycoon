@@ -37,7 +37,6 @@ define([
 		 */
 		Stage.addChild = function(item, listName) {
 			// default list
-
 			if (listName === undefined) {
 				listName = "others";
 			}

@@ -17,12 +17,11 @@ define([
 				Use "var" to change the variable/funciton become private 
 	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
-		Effect.call();
+		Effect.call(this);
 		this.x = Config.hkArea.x || 0;
 		this.y = Config.hkArea.y || 0;
 		this.radius = Config.hkArea.radius;
 		this.lineWidth = Config.hkArea.lineWidth;
-		this.id = Stage.addChild(this, 'effects');
 		//this.hsiInterest = 0;
 		// this.duration = Config.hkArea.cycleDuration;
 		// this.totalDuration = Config.hkArea.cycleDuration;
