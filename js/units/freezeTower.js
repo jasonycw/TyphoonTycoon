@@ -9,11 +9,11 @@ define([
 ], function(Unit, Stage, Tower, BuildEffect, Laser, Config, Sound) {
 	// Create Tower Object and its constructor
 	function FreezeTower(game, startX, startY, spriteSrc) {
-		this.game = game;
 		// call super constructor.
-		Tower.call(this, startX, startY, spriteSrc);
+		Tower.call(this, startX, startY, spriteSrc, game);
+		this.name = "FreezeTower";
 		var buildEffect = new BuildEffect(this.x, this.y, "aqua", 40, 40, 3);
-		this.game.addPower(Config.freezeTower.power);
+		this.game.addPower(Config.FreezeTower.power);
 
 		this.sound = new Sound('freezeTowerSound');
 	}
@@ -28,13 +28,13 @@ define([
 	FreezeTower.prototype.tick = function(dt) { // override
 		var target = this.findNearestEnemy();
 
-		var range = Config.freezeTower.range;
-		var slowRate = Config.freezeTower.slowRate;
-		var attackDamage = Config.freezeTower.attackDamage;
+		var range = Config.FreezeTower.range;
+		var slowRate = Config.FreezeTower.slowRate;
+		var attackDamage = Config.FreezeTower.attackDamage;
 		if (this.game.isBuilt('ResearchCenter')) {
-			range += Config.researchCenter.freezeTowerRangeIncrease*this.game.numberOfBuilding('ResearchCenter');
-			slowRate += Config.researchCenter.freezeTowerSlowRateIncrease*this.game.numberOfBuilding('ResearchCenter');
-			attackDamage += Config.researchCenter.freezeTowerAttackIncrease*this.game.numberOfBuilding('ResearchCenter');
+			range += Config.ResearchCenter.freezeTowerRangeIncrease*this.game.numberOfBuilding('ResearchCenter');
+			slowRate += Config.ResearchCenter.freezeTowerSlowRateIncrease*this.game.numberOfBuilding('ResearchCenter');
+			attackDamage += Config.ResearchCenter.freezeTowerAttackIncrease*this.game.numberOfBuilding('ResearchCenter');
 		}
 
 

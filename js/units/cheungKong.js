@@ -6,16 +6,16 @@ define([
 ], function(Unit, Stage, BuildEffect, Config) {
 	// Create Tower Object and its constructor
 	function CheungKong(game, startX, startY, spriteSrc) {
-		this.game = game;
 		// Call super constructor.
-		Unit.call(this, startX, startY, spriteSrc);
+		Unit.call(this, startX, startY, spriteSrc, game);
+		this.name = "CheungKong";
 		var buildEffect = new BuildEffect(this.x, this.y, "Red", 40, 40, 3);
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 
 		this.game.built('CheungKongLimited');
-		this.game.addPower(Config.cheungKong.power);
+		this.game.addPower(Config.CheungKong.power);
 	}
 
 	// subclass extends superclass
@@ -24,6 +24,9 @@ define([
 
 	CheungKong.prototype.remove = function() {
 		this.game.destroyBuilding('CheungKongLimited');
+		CheungKong.prototype.remove.call(this);
+		// return the power it got
+		this.game.reducePower(Config[this.name].power);
 	};
 	
 	return CheungKong;

@@ -7,16 +7,16 @@ define([
 
 	//Create Tower Object and its constructor
 	function University(game, startX, startY, spriteSrc) {
-		this.game = game;
 		// Call super constructor.
-		Unit.call(this, startX, startY, spriteSrc);
+		Unit.call(this, startX, startY, spriteSrc, game);
+		this.name = "University";
 		var buildEffect = new BuildEffect(this.x, this.y, "#f2b7ff", 40, 40, 3);
 
 		// Auto add to stage
 		this.id = Stage.addChild(this, 'towers');
 
 		this.game.built("University");
-		this.game.addPower(Config.university.power);
+		this.game.addPower(Config.University.power);
 	}
 	// subclass extends superclass
 	University.prototype = Object.create(Unit.prototype);
@@ -24,6 +24,8 @@ define([
 
 	University.prototype.remove = function() {
 		this.game.destroyBuilding('University');
+		// return the power it got
+		this.game.reducePower(Config[this.name].power);
 	};
 
 	return University;

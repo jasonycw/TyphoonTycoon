@@ -10,7 +10,7 @@ define({
 		lineWidth: 33,
 		fillStyle: "rgba(200, 255, 0, 0.1)",
 		cycleDuration: 140
-	},
+	}, 
 
 	nearestBuildingDistance: 40,
 
@@ -27,20 +27,20 @@ define({
 	},
 
 	// towers		=============================
-	attackTower: {
+	AttackTower: {
 		range: 150,
 		attackDamage: 20,
 		power: -3,
 		cost: 500
 	},
-	freezeTower: {
+	FreezeTower: {
 		range: 70,
 		attackDamage: 5,
 		slowRate: 80,
 		power: -6,
 		cost: 700
 	},
-	repelTower: {
+	RepelTower: {
 		range: 100,
 		force: 170,
 		power: -10,
@@ -48,22 +48,22 @@ define({
 	},
 
 	// structures	=============================
-	powerPlant: {
+	PowerPlant: {
 		power: 10,
 		cost: 1000
 	},
-	nuclearPlant: {
+	NuclearPlant: {
 		power: 40,
 		cost: 5000
 	},
-	university: {
+	University: {
 		power: -20,
 		cost: 2500,
 		attackTowerAttackIncrease: 5,
 		attackTowerRangeIncrease: 5,
 		attackTowerCostIncrease: 20
 	},
-	researchCenter: {
+	ResearchCenter: {
 		power: -30,
 		cost: 4000,
 		attackTowerAttackIncrease: 3,
@@ -74,7 +74,7 @@ define({
 		freezeTowerAttackIncrease: 5,
 		freezeTowerCostIncrease: 10
 	},
-	cheungKong: {
+	CheungKong: {
 		power: -50,
 		cost: 7000,
 		hsiIncrementMultiplier: 2,
@@ -84,7 +84,7 @@ define({
 	},
 	// Hang Sang Index
 	HSI: {
-		init: 9000,
+		init: 90000,	// 9000
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
 		increment: 40
