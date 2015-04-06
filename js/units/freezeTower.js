@@ -2,18 +2,14 @@ define([
 	'units/unit',
 	'stage',
 	'units/tower',
-	'models/buildEffect',
 	'models/laser',
 	'config',
 	'sound'
-], function(Unit, Stage, Tower, BuildEffect, Laser, Config, Sound) {
+], function(Unit, Stage, Tower, Laser, Config, Sound) {
 	// Create Tower Object and its constructor
 	function FreezeTower(game, startX, startY, spriteSrc) {
 		// call super constructor.
-		Tower.call(this, startX, startY, spriteSrc, game);
-		this.name = "FreezeTower";
-		var buildEffect = new BuildEffect(this.x, this.y, "aqua", 40, 40, 3);
-		this.game.addPower(Config.FreezeTower.power);
+		Tower.call(this, startX, startY, spriteSrc, game, "FreezeTower");
 
 		this.sound = new Sound('freezeTowerSound');
 	}

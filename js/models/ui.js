@@ -100,7 +100,7 @@ define([
 			var nearestDist = 10000000;
 			var tempBuilding // reused variable
 			var dist; // reused variable
-			_.each(Stage.displayList['towers'], function(tempBuilding) {
+			_.each(Stage.displayList['structures'], function(tempBuilding) {
 				dist = Utility.pointDistance(x, y, tempBuilding.x, tempBuilding.y);
 				if (dist < nearestDist) {
 					nearestBuilding = tempBuilding;

@@ -1,20 +1,16 @@
 define([
 	'sound',
 	'units/tower',
-	'models/buildEffect',
 	'models/laser',
-	'config'
-], function(Sound, Tower, BuildEffect, Laser, Config) {
+	'config',
+	'models/buildEffect'
+], function(Sound, Tower, Laser, Config, BuildEffect) {
 	// Create Tower Object and its constructor
 	function AttackTower(game, startX, startY, spriteSrc) {
 		//call super constructor.
-		Tower.call(this, startX, startY, spriteSrc, game);
-		this.name = "AttackTower";
+		Tower.call(this, startX, startY, spriteSrc, game, "AttackTower");
 		this.coolDownTime = 15;
 		this.coolDownCounter = 0;
-		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
-		this.power = Config.AttackTower.power;
-		this.game.addPower(this.power);
 		this.sound = new Sound('attackTowerSound');
 	}
 

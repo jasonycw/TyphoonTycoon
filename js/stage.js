@@ -14,7 +14,7 @@ define([
 		//mean render item in displayList['stage'] first
 		Stage.displayList = {
 			'backdrops': [],
-			'towers': [],
+			'structures': [],
 			'effects': [],
 			'typhoons': [],
 			'others': []

@@ -1,22 +1,33 @@
 define([
 	'utility',
-	'units/structure',
+	'units/unit',
 	'stage',
-	'config'
-], function(Utility, Structure, Stage, Config) {
+	'config',
+	'models/buildEffect'
+], function(Utility, Unit, Stage, Config, BuildEffect) {
 	// Create Tower Object and its constructor
-	function Tower(startX, startY, spriteSrc, game, name) {
+	function Structure(startX, startY, spriteSrc, game, name) {
+		name = name || "Structure";
 		//call super constructor.
-		name = name || "Tower";
-		Structure.call(this, startX, startY, spriteSrc, game, name);
+		Unit.call(this, startX, startY, spriteSrc, game, name);
+		//Auto add to stage
+		this.id = Stage.addChild(this, 'structures');
+		this.onCreated();
 	}
 	//subclass extends superclass
-	Tower.prototype = Object.create(Structure.prototype);
-	Tower.prototype.constructor = Tower;
+	Structure.prototype = Object.create(Unit.prototype);
+	Structure.prototype.constructor = Structure;
 
 
+	Structure.prototype.onCreated = function(){
+		this.game.addPower(this.config.power);
+		var buildEffect = new BuildEffect(
+			                              this.x, this.y, 
+			                              this.config.buildEffectColor
+			                              , 40, 40, 3);
+	};
 	// tick event handler
-	Tower.prototype.tick = function(dt) { // override
+	Structure.prototype.tick = function(dt) { // override
 		//empty		
 	};
 	/**
@@ -25,7 +36,7 @@ define([
 	 * @returns {undefined} if no enemy is alive
 	 */
 
-	Tower.prototype.findNearestEnemy = function() {
+	Structure.prototype.findNearestEnemy = function() {
 		var nearestEnemy = null;
 		var nearestDist = 10000000;
 		var tempEnemy // reused variable
@@ -50,7 +61,7 @@ define([
 		else
 			return null;
 	};
-	Tower.prototype.findNearestEnemyWithin = function(rng) {
+	Structure.prototype.findNearestEnemyWithin = function(rng) {
 		var nearestEnemy = null;
 		var nearestDist = 10000000;
 		var tempEnemy // reused variable
@@ -78,9 +89,19 @@ define([
 			return null;
 	};
 
-	Tower.prototype.render = function(ctx) {
-		Structure.prototype.render.call(this, ctx);
+	Structure.prototype.render = function(ctx) {
+		Unit.prototype.render.call(this, ctx);
 	};
 
-	return Tower;
+	/**
+	 * remove the unit, without death effect
+	 */
+	Structure.prototype.remove = function() {
+		Stage.removeChild(this.id, 'structures');
+		console.log(this.name);
+		// return the power it got
+		this.game.reducePower(Config[this.name].power);
+	}
+
+	return Structure;
 });

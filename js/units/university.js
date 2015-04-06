@@ -1,32 +1,18 @@
 define([
-	'units/unit',
+	'units/structure',
 	'stage',
-	'models/buildEffect',
 	'config'
-], function(Unit, Stage, BuildEffect, Config) {
-
+], function(Structure, Stage, Config) {
 	//Create Tower Object and its constructor
 	function University(game, startX, startY, spriteSrc) {
 		// Call super constructor.
-		Unit.call(this, startX, startY, spriteSrc, game);
-		this.name = "University";
-		var buildEffect = new BuildEffect(this.x, this.y, "#f2b7ff", 40, 40, 3);
-
-		// Auto add to stage
-		this.id = Stage.addChild(this, 'towers');
+		Structure.call(this, startX, startY, spriteSrc, game, "University");
 
 		this.game.built("University");
-		this.game.addPower(Config.University.power);
 	}
 	// subclass extends superclass
-	University.prototype = Object.create(Unit.prototype);
+	University.prototype = Object.create(Structure.prototype);
 	University.prototype.constructor = University;
-
-	University.prototype.remove = function() {
-		this.game.destroyBuilding('University');
-		// return the power it got
-		this.game.reducePower(Config[this.name].power);
-	};
 
 	return University;
 });
