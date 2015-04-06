@@ -78,9 +78,5 @@ define([
 			return null;
 	};
 
-	Tower.prototype.render = function(ctx) {
-		Structure.prototype.render.call(this, ctx);
-	};
-
 	return Tower;
 });

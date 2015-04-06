@@ -4,8 +4,9 @@ define([
 	'units/tower',
 	'models/laser',
 	'config',
-	'sound'
-], function(Unit, Stage, Tower, Laser, Config, Sound) {
+	'sound',
+	'models/buildEffect'
+], function(Unit, Stage, Tower, Laser, Config, Sound, BuildEffect) {
 	// Create Tower Object and its constructor
 	function FreezeTower(game, startX, startY, spriteSrc) {
 		// call super constructor.

@@ -260,6 +260,12 @@ define([
 				}
 				console.log("remove: " + p + "= " + this.getAvailablePower());
 			},
+			getPowerQuota: function(){
+				return powerQuota;
+			},
+			getPowerUsed: function(){
+				return powerUsed;
+			},
 			getAvailablePower: function() {
 				return powerQuota - powerUsed;
 			},
