@@ -1,5 +1,7 @@
 # Typhoon Tycoon
 
+[How To Play](https://github.com/jasonycw/TyphoonTycoon/wiki/Instructions-%7C-How-To-Play)
+
 ## Team Members
 Name                | Role
 --------------------|-----------
