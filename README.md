@@ -17,7 +17,7 @@ In the year 21XX, the Li’s field (李氏力場) becomes reality, in a form of 
 http://jasonycw.github.io/TyphoonTycoon/
 
 ## Important Note
-The whole project is written in HTML5 and Javascript, no plugin is required.
-We only tested on the latest stable version of Google Chrome. (Chrome 40)
-Firefox may work but we did not test it.
-IE? Use it to download Chrome or Firefox please. Thank you.
+The whole project is written in HTML5 and Javascript, no plugin is required.  
+We only tested on the latest stable version of Google Chrome. (Chrome 40)  
+Firefox may work but we did not test it.  
+IE? Use it to download Chrome or Firefox please. Thank you.  
