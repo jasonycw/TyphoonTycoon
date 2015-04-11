@@ -12,15 +12,8 @@ define([
 
 	HSI.prototype = {
 		constructor: HSI,
-		finishLoading: function() {
-			this.loaded = true;
-		},
 		getHSI: function(){
 			return this._hsi;
-		},
-		// expose my negative HSI signal object
-		getSNegativeHSI: function(){
-			return this._sNegativeHSI;
 		},
 		/**
 		 * adds amount of points into HSI, no direct control of it
@@ -31,6 +24,10 @@ define([
 			if(this._hsi<=0){
 				this._sNegativeHSI.dispatch(this._hsi);
 			}
+		},
+		// expose my negative HSI signal object
+		getSNegativeHSI: function(){
+			return this._sNegativeHSI;
 		}
 	};
 

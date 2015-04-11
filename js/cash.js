@@ -9,8 +9,7 @@ define([
 
 	Cash.prototype = {
 		constructor: Cash,
-		finishLoading: function() {
-			this.loaded = true;
+		dosomething: function() {
 		}
 	};
 
