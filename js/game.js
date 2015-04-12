@@ -20,7 +20,7 @@ define([
 
 	var Game = (function() {
 		var that = this;
-		var intervalId = null;
+		var _intervalId = null;
 		var earthquakeTimer = [];
 		var frameId;
 		var Built = {
@@ -77,7 +77,7 @@ define([
 				this.reset();
 				lastTime = Date.now();
 
-				intervalId = setInterval(function() {
+				_intervalId = setInterval(function() {
 					Game.updateHSI();
 				}, 100);
 				this.loop();
@@ -121,7 +121,7 @@ define([
 				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 				if (hsi <= 0) {
 					cancelAnimationFrame(frameId);
-					clearInterval(intervalId);
+					clearInterval(_intervalId);
 					for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
 						clearTimeout(earthquakeTimer[i]);
 					};
@@ -218,8 +218,6 @@ define([
 				update HSI
 			 */
 			updateHSI: function() {
-
-				var penalty = 0;
 				//check any typhoon within the circle
 				//TODO could be optimize
 				//
@@ -232,7 +230,9 @@ define([
 					var distance;
 					try {
 						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
-					} catch (err) {} finally {
+					} catch (err) {
+						console.log(err);
+					} finally {
 						if (!isNaN(distance) && e != null) {
 							if (distance <= Config.hkArea.effectAreaRadius) {
 								hsiChange = -(Config.enemy.damage * Math.round((Config.hkArea.effectAreaRadius - Math.round(distance)) * 0.1));
