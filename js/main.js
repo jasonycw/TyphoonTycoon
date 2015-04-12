@@ -24,9 +24,8 @@ require.config({
 // Start our app
 require([
 	'jquery',
-	'game',
-	'hsi'
-], function($, Game,HSI) {
+	'game'
+], function($, Game) {
 
 	/**
 	 * A cross-browser requestAnimationFrame, See
@@ -64,7 +63,6 @@ require([
 	// Start the game when DOM tree is ready
 	$(document).ready(function() {
 		window.game = Game;
-		window.HSI = HSI;
 		Game.init();
 	});
 });

@@ -1,7 +1,8 @@
 // defines your module and loads any dependencies
 define([
-	'signals'
-], function(signals) {
+	'signals',
+	'config'
+], function(signals,Config) {
 
 	function HSI(initValue) {
 		this.on={

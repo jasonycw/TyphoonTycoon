@@ -14,12 +14,11 @@ define([
 	'units/enemy',
 	'models/mapHitArea',
 	'models/earthquake',
-	'models/buildEffect',
-], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect) {
+	'hsi'
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake,HSI) {
 
 
 	var Game = (function() {
-		var that = this;
 		var _intervalId = null;
 		var earthquakeTimer = [];
 		var frameId;
@@ -36,7 +35,7 @@ define([
 			gameTime: 0,
 			powerQuota: 0,
 			powerUsed: 0,
-			hsi: 0,
+			hsi: null,
 			cash: 0,
 			level: 1,
 			enemyCounter: 0,
@@ -83,11 +82,11 @@ define([
 				this.loop();
 			},
 			reset: function() {
-				hsi = Config.HSI.init;
-				cash = 0;
+				this.hsi = new HSI(Config.HSI.init);
+				this.cash = 0;
 				gameTime = 0;
 				lastTime = 0;
-				powerQuota = powerUsed = 0;
+				this.powerQuota = this.powerUsed = 0;
 				gameUI.setHsiDisplayValue(hsi);
 				gameUI.setPowerBar(0, 0);
 				level: 1;
@@ -118,7 +117,7 @@ define([
 
 				lastTime = now;
 
-				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
+				gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
 				if (hsi <= 0) {
 					cancelAnimationFrame(frameId);
 					clearInterval(_intervalId);
@@ -221,9 +220,8 @@ define([
 				//check any typhoon within the circle
 				//TODO could be optimize
 				//
-				that = this;
 				var hsiChange = (Config.HSI.increment + Math.round(Math.random() * Config.HSI.upperOfRandom) + Math.round(Math.random() * Config.HSI.lowerOfRandom));
-				if (that.built.cheungKongLimited)
+				if (this.built.cheungKongLimited)
 					hsiChange *= Config.CheungKong.hsiIncrementMultiplier;
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
@@ -240,41 +238,34 @@ define([
 						} //End if
 					} //End try..finally
 				} //End for
-				this.affectHSI(hsiChange);
-				gameUI.setHsiDisplayValue(hsi);
+				this.hsi.addHSI(hsiChange);
+				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 			},
 			addPower: function(p) {
 				if (p > 0) {
-					powerQuota += p;
+					this.powerQuota += p;
 				} else if (p < 0) {
-					powerUsed -= p;
+					this.powerUsed -= p;
 				}
 				console.log("add: " + p + "= " + this.getAvailablePower());
 				// totalPower += p;
 			},
 			reducePower: function(p) {
 				if (p > 0) {
-					powerQuota -= p;
+					this.powerQuota -= p;
 				} else if (p < 0) {
-					powerUsed += p;
+					this.powerUsed += p;
 				}
 				console.log("remove: " + p + "= " + this.getAvailablePower());
 			},
 			getPowerQuota: function(){
-				return powerQuota;
+				return this.powerQuota;
 			},
 			getPowerUsed: function(){
-				return powerUsed;
+				return this.powerUsed;
 			},
 			getAvailablePower: function() {
-				return powerQuota - powerUsed;
-			},
-			getHSI: function() {
-				return hsi;
-			},
-			//just getter, will not display 
-			setHSI: function(value) {
-				hsi = value;
+				return this.powerQuota - this.powerUsed;
 			},
 			affectHSI: function(value) {
 				hsi += value;

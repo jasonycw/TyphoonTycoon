@@ -97,6 +97,9 @@ define({
 		lowerOfRandom: -10,
 		increment: 40
 	},
+	cash:{
+		init:3000
+	},
 	earthquake: {
 		affectRadius: 30,
 		effectColor: '#C71585',
