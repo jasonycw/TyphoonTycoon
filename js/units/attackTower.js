@@ -7,13 +7,14 @@ define([
 ], function(Sound, Tower, BuildEffect, Laser, Config) {
 	// Create Tower Object and its constructor
 	function AttackTower(game, startX, startY, spriteSrc) {
-		this.game = game;
 		//call super constructor.
-		Tower.call(this, startX, startY, spriteSrc);
+		Tower.call(this, startX, startY, spriteSrc, game);
+		this.name = "AttackTower";
 		this.coolDownTime = 15;
 		this.coolDownCounter = 0;
 		var buildEffect = new BuildEffect(this.x, this.y, "red", 40, 40, 3);
-		this.game.addPower(Config.attackTower.power);
+		this.power = Config.AttackTower.power;
+		this.game.addPower(this.power);
 		this.sound = new Sound('attackTowerSound');
 	}
 
@@ -26,17 +27,17 @@ define([
 	AttackTower.prototype.tick = function(dt) { // override
 		if (this.coolDownCounter <= 0) {
 			var that = this;
-			var nearestEnemy = this.findNearestEnemyWithin(Config.attackTower.range);
+			var nearestEnemy = this.findNearestEnemyWithin(Config.AttackTower.range);
 
-			var range = Config.attackTower.range;
-			var attackDamage = Config.attackTower.attackDamage;
+			var range = Config.AttackTower.range;
+			var attackDamage = Config.AttackTower.attackDamage;
 			if (this.game.isBuilt('University')) {
-				range += Config.university.attackTowerRangeIncrease*this.game.numberOfBuilding('University');
-				attackDamage += Config.university.attackTowerAttackIncrease*this.game.numberOfBuilding('University');
+				range += Config.University.attackTowerRangeIncrease*this.game.numberOfBuilding('University');
+				attackDamage += Config.University.attackTowerAttackIncrease*this.game.numberOfBuilding('University');
 			}
 			if (this.game.isBuilt('ResearchCenter')) {
-				range += Config.researchCenter.attackTowerRangeIncrease*this.game.numberOfBuilding('ResearchCenter');
-				attackDamage += Config.researchCenter.attackTowerAttackIncrease*this.game.numberOfBuilding('ResearchCenter');
+				range += Config.ResearchCenter.attackTowerRangeIncrease*this.game.numberOfBuilding('ResearchCenter');
+				attackDamage += Config.ResearchCenter.attackTowerAttackIncrease*this.game.numberOfBuilding('ResearchCenter');
 			}
 
 			if (nearestEnemy) {

@@ -7,30 +7,30 @@ define([
 	'sound'
 ], function(Utility, Tower, BuildEffect, Laser, Config, Sound) {
 	// Create Tower Object and its constructor
-	function ReflectTower(game, startX, startY, spriteSrc) {
-		this.game = game;
+	function RepelTower(game, startX, startY, spriteSrc) {
 		// call super constructor.
-		Tower.call(this, startX, startY, spriteSrc);
+		Tower.call(this, startX, startY, spriteSrc, game);
+		this.name = "RepelTower";
 		var buildEffect = new BuildEffect(this.x, this.y, "#FF8000", 40, 40, 3);
-		this.game.addPower(Config.repelTower.power);
+		this.game.addPower(Config.RepelTower.power);
 
 		this.sound = new Sound('reflectTowerSound');
 	}
 
 	//subclass extends superclass
-	ReflectTower.prototype = Object.create(Tower.prototype);
-	ReflectTower.prototype.constructor = ReflectTower;
+	RepelTower.prototype = Object.create(Tower.prototype);
+	RepelTower.prototype.constructor = RepelTower;
 
 	// tick event handler
-	ReflectTower.prototype.tick = function(dt) { // override
+	RepelTower.prototype.tick = function(dt) { // override
 		var target = this.findNearestEnemy();
 		if (target) {
-			var range = Config.repelTower.range;
-			var force = Config.repelTower.force;
+			var range = Config.RepelTower.range;
+			var force = Config.RepelTower.force;
 
 			if (this.game.isBuilt('CheungKongLimited')) {
-				range += Config.cheungKong.repelTowerRangeIncrease*this.game.numberOfBuilding('CheungKongLimited');
-				force += Config.cheungKong.repelTowerForceIncrease*this.game.numberOfBuilding('CheungKongLimited');
+				range += Config.CheungKong.repelTowerRangeIncrease*this.game.numberOfBuilding('CheungKongLimited');
+				force += Config.CheungKong.repelTowerForceIncrease*this.game.numberOfBuilding('CheungKongLimited');
 			}
 			if (target.distance <= range && this.game.getAvailablePower() > 0) {
 				this.sound.play('electricity');
@@ -42,5 +42,5 @@ define([
 	};
 
 
-	return ReflectTower;
+	return RepelTower;
 });
