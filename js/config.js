@@ -84,7 +84,7 @@ define({
 	},
 	// Hang Sang Index
 	HSI: {
-		init: 90000,	// 9000
+		init: 9000,	// 90000
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
 		increment: 40
