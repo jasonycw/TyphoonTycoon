@@ -6,7 +6,7 @@ define([
 
 	function HSI(initValue) {
 		this.on={
-			hsiDepleted: signals.Signal()
+			negativeHSI: new signals.Signal()
 		};
 		this._hsi = initValue;
 		// signal: event system without a centralized event controller
@@ -26,7 +26,7 @@ define([
 		addHSI:function(amount){
 			this._hsi+=amount;
 			if(this._hsi<=0){
-				this.on.hsiDepleted.dispatch(this._hsi);
+				this.on.negativeHSI.dispatch(this._hsi);
 			}
 		}
 	};

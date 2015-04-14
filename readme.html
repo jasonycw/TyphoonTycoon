@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Typhoon Tycoon - CS4386 AI Game Programming Project</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<!-- Require.js -->
+	<script data-main="js/main" src="js/libs/require/require.js"></script>
+
+</head>
+<body>
+	
+	<div id="how-to-play">
+<h1>How to Play</h1>
+
+<h2>Aim</h2>
+
+<p>To prevent typhoons from reaching your city (Hong Kong), damaging its stock market.</p>
+
+<h2>HSI (HS Index)</h2>
+
+<p>This is the health of the stock market (stock price).<br>
+It will <strong>rise</strong> steadily as long as people go to work.<br>
+You build new structures <strong>at a cost</strong> of the stock price<br>
+When a typhoon becomes too close to Hong Kong, the stock price  <strong>goes down sharply</strong> too.<br>
+When <strong>HSI becomes zero</strong>, the game is over as the economy of Hong Kong is at stake.</p>
+
+<h2>Controls</h2>
+
+<ol class="task-list">
+<li>Click icon to select structure (Alternate: use keyboard shortcut)<br>
+</li>
+<li>Click on the map to build</li>
+</ol>
+
+<h2>Structures</h2>
+
+<p>you have<br>
+3 types of offensive towers,<br>
+2 types of power plants, and<br>
+3 types of research structures.</p>
+
+<h3>Where to build</h3>
+
+<p>Offensive towers must be built on sea, the others on land.<br>
+All structures rely on power. you can see the power requirements by pointing your mouse cursor over the build button (when you can build it)</p>
+
+<h3>Power</h3>
+
+<p>Towers need <strong>power</strong> to attack.<br>
+Powerplants generate power <strong>quota</strong>, towers consume power.<br>
+The available power is shown in the <strong>top right corner</strong><br>
+If power quota is not enough for the towers, there is a <strong>power outage</strong> and ALL towers will not shoot.<br>
+Inside the game, you can see how much power each structure needs by pointing your cursor at the button.</p>
+
+<h2>Towers (Built on the sea)</h2>
+
+<p>You start with the basic LaserTower. As you build more research structures, new towers are unlocked and existing towers get upgraded.</p>
+
+<h3>LaserTower</h3>
+
+<p>Shoots laser at typhoon, disrupting local temperature and reduce typhoon strength. </p>
+
+<ul class="task-list">
+<li>Hotkey: 1</li>
+<li>Requires: None</li>
+<li>Power consumption: Low</li>
+</ul>
+
+<h3>FreezeTower</h3>
+
+<p>Shoots cold air at typhoon, reducing it movement speed</p>
+
+<ul class="task-list">
+<li>Hotkey: 3</li>
+<li>Requires: University</li>
+<li>Power consumption: Medium</li>
+</ul>
+
+<h3>RepelTower</h3>
+
+<p>Exerts a repel force at 1 typhoon around it. It may push the entire typhoon away (or the other way?) depends on how you place it.</p>
+
+<ul class="task-list">
+<li>Hotkey: 4</li>
+<li>Requires: Research Center</li>
+<li>Power consumption: High</li>
+</ul>
+
+<h2>Power Plants (Built on land)</h2>
+
+<p>You start with the basic PowerPlant, and you can unlock the nuclear powerplant later.</p>
+
+<h3>Powerplant</h3>
+
+<p>Generates power that can hold a few LaserTower.</p>
+
+<ul class="task-list">
+<li>Hotkey: 1</li>
+<li>Requires: None</li>
+<li>Power production: Medium</li>
+</ul>
+
+<h3>Nuclear Power Plant</h3>
+
+<p>Generates more power than the normal one, but it is also much more expensive because it takes less space.</p>
+
+<ul class="task-list">
+<li>Hotkey: Q</li>
+<li>Requires: Research Center</li>
+<li>Power production: High</li>
+</ul>
+
+<h2>Tech buildings (Built on land)</h2>
+
+<p>These tech buildings have quite a cost, but having them will unlock all sorts of power for your defense system.</p>
+
+<p><strong>Note:</strong> You only need 1 of each tech structure to have their powers. Effects don't stack.</p>
+
+<h3>University</h3>
+
+<p>It unlocks the freeze tower, and it upgrades LaserTowers in range and flat damage, and increases cost</p>
+
+<ul class="task-list">
+<li>Hotkey: W</li>
+<li>Requires: None</li>
+<li>Power consumption: High</li>
+</ul>
+
+<h3>ResearchCenter</h3>
+
+<p>Unlocks The RepelTower,<br>
+further increases LaserTower range, damage and cost,<br>
+as well as FreezeTower slowrate, range, damage and cost</p>
+
+<ul class="task-list">
+<li>Hotkey: E</li>
+<li>Requires: University</li>
+<li>Power consumption: High</li>
+</ul>
+
+<h3>CheungKong Headquarters</h3>
+
+<p>Upgrades Repel tower, increasing range, force, cost.
+Also doubles HSI increase Rate.</p>
+
+<ul class="task-list">
+<li>Hotkey: R</li>
+<li>Requires: ResearchCenter</li>
+<li>Power consumption: Very High</li>
+</ul>
+
+</div>
+	<audio id="buildSound">
+		<source src="sounds/sound.mp3" type="audio/mpeg" />
+		<source src="sounds/sound.wav" type="audio/wav" />
+	</audio>
+	<audio id="attackTowerSound">
+		<source src="sounds/sound.mp3" type="audio/mpeg" />
+		<source src="sounds/sound.wav" type="audio/wav" />
+	</audio>
+	<audio id="freezeTowerSound">
+		<source src="sounds/sound.mp3" type="audio/mpeg" />
+		<source src="sounds/sound.wav" type="audio/wav" />
+	</audio>
+	<audio id="reflectTowerSound">
+		<source src="sounds/sound.mp3" type="audio/mpeg" />
+		<source src="sounds/sound.wav" type="audio/wav" />
+	</audio>
+	<div id="tooltip"></div>
+</body>
+</html>

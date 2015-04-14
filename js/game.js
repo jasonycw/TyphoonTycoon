@@ -82,12 +82,15 @@ define([
 				this.loop();
 			},
 			reset: function() {
+				var that = this;
 				this.hsi = new HSI(Config.HSI.init);
+				console.log(this.hsi);
+				this.hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
 				this.cash = 0;
 				gameTime = 0;
 				lastTime = 0;
 				this.powerQuota = this.powerUsed = 0;
-				gameUI.setHsiDisplayValue(hsi);
+				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
 				level: 1;
 				enemyCounter= 0;
@@ -118,17 +121,16 @@ define([
 				lastTime = now;
 
 				gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
-				if (hsi <= 0) {
-					cancelAnimationFrame(frameId);
-					clearInterval(_intervalId);
-					for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
-						clearTimeout(earthquakeTimer[i]);
-					};
-					gameUI.showGameOver();
-
-				} else {
-					frameId = requestAnimationFrame(Game.loop);
-				}
+				var that = this;
+				frameId = requestAnimationFrame(function(){Game.loop.call(that)});
+			},
+			gameOver:function(){
+				cancelAnimationFrame(frameId);
+				clearInterval(_intervalId);
+				for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
+					clearTimeout(earthquakeTimer[i]);
+				};
+				gameUI.showGameOver();
 			},
 			/*
 				tick() : 
@@ -267,8 +269,11 @@ define([
 			getAvailablePower: function() {
 				return this.powerQuota - this.powerUsed;
 			},
+			getHSI: function(){
+				return this.hsi.getHSI();
+			},
 			affectHSI: function(value) {
-				hsi += value;
+				this.hsi.addHSI(value);
 			},
 			built: function(name) {
 				if (name == "University")

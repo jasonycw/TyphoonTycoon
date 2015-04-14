@@ -1,4 +1,5 @@
 # JS Signals
+http://millermedeiros.github.io/js-signals/
 
 The MIT License (MIT)
 
