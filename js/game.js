@@ -47,7 +47,8 @@ define([
 				try {
 					stage = new Stage('game-canvas');
 				} catch (e) {
-					alert('Cannot obtain the canvas context.');
+					console.log(e);
+					alert('Cannot create the stage.');
 					return;
 				}
 
@@ -83,14 +84,13 @@ define([
 			},
 			reset: function() {
 				var that = this;
-				this.hsi = new HSI(Config.HSI.init);
-				console.log(this.hsi);
-				this.hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
-				this.cash = 0;
+				hsi = new HSI(Config.HSI.init);
+				console.log(hsi);
+				hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
 				gameTime = 0;
 				lastTime = 0;
-				this.powerQuota = this.powerUsed = 0;
-				gameUI.setHsiDisplayValue(this.hsi.getHSI());
+				powerQuota = powerUsed = 0;
+				gameUI.setHsiDisplayValue(hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
 				level: 1;
 				enemyCounter= 0;
@@ -120,7 +120,7 @@ define([
 
 				lastTime = now;
 
-				gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
+				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
 				var that = this;
 				frameId = requestAnimationFrame(function(){Game.loop.call(that)});
 			},
@@ -144,7 +144,7 @@ define([
 			https://github.com/jlongster/canvas-game-bootstrap/blob/a878158f39a91b19725f726675c752683c9e1c08/js/app.js#L22
 			*/
 			tick: function(dt) {
-				this.updateEntities(dt);
+					updateEntities(dt);
 
 				if (dt < 1) { // fix bug coused by lag
 					gameTime += dt;
@@ -270,7 +270,8 @@ define([
 				return this.powerQuota - this.powerUsed;
 			},
 			getHSI: function(){
-				return this.hsi.getHSI();
+				// known bug: Game uses global variable all over the place
+				return hsi.getHSI();
 			},
 			affectHSI: function(value) {
 				this.hsi.addHSI(value);
