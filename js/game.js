@@ -47,8 +47,7 @@ define([
 				try {
 					stage = new Stage('game-canvas');
 				} catch (e) {
-					console.log(e);
-					alert('Cannot create the stage.');
+					alert('Cannot obtain the canvas context.');
 					return;
 				}
 
@@ -84,13 +83,14 @@ define([
 			},
 			reset: function() {
 				var that = this;
-				hsi = new HSI(Config.HSI.init);
-				console.log(hsi);
-				hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
+				this.hsi = new HSI(Config.HSI.init);
+				console.log(this.hsi);
+				this.hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
+				this.cash = 0;
 				gameTime = 0;
 				lastTime = 0;
-				powerQuota = powerUsed = 0;
-				gameUI.setHsiDisplayValue(hsi.getHSI());
+				this.powerQuota = this.powerUsed = 0;
+				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
 				level: 1;
 				enemyCounter= 0;
@@ -120,7 +120,7 @@ define([
 
 				lastTime = now;
 
-				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
+				gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
 				var that = this;
 				frameId = requestAnimationFrame(function(){Game.loop.call(that)});
 			},
@@ -144,7 +144,7 @@ define([
 			https://github.com/jlongster/canvas-game-bootstrap/blob/a878158f39a91b19725f726675c752683c9e1c08/js/app.js#L22
 			*/
 			tick: function(dt) {
-					updateEntities(dt);
+				this.updateEntities(dt);
 
 				if (dt < 1) { // fix bug coused by lag
 					gameTime += dt;
@@ -227,18 +227,13 @@ define([
 					hsiChange *= Config.CheungKong.hsiIncrementMultiplier;
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
-					var distance;
-					try {
-						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
-					} catch (err) {
-						console.log(err);
-					} finally {
-						if (!isNaN(distance) && e != null) {
-							if (distance <= Config.hkArea.effectAreaRadius) {
-								hsiChange = -(Config.enemy.damage * Math.round((Config.hkArea.effectAreaRadius - Math.round(distance)) * 0.1));
-							}
-						} //End if
-					} //End try..finally
+					if(e===undefined){// typhoon is destroyed
+						continue;
+					}
+					var distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
+					if (distance <= Config.hkArea.effectAreaRadius) {
+						hsiChange = -(Config.enemy.damage * Math.round((Config.hkArea.effectAreaRadius - Math.round(distance)) * 0.1));
+					}
 				} //End for
 				this.hsi.addHSI(hsiChange);
 				gameUI.setHsiDisplayValue(this.hsi.getHSI());
@@ -270,8 +265,7 @@ define([
 				return this.powerQuota - this.powerUsed;
 			},
 			getHSI: function(){
-				// known bug: Game uses global variable all over the place
-				return hsi.getHSI();
+				return this.hsi.getHSI();
 			},
 			affectHSI: function(value) {
 				this.hsi.addHSI(value);
