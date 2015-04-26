@@ -12,7 +12,7 @@ define([
 				Use "var" to change the variable/funciton become private 
 	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 			 */
-		Effect.call();
+		Effect.call(this);
 		this.x = x || 0;
 		this.y = y || 0;
 		this.buildEffectColor = buildEffectColor;
@@ -20,7 +20,6 @@ define([
 		this.totalDuration = duration;
 		this.radius = radius;
 		this.lineWidth = lineWidth;
-		this.id = Stage.addChild(this, 'effects');
 
 		// update sprite origin according to sprite size
 	};

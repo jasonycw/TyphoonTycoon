@@ -15,6 +15,7 @@ define([
 
 	function ExplodeEffect( targetX, targetY ){
 		//console.log("Unit Constructor is called");	
+		Effect.call(this);
 		
 		/*
 		 * A single explosion particle
@@ -65,7 +66,6 @@ define([
 
 		this.createExplosion( targetX, targetY, Config.explodEffect.particleColor);
 		
-		this.id = Stage.addChild(this,'effects');
 	};
 
 	ExplodeEffect.prototype = Object.create(Effect.prototype);

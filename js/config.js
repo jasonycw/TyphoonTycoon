@@ -28,37 +28,43 @@ define({
 
 	// towers		=============================
 	AttackTower: {
-		range: 150,
-		attackDamage: 20,
 		power: -3,
-		cost: 500
+		cost: 500,
+		buildEffectColor: "red",
+		range: 150,
+		attackDamage: 20
 	},
 	FreezeTower: {
-		range: 70,
-		attackDamage: 5,
-		slowRate: 80,
 		power: -6,
-		cost: 700
+		cost: 700,
+		buildEffectColor: "aqua",
+		range: 70,
+		attackDamage: 1,
+		slowRate: 80
 	},
 	RepelTower: {
-		range: 100,
-		force: 170,
 		power: -10,
-		cost: 2500
+		cost: 2500,
+		buildEffectColor: "#FF8000",
+		range: 100,
+		force: 170
 	},
 
 	// structures	=============================
 	PowerPlant: {
 		power: 10,
-		cost: 1000
+		cost: 1000,
+		buildEffectColor: "LawnGreen"
 	},
 	NuclearPlant: {
 		power: 40,
-		cost: 5000
+		cost: 5000,
+		buildEffectColor: "LawnGreen"
 	},
 	University: {
 		power: -20,
 		cost: 2500,
+		buildEffectColor: "#f2b7ff",
 		attackTowerAttackIncrease: 5,
 		attackTowerRangeIncrease: 5,
 		attackTowerCostIncrease: 20
@@ -66,17 +72,19 @@ define({
 	ResearchCenter: {
 		power: -30,
 		cost: 4000,
+		buildEffectColor: "#ffcb8e",
 		attackTowerAttackIncrease: 3,
 		attackTowerRangeIncrease: 10,
 		attackTowerCostIncrease: 100,
 		freezeTowerSlowRateIncrease: 10,
 		freezeTowerRangeIncrease: 10,
-		freezeTowerAttackIncrease: 5,
+		freezeTowerAttackIncrease: 1,
 		freezeTowerCostIncrease: 10
 	},
 	CheungKong: {
 		power: -50,
 		cost: 7000,
+		buildEffectColor: "red",
 		hsiIncrementMultiplier: 2,
 		repelTowerRangeIncrease: 20,
 		repelTowerForceIncrease: 70,
@@ -88,6 +96,9 @@ define({
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
 		increment: 40
+	},
+	cash:{
+		init:3000
 	},
 	earthquake: {
 		affectRadius: 30,

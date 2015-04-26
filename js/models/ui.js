@@ -100,7 +100,7 @@ define([
 			var nearestDist = 10000000;
 			var tempBuilding // reused variable
 			var dist; // reused variable
-			_.each(Stage.displayList['towers'], function(tempBuilding) {
+			_.each(Stage.displayList['structures'], function(tempBuilding) {
 				dist = Utility.pointDistance(x, y, tempBuilding.x, tempBuilding.y);
 				if (dist < nearestDist) {
 					nearestBuilding = tempBuilding;
@@ -270,7 +270,7 @@ define([
 										cost += Config.University.attackTowerCostIncrease*that.game.numberOfBuilding('University');
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
-									that.game.setHSI(that.game.getHSI() - cost);
+									that.game.affectHSI(-1 * cost);
 
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -289,7 +289,7 @@ define([
 									var cost = Config.FreezeTower.cost;
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
-									that.game.setHSI(that.game.getHSI() - cost);
+									that.game.affectHSI(-1 * cost);
 
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -307,7 +307,7 @@ define([
 									var cost = Config.RepelTower.cost;
 									if (that.game.isBuilt('CheungKongLimited'))
 										cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
-									that.game.setHSI(that.game.getHSI() - cost);
+									that.game.affectHSI(-1 * cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -321,7 +321,7 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.PowerPlant.cost) {
 									var tower = new PowerPlant(that.game, mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 									that.buildSound.play('plot');
-									that.game.setHSI(that.game.getHSI() - Config.PowerPlant.cost);
+									that.game.affectHSI(-1 * Config.PowerPlant.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -334,7 +334,7 @@ define([
 							case 'nuclearPlant':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.NuclearPlant.cost) {
 									var tower = new NuclearPlant(that.game, mousePos.x, mousePos.y, "img/sprite/nuclear.png");
-									that.game.setHSI(that.game.getHSI() - Config.NuclearPlant.cost);
+									that.game.affectHSI(-1 * Config.NuclearPlant.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -347,7 +347,7 @@ define([
 							case 'university':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.University.cost) {
 									var tower = new University(that.game, mousePos.x, mousePos.y, "img/sprite/university.png");
-									that.game.setHSI(that.game.getHSI() - Config.University.cost);
+									that.game.affectHSI(-1 * Config.University.cost);
 
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -361,7 +361,7 @@ define([
 							case 'researchCenter':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.ResearchCenter.cost) {
 									var tower = new ResearchCenter(that.game, mousePos.x, mousePos.y, "img/sprite/research-center.png");
-									that.game.setHSI(that.game.getHSI() - Config.ResearchCenter.cost);
+									that.game.affectHSI(-1 * Config.ResearchCenter.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -376,7 +376,7 @@ define([
 									var tower = new CheungKong(that.game, mousePos.x, mousePos.y, "img/sprite/ckh.png");
 
 									that.buildSound.play('plot');
-									that.game.setHSI(that.game.getHSI() - Config.CheungKong.cost);
+									that.game.affectHSI(-1 * Config.CheungKong.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -532,11 +532,11 @@ define([
 			$('#btn-start').click(function() {
 				$('#btn-start').unbind('click');
 				$('#welcome').hide();
+				that.game.start();
 				// Set score
 				that.setHsiDisplayValue(Config.initHSI);
 				that.setPowerBar(0, 0);
 				that.lowPowerAlerted = false;
-				that.game.start();
 			});
 		},
 		showGameOver: function() {

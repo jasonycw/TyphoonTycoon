@@ -9,10 +9,7 @@ define([
 	// Create Tower Object and its constructor
 	function RepelTower(game, startX, startY, spriteSrc) {
 		// call super constructor.
-		Tower.call(this, startX, startY, spriteSrc, game);
-		this.name = "RepelTower";
-		var buildEffect = new BuildEffect(this.x, this.y, "#FF8000", 40, 40, 3);
-		this.game.addPower(Config.RepelTower.power);
+		Tower.call(this, startX, startY, spriteSrc, game, "RepelTower");
 
 		this.sound = new Sound('reflectTowerSound');
 	}

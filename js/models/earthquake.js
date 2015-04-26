@@ -71,17 +71,15 @@ define([
 	};
 
 	Earthquake.prototype.damageNearBuilding = function(tx, ty) {
-		for (var t in Stage.displayList['towers']) { //TODO don't use for in
+		for (var t in Stage.displayList['structures']) { //TODO don't use for in
 
-			tempBuilding = Stage.displayList['towers'][t];
+			tempBuilding = Stage.displayList['structures'][t];
 			dist = Utility.pointDistance(tx, ty, tempBuilding.x, tempBuilding.y);
 			if (dist < this.radius) {
-				//TODO: 
-				//  recalculate power
 				tempBuilding.remove();
 
 				// cause damge 
-				Stage.removeChild(tempBuilding.id, 'towers');
+				Stage.removeChild(tempBuilding.id, 'structures');
 			} //End if
 		} //End for
 	};

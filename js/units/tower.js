@@ -1,22 +1,17 @@
 define([
 	'utility',
-	'units/unit',
+	'units/structure',
 	'stage',
 	'config'
-], function(Utility, Unit, Stage, Config) {
+], function(Utility, Structure, Stage, Config) {
 	// Create Tower Object and its constructor
-	function Tower(startX, startY, spriteSrc, game) {
+	function Tower(startX, startY, spriteSrc, game, name) {
 		//call super constructor.
-		Unit.call(this, startX, startY, spriteSrc, game);
-		this.name = "Tower";
-		//Auto add to stage
-		this.id = Stage.addChild(this, 'towers');
-
-		//var nearEnemy = this.findNearestEnemy();
-		//nearEnemy.setMotion(0,0);
+		name = name || "Tower";
+		Structure.call(this, startX, startY, spriteSrc, game, name);
 	}
 	//subclass extends superclass
-	Tower.prototype = Object.create(Unit.prototype);
+	Tower.prototype = Object.create(Structure.prototype);
 	Tower.prototype.constructor = Tower;
 
 
@@ -82,19 +77,6 @@ define([
 		else
 			return null;
 	};
-
-	Tower.prototype.render = function(ctx) {
-		Unit.prototype.render.call(this, ctx);
-	};
-
-	/**
-	 * remove the unit, without death effect
-	 */
-	Tower.prototype.remove = function() {
-		Stage.removeChild(this.id, 'towers');
-		// return the power it got
-		this.game.reducePower(Config[this.name].power);
-	}
 
 	return Tower;
 });
