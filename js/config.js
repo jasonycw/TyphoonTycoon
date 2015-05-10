@@ -102,10 +102,9 @@ define({
 	},
 	earthquake: {
 		affectRadius: 30,
-		effectColor: '#C71585',
+		effectColor: 'silver',
 		radius: 40,
-		lineWidth: 3,
-		duration: 30,
+		delay: 5,
 		cycle: 3
 	}
 });
