@@ -21,14 +21,35 @@ define([
 
 
     Structure.prototype.onCreated = function() {
+
+        // update power consumption
         this.game.addPower(this.config.power);
+
+        // draw a ripple on create
         var buildEffect =
             new BuildEffect(
                 this.x, this.y,
                 this.config.buildEffectColor, 40, 40, 3);
-        
+
+        // if have enough power
         var availablePower = this.game.getAvailablePower();
-        if(availablePower<0){
+        if(availablePower>=0){
+
+            // normal toast message indicating 
+            // additional power consumer/producer
+            var buildToast = new Toast(
+            this.x, this.y - 10,
+            "Power " + (this.config.power > 0 ? "+" : "") +
+            this.config.power, {
+                dir: 270,
+                time: 0.5,
+                dist: 30
+            }, {
+                fontSize: "14px"
+            });
+        }else{
+
+            // normal toast, but 1 line higher
             var buildToast = new Toast(
                 this.x, this.y - 10 - 14,
                 "Power " + (this.config.power > 0 ? "+" : "") +
@@ -39,6 +60,10 @@ define([
                 }, {
                     fontSize: "14px"
                 });
+
+            // error message after that.
+            // message changes depending on 
+            // whether the power outage is solved or not
             var errorMsg = "(Low Power)";
             if(this.config.power > 0){
                 errorMsg = "Build More!";
@@ -53,17 +78,6 @@ define([
                     fontSize: "14px",
                     color:"red"
                 });
-        }else{
-            var buildToast = new Toast(
-            this.x, this.y - 10,
-            "Power " + (this.config.power > 0 ? "+" : "") +
-            this.config.power, {
-                dir: 270,
-                time: 0.5,
-                dist: 30
-            }, {
-                fontSize: "14px"
-            });
         }
     };
     // tick event handler
