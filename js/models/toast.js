@@ -43,6 +43,7 @@ define([
         this.fontSize = "10px";
         this.fontFamily = "Arial";
         this.textAlign = "center";
+        this.textColor = "white"
 
         this.setStyle(style);
 
@@ -100,13 +101,11 @@ define([
         }
     };
     /**
-     * Set moving variables, can auto-infer variables
-     * if all 3 are given, only moveTime, moveDist are considered
-     * if less than 2 are given, an exception is thrown
-     * @param {dir:number,
-     *         time:number,
-     *         dist:number,
-     *         speed:number}    moving moving information. can omit one of {time,dist,speed}
+     * Set style by keys
+     * @param {fontSize, 
+     *         fontFamily, 
+     *         textAlign, 
+     *         color}      styleArgs style arguments. all parameters optional
      */
     Toast.prototype.setStyle = function(styleArgs) {
 
@@ -119,6 +118,9 @@ define([
         if (styleArgs.hasOwnProperty("textAlign")) {
             this.textAlign = styleArgs.textAlign;
         }
+        if (styleArgs.hasOwnProperty("color")) {
+            this.textColor = styleArgs.color;
+        }
     };
 
     Toast.prototype.init = function() {};
@@ -130,7 +132,7 @@ define([
             this.remove();
         }
         this.move(this.timeElapsed);
-        this.fade(this.timeElapsed);
+        //this.fade(this.timeElapsed);
 
     };
     Toast.prototype.move = function(timeElapsed) {
@@ -147,7 +149,7 @@ define([
         console.log("Toast render");
         ctx.globalAlpha = this.alpha;
         ctx.font = "" + this.fontSize + " " + this.fontFamily;
-        ctx.fillStyle = "#FFFFFF";
+        ctx.fillStyle = this.textColor;
         ctx.textAlign = this.textAlign;
         ctx.fillText(this.msg, this.x, this.y);
         ctx.globalAlpha = 1;

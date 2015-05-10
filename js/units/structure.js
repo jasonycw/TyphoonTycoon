@@ -26,16 +26,45 @@ define([
             new BuildEffect(
                 this.x, this.y,
                 this.config.buildEffectColor, 40, 40, 3);
-        var buildToast = new Toast(
+        
+        var availablePower = this.game.getAvailablePower();
+        if(availablePower<0){
+            var buildToast = new Toast(
+                this.x, this.y - 10 - 14,
+                "Power " + (this.config.power > 0 ? "+" : "") +
+                this.config.power, {
+                    dir: 270,
+                    time: 0.5,
+                    dist: 30
+                }, {
+                    fontSize: "14px"
+                });
+            var errorMsg = "(Low Power)";
+            if(this.config.power > 0){
+                errorMsg = "Build More!";
+            }
+            var buildToast = new Toast(
+                this.x, this.y - 10,
+                errorMsg, {
+                    dir: 270,
+                    time: 2,
+                    dist: 30
+                }, {
+                    fontSize: "14px",
+                    color:"red"
+                });
+        }else{
+            var buildToast = new Toast(
             this.x, this.y - 10,
             "Power " + (this.config.power > 0 ? "+" : "") +
             this.config.power, {
                 dir: 270,
-                time: 2,
-                dist: 50
+                time: 0.5,
+                dist: 30
             }, {
                 fontSize: "14px"
             });
+        }
     };
     // tick event handler
     Structure.prototype.tick = function(dt) { // override
