@@ -41,6 +41,7 @@ define([
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
+			earthquake:Earthquake,
 
 			// Initialize the game
 			init: function() {

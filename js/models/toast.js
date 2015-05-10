@@ -146,7 +146,7 @@ define([
     }
 
     Toast.prototype.render = function(ctx) {
-        console.log("Toast render");
+        //console.log("Toast render");
         ctx.globalAlpha = this.alpha;
         ctx.font = "" + this.fontSize + " " + this.fontFamily;
         ctx.fillStyle = this.textColor;

@@ -2,24 +2,30 @@ define([
 	'stage',
 	'models/buildEffect',
 	'config',
-	'utility',
-	'models/earthquakeEffect'
-], function(Stage, Ripple, Config, Utility, Effect) {
+	'utility'
+], function(Stage, Ripple, Config, Utility) {
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
-	function Earthquake(x, y) {
+	function EarthquakeEffect(x, y, opt) {
 		/*
-				Initialion - all variable/funciton must have "this." before
-				Use "var" to change the variable/funciton become private 
-	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
-			 */
+			Initialion - all variable/funciton must have "this." before
+			Use "var" to change the variable/funciton become private 
+  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
+		 */
+		opt = opt || {};
 		this.x = x || 0;
 		this.y = y || 0;
-		this.effectColor = Config.earthquake.effectColor;
-		this.delay = Config.earthquake.delay;
-		this.radius = Config.earthquake.radius;
+
+		this.effectColor = "silver";
+        if (opt.hasOwnProperty("effectColor")) {
+			this.effectColor = opt.effectColor;
+		}
+		this.radius = 40;
+        if (opt.hasOwnProperty("radius")) {
+        	this.radius = opt.radius;
+        }
 		this.lineWidth = Config.earthquake.lineWidth;
 		this.id = Stage.addChild(this, 'effects');
 		this.cycle = Config.earthquake.cycle || 2;
@@ -30,7 +36,7 @@ define([
 	};
 
 
-	Earthquake.prototype.init = function() {
+	EarthquakeEffect.prototype.init = function() {
 		for (var i = 3 - 1; i >= 0; i--) {
 			this.xArray.push(this.x + Math.random() * Config.earthquake.affectRadius);
 			this.yArray.push(this.y + Math.random() * Config.earthquake.affectRadius);
@@ -38,34 +44,31 @@ define([
 	};
 
 	// tick event handler
-	Earthquake.prototype.tick = function(dt) {
-		
+	EarthquakeEffect.prototype.tick = function(dt) {
 		this.delay-=dt;
 		if (this.delay <= 0) {
-			this.damageNearBuilding(this.x, this.y);
-			new Effect(this.x, this.y);
 			this.remove();
 		} //End if
 	};
 
-	Earthquake.prototype.render = function(ctx) {
+	EarthquakeEffect.prototype.render = function(ctx) {
 		ctx.fillStyle = "#FFFFFF";
-		ctx.fillText('Earthquake in: '+Math.ceil(this.delay), this.x, this.y);
+		ctx.fillText('EarthquakeEffect', this.x, this.y + 20);
 		this.drawRange(ctx);
 	};
 
 	/**
 	 * remove the unit, without death effect
 	 */
-	Earthquake.prototype.remove = function() {
+	EarthquakeEffect.prototype.remove = function() {
 		Stage.removeChild(this.id, 'effects');
 	};
 
-	Earthquake.prototype.setIndex = function(index) {
+	EarthquakeEffect.prototype.setIndex = function(index) {
 		this.effectIndex = index;
 	};
 
-	Earthquake.prototype.drawRange = function(ctx){
+	EarthquakeEffect.prototype.drawRange = function(ctx){
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
 		ctx.fillStyle = "white";
@@ -74,7 +77,7 @@ define([
 		ctx.globalAlpha = 1;
 	};
 
-	Earthquake.prototype.damageNearBuilding = function(tx, ty) {
+	EarthquakeEffect.prototype.damageNearBuilding = function(tx, ty) {
 		for (var t in Stage.displayList['structures']) { //TODO don't use for in
 
 			tempBuilding = Stage.displayList['structures'][t];
@@ -88,5 +91,5 @@ define([
 		} //End for
 	};
 
-	return Earthquake;
+	return EarthquakeEffect;
 });
