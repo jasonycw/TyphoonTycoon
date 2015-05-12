@@ -41,6 +41,7 @@ define([
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
+			earthquake:Earthquake,
 
 			// Initialize the game
 			init: function() {
@@ -227,7 +228,8 @@ define([
 					hsiChange *= Config.CheungKong.hsiIncrementMultiplier;
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
-					if(e===undefined){// typhoon is destroyed
+					// skip if typhoon is destroyed
+					if(e===undefined){
 						continue;
 					}
 					var distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);

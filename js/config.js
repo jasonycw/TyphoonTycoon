@@ -1,7 +1,9 @@
 // Define all constants here
-define({
+define(
+{
 	// Area of Hong Kong in the map
-	hkArea: {
+	hkArea:
+	{
 		x: 376,
 		y: 238,
 		effectAreaRadius: 100,
@@ -10,12 +12,13 @@ define({
 		lineWidth: 33,
 		fillStyle: "rgba(200, 255, 0, 0.1)",
 		cycleDuration: 140
-	}, 
+	},
 
 	nearestBuildingDistance: 40,
 
 
-	enemy: {
+	enemy:
+	{
 		max_hp: 300,
 		decayOnLand: 1,
 		damage: 150,
@@ -27,14 +30,16 @@ define({
 	},
 
 	// towers		=============================
-	AttackTower: {
+	AttackTower:
+	{
 		power: -3,
 		cost: 500,
 		buildEffectColor: "red",
 		range: 150,
 		attackDamage: 20
 	},
-	FreezeTower: {
+	FreezeTower:
+	{
 		power: -6,
 		cost: 700,
 		buildEffectColor: "aqua",
@@ -42,7 +47,8 @@ define({
 		attackDamage: 1,
 		slowRate: 80
 	},
-	RepelTower: {
+	RepelTower:
+	{
 		power: -10,
 		cost: 2500,
 		buildEffectColor: "#FF8000",
@@ -51,17 +57,20 @@ define({
 	},
 
 	// structures	=============================
-	PowerPlant: {
+	PowerPlant:
+	{
 		power: 10,
 		cost: 1000,
 		buildEffectColor: "LawnGreen"
 	},
-	NuclearPlant: {
+	NuclearPlant:
+	{
 		power: 40,
 		cost: 5000,
 		buildEffectColor: "LawnGreen"
 	},
-	University: {
+	University:
+	{
 		power: -20,
 		cost: 2500,
 		buildEffectColor: "#f2b7ff",
@@ -69,7 +78,8 @@ define({
 		attackTowerRangeIncrease: 5,
 		attackTowerCostIncrease: 20
 	},
-	ResearchCenter: {
+	ResearchCenter:
+	{
 		power: -30,
 		cost: 4000,
 		buildEffectColor: "#ffcb8e",
@@ -81,7 +91,8 @@ define({
 		freezeTowerAttackIncrease: 1,
 		freezeTowerCostIncrease: 10
 	},
-	CheungKong: {
+	CheungKong:
+	{
 		power: -50,
 		cost: 7000,
 		buildEffectColor: "red",
@@ -91,21 +102,29 @@ define({
 		repelTowerCostDecrease: 30
 	},
 	// Hang Sang Index
-	HSI: {
-		init: 90000,	// 9000
+	HSI:
+	{
+		init: 90000, // 9000
 		upperOfRandom: 10,
 		lowerOfRandom: -10,
 		increment: 40
 	},
-	cash:{
-		init:3000
+	cash:
+	{
+		init: 3000
 	},
-	earthquake: {
+	earthquake:
+	{
 		affectRadius: 30,
-		effectColor: '#C71585',
-		radius: 40,
-		lineWidth: 3,
-		duration: 30,
-		cycle: 3
+		radius: 50,
+		delay: 5, //5
+		effect:
+		{
+			duration: 0.5,
+			rate: 0.09,
+			amplitude: 0, //px //2
+			color: 'silver',
+			lineWidth: "1px"
+		}
 	}
 });
