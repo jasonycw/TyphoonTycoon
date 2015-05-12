@@ -5,9 +5,11 @@ define([
     'config',
     'models/buildEffect',
     'models/toast'
-], function(Utility, Unit, Stage, Config, BuildEffect, Toast) {
+], function(Utility, Unit, Stage, Config, BuildEffect, Toast)
+{
     // Create Tower Object and its constructor
-    function Structure(startX, startY, spriteSrc, game, name) {
+    function Structure(startX, startY, spriteSrc, game, name)
+        {
             name = name || "Structure";
             //call super constructor.
             Unit.call(this, startX, startY, spriteSrc, game, name);
@@ -20,7 +22,8 @@ define([
     Structure.prototype.constructor = Structure;
 
 
-    Structure.prototype.onCreated = function() {
+    Structure.prototype.onCreated = function()
+    {
 
         // update power consumption
         this.game.addPower(this.config.power);
@@ -29,66 +32,78 @@ define([
         var buildEffect =
             new BuildEffect(
                 this.x, this.y,
-                this.config.buildEffectColor, 40, 40, 3);
+                this.config.buildEffectColor, 1, 40, 3);
 
         // if have enough power
         var availablePower = this.game.getAvailablePower();
-        if(availablePower>=0){
+        if (availablePower >= 0)
+        {
 
-            // normal toast message indicating 
+            // normal toast message indicating
             // additional power consumer/producer
             var buildToast = new Toast(
-            this.x, this.y - 10,
-            "Power " + (this.config.power > 0 ? "+" : "") +
-            this.config.power, {
-                dir: 270,
-                time: 0.5,
-                dist: 30
-            }, {
-                fontSize: "14px"
-            });
-        }else{
+                this.x, this.y - 10,
+                "Power " + (this.config.power > 0 ? "+" : "") +
+                this.config.power,
+                {
+                    dir: 270,
+                    time: 0.5,
+                    dist: 30
+                },
+                {
+                    fontSize: "14px"
+                });
+        }
+        else
+        {
 
             // normal toast, but 1 line higher
             var buildToast = new Toast(
                 this.x, this.y - 10 - 14,
                 "Power " + (this.config.power > 0 ? "+" : "") +
-                this.config.power, {
+                this.config.power,
+                {
                     dir: 270,
                     time: 0.5,
                     dist: 30
-                }, {
+                },
+                {
                     fontSize: "14px"
                 });
 
             // error message after that.
-            // message changes depending on 
+            // message changes depending on
             // whether the power outage is solved or not
             var errorMsg = "(Low Power)";
-            if(this.config.power > 0){
+            if (this.config.power > 0)
+            {
                 errorMsg = "Build More!";
             }
             var buildToast = new Toast(
                 this.x, this.y - 10,
-                errorMsg, {
+                errorMsg,
+                {
                     dir: 270,
                     time: 2,
                     dist: 30
-                }, {
+                },
+                {
                     fontSize: "14px",
-                    color:"red"
+                    color: "red"
                 });
         }
     };
     // tick event handler
-    Structure.prototype.tick = function(dt) { // override
+    Structure.prototype.tick = function(dt)
+    { // override
         //empty
     };
 
     /**
      * remove the unit, without death effect
      */
-    Structure.prototype.remove = function() {
+    Structure.prototype.remove = function()
+    {
         Stage.removeChild(this.id, 'structures');
         console.log(this.name);
         // return the power it got
@@ -97,11 +112,13 @@ define([
             this.x, this.y - 10,
             "Power " + ((0 - Config[this.name].power) > 0 ? "+" :
                 "") +
-            (0 - Config[this.name].power), {
+            (0 - Config[this.name].power),
+            {
                 dir: 270,
                 time: 2,
                 dist: 50
-            }, {
+            },
+            {
                 fontSize: "14px"
             });
     }
