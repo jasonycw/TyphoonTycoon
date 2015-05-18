@@ -1,6 +1,6 @@
 /*
-	Game - handle game logic, include 2 part : 
-	1. init  
+	Game - handle game logic, include 2 part :
+	1. init
 	2. loop
  */
 define([
@@ -14,8 +14,9 @@ define([
 	'units/enemy',
 	'models/mapHitArea',
 	'models/earthquake',
-	'hsi'
-], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake,HSI) {
+	'hsi',
+	'models/toast'
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast) {
 
 
 	var Game = (function() {
@@ -134,12 +135,12 @@ define([
 				gameUI.showGameOver();
 			},
 			/*
-				tick() : 
+				tick() :
 				- handling input event
-				- handling game level change 
+				- handling game level change
 				  - create enemy
 					- different type
-					- different strength 
+					- different strength
 				- handling random game event (eg. disaster)
 			http://jlongster.com/Making-Sprite-based-Games-with-Canvas
 			https://github.com/jlongster/canvas-game-bootstrap/blob/a878158f39a91b19725f726675c752683c9e1c08/js/app.js#L22
@@ -152,7 +153,7 @@ define([
 				}
 
 				if (gameTime > Config.enemy.initDelay) {
-					//reset and next level 
+					//reset and next level
 					if (this.enemyCounter >= maxAmongOfEnemy) {
 						maxAmongOfEnemy += (minAmongOfEnemy * 2);
 						minAmongOfEnemy += 1;
@@ -174,7 +175,7 @@ define([
 						Create Enemies with time increasing
 						- It gets harder over time by adding enemies using this
 						- orginial equation: 1-.993^gameTime
-						
+
 					 */
 					if (Math.random() < 1 - Math.pow(.993, gameTime / Config.enemy.difficulty)) {
 
@@ -232,11 +233,26 @@ define([
 					if(e===undefined){
 						continue;
 					}
+
+					// check distance
 					var distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
 					if (distance <= Config.hkArea.effectAreaRadius) {
-						hsiChange = -(Config.enemy.damage * Math.round((Config.hkArea.effectAreaRadius - Math.round(distance)) * 0.1));
+
+						// vary damage according to distance
+						hsiChange = -1* Math.round((Config.enemy.damage * (Config.hkArea.effectAreaRadius - distance) * 0.1));
+
+						// show amount of HSI deducted
+						if(hsiChange != 0){
+							new Toast(
+								e.x, e.y,
+								"HSI " + hsiChange,
+								{dir: 270, time: 2, dist: 30},
+								{fontSize: "14px", color: "red"}
+								);
+						}
 					}
 				} //End for
+
 				this.hsi.addHSI(hsiChange);
 				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 			},
