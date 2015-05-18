@@ -73,8 +73,8 @@ define([
         		var top = e.pageY + 16;
 				var idx = _.indexOf(btnIds, e.target.id);
 				$('#tooltip')
-					.html('<strong>' + titles[idx] + '</strong><br /><em>' 
-						+ description[idx] + '</em><br />Cost: ' 
+					.html('<strong>' + titles[idx] + '</strong><br /><em>'
+						+ description[idx] + '</em><br />Cost: '
 						+ Config[configIds[idx]].cost + '<br />Power: '
 						+ Config[configIds[idx]].power)
 					.css('top', top).css('left', left).show();
@@ -522,7 +522,9 @@ define([
 				}
 				this.lowPowerAlerted = true;
 			} else {
-				this.$powerTitle.removeClass('title-danger').html('Power');
+				this.$powerTitle
+					.removeClass('title-danger')
+					.html('Power: ' + remain + " / " + total);
 				this.lowPowerAlerted = false;
 			}
 		},
