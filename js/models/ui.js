@@ -60,24 +60,29 @@ define([
 			];
 			var description = [
 				'Simple power plant.',
-				'Shoot laser beam.',
-				'Slow down the time',
-				'Repel everything.',
+				'Shoots laser beam.',
+				'Slows down things',
+				'Repels everything.',
 				'Strong nuclear plant.',
-				'Upgrade for Laser Tower and unlock Freeze Tower.',
-				'Upgrade for Laser and Freeze Tower and unlock Repel Tower.',
-				'Earn double and upgrade Repel Tower.'
+				'Upgrade for Laser Tower and unlock Freeze Tower. Can stack.',
+				'Upgrade for Laser and Freeze Tower and unlock Repel Tower. Can stack.',
+				'Earn double and upgrade Repel Tower. Cannot stack.'
 			];
-			$('#btn-bar button').hover(function(e) {
+			$('#btn-bar button').append("<div class='hover-catcher'></div>");
+			$('#btn-bar .hover-catcher').hover(function(e) {
 				var left = e.pageX;
         		var top = e.pageY + 16;
-				var idx = _.indexOf(btnIds, e.target.id);
+				var idx = _.indexOf(btnIds, e.target.parentNode.id);
 				$('#tooltip')
-					.html('<strong>' + titles[idx] + '</strong><br /><em>'
-						+ description[idx] + '</em><br />Cost: '
-						+ Config[configIds[idx]].cost + '<br />Power: '
-						+ Config[configIds[idx]].power)
-					.css('top', top).css('left', left).show();
+					.html('<strong>' + titles[idx] + '</strong><br />' +
+						'<em>' + description[idx] + '</em><br />' +
+						'Cost: ' + Config[configIds[idx]].cost + '<br />' +
+						'Power: ' + Config[configIds[idx]].power + '<br />' +
+						'Built on: '+ Config[configIds[idx]].builtOn
+						)
+					.css('top', top)
+					.css('left', left)
+					.show();
 			}, function(e) {
 				$('#tooltip').hide();
 			});
