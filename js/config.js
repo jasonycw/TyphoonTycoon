@@ -32,54 +32,74 @@ define(
     // towers		=============================
     AttackTower:
     {
+        title:"Laser Tower",
+        description:"Shoots laser beam.",
         power: -3,
         cost: 500,
         buildEffectColor: "red",
         range: 150,
-        attackDamage: 20
+        attackDamage: 20,
+        builtOn: "Sea" // Sea or Land
     },
     FreezeTower:
     {
+        title:"Freeze Tower",
+        description:"Slows down things.",
         power: -6,
         cost: 700,
         buildEffectColor: "aqua",
         range: 70,
         attackDamage: 1,
-        slowRate: 80
+        slowRate: 80,
+        builtOn: "Sea" // Sea or Land
     },
     RepelTower:
     {
+        title:"Repel Tower",
+        description:"Repels typhoons.",
         power: -10,
         cost: 2500,
         buildEffectColor: "#FF8000",
         range: 100,
-        force: 170
+        force: 170,
+        builtOn: "Sea" // Sea or Land
     },
 
     // structures	=============================
     PowerPlant:
     {
+        title:"Power Plant",
+        description:"Simple power plant.",
         power: 10,
         cost: 1000,
-        buildEffectColor: "LawnGreen"
+        buildEffectColor: "LawnGreen",
+        builtOn: "Land" // Sea or Land
     },
     NuclearPlant:
     {
+        title:"Nuclear Power Plant",
+        description:"Produces lots of power.",
         power: 40,
         cost: 5000,
-        buildEffectColor: "LawnGreen"
+        buildEffectColor: "LawnGreen",
+        builtOn: "Land" // Sea or Land
     },
     University:
     {
+        title:"University",
+        description:"Upgrades Laser Tower. Unlocks Freeze Tower. Effects stack.",
         power: -20,
         cost: 2500,
         buildEffectColor: "#f2b7ff",
         attackTowerAttackIncrease: 5,
         attackTowerRangeIncrease: 5,
-        attackTowerCostIncrease: 20
+        attackTowerCostIncrease: 20,
+        builtOn: "Land" // Sea or Land
     },
     ResearchCenter:
     {
+        title:"Research Center",
+        description:"Upgrades Laser and Freeze Tower. Unlocks Repel Tower. Effects stack.",
         power: -30,
         cost: 4000,
         buildEffectColor: "#ffcb8e",
@@ -89,17 +109,21 @@ define(
         freezeTowerSlowRateIncrease: 10,
         freezeTowerRangeIncrease: 10,
         freezeTowerAttackIncrease: 1,
-        freezeTowerCostIncrease: 10
+        freezeTowerCostIncrease: 10,
+        builtOn: "Land" // Sea or Land
     },
     CheungKong:
     {
+        title:"Chong Keung (Holdings) Limited",
+        description:"Earn double and upgrade Repel Tower. Income does not stack, but upgrades do.",
         power: -50,
         cost: 7000,
         buildEffectColor: "red",
         hsiIncrementMultiplier: 2,
         repelTowerRangeIncrease: 20,
         repelTowerForceIncrease: 70,
-        repelTowerCostDecrease: 30
+        repelTowerCostDecrease: 30,
+        builtOn: "Land" // Sea or Land
     },
     // Hang Sang Index
     HSI:
