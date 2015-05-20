@@ -35,7 +35,7 @@ define([
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
 			this.bindCanvasMouseMoveEvent();
-			this.showButtonTooltip();
+			this.bindButtonTooltip();
 
 			this.drawHKCircle();
 
@@ -45,7 +45,7 @@ define([
 			// Sound Effect
 			this.buildSound = new Sound('buildSound');
 		},
-		showButtonTooltip: function() {
+		bindButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
 			var titles = [
@@ -200,7 +200,7 @@ define([
 			var that = this;
 			$('#btn-bar button').click(function(e) {
 				// Should be a switch here
-				switch (e.target.id) {
+				switch (e.target.parentNode.id) {
 					case 'btn-laser-tower':
 						that.activatedMode = 'attackTower';
 						break;
@@ -233,7 +233,7 @@ define([
 				}
 				if (that.activatedMode !== null) {
 					$('#btn-bar button').removeAttr('data-activated');
-					$(e.target).attr('disabled', false).attr('data-activated', 'activated');
+					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
 				}
 			})
 		},
