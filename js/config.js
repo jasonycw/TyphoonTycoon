@@ -32,6 +32,8 @@ define(
     // towers		=============================
     AttackTower:
     {
+        title:"Laser Tower",
+        description:"Shoots laser beam.",
         power: -3,
         cost: 500,
         buildEffectColor: "red",
@@ -41,6 +43,8 @@ define(
     },
     FreezeTower:
     {
+        title:"Freeze Tower",
+        description:"Slows down things.",
         power: -6,
         cost: 700,
         buildEffectColor: "aqua",
@@ -51,6 +55,8 @@ define(
     },
     RepelTower:
     {
+        title:"Repel Tower",
+        description:"Repels typhoons.",
         power: -10,
         cost: 2500,
         buildEffectColor: "#FF8000",
@@ -62,6 +68,8 @@ define(
     // structures	=============================
     PowerPlant:
     {
+        title:"Power Plant",
+        description:"Simple power plant.",
         power: 10,
         cost: 1000,
         buildEffectColor: "LawnGreen",
@@ -69,6 +77,8 @@ define(
     },
     NuclearPlant:
     {
+        title:"Nuclear Power Plant",
+        description:"Produces lots of power.",
         power: 40,
         cost: 5000,
         buildEffectColor: "LawnGreen",
@@ -76,6 +86,8 @@ define(
     },
     University:
     {
+        title:"University",
+        description:"Upgrades Laser Tower. Unlocks Freeze Tower. Effects stack.",
         power: -20,
         cost: 2500,
         buildEffectColor: "#f2b7ff",
@@ -86,6 +98,8 @@ define(
     },
     ResearchCenter:
     {
+        title:"Research Center",
+        description:"Upgrades Laser and Freeze Tower. Unlocks Repel Tower. Effects stack.",
         power: -30,
         cost: 4000,
         buildEffectColor: "#ffcb8e",
@@ -100,6 +114,8 @@ define(
     },
     CheungKong:
     {
+        title:"Chong Keung (Holdings) Limited",
+        description:"Earn double and upgrade Repel Tower. Income does not stack, but upgrades do.",
         power: -50,
         cost: 7000,
         buildEffectColor: "red",

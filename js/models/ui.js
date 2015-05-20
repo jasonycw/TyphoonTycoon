@@ -48,34 +48,15 @@ define([
 		bindButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
-			var titles = [
-				'Power Plant',
-				'Laser Tower',
-				'Freeze Tower',
-				'Repel Tower',
-				'Nuclear Power Plant',
-				'University',
-				'Research Center',
-				'Cheung Kong (Holdings) Limited'
-			];
-			var description = [
-				'Simple power plant.',
-				'Shoots laser beam.',
-				'Slows down things',
-				'Repels everything.',
-				'Strong nuclear plant.',
-				'Upgrade for Laser Tower and unlock Freeze Tower. Can stack.',
-				'Upgrade for Laser and Freeze Tower and unlock Repel Tower. Can stack.',
-				'Earn double and upgrade Repel Tower. Cannot stack.'
-			];
+			
 			$('#btn-bar button').append("<div class='hover-catcher'></div>");
 			$('#btn-bar .hover-catcher').hover(function(e) {
 				var left = e.pageX;
         		var top = e.pageY + 16;
 				var idx = _.indexOf(btnIds, e.target.parentNode.id);
 				$('#tooltip')
-					.html('<strong>' + titles[idx] + '</strong><br />' +
-						'<em>' + description[idx] + '</em><br />' +
+					.html('<strong>' + Config[configIds[idx]].title + '</strong><br />' +
+						'<em>' + Config[configIds[idx]].description + '</em><br />' +
 						'Cost: ' + Config[configIds[idx]].cost + '<br />' +
 						'Power: ' + Config[configIds[idx]].power + '<br />' +
 						'Built on: '+ Config[configIds[idx]].builtOn
