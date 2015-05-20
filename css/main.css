@@ -120,6 +120,10 @@ body {
 #tooltip em {
   font-size: 0.8em;
 }
+#how-to-play {
+  color: white;
+  padding: 20px;
+}
 #btn-bar {
   padding: 3px;
   display: inline-block;
