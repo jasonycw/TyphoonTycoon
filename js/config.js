@@ -26,6 +26,7 @@ define(
         intiMinAmong: 1,
         intiMaxAmong: 20,
         difficulty: 50, //larger is easier
+        
         initDelay: 8 //1 = 1 second
     },
 
@@ -114,7 +115,7 @@ define(
     },
     CheungKong:
     {
-        title:"Chong Keung (Holdings) Limited",
+        title:"Li's Enterprise Headquarter",
         description:"Earn double and upgrade Repel Tower. Income does not stack, but upgrades do.",
         power: -50,
         cost: 7000,

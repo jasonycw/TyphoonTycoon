@@ -8,6 +8,9 @@ define([
             return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) *
                 (x2 - x1));
         },
+        pointIsCloseEnough: function(x1, y1, x2, y2, dist) {
+            return Math.abs(y2 - y1)<=dist && Math.abs(x2 - x1)<=dist ;
+        },
         pointDirection: function(x1, y1, x2, y2) {
             return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
         },
