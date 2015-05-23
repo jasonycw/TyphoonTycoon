@@ -56,14 +56,19 @@ define([
 
 		if (this.spriteReady) {
 			// draw image
-			ctx.globalAlpha = (this.hp / Config.enemy.max_hp) * 0.9;
+			hpRatio = this.hp / Config.enemy.max_hp;
+			ctx.globalAlpha = hpRatio * 0.9;
 			var drawX = this.x - this.spriteOrigin.x;
 			var drawY = this.y - this.spriteOrigin.y;
 			this.drawRotatedImage(ctx, this.sprite, this.x, this.y, this.numberOfTicks);
 			ctx.globalAlpha = 1;
 
-			ctx.fillStyle = "#333333";
-			ctx.fillText('HP:' + this.hp.toFixed(0), this.x - 16, this.y - 22);
+			ctx.fillStyle = '#C21838';
+			ctx.fillRect(this.x - 36, this.y - 40, hpRatio*80, 3);
+
+			ctx.font = "14pt"
+			ctx.fillStyle = "#C21838";
+			ctx.fillText('HP:' + this.hp.toFixed(0), this.x - 16, this.y - 44);
 
 		}
 	};
