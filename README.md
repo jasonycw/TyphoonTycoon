@@ -13,11 +13,14 @@ Yu Chun Wah         |Game Theme, Game Play and Animation Design
 ## Background
 In the year 21XX, the Li’s field (李氏力場) becomes reality, in a form of a tower defence system. The system seeks to weaken, if not totally destroy, incoming typhoons into Hong Kong. Li’s enterprise has appointed Player to control the typhoon defence system for Li. The game genre are strategy and tower defence game.
 
-![screenshot](http://i.imgur.com/0QTJuur.png)
+<!-- ![screenshot](http://i.imgur.com/0QTJuur.png) -->
 ![screenshot](https://raw.githubusercontent.com/jasonycw/TyphoonTycoon/gh-pages/img/Screenshot_3.png)
 
 ## Play Online Now
 http://jasonycw.github.io/TyphoonTycoon/
+
+## Beta Version
+http://vicksonzero.github.io/TyphoonTycoon/
 
 ## Play Offline
 1. Download as Zip
