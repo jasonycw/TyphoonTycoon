@@ -6,6 +6,7 @@
 	left: 0;
 	z-index: 99;
 	button {
+		position: relative;
 		background-image: url('../img/sprite/button.png');
 		border: 0;
 		width: @btn-width;
@@ -17,6 +18,16 @@
 		text-shadow: none;
 		background-color: transparent;
 		outline: 0;
+	}
+	.hover-catcher{
+		display: block;
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		margin: 0;
+		position: absolute;
+		top: 0;
+		left: 0;
 	}
 }
 

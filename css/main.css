@@ -120,6 +120,10 @@ body {
 #tooltip em {
   font-size: 0.8em;
 }
+#how-to-play {
+  color: white;
+  padding: 20px;
+}
 #btn-bar {
   padding: 3px;
   display: inline-block;
@@ -129,6 +133,7 @@ body {
   z-index: 99;
 }
 #btn-bar button {
+  position: relative;
   background-image: url('../img/sprite/button.png');
   border: 0;
   width: 32px;
@@ -140,6 +145,16 @@ body {
   text-shadow: none;
   background-color: transparent;
   outline: 0;
+}
+#btn-bar .hover-catcher {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 #btn-laser-tower {
   background-position: 0 0;
@@ -287,10 +302,4 @@ body {
 }
 .title-danger {
   color: #ff4d4d;
-}
-
-
-#how-to-play{
-  color:white;
-  padding:20px;
 }

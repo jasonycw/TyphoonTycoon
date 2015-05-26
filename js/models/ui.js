@@ -35,7 +35,7 @@ define([
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
 			this.bindCanvasMouseMoveEvent();
-			this.showButtonTooltip();
+			this.bindButtonTooltip();
 
 			this.drawHKCircle();
 
@@ -45,39 +45,25 @@ define([
 			// Sound Effect
 			this.buildSound = new Sound('buildSound');
 		},
-		showButtonTooltip: function() {
+		bindButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
-			var titles = [
-				'Power Plant',
-				'Laser Tower',
-				'Freeze Tower',
-				'Repel Tower',
-				'Nuclear Power Plant',
-				'University',
-				'Research Center',
-				'Cheung Kong (Holdings) Limited'
-			];
-			var description = [
-				'Simple power plant.',
-				'Shoot laser beam.',
-				'Slow down the time',
-				'Repel everything.',
-				'Strong nuclear plant.',
-				'Upgrade for Laser Tower and unlock Freeze Tower.',
-				'Upgrade for Laser and Freeze Tower and unlock Repel Tower.',
-				'Earn double and upgrade Repel Tower.'
-			];
-			$('#btn-bar button').hover(function(e) {
+			
+			$('#btn-bar button').append("<div class='hover-catcher'></div>");
+			$('#btn-bar .hover-catcher').hover(function(e) {
 				var left = e.pageX;
         		var top = e.pageY + 16;
-				var idx = _.indexOf(btnIds, e.target.id);
+				var idx = _.indexOf(btnIds, e.target.parentNode.id);
 				$('#tooltip')
-					.html('<strong>' + titles[idx] + '</strong><br /><em>' 
-						+ description[idx] + '</em><br />Cost: ' 
-						+ Config[configIds[idx]].cost + '<br />Power: '
-						+ Config[configIds[idx]].power)
-					.css('top', top).css('left', left).show();
+					.html('<strong>' + Config[configIds[idx]].title + '</strong><br />' +
+						'<em>' + Config[configIds[idx]].description + '</em><br />' +
+						'Cost: ' + Config[configIds[idx]].cost + '<br />' +
+						'Power: ' + Config[configIds[idx]].power + '<br />' +
+						'Built on: '+ Config[configIds[idx]].builtOn
+						)
+					.css('top', top)
+					.css('left', left)
+					.show();
 			}, function(e) {
 				$('#tooltip').hide();
 			});
@@ -195,7 +181,7 @@ define([
 			var that = this;
 			$('#btn-bar button').click(function(e) {
 				// Should be a switch here
-				switch (e.target.id) {
+				switch (e.target.parentNode.id) {
 					case 'btn-laser-tower':
 						that.activatedMode = 'attackTower';
 						break;
@@ -228,7 +214,7 @@ define([
 				}
 				if (that.activatedMode !== null) {
 					$('#btn-bar button').removeAttr('data-activated');
-					$(e.target).attr('disabled', false).attr('data-activated', 'activated');
+					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
 				}
 			})
 		},
@@ -522,7 +508,9 @@ define([
 				}
 				this.lowPowerAlerted = true;
 			} else {
-				this.$powerTitle.removeClass('title-danger').html('Power');
+				this.$powerTitle
+					.removeClass('title-danger')
+					.html('Power: ' + remain + " / " + total);
 				this.lowPowerAlerted = false;
 			}
 		},

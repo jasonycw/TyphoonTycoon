@@ -64,8 +64,8 @@ define([
 
 	EarthquakeEffect.prototype.render = function(ctx)
 	{
-		ctx.fillStyle = "#FFFFFF";
-		ctx.fillText('EarthquakeEffect', this.x, this.y + 20);
+		//ctx.fillStyle = "#FFFFFF";
+		//ctx.fillText('EarthquakeEffect', this.x, this.y + 20);
 	};
 
 	/**
