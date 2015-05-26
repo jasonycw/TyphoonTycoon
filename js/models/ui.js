@@ -526,6 +526,12 @@ define([
 				that.setPowerBar(0, 0);
 				that.lowPowerAlerted = false;
 			});
+			$('#tutorial-iframe').bind('click',function() {
+				$('#tutorial-iframe').hide();
+			});
+			$('#btn-tutorial').click(function() {
+				$('#tutorial-iframe').show();
+			});
 		},
 		showGameOver: function() {
 			var that = this;
