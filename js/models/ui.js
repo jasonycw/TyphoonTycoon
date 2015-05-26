@@ -35,7 +35,7 @@ define([
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
 			this.bindCanvasMouseMoveEvent();
-			this.showButtonTooltip();
+			this.bindButtonTooltip();
 
 			this.drawHKCircle();
 
@@ -45,39 +45,25 @@ define([
 			// Sound Effect
 			this.buildSound = new Sound('buildSound');
 		},
-		showButtonTooltip: function() {
+		bindButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
-			var titles = [
-				'Power Plant',
-				'Laser Tower',
-				'Freeze Tower',
-				'Repel Tower',
-				'Nuclear Power Plant',
-				'University',
-				'Research Center',
-				'Cheung Kong (Holdings) Limited'
-			];
-			var description = [
-				'Simple power plant.',
-				'Shoot laser beam.',
-				'Slow down the time',
-				'Repel everything.',
-				'Strong nuclear plant.',
-				'Upgrade for Laser Tower and unlock Freeze Tower.',
-				'Upgrade for Laser and Freeze Tower and unlock Repel Tower.',
-				'Earn double and upgrade Repel Tower.'
-			];
-			$('#btn-bar button').hover(function(e) {
+			
+			$('#btn-bar button').append("<div class='hover-catcher'></div>");
+			$('#btn-bar .hover-catcher').hover(function(e) {
 				var left = e.pageX;
         		var top = e.pageY + 16;
-				var idx = _.indexOf(btnIds, e.target.id);
+				var idx = _.indexOf(btnIds, e.target.parentNode.id);
 				$('#tooltip')
-					.html('<strong>' + titles[idx] + '</strong><br /><em>' 
-						+ description[idx] + '</em><br />Cost: ' 
-						+ Config[configIds[idx]].cost + '<br />Power: '
-						+ Config[configIds[idx]].power)
-					.css('top', top).css('left', left).show();
+					.html('<strong>' + Config[configIds[idx]].title + '</strong><br />' +
+						'<em>' + Config[configIds[idx]].description + '</em><br />' +
+						'Cost: ' + Config[configIds[idx]].cost + '<br />' +
+						'Power: ' + Config[configIds[idx]].power + '<br />' +
+						'Built on: '+ Config[configIds[idx]].builtOn
+						)
+					.css('top', top)
+					.css('left', left)
+					.show();
 			}, function(e) {
 				$('#tooltip').hide();
 			});
@@ -100,7 +86,7 @@ define([
 			var nearestDist = 10000000;
 			var tempBuilding // reused variable
 			var dist; // reused variable
-			_.each(Stage.displayList['towers'], function(tempBuilding) {
+			_.each(Stage.displayList['structures'], function(tempBuilding) {
 				dist = Utility.pointDistance(x, y, tempBuilding.x, tempBuilding.y);
 				if (dist < nearestDist) {
 					nearestBuilding = tempBuilding;
@@ -195,7 +181,7 @@ define([
 			var that = this;
 			$('#btn-bar button').click(function(e) {
 				// Should be a switch here
-				switch (e.target.id) {
+				switch (e.target.parentNode.id) {
 					case 'btn-laser-tower':
 						that.activatedMode = 'attackTower';
 						break;
@@ -228,7 +214,7 @@ define([
 				}
 				if (that.activatedMode !== null) {
 					$('#btn-bar button').removeAttr('data-activated');
-					$(e.target).attr('disabled', false).attr('data-activated', 'activated');
+					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
 				}
 			})
 		},
@@ -270,7 +256,7 @@ define([
 										cost += Config.University.attackTowerCostIncrease*that.game.numberOfBuilding('University');
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
-									that.game.setHSI(that.game.getHSI() - cost);
+									that.game.affectHSI(-1 * cost);
 
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -289,7 +275,7 @@ define([
 									var cost = Config.FreezeTower.cost;
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
-									that.game.setHSI(that.game.getHSI() - cost);
+									that.game.affectHSI(-1 * cost);
 
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -307,7 +293,7 @@ define([
 									var cost = Config.RepelTower.cost;
 									if (that.game.isBuilt('CheungKongLimited'))
 										cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
-									that.game.setHSI(that.game.getHSI() - cost);
+									that.game.affectHSI(-1 * cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -321,7 +307,7 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.PowerPlant.cost) {
 									var tower = new PowerPlant(that.game, mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 									that.buildSound.play('plot');
-									that.game.setHSI(that.game.getHSI() - Config.PowerPlant.cost);
+									that.game.affectHSI(-1 * Config.PowerPlant.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -334,7 +320,7 @@ define([
 							case 'nuclearPlant':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.NuclearPlant.cost) {
 									var tower = new NuclearPlant(that.game, mousePos.x, mousePos.y, "img/sprite/nuclear.png");
-									that.game.setHSI(that.game.getHSI() - Config.NuclearPlant.cost);
+									that.game.affectHSI(-1 * Config.NuclearPlant.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -347,7 +333,7 @@ define([
 							case 'university':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.University.cost) {
 									var tower = new University(that.game, mousePos.x, mousePos.y, "img/sprite/university.png");
-									that.game.setHSI(that.game.getHSI() - Config.University.cost);
+									that.game.affectHSI(-1 * Config.University.cost);
 
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
@@ -361,7 +347,7 @@ define([
 							case 'researchCenter':
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.ResearchCenter.cost) {
 									var tower = new ResearchCenter(that.game, mousePos.x, mousePos.y, "img/sprite/research-center.png");
-									that.game.setHSI(that.game.getHSI() - Config.ResearchCenter.cost);
+									that.game.affectHSI(-1 * Config.ResearchCenter.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -376,7 +362,7 @@ define([
 									var tower = new CheungKong(that.game, mousePos.x, mousePos.y, "img/sprite/ckh.png");
 
 									that.buildSound.play('plot');
-									that.game.setHSI(that.game.getHSI() - Config.CheungKong.cost);
+									that.game.affectHSI(-1 * Config.CheungKong.cost);
 									if (that.game.getAvailablePower() > 0) {
 										that.buildSound.play('plot');
 									} else {
@@ -522,7 +508,9 @@ define([
 				}
 				this.lowPowerAlerted = true;
 			} else {
-				this.$powerTitle.removeClass('title-danger').html('Power');
+				this.$powerTitle
+					.removeClass('title-danger')
+					.html('Power: ' + remain + " / " + total);
 				this.lowPowerAlerted = false;
 			}
 		},
@@ -532,11 +520,11 @@ define([
 			$('#btn-start').click(function() {
 				$('#btn-start').unbind('click');
 				$('#welcome').hide();
+				that.game.start();
 				// Set score
 				that.setHsiDisplayValue(Config.initHSI);
 				that.setPowerBar(0, 0);
 				that.lowPowerAlerted = false;
-				that.game.start();
 			});
 		},
 		showGameOver: function() {

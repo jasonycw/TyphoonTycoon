@@ -16,7 +16,8 @@ require.config({
 	},
 	paths: {
 		jquery: 'libs/jquery/jquery-1.10.2.min',
-		underscore: 'libs/underscore/underscore-min'
+		underscore: 'libs/underscore/underscore-min',
+		signals: 'libs/signals/signals'
 	}
 });
 

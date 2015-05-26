@@ -1,6 +1,6 @@
 /*
-	Game - handle game logic, include 2 part : 
-	1. init  
+	Game - handle game logic, include 2 part :
+	1. init
 	2. loop
  */
 define([
@@ -14,13 +14,13 @@ define([
 	'units/enemy',
 	'models/mapHitArea',
 	'models/earthquake',
-	'models/buildEffect',
-], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, BuildEffect) {
+	'hsi',
+	'models/toast'
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast) {
 
 
 	var Game = (function() {
-		var that = this;
-		var intervalId = null;
+		var _intervalId = null;
 		var earthquakeTimer = [];
 		var frameId;
 		var Built = {
@@ -36,12 +36,13 @@ define([
 			gameTime: 0,
 			powerQuota: 0,
 			powerUsed: 0,
-			hsi: 0,
+			hsi: null,
 			cash: 0,
 			level: 1,
 			enemyCounter: 0,
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
+			earthquake:Earthquake,
 
 			// Initialize the game
 			init: function() {
@@ -77,18 +78,21 @@ define([
 				this.reset();
 				lastTime = Date.now();
 
-				intervalId = setInterval(function() {
+				_intervalId = setInterval(function() {
 					Game.updateHSI();
 				}, 100);
 				this.loop();
 			},
 			reset: function() {
-				hsi = Config.HSI.init;
-				cash = 0;
+				var that = this;
+				this.hsi = new HSI(Config.HSI.init);
+				console.log(this.hsi);
+				this.hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
+				this.cash = 0;
 				gameTime = 0;
 				lastTime = 0;
-				powerQuota = powerUsed = 0;
-				gameUI.setHsiDisplayValue(hsi);
+				this.powerQuota = this.powerUsed = 0;
+				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
 				level: 1;
 				enemyCounter= 0;
@@ -118,26 +122,25 @@ define([
 
 				lastTime = now;
 
-				gameUI.setPowerBar(powerQuota - powerUsed, powerQuota);
-				if (hsi <= 0) {
-					cancelAnimationFrame(frameId);
-					clearInterval(intervalId);
-					for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
-						clearTimeout(earthquakeTimer[i]);
-					};
-					gameUI.showGameOver();
-
-				} else {
-					frameId = requestAnimationFrame(Game.loop);
-				}
+				gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
+				var that = this;
+				frameId = requestAnimationFrame(function(){Game.loop.call(that)});
+			},
+			gameOver:function(){
+				cancelAnimationFrame(frameId);
+				clearInterval(_intervalId);
+				for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
+					clearTimeout(earthquakeTimer[i]);
+				};
+				gameUI.showGameOver();
 			},
 			/*
-				tick() : 
+				tick() :
 				- handling input event
-				- handling game level change 
+				- handling game level change
 				  - create enemy
 					- different type
-					- different strength 
+					- different strength
 				- handling random game event (eg. disaster)
 			http://jlongster.com/Making-Sprite-based-Games-with-Canvas
 			https://github.com/jlongster/canvas-game-bootstrap/blob/a878158f39a91b19725f726675c752683c9e1c08/js/app.js#L22
@@ -150,7 +153,7 @@ define([
 				}
 
 				if (gameTime > Config.enemy.initDelay) {
-					//reset and next level 
+					//reset and next level
 					if (this.enemyCounter >= maxAmongOfEnemy) {
 						maxAmongOfEnemy += (minAmongOfEnemy * 2);
 						minAmongOfEnemy += 1;
@@ -172,7 +175,7 @@ define([
 						Create Enemies with time increasing
 						- It gets harder over time by adding enemies using this
 						- orginial equation: 1-.993^gameTime
-						
+
 					 */
 					if (Math.random() < 1 - Math.pow(.993, gameTime / Config.enemy.difficulty)) {
 
@@ -218,60 +221,72 @@ define([
 				update HSI
 			 */
 			updateHSI: function() {
-
-				var penalty = 0;
 				//check any typhoon within the circle
 				//TODO could be optimize
 				//
-				that = this;
 				var hsiChange = (Config.HSI.increment + Math.round(Math.random() * Config.HSI.upperOfRandom) + Math.round(Math.random() * Config.HSI.lowerOfRandom));
-				if (that.built.cheungKongLimited)
+				if (this.built.cheungKongLimited)
 					hsiChange *= Config.CheungKong.hsiIncrementMultiplier;
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
-					var distance;
-					try {
-						distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
-					} catch (err) {} finally {
-						if (!isNaN(distance) && e != null) {
-							if (distance <= Config.hkArea.effectAreaRadius) {
-								hsiChange = -(Config.enemy.damage * Math.round((Config.hkArea.effectAreaRadius - Math.round(distance)) * 0.1));
-							}
-						} //End if
-					} //End try..finally
+					// skip if typhoon is destroyed
+					if(e===undefined){
+						continue;
+					}
+
+					// check distance
+					var distance = Utility.pointDistance(Config.hkArea.x, Config.hkArea.y, e.x, e.y);
+					if (distance <= Config.hkArea.effectAreaRadius) {
+
+						// vary damage according to distance
+						hsiChange = -1* Math.round((Config.enemy.damage * (Config.hkArea.effectAreaRadius - distance) * 0.1));
+
+						// show amount of HSI deducted
+						if(hsiChange != 0){
+							new Toast(
+								e.x, e.y,
+								"HSI " + hsiChange,
+								{dir: 270, time: 2, dist: 30},
+								{fontSize: "14px", color: "red"}
+								);
+						}
+					}
 				} //End for
-				this.affectHSI(hsiChange);
-				gameUI.setHsiDisplayValue(hsi);
+
+				this.hsi.addHSI(hsiChange);
+				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 			},
 			addPower: function(p) {
 				if (p > 0) {
-					powerQuota += p;
+					this.powerQuota += p;
 				} else if (p < 0) {
-					powerUsed -= p;
+					this.powerUsed -= p;
 				}
-				//console.log("add: " + p + "= " + this.getAvailablePower());
+				console.log("add: " + p + "= " + this.getAvailablePower());
 				// totalPower += p;
 			},
 			reducePower: function(p) {
 				if (p > 0) {
-					powerQuota -= p;
+					this.powerQuota -= p;
 				} else if (p < 0) {
-					powerUsed += p;
+					this.powerUsed += p;
 				}
-				//console.log("remove: " + p + "= " + this.getAvailablePower());
+				console.log("remove: " + p + "= " + this.getAvailablePower());
+			},
+			getPowerQuota: function(){
+				return this.powerQuota;
+			},
+			getPowerUsed: function(){
+				return this.powerUsed;
 			},
 			getAvailablePower: function() {
-				return powerQuota - powerUsed;
+				return this.powerQuota - this.powerUsed;
 			},
-			getHSI: function() {
-				return hsi;
-			},
-			//just getter, will not display 
-			setHSI: function(value) {
-				hsi = value;
+			getHSI: function(){
+				return this.hsi.getHSI();
 			},
 			affectHSI: function(value) {
-				hsi += value;
+				this.hsi.addHSI(value);
 			},
 			built: function(name) {
 				if (name == "University")

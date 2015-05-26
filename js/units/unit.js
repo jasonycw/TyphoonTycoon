@@ -6,13 +6,15 @@ define([
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 	 */
-	function Unit(startX, startY, spriteSrc, game) {
+	function Unit(startX, startY, spriteSrc, game, name) {
 		/*
 			Initialion - all variable/funciton must have "this." before
 			Use "var" to change the variable/funciton become private 
   			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
 		 */
 		this.game = game;
+		this.name = name || "Unit";
+		this.config = Config[this.name] || {};
 		this.x = startX || 0;
 		this.y = startY || 0;
 		// prepare sprite

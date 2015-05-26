@@ -12,6 +12,7 @@ define([
 		this.player.addEventListener('canplaythrough', function() {
 			that.loaded = true;
 		}, false);
+		this.stopTimer = null;
 	}
 
 
@@ -31,9 +32,10 @@ define([
 				var end = CuePoints[id].end;
 				this.player.currentTime = start;
 				that.player.play();
-				setTimeout(function() {
-					that.player.pause();
-				}, (end - start) * 1000);
+				clearTimeout(this.stopTimer);
+				this.stopTimer = setTimeout(function() {
+						that.player.pause();
+					}, (end - start) * 1000);
 			}
 		}
 	};

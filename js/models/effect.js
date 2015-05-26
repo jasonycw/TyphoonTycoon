@@ -10,13 +10,12 @@ define([
 	function Effect() {
 
 		/*
-				Initialion - all variable/funciton must have "this." before
-				Use "var" to change the variable/funciton become private 
-	  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
-			 */
+			Initialion - all variable/funciton must have "this." before
+			Use "var" to change the variable/funciton become private 
+  			"x || 0" just means "if there is a value for x, use that. Otherwise use 0."
+		 */
+		this.id = Stage.addChild(this, 'effects');
 
-
-		this.that = this;
 	};
 
 	// tick event handler
