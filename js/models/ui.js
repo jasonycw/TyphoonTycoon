@@ -273,11 +273,6 @@ define([
 										cost += Config.ResearchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.affectHSI(-1 * cost);
 
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -292,11 +287,6 @@ define([
 										cost += Config.ResearchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.affectHSI(-1 * cost);
 
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -309,11 +299,6 @@ define([
 									if (that.game.isBuilt('CheungKongLimited'))
 										cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
 									that.game.affectHSI(-1 * cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -323,11 +308,6 @@ define([
 									var tower = new PowerPlant(that.game, mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 									that.buildSound.play('plot');
 									that.game.affectHSI(-1 * Config.PowerPlant.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -336,11 +316,6 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.NuclearPlant.cost) {
 									var tower = new NuclearPlant(that.game, mousePos.x, mousePos.y, "img/sprite/nuclear.png");
 									that.game.affectHSI(-1 * Config.NuclearPlant.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -350,11 +325,6 @@ define([
 									var tower = new University(that.game, mousePos.x, mousePos.y, "img/sprite/university.png");
 									that.game.affectHSI(-1 * Config.University.cost);
 
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -363,11 +333,6 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.ResearchCenter.cost) {
 									var tower = new ResearchCenter(that.game, mousePos.x, mousePos.y, "img/sprite/research-center.png");
 									that.game.affectHSI(-1 * Config.ResearchCenter.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}
@@ -378,11 +343,6 @@ define([
 
 									that.buildSound.play('plot');
 									that.game.affectHSI(-1 * Config.CheungKong.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
 									that.buildSound.play('disabled');
 								}

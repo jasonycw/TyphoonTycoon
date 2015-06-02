@@ -282,6 +282,30 @@ define([
 			getAvailablePower: function() {
 				return this.powerQuota - this.powerUsed;
 			},
+			onEnoughPower:function(){
+				Tower.all(function(instance){
+	            	if(! instance.isOnline()){
+		            	var buildToast = new Toast(
+		                    instance.x, instance.y - 10,
+		                    "(Online)",
+		                    {dir: 270, time: 2, dist: 30},
+		                    {fontSize: "14px", color: "red"});
+	            		instance.isOnline(true);
+		            }
+	            });
+			},
+			onOutOfPower: function(){
+	            Tower.all(function(instance){
+	            	if(instance.isOnline()){
+		                var buildToast = new Toast(
+		                    instance.x, instance.y - 10,
+		                    "(Offline)",
+		                    {dir: 270, time: 2, dist: 30},
+		                    {fontSize: "14px", color: "red"});
+	            		instance.isOnline(false);
+		            }
+	            });
+			},
 			getHSI: function(){
 				return this.hsi.getHSI();
 			},
