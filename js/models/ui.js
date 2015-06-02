@@ -50,17 +50,32 @@ define([
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
 			
 			$('#btn-bar button').append("<div class='hover-catcher'></div>");
+			var that = this;
 			$('#btn-bar .hover-catcher').hover(function(e) {
+				// mouse location
 				var left = e.pageX;
         		var top = e.pageY + 16;
+
+        		// id to array index
 				var idx = _.indexOf(btnIds, e.target.parentNode.id);
+
+				// text content of power
+				var powerHTML = (Config[configIds[idx]].power>0?"+":"") + 
+					Config[configIds[idx]].power;
+
+				// turn red if going to run out of power
+				if(that.game.getAvailablePower()< (0-Config[configIds[idx]].power) ){
+					powerHTML = "<span class='low-power'>" + "(" + powerHTML +")" + "</span>";
+				}
+
+				var description = ''+
+					'<strong>' + Config[configIds[idx]].title + '</strong><br />' +
+					'<em>' + Config[configIds[idx]].description + '</em><br />' +
+					'Cost: ' + Config[configIds[idx]].cost + '<br />' +
+					'Power: ' + powerHTML + '<br />' +
+					'Built on: '+ Config[configIds[idx]].builtOn;
 				$('#tooltip')
-					.html('<strong>' + Config[configIds[idx]].title + '</strong><br />' +
-						'<em>' + Config[configIds[idx]].description + '</em><br />' +
-						'Cost: ' + Config[configIds[idx]].cost + '<br />' +
-						'Power: ' + Config[configIds[idx]].power + '<br />' +
-						'Built on: '+ Config[configIds[idx]].builtOn
-						)
+					.html(description)
 					.css('top', top)
 					.css('left', left)
 					.show();

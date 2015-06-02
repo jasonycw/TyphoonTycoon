@@ -94,7 +94,7 @@ define([
 				this.powerQuota = this.powerUsed = 0;
 				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
-				level: 1;
+				level = 1;
 				enemyCounter= 0;
 				minAmongOfEnemy = Config.enemy.intiMinAmong;
 				maxAmongOfEnemy = Config.enemy.intiMaxAmong;
