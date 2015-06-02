@@ -14,8 +14,9 @@ define([
 	'units/researchCenter',
 	'units/cheungKong',
 	'models/hkCircle',
-	'sound'
-], function($, _, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
+	'sound',
+	'models/toast'
+], function($, _, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Toast) {
 
 	"use strict";
 
@@ -260,7 +261,7 @@ define([
 				var mousePos = Utility.getMouse(event);
 				var nearestBuilding = that.findNearestBuilding(mousePos.x, mousePos.y);
 				if (nearestBuilding) {
-					if (nearestBuilding.distance >= Config.nearestBuildingDistance)
+					if (nearestBuilding.distance >= Config.nearestBuildingDistance){
 						switch (that.activatedMode) {
 							case 'attackTower':
 								// Can only build on ocean
@@ -272,8 +273,16 @@ define([
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.affectHSI(-1 * cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -286,8 +295,16 @@ define([
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.affectHSI(-1 * cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -299,7 +316,15 @@ define([
 									if (that.game.isBuilt('CheungKongLimited'))
 										cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
 									that.game.affectHSI(-1 * cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -308,7 +333,15 @@ define([
 									var tower = new PowerPlant(that.game, mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 									that.buildSound.play('plot');
 									that.game.affectHSI(-1 * Config.PowerPlant.cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -316,7 +349,15 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.NuclearPlant.cost) {
 									var tower = new NuclearPlant(that.game, mousePos.x, mousePos.y, "img/sprite/nuclear.png");
 									that.game.affectHSI(-1 * Config.NuclearPlant.cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -324,8 +365,16 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.University.cost) {
 									var tower = new University(that.game, mousePos.x, mousePos.y, "img/sprite/university.png");
 									that.game.affectHSI(-1 * Config.University.cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -333,7 +382,15 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.ResearchCenter.cost) {
 									var tower = new ResearchCenter(that.game, mousePos.x, mousePos.y, "img/sprite/research-center.png");
 									that.game.affectHSI(-1 * Config.ResearchCenter.cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -343,15 +400,31 @@ define([
 
 									that.buildSound.play('plot');
 									that.game.affectHSI(-1 * Config.CheungKong.cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
 						}
+					}else{
+
+						if(that.activatedMode != null){
+							var buildToast = new Toast(
+			                    mousePos.x, mousePos.y - 10,
+			                    "Build further apart",
+			                    {dir: 270, time: 1, dist: 30},
+			                    {fontSize: "14px", color: "silver"});
+							that.buildSound.play('disabled');
+						}
+					}
 				}
-				that.activatedMode = null;
-				that.setButtonState();
-				$('#btn-bar button').removeAttr('data-activated');
 			});
 		},
 		bindKeyboardEvent: function() {

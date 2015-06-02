@@ -287,9 +287,9 @@ define([
 	            	if(! instance.isOnline()){
 		            	var buildToast = new Toast(
 		                    instance.x, instance.y - 10,
-		                    "(Online)",
-		                    {dir: 270, time: 2, dist: 30},
-		                    {fontSize: "14px", color: "red"});
+		                    "Back Online!",
+		                    {dir: 270, time: 1.5, dist: 40},
+		                    {fontSize: "14px", color: "white"});
 	            		instance.isOnline(true);
 		            }
 	            });
