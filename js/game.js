@@ -94,7 +94,7 @@ define([
 				this.powerQuota = this.powerUsed = 0;
 				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
-				level: 1;
+				level = 1;
 				enemyCounter= 0;
 				minAmongOfEnemy = Config.enemy.intiMinAmong;
 				maxAmongOfEnemy = Config.enemy.intiMaxAmong;
@@ -281,6 +281,50 @@ define([
 			},
 			getAvailablePower: function() {
 				return this.powerQuota - this.powerUsed;
+			},
+			/**
+			 * called by structures to update all towers
+			 * when power comes back on
+			 * since sStructures cannot see Towers
+			 */
+			onEnoughPower:function(){
+				Tower.all(function(instance){
+	            	if(! instance.isOnline()){
+		            	var buildToast = new Toast(
+		                    instance.x, instance.y - 10,
+		                    "Back Online!",
+		                    {dir: 270, time: 1.5, dist: 40},
+		                    {fontSize: "14px", color: "white"});
+	            		instance.isOnline(true);
+		            }
+	            });
+			},
+			/**
+			 * called by structures to update all towers
+			 * when power goes out
+			 * since Structures cannot see Towers
+			 */
+			onOutOfPower: function(){
+				var someoneWasOnline = false;
+	            Tower.all(function(instance){
+	            	if(instance.isOnline()){
+		                var buildToast = new Toast(
+		                    instance.x, instance.y - 10,
+		                    "(Offline)",
+		                    {dir: 270, time: 2, dist: 30},
+		                    {fontSize: "14px", color: "red"});
+		                someoneWasOnline = true;
+	            		instance.isOnline(false);
+		            }
+	            });
+	            if(someoneWasOnline){
+	            	var buildToast = new Toast(
+	                    Stage.width/2, Stage.height - 50,
+	                    "Insufficient power. Bulid more power plants to reactivate towers.",
+	                    {dir: 90, time: 5, dist: 0},
+	                    {fontSize: "20px", color: "#AAAAAA"});
+	            }
+                
 			},
 			getHSI: function(){
 				return this.hsi.getHSI();

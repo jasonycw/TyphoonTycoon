@@ -63,11 +63,11 @@ define([
 			this.drawRotatedImage(ctx, this.sprite, this.x, this.y, this.numberOfTicks);
 			ctx.globalAlpha = 1;
 
-			ctx.fillStyle = '#C21838';
+			ctx.fillStyle = '#FF4124';
 			ctx.fillRect(this.x - 36, this.y - 40, hpRatio*80, 3);
 
 			ctx.font = "14pt"
-			ctx.fillStyle = "#C21838";
+			ctx.fillStyle = "#FF4124";
 			ctx.fillText('HP:' + this.hp.toFixed(0), this.x - 16, this.y - 44);
 
 		}

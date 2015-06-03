@@ -4,23 +4,44 @@ define([
     'stage',
     'config',
     'models/buildEffect',
-    'models/toast'
-], function(Utility, Unit, Stage, Config, BuildEffect, Toast)
+    'models/toast',
+    'sound'
+], function(Utility, Unit, Stage, Config, BuildEffect, Toast, Sound)
 {
     // Create Tower Object and its constructor
     function Structure(startX, startY, spriteSrc, game, name)
-        {
-            name = name || "Structure";
-            //call super constructor.
-            Unit.call(this, startX, startY, spriteSrc, game, name);
-            //Auto add to stage
-            this.id = Stage.addChild(this, 'structures');
-            this.onCreated();
-        }
-        //subclass extends superclass
+    {
+        name = name || "Structure";
+
+
+        this.structureID = Structure.instanceList.length;
+        Structure.instanceList.push(this);
+
+        //call super constructor.
+        Unit.call(this, startX, startY, spriteSrc, game, name);
+        //Auto add to stage
+        this.id = Stage.addChild(this, 'structures');
+        // Sound Effect
+        this.buildSound = new Sound('buildSound');
+
+        this.onCreated();
+
+    }
+    //subclass extends superclass
     Structure.prototype = Object.create(Unit.prototype);
     Structure.prototype.constructor = Structure;
 
+
+    // static functions and variables
+    Structure.instanceList = [];
+    Structure.all = function(callback){
+        for(var i=0; i < Structure.instanceList.length; i++){
+            if(Structure.instanceList[i] != undefined &&
+                Structure.instanceList[i] != null){
+                    callback(Structure.instanceList[i]);
+            }
+        }
+    }
 
     Structure.prototype.onCreated = function()
     {
@@ -45,14 +66,12 @@ define([
                 this.x, this.y - 10,
                 "Power " + (this.config.power > 0 ? "+" : "") +
                 this.config.power,
-                {
-                    dir: 270,
-                    time: 0.5,
-                    dist: 30
-                },
-                {
-                    fontSize: "14px"
-                });
+                {dir: 270, time: 0.5, dist: 30},
+                {fontSize: "14px"});
+
+            this.game.onEnoughPower();
+
+            this.buildSound.play('plot');
         }
         else
         {
@@ -61,36 +80,27 @@ define([
             var buildToast = new Toast(
                 this.x, this.y - 10 - 14,
                 "Power " + (this.config.power > 0 ? "+" : "") +
-                this.config.power,
-                {
-                    dir: 270,
-                    time: 0.5,
-                    dist: 30
-                },
-                {
-                    fontSize: "14px"
-                });
+                    this.config.power,
+                {dir: 270, time: 0.5, dist: 30},
+                {fontSize: "14px"});
 
             // error message after that.
             // message changes depending on
             // whether the power outage is solved or not
-            var errorMsg = "(Low Power)";
             if (this.config.power > 0)
             {
-                errorMsg = "Build More!";
+                var errorMsg = "Build More!";
+                var buildToast = new Toast(
+                    this.x, this.y - 10,
+                    errorMsg,
+                    {dir: 270, time: 2, dist: 30},
+                    {fontSize: "14px", color: "red"});
             }
-            var buildToast = new Toast(
-                this.x, this.y - 10,
-                errorMsg,
-                {
-                    dir: 270,
-                    time: 2,
-                    dist: 30
-                },
-                {
-                    fontSize: "14px",
-                    color: "red"
-                });
+
+            this.game.onOutOfPower();
+
+            // low power sound
+            this.buildSound.play('outOfPower');
         }
     };
     // tick event handler
@@ -105,7 +115,6 @@ define([
     Structure.prototype.remove = function()
     {
         Stage.removeChild(this.id, 'structures');
-        console.log(this.name);
         // return the power it got
         this.game.reducePower(Config[this.name].power);
         var buildToast = new Toast(
@@ -121,6 +130,13 @@ define([
             {
                 fontSize: "14px"
             });
+        if (this.game.getAvailablePower() <= 0)
+        {
+            this.game.onOutOfPower();
+
+            // low power sound
+            this.buildSound.play('outOfPower');
+        }
     }
 
     return Structure;

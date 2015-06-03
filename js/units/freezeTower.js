@@ -48,7 +48,7 @@ define([
 		if (nearestEnemy)
 		{
 			if (nearestEnemy.distance <= range &&
-				this.game.getAvailablePower() > 0)
+				this.game.getAvailablePower() >= 0)
 			{
 				this.sound.play('wrap');
 				var laser = new Laser(this.x, this.y,
