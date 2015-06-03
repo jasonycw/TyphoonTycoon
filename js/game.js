@@ -78,9 +78,6 @@ define([
 				this.reset();
 				lastTime = Date.now();
 
-				_intervalId = setInterval(function() {
-					Game.updateHSI();
-				}, 100);
 				this.loop();
 			},
 			reset: function() {
@@ -117,6 +114,7 @@ define([
 				var now = Date.now();
 				var dt = (now - lastTime) / 1000.0;
 
+				Game.updateHSI();
 				Game.tick(dt);
 				stage.render();
 
