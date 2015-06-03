@@ -130,6 +130,13 @@ define([
             {
                 fontSize: "14px"
             });
+        if (this.game.getAvailablePower() <= 0)
+        {
+            this.game.onOutOfPower();
+
+            // low power sound
+            this.buildSound.play('outOfPower');
+        }
     }
 
     return Structure;

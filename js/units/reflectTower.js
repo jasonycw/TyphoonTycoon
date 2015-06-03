@@ -29,7 +29,7 @@ define([
 				range += Config.CheungKong.repelTowerRangeIncrease*this.game.numberOfBuilding('CheungKongLimited');
 				force += Config.CheungKong.repelTowerForceIncrease*this.game.numberOfBuilding('CheungKongLimited');
 			}
-			if (target.distance <= range && this.game.getAvailablePower() > 0) {
+			if (target.distance <= range && this.game.getAvailablePower() >= 0) {
 				this.sound.play('electricity');
 				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "#FF8000", 20, 15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x, this.y, target.target.x, target.target.y);

@@ -33,7 +33,7 @@ define([
 
 	// tick event handler
 	Tower.prototype.tick = function(dt) { // override
-		//empty		
+		//empty
 	};
 	/**
 	 * finds the enemy closest in distance

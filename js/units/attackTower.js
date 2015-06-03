@@ -52,7 +52,7 @@ define([
 			if (nearestEnemy)
 			{
 				if (nearestEnemy.distance <= _range &&
-					this.game.getAvailablePower() > 0)
+					this.game.getAvailablePower() >= 0)
 				{
 					var enemyWidth = nearestEnemy.target.sprite.width;
 					var aimX = nearestEnemy.target.x - enemyWidth /
