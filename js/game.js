@@ -305,6 +305,7 @@ define([
 			 * since Structures cannot see Towers
 			 */
 			onOutOfPower: function(){
+				var someoneWasOnline = false;
 	            Tower.all(function(instance){
 	            	if(instance.isOnline()){
 		                var buildToast = new Toast(
@@ -312,9 +313,18 @@ define([
 		                    "(Offline)",
 		                    {dir: 270, time: 2, dist: 30},
 		                    {fontSize: "14px", color: "red"});
+		                someoneWasOnline = true;
 	            		instance.isOnline(false);
 		            }
 	            });
+	            if(someoneWasOnline){
+	            	var buildToast = new Toast(
+	                    Stage.width/2, Stage.height - 50,
+	                    "Insufficient power. Bulid more power plants to reactivate towers.",
+	                    {dir: 90, time: 5, dist: 0},
+	                    {fontSize: "20px", color: "#AAAAAA"});
+	            }
+                
 			},
 			getHSI: function(){
 				return this.hsi.getHSI();
