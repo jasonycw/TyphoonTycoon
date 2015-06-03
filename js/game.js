@@ -282,6 +282,11 @@ define([
 			getAvailablePower: function() {
 				return this.powerQuota - this.powerUsed;
 			},
+			/**
+			 * called by structures to update all towers
+			 * when power comes back on
+			 * since sStructures cannot see Towers
+			 */
 			onEnoughPower:function(){
 				Tower.all(function(instance){
 	            	if(! instance.isOnline()){
@@ -294,6 +299,11 @@ define([
 		            }
 	            });
 			},
+			/**
+			 * called by structures to update all towers
+			 * when power goes out
+			 * since Structures cannot see Towers
+			 */
 			onOutOfPower: function(){
 	            Tower.all(function(instance){
 	            	if(instance.isOnline()){
