@@ -8,7 +8,7 @@ define([
 	function Tower(startX, startY, spriteSrc, game, name) {
 		//call super constructor.
 		name = name || "Tower";
-		
+
 		this._isOnline = true;
 		this.towerID = Tower.instanceList.length;
 		Tower.instanceList.push(this);
@@ -24,7 +24,10 @@ define([
 	Tower.instanceList = [];
 	Tower.all = function(callback){
 		for(var i=0; i < Tower.instanceList.length; i++){
-			callback(Tower.instanceList[i]);
+            if(Tower.instanceList[i] != undefined &&
+                Tower.instanceList[i] != null){
+                    callback(Tower.instanceList[i]);
+            }
 		}
 	}
 
@@ -98,6 +101,8 @@ define([
 	};
 	Tower.prototype.remove = function(){
 		delete Tower.instanceList[this.towerID];
+		// parent remove logic
+		Structure.prototype.remove.call(this);
 	};
 
 	return Tower;

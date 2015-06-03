@@ -12,6 +12,11 @@ define([
     function Structure(startX, startY, spriteSrc, game, name)
     {
         name = name || "Structure";
+
+
+        this.structureID = Structure.instanceList.length;
+        Structure.instanceList.push(this);
+
         //call super constructor.
         Unit.call(this, startX, startY, spriteSrc, game, name);
         //Auto add to stage
@@ -22,10 +27,21 @@ define([
         this.onCreated();
 
     }
-        //subclass extends superclass
+    //subclass extends superclass
     Structure.prototype = Object.create(Unit.prototype);
     Structure.prototype.constructor = Structure;
 
+
+    // static functions and variables
+    Structure.instanceList = [];
+    Structure.all = function(callback){
+        for(var i=0; i < Structure.instanceList.length; i++){
+            if(Structure.instanceList[i] != undefined &&
+                Structure.instanceList[i] != null){
+                    callback(Structure.instanceList[i]);
+            }
+        }
+    }
 
     Structure.prototype.onCreated = function()
     {
@@ -99,7 +115,6 @@ define([
     Structure.prototype.remove = function()
     {
         Stage.removeChild(this.id, 'structures');
-        console.log(this.name);
         // return the power it got
         this.game.reducePower(Config[this.name].power);
         var buildToast = new Toast(
