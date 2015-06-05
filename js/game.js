@@ -15,8 +15,9 @@ define([
 	'models/mapHitArea',
 	'models/earthquake',
 	'hsi',
-	'models/toast'
-], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast) {
+	'models/toast',
+	'models/signals/sigReset'
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast, SigReset) {
 
 
 	var Game = (function() {
@@ -43,6 +44,9 @@ define([
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
 			earthquake:Earthquake,
+			// on:{
+			// 	reset: SigReset.get()
+			// },
 
 			// Initialize the game
 			init: function() {
@@ -98,6 +102,7 @@ define([
 				enemyCounter= 0;
 				minAmongOfEnemy = Config.enemy.intiMinAmong;
 				maxAmongOfEnemy = Config.enemy.intiMaxAmong;
+				this.on.reset.dispatch();
 
 
 				Built = {

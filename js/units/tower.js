@@ -2,8 +2,9 @@ define([
 	'utility',
 	'units/structure',
 	'stage',
-	'config'
-], function(Utility, Structure, Stage, Config) {
+	'config',
+	'models/signals/sigReset'
+], function(Utility, Structure, Stage, Config, SigReset) {
 	// Create Tower Object and its constructor
 	function Tower(startX, startY, spriteSrc, game, name) {
 		//call super constructor.
@@ -29,7 +30,12 @@ define([
                     callback(Tower.instanceList[i]);
             }
 		}
-	}
+	};
+	SigReset.get().add(function(){
+        console.log("tower reset called");
+		Tower.instanceList=[];
+	});
+
 
 	// tick event handler
 	Tower.prototype.tick = function(dt) { // override
