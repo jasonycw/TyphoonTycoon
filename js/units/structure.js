@@ -141,6 +141,11 @@ define([
 
             // low power sound
             this.buildSound.play('outOfPower');
+        }else{
+            this.game.onEnoughPower();
+
+            // low power sound
+            this.buildSound.play('plot');
         }
     }
 

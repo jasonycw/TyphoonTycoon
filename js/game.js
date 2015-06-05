@@ -44,9 +44,9 @@ define([
 			minAmongOfEnemy: 0,
 			maxAmongOfEnemy: 0,
 			earthquake:Earthquake,
-			// on:{
-			// 	reset: SigReset.get()
-			// },
+			on:{
+				reset: SigReset.get()
+			},
 
 			// Initialize the game
 			init: function() {
