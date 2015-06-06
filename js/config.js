@@ -139,9 +139,9 @@ define(
     HSI:
     {
         init: 9000, // 90000 or 9000
-        upperOfRandom: 10,
-        lowerOfRandom: -10,
-        increment: 40
+        upperOfRandom: 100,
+        lowerOfRandom: -100,
+        increment: 400 // per second
     },
     cash:
     {
