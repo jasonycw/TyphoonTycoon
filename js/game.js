@@ -37,7 +37,7 @@ define([
 			gameTime: 0,
 			powerQuota: 0,
 			powerUsed: 0,
-			hsi: null,
+			hsi: new HSI(Config.HSI.init),
 			cash: 0,
 			level: 1,
 			enemyCounter: 0,
