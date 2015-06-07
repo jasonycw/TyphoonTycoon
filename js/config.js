@@ -150,7 +150,7 @@ define(
         init: 5000, // 90000 or 9000
         upperOfRandom: 10,
         lowerOfRandom: -10,
-        increment: 20
+        increment: 30
     },
     cash:
     {
