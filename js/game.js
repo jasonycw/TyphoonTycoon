@@ -81,7 +81,9 @@ define([
 			start: function() {
 				this.reset();
 				lastTime = Date.now();
-
+				_intervalId = setInterval(function() {		
+					Game.updateHSI();		
+				}, 100);
 				this.loop();
 			},
 			reset: function() {
@@ -119,7 +121,6 @@ define([
 				var now = Date.now();
 				var dt = (now - lastTime) / 1000.0;
 
-				Game.updateHSI(dt);
 				Game.tick(dt);
 				stage.render();
 
@@ -223,18 +224,13 @@ define([
 			/*
 				update HSI
 			 */
-			updateHSI: function(dt) {
+			updateHSI: function() {
 				//check any typhoon within the circle
 				//TODO could be optimize
 				//
-				var hsiChangePerSec = (Config.HSI.increment + Math.round(Math.random() * Config.HSI.upperOfRandom) + Math.round(Math.random() * Config.HSI.lowerOfRandom));
-				var hsiChange *= dt / 1000;
+				var hsiChange = (Config.HSI.increment + Math.round(Math.random() * Config.HSI.upperOfRandom) + Math.round(Math.random() * Config.HSI.lowerOfRandom));
 				if (this.built.cheungKongLimited)
 					hsiChange *= Config.CheungKong.hsiIncrementMultiplier;
-				this.\hoonDamageTimer+=dt;
-				while(this.typhoonDamageTimer>100){
-
-				}
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
 					// skip if typhoon is destroyed
