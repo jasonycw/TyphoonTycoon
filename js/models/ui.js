@@ -14,8 +14,9 @@ define([
 	'units/researchCenter',
 	'units/cheungKong',
 	'models/hkCircle',
-	'sound'
-], function($, _, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound) {
+	'sound',
+	'models/toast'
+], function($, _, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Toast) {
 
 	"use strict";
 
@@ -50,17 +51,32 @@ define([
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
 			
 			$('#btn-bar button').append("<div class='hover-catcher'></div>");
+			var that = this;
 			$('#btn-bar .hover-catcher').hover(function(e) {
+				// mouse location
 				var left = e.pageX;
         		var top = e.pageY + 16;
+
+        		// id to array index
 				var idx = _.indexOf(btnIds, e.target.parentNode.id);
+
+				// text content of power
+				var powerHTML = (Config[configIds[idx]].power>0?"+":"") + 
+					Config[configIds[idx]].power;
+
+				// turn red if going to run out of power
+				if(that.game.getAvailablePower()< (0-Config[configIds[idx]].power) ){
+					powerHTML = "<span class='low-power'>" + "(" + powerHTML +")" + "</span>";
+				}
+
+				var description = ''+
+					'<strong>' + Config[configIds[idx]].title + '</strong><br />' +
+					'<em>' + Config[configIds[idx]].description + '</em><br />' +
+					'Cost: ' + Config[configIds[idx]].cost + '<br />' +
+					'Power: ' + powerHTML + '<br />' +
+					'Built on: '+ Config[configIds[idx]].builtOn;
 				$('#tooltip')
-					.html('<strong>' + Config[configIds[idx]].title + '</strong><br />' +
-						'<em>' + Config[configIds[idx]].description + '</em><br />' +
-						'Cost: ' + Config[configIds[idx]].cost + '<br />' +
-						'Power: ' + Config[configIds[idx]].power + '<br />' +
-						'Built on: '+ Config[configIds[idx]].builtOn
-						)
+					.html(description)
 					.css('top', top)
 					.css('left', left)
 					.show();
@@ -245,7 +261,7 @@ define([
 				var mousePos = Utility.getMouse(event);
 				var nearestBuilding = that.findNearestBuilding(mousePos.x, mousePos.y);
 				if (nearestBuilding) {
-					if (nearestBuilding.distance >= Config.nearestBuildingDistance)
+					if (nearestBuilding.distance >= Config.nearestBuildingDistance){
 						switch (that.activatedMode) {
 							case 'attackTower':
 								// Can only build on ocean
@@ -257,13 +273,16 @@ define([
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.attackTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.affectHSI(-1 * cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -276,13 +295,16 @@ define([
 									if (that.game.isBuilt('ResearchCenter'))
 										cost += Config.ResearchCenter.freezeTowerCostIncrease*that.game.numberOfBuilding('ResearchCenter');
 									that.game.affectHSI(-1 * cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -294,12 +316,15 @@ define([
 									if (that.game.isBuilt('CheungKongLimited'))
 										cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
 									that.game.affectHSI(-1 * cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -308,12 +333,15 @@ define([
 									var tower = new PowerPlant(that.game, mousePos.x, mousePos.y, "img/sprite/power-plant.png");
 									that.buildSound.play('plot');
 									that.game.affectHSI(-1 * Config.PowerPlant.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -321,12 +349,15 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.NuclearPlant.cost) {
 									var tower = new NuclearPlant(that.game, mousePos.x, mousePos.y, "img/sprite/nuclear.png");
 									that.game.affectHSI(-1 * Config.NuclearPlant.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -334,13 +365,16 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.University.cost) {
 									var tower = new University(that.game, mousePos.x, mousePos.y, "img/sprite/university.png");
 									that.game.affectHSI(-1 * Config.University.cost);
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -348,12 +382,15 @@ define([
 								if (MapHitArea.isLand(mousePos.x, mousePos.y) && that.game.getHSI() >= Config.ResearchCenter.cost) {
 									var tower = new ResearchCenter(that.game, mousePos.x, mousePos.y, "img/sprite/research-center.png");
 									that.game.affectHSI(-1 * Config.ResearchCenter.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
@@ -363,20 +400,31 @@ define([
 
 									that.buildSound.play('plot');
 									that.game.affectHSI(-1 * Config.CheungKong.cost);
-									if (that.game.getAvailablePower() > 0) {
-										that.buildSound.play('plot');
-									} else {
-										that.buildSound.play('outOfPower');
-									}
+									that.activatedMode = null;
+									that.setButtonState();
+									$('#btn-bar button').removeAttr('data-activated');
 								} else {
+									var buildToast = new Toast(
+					                    mousePos.x, mousePos.y - 10,
+					                    "Cannot build here",
+					                    {dir: 270, time: 1, dist: 30},
+					                    {fontSize: "14px", color: "silver"});
 									that.buildSound.play('disabled');
 								}
 								break;
 						}
+					}else{
+
+						if(that.activatedMode != null){
+							var buildToast = new Toast(
+			                    mousePos.x, mousePos.y - 10,
+			                    "Build further apart",
+			                    {dir: 270, time: 1, dist: 30},
+			                    {fontSize: "14px", color: "silver"});
+							that.buildSound.play('disabled');
+						}
+					}
 				}
-				that.activatedMode = null;
-				that.setButtonState();
-				$('#btn-bar button').removeAttr('data-activated');
 			});
 		},
 		bindKeyboardEvent: function() {

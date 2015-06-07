@@ -34,8 +34,8 @@ define([
 				that.player.play();
 				clearTimeout(this.stopTimer);
 				this.stopTimer = setTimeout(function() {
-						that.player.pause();
-					}, (end - start) * 1000);
+					that.player.pause();
+				}, (end - start) * 1000);
 			}
 		}
 	};

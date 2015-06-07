@@ -269,6 +269,10 @@ body {
 #btn-research-center[disabled] {
   background-position: -224px -96px;
 }
+.low-power {
+  color: red;
+  font-weight: bold;
+}
 #score-bar {
   position: absolute;
   top: 0;
