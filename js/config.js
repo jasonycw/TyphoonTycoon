@@ -37,14 +37,14 @@ define(
         damage: 150,
         typhoonAbsorbRate: 10,
         intiMinAmount: 1,
-        intiMaxAmount: 3,
+        intiMaxAmount: 1,
         difficulty: 50, //larger is easier
 
         initDelay: 8, // seconds
         nextWaveWaitTimeFunction: function(gameElapsedTime){
             // gameElapsedTime in seconds
             
-            return 5 - gameElapsedTime / 1000; //seconds
+            return 7 - gameElapsedTime / 1000; //seconds
         }
     },
 

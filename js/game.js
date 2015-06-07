@@ -187,8 +187,15 @@ define([
 							amountOfEnemy = this.maxAmountOfEnemy - this.enemyCounter;
 						}
 						console.log("Spawning (" + this.minAmountOfEnemy + "~" + this.maxAmountOfEnemy + ") enemies: " + amountOfEnemy);
+						var that = this;
+						var nextEnemyTime = 0;
 						for (var i = amountOfEnemy - 1; i >= 0; i -= 1) {
-							this.spawnTyphoon(dt);
+							var spawnTimeout = setTimeout(function() {
+								console.log(that.gameTime + " spawn");
+								that.spawnTyphoon(dt);
+							}, nextEnemyTime);
+							earthquakeTimer.push(spawnTimeout);
+							nextEnemyTime += Math.random() * 700;
 							// count enemies
 							this.enemyCounter += 1;
 						}; //End for
