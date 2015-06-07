@@ -157,50 +157,47 @@ define([
 				
 				this.gameTime += dt;
 
-				if (this.gameTime > Config.enemy.initDelay) {
-					//reset and next level
-					if (Math.random() < 1 - Math.pow(.993, this.gameTime / Config.enemy.difficulty)) {
-						// if spawned enough typhoons
-						if (this.enemyCounter >= this.maxAmountOfEnemy) {
-							console.log("(" + this.gameTime + ")Earthquake phase");
-							//random time launch a eathquake in each level
-							for (var i = this.minAmountOfEnemy - 1; i >= 0; i--) {
-								earthquakeTimer.push(setTimeout(function() {
-									var targetX = Config.hkArea.x + Math.random() * 600 - 300;
-									var targetY = Config.hkArea.y + Math.random() * 600 - 300;
-									var earthquake = new Earthquake(targetX, targetY);
-								}, Math.random() * 500));
+				if (this.gameTime > this.spawnTimer) {
+					// if spawned enough typhoons
+					if (this.enemyCounter >= this.maxAmountOfEnemy) {
+						console.log("(" + this.gameTime + ")Earthquake phase");
+						//random time launch a eathquake in each level
+						var that = this;
+						for (var i = this.minAmountOfEnemy - 1; i >= 0; i--) {
+							var spawnTimeout = setTimeout(function() {
+								that.spawnEarthquake(dt);
+							}, Math.random() * 500);
+							earthquakeTimer.push(spawnTimeout);
+						};
+						this.maxAmountOfEnemy += this.minAmountOfEnemy;
+						this.minAmountOfEnemy += 1;
+						this.level += 1;
+						//this.gameTime = Config.enemy.initDelay;
+						this.enemyCounter = 0;
+					}else{
+						console.log("(" + this.gameTime + ")Typhoon phase");
+						/*
+						 *	Create Enemies with time increasing
+						 *	- It gets harder over time by adding enemies using this
+						 *	- orginial equation: 1-.993^gameTime
+						 *
+						 */
+						var amountOfEnemy = Math.floor( Math.random() * (this.maxAmountOfEnemy - this.minAmountOfEnemy) ) + this.minAmountOfEnemy;
+						if(amountOfEnemy > this.maxAmountOfEnemy - this.enemyCounter){
+							amountOfEnemy = this.maxAmountOfEnemy - this.enemyCounter;
+						}
+						console.log("Spawning (" + this.minAmountOfEnemy + "~" + this.maxAmountOfEnemy + ") enemies: " + amountOfEnemy);
+						for (var i = amountOfEnemy - 1; i >= 0; i -= 1) {
+							this.spawnTyphoon(dt);
+							// count enemies
+							this.enemyCounter += 1;
+						}; //End for
+						console.log("enemy counter: "+ this.enemyCounter);
 
-							};
-							this.maxAmountOfEnemy += this.minAmountOfEnemy;
-							this.minAmountOfEnemy += 1;
-							this.level += 1;
-							//this.gameTime = Config.enemy.initDelay;
-							this.enemyCounter = 0;
-						}else{
-							console.log("(" + this.gameTime + ")Typhoon phase");
-							/*
-							 *	Create Enemies with time increasing
-							 *	- It gets harder over time by adding enemies using this
-							 *	- orginial equation: 1-.993^gameTime
-							 *
-							 */
-							var amountOfEnemy = Math.floor( Math.random() * (this.maxAmountOfEnemy - this.minAmountOfEnemy) ) + this.minAmountOfEnemy;
-							if(amountOfEnemy > this.maxAmountOfEnemy - this.enemyCounter){
-								amountOfEnemy = this.maxAmountOfEnemy - this.enemyCounter;
-							}
-							console.log("Spawning (" + this.minAmountOfEnemy + "~" + this.maxAmountOfEnemy + ") enemies: " + amountOfEnemy);
-							for (var i = amountOfEnemy - 1; i >= 0; i -= 1) {
-								this.spawnTyphoon(dt);
-								// count enemies
-								this.enemyCounter += 1;
-							}; //End for
-							console.log("enemy counter: "+ this.enemyCounter);
-
-						} //End if
 					}//End if
 
-
+					this.spawnTimer += Config.enemy.nextWaveWaitTimeFunction(this.gameTime);
+					console.log("Next wave at: " + this.spawnTimer);
 				} //End if
 
 			}, //End tick()
@@ -394,8 +391,10 @@ define([
 				// set starting motion
 				t.setMotion(hk_dir + Math.random() * 120 - 60, enemySpeed);
 			},
-			spawnEarthquake:function(){
-
+			spawnEarthquake:function(dt){
+				var targetX = Config.hkArea.x + Math.random() * 600 - 300;
+				var targetY = Config.hkArea.y + Math.random() * 600 - 300;
+				var earthquake = new Earthquake(targetX, targetY);
 			}
 		} //End return
 	})();
