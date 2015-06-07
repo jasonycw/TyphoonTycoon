@@ -20,13 +20,22 @@ define(
     enemy:
     {
         max_hp: 300,
+        hpFunction: function(baseHP, gameElapsedTime){
+            // gameElapsedTime in seconds
+            return baseHP + gameElapsedTime;
+        },
+        speed : 10,
+        speedFunction: function(baseSpeed, gameElapsedTime){
+            // gameElapsedTime in seconds
+            return baseSpeed + gameElapsedTime / 20;
+        },
         decayOnLand: 1,
         damage: 150,
         typhoonAbsorbRate: 10,
         intiMinAmong: 1,
         intiMaxAmong: 20,
         difficulty: 50, //larger is easier
-        
+
         initDelay: 8 //1 = 1 second
     },
 
