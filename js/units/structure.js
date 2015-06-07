@@ -5,8 +5,9 @@ define([
     'config',
     'models/buildEffect',
     'models/toast',
-    'sound'
-], function(Utility, Unit, Stage, Config, BuildEffect, Toast, Sound)
+    'sound',
+    'models/signals/sigReset'
+], function(Utility, Unit, Stage, Config, BuildEffect, Toast, Sound, SigReset)
 {
     // Create Tower Object and its constructor
     function Structure(startX, startY, spriteSrc, game, name)
@@ -42,6 +43,10 @@ define([
             }
         }
     }
+    SigReset.get().add(function(){
+        console.log("structure reset called");
+        Structure.instanceList=[];
+    });
 
     Structure.prototype.onCreated = function()
     {
@@ -136,6 +141,11 @@ define([
 
             // low power sound
             this.buildSound.play('outOfPower');
+        }else{
+            this.game.onEnoughPower();
+
+            // low power sound
+            this.buildSound.play('plot');
         }
     }
 

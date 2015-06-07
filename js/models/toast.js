@@ -148,11 +148,13 @@ define([
     Toast.prototype.render = function(ctx) {
         //console.log("Toast render");
         ctx.globalAlpha = this.alpha;
+        var oldFont = ctx.font;
         ctx.font = "" + this.fontSize + " " + this.fontFamily;
         ctx.fillStyle = this.textColor;
         ctx.textAlign = this.textAlign;
         ctx.fillText(this.msg, this.x, this.y);
         ctx.globalAlpha = 1;
+        ctx.font = oldFont;
     };
 
     /**
