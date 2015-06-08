@@ -86,6 +86,16 @@ define([
 					Game.updateHSI();
 				}, 500);
 				this.loop();
+				var buildToast = new Toast(
+					Stage.width/2, Stage.height - 50 - 30,
+					"Protect Hong Kong (in the center of circles) from typhoons!",
+					{dir: 90, time: Config.enemy.initDelay-1, dist: 0},
+					{fontSize: "20px", color: "white"});
+				var buildToast = new Toast(
+					Stage.width/2, Stage.height - 50,
+					"To start, build 3 PowerPlants on land and 6 LaserTowers on the sea.",
+					{dir: 90, time: Config.enemy.initDelay-1, dist: 0},
+					{fontSize: "20px", color: "white"});
 			},
 			reset: function() {
 				var that = this;
