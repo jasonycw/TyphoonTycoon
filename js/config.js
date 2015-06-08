@@ -19,15 +19,15 @@ define(
 
     enemy:
     {
-        max_hp: 300,
+        max_hp: 200,
         initHPFunction: function(baseHP, gameElapsedTime){
             // gameElapsedTime in seconds
-            return (baseHP + gameElapsedTime) * (Math.random() * 0.5 + 0.5);
+            return (baseHP + gameElapsedTime*1.1) * (Math.random() * 0.5 + 0.5);
         },
         speed : 1,
         initSpeedFunction: function(baseSpeed, gameElapsedTime){
             // gameElapsedTime in seconds
-            return baseSpeed + gameElapsedTime / 20000;
+            return baseSpeed + gameElapsedTime / 2000;
         },
         topSpeedFunction: function(baseSpeed, gameElapsedTime){
             // gameElapsedTime in seconds
@@ -43,7 +43,7 @@ define(
         initDelay: 8, // seconds
         nextWaveWaitTimeFunction: function(gameElapsedTime){
             // gameElapsedTime in seconds
-            
+
             return 7 - gameElapsedTime / 1000; //seconds
         }
     },
@@ -150,7 +150,7 @@ define(
         init: 5000, // 90000 or 9000
         upperOfRandom: 10,
         lowerOfRandom: -10,
-        increment: 30
+        increment: 150
     },
     cash:
     {

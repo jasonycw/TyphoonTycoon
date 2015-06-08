@@ -82,9 +82,9 @@ define([
 			start: function() {
 				this.reset();
 				lastTime = Date.now();
-				_intervalId = setInterval(function() {		
-					Game.updateHSI();		
-				}, 100);
+				_intervalId = setInterval(function() {
+					Game.updateHSI();
+				}, 500);
 				this.loop();
 			},
 			reset: function() {
@@ -154,15 +154,17 @@ define([
 			tick: function(dt) {
 				this.updateEntities(dt);
 
-				
+
 				this.gameTime += dt;
 
 				if (this.gameTime > this.spawnTimer) {
 					// if spawned enough typhoons
 					if (this.enemyCounter >= this.maxAmountOfEnemy) {
-						console.log("(" + this.gameTime + ")Earthquake phase");
+						console.log("(" + this.gameTime + ")Earthquake phase " + this.level);
 						//random time launch a eathquake in each level
 						var that = this;
+						console.log("Spawning " + this.minAmountOfEnemy + " earthquakes: " );
+
 						for (var i = this.minAmountOfEnemy - 1; i >= 0; i--) {
 							var spawnTimeout = setTimeout(function() {
 								that.spawnEarthquake(dt);
@@ -175,7 +177,7 @@ define([
 						//this.gameTime = Config.enemy.initDelay;
 						this.enemyCounter = 0;
 					}else{
-						console.log("(" + this.gameTime + ")Typhoon phase");
+						console.log("(" + this.gameTime + ")Typhoon phase " + this.level);
 						/*
 						 *	Create Enemies with time increasing
 						 *	- It gets harder over time by adding enemies using this
@@ -186,12 +188,12 @@ define([
 						if(amountOfEnemy > this.maxAmountOfEnemy - this.enemyCounter){
 							amountOfEnemy = this.maxAmountOfEnemy - this.enemyCounter;
 						}
-						console.log("Spawning (" + this.minAmountOfEnemy + "~" + this.maxAmountOfEnemy + ") enemies: " + amountOfEnemy);
+						console.log("Spawning " + amountOfEnemy + "/" + this.maxAmountOfEnemy + " enemies: " );
 						var that = this;
 						var nextEnemyTime = 0;
 						for (var i = amountOfEnemy - 1; i >= 0; i -= 1) {
 							var spawnTimeout = setTimeout(function() {
-								console.log(that.gameTime + " spawn");
+								console.log("@ " + that.gameTime + " spawn");
 								that.spawnTyphoon(dt);
 							}, nextEnemyTime);
 							earthquakeTimer.push(spawnTimeout);
@@ -199,12 +201,12 @@ define([
 							// count enemies
 							this.enemyCounter += 1;
 						}; //End for
-						console.log("enemy counter: "+ this.enemyCounter);
+						//console.log("enemy counter: "+ this.enemyCounter);
 
 					}//End if
-
-					this.spawnTimer += Config.enemy.nextWaveWaitTimeFunction(this.gameTime);
-					console.log("Next wave at: " + this.spawnTimer);
+					var nextTimeIn = Config.enemy.nextWaveWaitTimeFunction(this.gameTime);
+					this.spawnTimer += nextTimeIn
+					console.log("Next wave in: " + nextTimeIn);
 				} //End if
 
 			}, //End tick()
@@ -326,7 +328,7 @@ define([
 	                    {dir: 90, time: 5, dist: 0},
 	                    {fontSize: "20px", color: "#AAAAAA"});
 	            }
-                
+
 			},
 			getHSI: function(){
 				return this.hsi.getHSI();
@@ -380,7 +382,6 @@ define([
 				// spawn enemy
 				// init HP
 				var enemyHP = Config.enemy.initHPFunction(Config.enemy.max_hp, this.gameTime);
-				//console.log("new enemy hp: " + enemyHP);
 
 				// get direction to HK
 				var hk_dir = Utility.pointDirection(
@@ -390,8 +391,8 @@ define([
 				// get init speed and top speed
 				var enemySpeed = Config.enemy.initSpeedFunction(Config.enemy.speed, this.gameTime);
 				var enemyTopSpeed = Config.enemy.topSpeedFunction(Config.enemy.speed, this.gameTime);
-				//console.log("new enemy speed: " + enemySpeed);
-				
+				console.log("new enemy hp speed: \n    " + enemyHP + ", " + enemySpeed);
+
 				// create enemy with hp
 				var t = new Enemy(xx, yy, "img/typhoon.png", enemyHP, enemySpeed, enemyTopSpeed);
 
