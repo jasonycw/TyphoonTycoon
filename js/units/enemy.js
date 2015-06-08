@@ -6,16 +6,17 @@ define([
 	'config'
 ], function(Unit, Stage, Utility, MapHitArea, Config) {
 	// TODO: rename it back to Typhoon when Earthquake is created
-	function Enemy(startX, startY, spriteSrc) {
+	function Enemy(startX, startY, spriteSrc, hp, startSpeed, topspeed) {
 		//call super constructor.
 		Unit.call(this, startX, startY, spriteSrc);
 		this.direction = 0;
-		this.speed = 0;
+		this.speed = startSpeed;
+		this.topspeed = topspeed;
 		this.force = {
 			dir: 0,
 			mag: 0
 		};
-		this.hp = (Math.random() * 0.7 + 0.3) * Config.enemy.max_hp;
+		this.hp = hp;
 		this.numberOfTicks = 0;
 		this.isSlowed = 0;
 		this.typhoonID = Stage.addChild(this, 'typhoons');
@@ -32,6 +33,9 @@ define([
 			Utility.pointDirection(this.x, this.y, Config.hkArea.x, Config.hkArea.y),
 			0.05
 		);
+		if(this.speed > this.topspeed){
+			this.speed = this.topspeed;
+		}
 		this.updatePosition();
 
 		// absorb the nearby weak enemy
@@ -79,6 +83,7 @@ define([
 		if (this.force.mag != 0) {
 			this.addMotion(this.force.dir, this.force.mag);
 		}
+
 		// velocity -> displacement
 		// apply slow effect
 		var tempSpeed = this.speed;
@@ -129,13 +134,15 @@ define([
 	 * @param {number} force_magnitude magnitude of force applied
 	 */
 	Enemy.prototype.addMotion = function(force_dir, force_magnitude) {
-		newVelo = Utility.vectorSum({
-			dir: this.direction,
-			mag: this.speed
-		}, {
-			dir: force_dir,
-			mag: force_magnitude
-		});
+		var newVelo = Utility.vectorSum(
+			{
+				dir: this.direction,
+				mag: this.speed
+			}, 
+			{
+				dir: force_dir,
+				mag: force_magnitude
+			});
 		this.direction = newVelo.dir;
 		this.speed = newVelo.mag;
 	};

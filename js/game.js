@@ -35,14 +35,15 @@ define([
 			gameUI: null,
 			lastTime: 0,
 			gameTime: 0,
+			spawnTimer:0,
 			powerQuota: 0,
 			powerUsed: 0,
 			hsi: new HSI(Config.HSI.init),
 			cash: 0,
 			level: 1,
 			enemyCounter: 0,
-			minAmongOfEnemy: 0,
-			maxAmongOfEnemy: 0,
+			minAmountOfEnemy: 0,
+			maxAmountOfEnemy: 0,
 			earthquake:Earthquake,
 			on:{
 				reset: SigReset.get()
@@ -92,16 +93,17 @@ define([
 				console.log(this.hsi);
 				this.hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
 				this.cash = 0;
-				gameTime = 0;
+				this.gameTime = 0;
 				lastTime = 0;
 				this.powerQuota = this.powerUsed = 0;
 				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
 				level = 1;
-				enemyCounter= 0;
-				minAmongOfEnemy = Config.enemy.intiMinAmong;
-				maxAmongOfEnemy = Config.enemy.intiMaxAmong;
+				this.enemyCounter= 0;
+				this.minAmountOfEnemy = Config.enemy.intiMinAmount;
+				this.maxAmountOfEnemy = Config.enemy.intiMaxAmount;
 				this.on.reset.dispatch();
+				this.spawnTimer = Config.enemy.initDelay
 
 
 				Built = {
@@ -152,61 +154,57 @@ define([
 			tick: function(dt) {
 				this.updateEntities(dt);
 
-				if (dt < 1) { // fix bug coused by lag
-					gameTime += dt;
-				}
+				
+				this.gameTime += dt;
 
-				if (gameTime > Config.enemy.initDelay) {
-					//reset and next level
-					if (this.enemyCounter >= maxAmongOfEnemy) {
-						maxAmongOfEnemy += (minAmongOfEnemy * 2);
-						minAmongOfEnemy += 1;
-						this.level += 1;
-						gameTime = Config.enemy.initDelay;
-						this.enemyCounter = 0;
-
+				if (this.gameTime > this.spawnTimer) {
+					// if spawned enough typhoons
+					if (this.enemyCounter >= this.maxAmountOfEnemy) {
+						console.log("(" + this.gameTime + ")Earthquake phase");
 						//random time launch a eathquake in each level
-						for (var i = minAmongOfEnemy - 1; i >= 0; i--) {
-							earthquakeTimer.push(setTimeout(function() {
-								var targetX = Config.hkArea.x + Math.random() * 600 - 300;
-								var targetY = Config.hkArea.y + Math.random() * 600 - 300;
-								var earthquake = new Earthquake(targetX, targetY);
-							}, Math.random * 60000));
-
+						var that = this;
+						for (var i = this.minAmountOfEnemy - 1; i >= 0; i--) {
+							var spawnTimeout = setTimeout(function() {
+								that.spawnEarthquake(dt);
+							}, Math.random() * 500);
+							earthquakeTimer.push(spawnTimeout);
 						};
-					}
-					/*
-						Create Enemies with time increasing
-						- It gets harder over time by adding enemies using this
-						- orginial equation: 1-.993^gameTime
-
-					 */
-					if (Math.random() < 1 - Math.pow(.993, gameTime / Config.enemy.difficulty)) {
-
-						for (var i = minAmongOfEnemy - 1; i >= 0; i -= 1) {
-							var t,
-								xx,
-								yy;
-							if (Math.random() > 0.5) {
-								xx = Stage.width;
-								yy = Math.random() * Stage.height;
-							} else {
-								xx = Math.random() * Stage.width;
-								yy = Stage.height;
-							} //End if
-
-							//TODO: change different kind of enemies
-							t = new Enemy(xx, yy, "img/typhoon.png");
-							var hk_dir = Utility.pointDirection(
-								xx, yy,
-								Config.hkArea.x, Config.hkArea.y);
-							t.setMotion(hk_dir + Math.random() * 120 - 60, Math.random() * this.level + 1 + 0.5);
+						this.maxAmountOfEnemy += this.minAmountOfEnemy;
+						this.minAmountOfEnemy += 1;
+						this.level += 1;
+						//this.gameTime = Config.enemy.initDelay;
+						this.enemyCounter = 0;
+					}else{
+						console.log("(" + this.gameTime + ")Typhoon phase");
+						/*
+						 *	Create Enemies with time increasing
+						 *	- It gets harder over time by adding enemies using this
+						 *	- orginial equation: 1-.993^gameTime
+						 *
+						 */
+						var amountOfEnemy = Math.floor( Math.random() * (this.maxAmountOfEnemy - this.minAmountOfEnemy) ) + this.minAmountOfEnemy;
+						if(amountOfEnemy > this.maxAmountOfEnemy - this.enemyCounter){
+							amountOfEnemy = this.maxAmountOfEnemy - this.enemyCounter;
+						}
+						console.log("Spawning (" + this.minAmountOfEnemy + "~" + this.maxAmountOfEnemy + ") enemies: " + amountOfEnemy);
+						var that = this;
+						var nextEnemyTime = 0;
+						for (var i = amountOfEnemy - 1; i >= 0; i -= 1) {
+							var spawnTimeout = setTimeout(function() {
+								console.log(that.gameTime + " spawn");
+								that.spawnTyphoon(dt);
+							}, nextEnemyTime);
+							earthquakeTimer.push(spawnTimeout);
+							nextEnemyTime += Math.random() * 700;
+							// count enemies
 							this.enemyCounter += 1;
 						}; //End for
+						console.log("enemy counter: "+ this.enemyCounter);
 
-					} //End if
+					}//End if
 
-
+					this.spawnTimer += Config.enemy.nextWaveWaitTimeFunction(this.gameTime);
+					console.log("Next wave at: " + this.spawnTimer);
 				} //End if
 
 			}, //End tick()
@@ -367,6 +365,43 @@ define([
 					Built.numberOfResearchCenter--;
 				if (name == "CheungKongLimited")
 					Built.numberOfCheungKongLimited--;
+			},
+			spawnTyphoon: function(dt){
+				var xx,
+					yy;
+				if (Math.random() > 0.5) {
+					xx = Stage.width;
+					yy = Math.random() * Stage.height;
+				} else {
+					xx = Math.random() * Stage.width;
+					yy = Stage.height;
+				} //End if
+
+				// spawn enemy
+				// init HP
+				var enemyHP = Config.enemy.initHPFunction(Config.enemy.max_hp, this.gameTime);
+				//console.log("new enemy hp: " + enemyHP);
+
+				// get direction to HK
+				var hk_dir = Utility.pointDirection(
+					xx, yy,
+					Config.hkArea.x, Config.hkArea.y);
+
+				// get init speed and top speed
+				var enemySpeed = Config.enemy.initSpeedFunction(Config.enemy.speed, this.gameTime);
+				var enemyTopSpeed = Config.enemy.topSpeedFunction(Config.enemy.speed, this.gameTime);
+				//console.log("new enemy speed: " + enemySpeed);
+				
+				// create enemy with hp
+				var t = new Enemy(xx, yy, "img/typhoon.png", enemyHP, enemySpeed, enemyTopSpeed);
+
+				// set starting motion
+				t.setMotion(hk_dir + Math.random() * 120 - 60, enemySpeed);
+			},
+			spawnEarthquake:function(dt){
+				var targetX = Config.hkArea.x + Math.random() * 600 - 300;
+				var targetY = Config.hkArea.y + Math.random() * 600 - 300;
+				var earthquake = new Earthquake(targetX, targetY);
 			}
 		} //End return
 	})();

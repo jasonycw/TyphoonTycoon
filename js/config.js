@@ -20,23 +20,32 @@ define(
     enemy:
     {
         max_hp: 300,
-        hpFunction: function(baseHP, gameElapsedTime){
+        initHPFunction: function(baseHP, gameElapsedTime){
             // gameElapsedTime in seconds
-            return baseHP + gameElapsedTime;
+            return (baseHP + gameElapsedTime) * (Math.random() * 0.5 + 0.5);
         },
-        speed : 10,
-        speedFunction: function(baseSpeed, gameElapsedTime){
+        speed : 1,
+        initSpeedFunction: function(baseSpeed, gameElapsedTime){
             // gameElapsedTime in seconds
-            return baseSpeed + gameElapsedTime / 20;
+            return baseSpeed + gameElapsedTime / 20000;
+        },
+        topSpeedFunction: function(baseSpeed, gameElapsedTime){
+            // gameElapsedTime in seconds
+            return 1.5 * (baseSpeed + gameElapsedTime / 20000);
         },
         decayOnLand: 1,
         damage: 150,
         typhoonAbsorbRate: 10,
-        intiMinAmong: 1,
-        intiMaxAmong: 20,
+        intiMinAmount: 1,
+        intiMaxAmount: 1,
         difficulty: 50, //larger is easier
 
-        initDelay: 8 //1 = 1 second
+        initDelay: 8, // seconds
+        nextWaveWaitTimeFunction: function(gameElapsedTime){
+            // gameElapsedTime in seconds
+            
+            return 7 - gameElapsedTime / 1000; //seconds
+        }
     },
 
     // towers		=============================
@@ -138,10 +147,10 @@ define(
     // Hang Sang Index
     HSI:
     {
-        init: 9000, // 90000 or 9000
+        init: 5000, // 90000 or 9000
         upperOfRandom: 10,
         lowerOfRandom: -10,
-        increment: 40
+        increment: 30
     },
     cash:
     {
