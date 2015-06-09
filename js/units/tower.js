@@ -3,8 +3,8 @@ define([
 	'units/structure',
 	'stage',
 	'config',
-	'models/signals/sigReset'
-], function(Utility, Structure, Stage, Config, SigReset) {
+	'models/signals/sigGameReset'
+], function(Utility, Structure, Stage, Config, SigGameReset) {
 	// Create Tower Object and its constructor
 	function Tower(startX, startY, spriteSrc, game, name) {
 		//call super constructor.
@@ -31,7 +31,7 @@ define([
             }
 		}
 	};
-	SigReset.get().add(function(){
+	SigGameReset.get().add(function(){
         console.log("tower reset called");
 		Tower.instanceList=[];
 	});

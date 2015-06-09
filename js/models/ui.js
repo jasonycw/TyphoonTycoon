@@ -15,8 +15,10 @@ define([
 	'units/cheungKong',
 	'models/hkCircle',
 	'sound',
-	'models/toast'
-], function($, _, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Toast) {
+	'models/toast',
+	'models/signals/sigGameReset',
+	'models/signals/sigGameOver'
+], function($, _, MapHitArea, Utility, Stage, Config, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Toast, SigGameReset, SigGameOver) {
 
 	"use strict";
 
@@ -29,6 +31,10 @@ define([
 
 	UI.prototype = {
 		constructor: UI,
+		on:{
+			reset: SigGameReset.get(),
+			gameover: SigGameOver.get()
+		},
 		init: function() {
 			this.queryDOM();
 			this.prepareBgImg();
@@ -38,6 +44,14 @@ define([
 			this.bindCanvasMouseMoveEvent();
 			this.bindButtonTooltip();
 
+			var that = this;
+			this.on.reset.add(function(){
+				that.startBGM();
+			});
+			this.on.gameover.add(function(){
+				that.showGameOver();
+			});
+
 			this.drawHKCircle();
 
 			// Load game hit area
@@ -46,10 +60,20 @@ define([
 			// Sound Effect
 			this.buildSound = new Sound('buildSound');
 		},
+		startBGM: function(){
+			console.log("Go! BGM!");
+			var bgm = this.$bgm.get()[0];
+			bgm.play();
+		},
+		stopAndRewindBGM: function(){
+			var bgm = this.$bgm.get()[0];
+			bgm.pause(); 
+			bgm.currentTime = 0;
+		},
 		bindButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
-			
+
 			$('#btn-bar button').append("<div class='hover-catcher'></div>");
 			var that = this;
 			$('#btn-bar .hover-catcher').hover(function(e) {
@@ -61,7 +85,7 @@ define([
 				var idx = _.indexOf(btnIds, e.target.parentNode.id);
 
 				// text content of power
-				var powerHTML = (Config[configIds[idx]].power>0?"+":"") + 
+				var powerHTML = (Config[configIds[idx]].power>0?"+":"") +
 					Config[configIds[idx]].power;
 
 				// turn red if going to run out of power
@@ -139,6 +163,7 @@ define([
 			this.$powerTitle = $('#power-title');
 			this.$powerBar = $('#power-bar');
 			this.$canvas = $('#game-canvas');
+			this.$bgm = $('#bgm');
 		},
 		setButtonState: function() {
 			if (this.activatedMode !== null) {
@@ -589,6 +614,7 @@ define([
 
 			$('#btn-restart').attr('disabled', false);
 			$('#game-over').show();
+			this.stopAndRewindBGM();
 			this.buildSound.play('gameOver');
 			$('#btn-restart').click(function() {
 				$('#btn-restart').attr('disabled', true).unbind('click');
