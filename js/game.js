@@ -16,8 +16,9 @@ define([
 	'models/earthquake',
 	'hsi',
 	'models/toast',
-	'models/signals/sigReset'
-], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast, SigReset) {
+	'models/signals/sigGameReset',
+	'models/signals/sigGameOver'
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast, SigGameReset, SigGameOver) {
 
 
 	var Game = (function() {
@@ -46,7 +47,8 @@ define([
 			maxAmountOfEnemy: 0,
 			earthquake:Earthquake,
 			on:{
-				reset: SigReset.get()
+				reset: SigGameReset.get(),
+				gameover: SigGameOver.get()
 			},
 
 			// Initialize the game
@@ -138,7 +140,7 @@ define([
 				for (var i = earthquakeTimer.length - 1; i >= 0; i--) {
 					clearTimeout(earthquakeTimer[i]);
 				};
-				gameUI.showGameOver();
+				this.on.gameover.dispatch();
 			},
 			/*
 				tick() :

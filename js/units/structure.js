@@ -6,8 +6,8 @@ define([
     'models/buildEffect',
     'models/toast',
     'sound',
-    'models/signals/sigReset'
-], function(Utility, Unit, Stage, Config, BuildEffect, Toast, Sound, SigReset)
+    'models/signals/sigGameReset'
+], function(Utility, Unit, Stage, Config, BuildEffect, Toast, Sound, SigGameReset)
 {
     // Create Tower Object and its constructor
     function Structure(startX, startY, spriteSrc, game, name)
@@ -43,7 +43,7 @@ define([
             }
         }
     }
-    SigReset.get().add(function(){
+    SigGameReset.get().add(function(){
         console.log("structure reset called");
         Structure.instanceList=[];
     });
