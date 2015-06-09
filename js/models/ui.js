@@ -73,7 +73,7 @@ define([
 		bindButtonTooltip: function() {
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
-			
+
 			$('#btn-bar button').append("<div class='hover-catcher'></div>");
 			var that = this;
 			$('#btn-bar .hover-catcher').hover(function(e) {
@@ -85,7 +85,7 @@ define([
 				var idx = _.indexOf(btnIds, e.target.parentNode.id);
 
 				// text content of power
-				var powerHTML = (Config[configIds[idx]].power>0?"+":"") + 
+				var powerHTML = (Config[configIds[idx]].power>0?"+":"") +
 					Config[configIds[idx]].power;
 
 				// turn red if going to run out of power
