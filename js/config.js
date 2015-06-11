@@ -40,6 +40,11 @@ define(
         intiMaxAmount: 1,
         difficulty: 50, //larger is easier
 
+        earthquakeCountFunction: function(level){
+            var cnt = -2 + Math.floor(0.8 * level);
+            return (cnt>0? cnt: 0);
+        },
+
         initDelay: 8, // seconds
         nextWaveWaitTimeFunction: function(gameElapsedTime){
             // gameElapsedTime in seconds
@@ -69,7 +74,7 @@ define(
         buildEffectColor: "aqua",
         range: 70,
         attackDamage: 1,
-        slowRate: 80,
+        slowRate: 100,
         builtOn: "Sea" // Sea or Land
     },
     RepelTower:
@@ -80,7 +85,7 @@ define(
         cost: 2500,
         buildEffectColor: "#FF8000",
         range: 100,
-        force: 170,
+        force: 150,
         builtOn: "Sea" // Sea or Land
     },
 
@@ -127,7 +132,7 @@ define(
         attackTowerCostIncrease: 100,
         freezeTowerSlowRateIncrease: 10,
         freezeTowerRangeIncrease: 10,
-        freezeTowerAttackIncrease: 1,
+        freezeTowerAttackIncrease: 0.5,
         freezeTowerCostIncrease: 10,
         builtOn: "Land" // Sea or Land
     },
@@ -147,7 +152,7 @@ define(
     // Hang Sang Index
     HSI:
     {
-        init: 5000, // 90000 or 9000
+        init: 5000, // default 5000
         upperOfRandom: 10,
         lowerOfRandom: -10,
         increment: 150
