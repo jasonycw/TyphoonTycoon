@@ -17,8 +17,9 @@ define([
 	'hsi',
 	'models/toast',
 	'models/signals/sigGameReset',
-	'models/signals/sigGameOver'
-], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast, SigGameReset, SigGameOver) {
+	'models/signals/sigGameOver',
+	'models/hurtEffect'
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast, SigGameReset, SigGameOver, HurtEffect) {
 
 
 	var Game = (function() {
@@ -110,7 +111,7 @@ define([
 				this.powerQuota = this.powerUsed = 0;
 				gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				gameUI.setPowerBar(0, 0);
-				level = 1;
+				this.level = 1;
 				this.enemyCounter= 0;
 				this.minAmountOfEnemy = Config.enemy.intiMinAmount;
 				this.maxAmountOfEnemy = Config.enemy.intiMaxAmount;
@@ -259,13 +260,14 @@ define([
 						hsiChange = -1* Math.round((Config.enemy.damage * (Config.hkArea.effectAreaRadius - distance) * 0.1));
 
 						// show amount of HSI deducted
-						if(hsiChange != 0){
+						if(hsiChange < 0){
 							new Toast(
 								e.x, e.y,
 								"HSI " + hsiChange,
 								{dir: 270, time: 2, dist: 30},
 								{fontSize: "18px", color: "red"}
 								);
+							new HurtEffect(1);
 						}
 					}
 				} //End for
