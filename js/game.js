@@ -174,10 +174,11 @@ define([
 					if (this.enemyCounter >= this.maxAmountOfEnemy) {
 						console.log("(" + this.gameTime + ")Earthquake phase " + this.level);
 						//random time launch a eathquake in each level
+						var earthquakeCount = Config.enemy.earthquakeCountFunction(this.level);
 						var that = this;
-						console.log("Spawning " + this.minAmountOfEnemy + " earthquakes: " );
+						console.log("Spawning " + earthquakeCount + " earthquakes: " );
 
-						for (var i = this.minAmountOfEnemy - 1; i >= 0; i--) {
+						for (var i = earthquakeCount - 1; i >= 0; i--) {
 							var spawnTimeout = setTimeout(function() {
 								that.spawnEarthquake(dt);
 							}, Math.random() * 500);
@@ -263,7 +264,7 @@ define([
 								e.x, e.y,
 								"HSI " + hsiChange,
 								{dir: 270, time: 2, dist: 30},
-								{fontSize: "14px", color: "red"}
+								{fontSize: "18px", color: "red"}
 								);
 						}
 					}
