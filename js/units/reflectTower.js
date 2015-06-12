@@ -25,8 +25,8 @@ define([
 
 	RepelTower.getCost =function(game){
 		var cost = Config.RepelTower.cost;
-		if (that.game.isBuilt('CheungKongLimited'))
-			cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
+		if (game.isBuilt('CheungKongLimited'))
+			cost -= Config.CheungKong.repelTowerCostDecrease*game.numberOfBuilding('CheungKongLimited');
 		return cost;
 	};
 	

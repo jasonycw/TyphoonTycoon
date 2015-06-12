@@ -19,7 +19,7 @@ define([
 	'models/toast',
 	'models/signals/sigGameReset',
 	'models/signals/sigGameOver'
-], function($, _, MapHitArea, Utility, Stage, Config, Structure, AttackTower, FreezeTower, ReflectTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Toast, SigGameReset, SigGameOver) {
+], function($, _, MapHitArea, Utility, Stage, Config, Structure, AttackTower, FreezeTower, RepelTower, PowerPlant, NuclearPlant, University, ResearchCenter, CheungKong, HKCircle, Sound, Toast, SigGameReset, SigGameOver) {
 
 	"use strict";
 
@@ -39,7 +39,7 @@ define([
 		structureClassMap:{
 			"AttackTower":AttackTower,
 			"FreezeTower":FreezeTower,
-			"ReflectTower":ReflectTower,
+			"RepelTower":RepelTower,
 			"PowerPlant":PowerPlant,
 			"NuclearPlant":NuclearPlant,
 			"University":University,
@@ -248,7 +248,7 @@ define([
 						break;
 					case 'btn-repel-tower':
 						if (that.game.isBuilt('ResearchCenter'))
-							that.activatedMode = 'ReflectTower';
+							that.activatedMode = 'RepelTower';
 						break;
 					case 'btn-power-plant':
 						that.activatedMode = 'PowerPlant';
@@ -321,8 +321,8 @@ define([
 					// Can only build on ocean
 					var tower = new FreezeTower(this.game, xx, yy, "img/sprite/freeze-tower.png");
 					break;
-				case 'ReflectTower':
-					var tower = new ReflectTower(this.game, xx, yy, "img/sprite/repel-tower.png");
+				case 'RepelTower':
+					var tower = new RepelTower(this.game, xx, yy, "img/sprite/repel-tower.png");
 					break;
 				case 'PowerPlant':
 					var tower = new PowerPlant(this.game, xx, yy, "img/sprite/power-plant.png");
@@ -386,7 +386,7 @@ define([
 					case 52:
 						// 4
 						if (that.game.getHSI() >= Config.RepelTower.cost-Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited') && that.game.isBuilt('ResearchCenter')) {
-							that.activatedMode = 'ReflectTower';
+							that.activatedMode = 'RepelTower';
 							btnId = 'btn-repel-tower';
 						} else {
 							that.activatedMode = null;

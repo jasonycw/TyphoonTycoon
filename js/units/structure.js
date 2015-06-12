@@ -64,7 +64,8 @@ define([
         }
 
         // power
-        if(game.getAvailablePower() + Config[towerName].power < 0){
+        // if it is not power plants and it will cause power outage
+        if(Config[towerName].power<0 && game.getAvailablePower() + Config[towerName].power < 0){
             return {result:false, message:"not enough power"};;
         }
 
