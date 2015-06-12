@@ -78,7 +78,7 @@ define([
 		},
 		stopAndRewindBGM: function(){
 			var bgm = this.$bgm.get()[0];
-			bgm.pause(); 
+			bgm.pause();
 			bgm.currentTime = 0;
 		},
 		bindButtonTooltip: function() {
@@ -497,7 +497,7 @@ define([
 			$('#credit-iframe').bind('click',function() {
 				$('#credit-iframe').hide();
 			});
-			$('#credit').click(function() {
+			$('#btn-credit').click(function() {
 				$('#credit-iframe').show();
 			});
 		},
