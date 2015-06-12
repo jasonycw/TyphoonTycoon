@@ -28,6 +28,9 @@ define([
 			if(this._hsi<=0){
 				this.on.negativeHSI.dispatch(this._hsi);
 			}
+		},
+		reset: function(initValue){
+			this._hsi = initValue;
 		}
 	};
 

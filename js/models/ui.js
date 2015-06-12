@@ -28,6 +28,13 @@ define([
 		this.bgReady = false;
 		this.activatedMode = null;
 		this.lowPowerAlerted = false;
+		var that = this;
+		this.on.reset.add(function(){
+			that.startBGM();
+		});
+		this.on.gameover.add(function(){
+			that.showGameOver();
+		});
 	}
 
 	UI.prototype = {
@@ -55,13 +62,6 @@ define([
 			this.bindCanvasMouseMoveEvent();
 			this.bindButtonTooltip();
 
-			var that = this;
-			this.on.reset.add(function(){
-				that.startBGM();
-			});
-			this.on.gameover.add(function(){
-				that.showGameOver();
-			});
 
 			this.drawHKCircle();
 
