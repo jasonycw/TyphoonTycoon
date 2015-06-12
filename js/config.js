@@ -19,15 +19,38 @@ define(
 
     enemy:
     {
-        max_hp: 300,
+        max_hp: 200,
+        initHPFunction: function(baseHP, gameElapsedTime){
+            // gameElapsedTime in seconds
+            return (baseHP + gameElapsedTime*1.1) * (Math.random() * 0.5 + 0.5);
+        },
+        speed : 1,
+        initSpeedFunction: function(baseSpeed, gameElapsedTime){
+            // gameElapsedTime in seconds
+            return baseSpeed + gameElapsedTime / 2000;
+        },
+        topSpeedFunction: function(baseSpeed, gameElapsedTime){
+            // gameElapsedTime in seconds
+            return 1.5 * (baseSpeed + gameElapsedTime / 20000);
+        },
         decayOnLand: 1,
         damage: 150,
         typhoonAbsorbRate: 10,
-        intiMinAmong: 1,
-        intiMaxAmong: 20,
+        intiMinAmount: 1,
+        intiMaxAmount: 1,
         difficulty: 50, //larger is easier
-        
-        initDelay: 8 //1 = 1 second
+
+        earthquakeCountFunction: function(level){
+            var cnt = -2 + Math.floor(0.8 * level);
+            return (cnt>0? cnt: 0);
+        },
+
+        initDelay: 8, // seconds
+        nextWaveWaitTimeFunction: function(gameElapsedTime){
+            // gameElapsedTime in seconds
+
+            return 7 - gameElapsedTime / 1000; //seconds
+        }
     },
 
     // towers		=============================
@@ -40,6 +63,7 @@ define(
         buildEffectColor: "red",
         range: 150,
         attackDamage: 20,
+        req: "none",
         builtOn: "Sea" // Sea or Land
     },
     FreezeTower:
@@ -51,7 +75,8 @@ define(
         buildEffectColor: "aqua",
         range: 70,
         attackDamage: 1,
-        slowRate: 80,
+        slowRate: 100,
+        req: "University",
         builtOn: "Sea" // Sea or Land
     },
     RepelTower:
@@ -62,7 +87,8 @@ define(
         cost: 2500,
         buildEffectColor: "#FF8000",
         range: 100,
-        force: 170,
+        force: 150,
+        req: "ResearchCenter",
         builtOn: "Sea" // Sea or Land
     },
 
@@ -74,6 +100,7 @@ define(
         power: 10,
         cost: 1000,
         buildEffectColor: "LawnGreen",
+        req: "none",
         builtOn: "Land" // Sea or Land
     },
     NuclearPlant:
@@ -83,6 +110,7 @@ define(
         power: 40,
         cost: 5000,
         buildEffectColor: "LawnGreen",
+        req: "ResearchCenter",
         builtOn: "Land" // Sea or Land
     },
     University:
@@ -95,6 +123,7 @@ define(
         attackTowerAttackIncrease: 5,
         attackTowerRangeIncrease: 5,
         attackTowerCostIncrease: 20,
+        req: "none",
         builtOn: "Land" // Sea or Land
     },
     ResearchCenter:
@@ -109,8 +138,9 @@ define(
         attackTowerCostIncrease: 100,
         freezeTowerSlowRateIncrease: 10,
         freezeTowerRangeIncrease: 10,
-        freezeTowerAttackIncrease: 1,
+        freezeTowerAttackIncrease: 0.5,
         freezeTowerCostIncrease: 10,
+        req: "University",
         builtOn: "Land" // Sea or Land
     },
     CheungKong:
@@ -124,15 +154,16 @@ define(
         repelTowerRangeIncrease: 20,
         repelTowerForceIncrease: 70,
         repelTowerCostDecrease: 30,
+        req: "ResearchCenter",
         builtOn: "Land" // Sea or Land
     },
     // Hang Sang Index
     HSI:
     {
-        init: 9000, // 90000 or 9000
+        init: 5000, // default 5000
         upperOfRandom: 10,
         lowerOfRandom: -10,
-        increment: 40
+        increment: 150
     },
     cash:
     {

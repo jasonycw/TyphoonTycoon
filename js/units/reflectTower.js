@@ -18,6 +18,18 @@ define([
 	RepelTower.prototype = Object.create(Tower.prototype);
 	RepelTower.prototype.constructor = RepelTower;
 
+	RepelTower.canBeBuilt = Tower.canBeBuilt;
+	RepelTower.fulfillTechReq =function(game){
+		return game.isBuilt('ResearchCenter');
+	};
+
+	RepelTower.getCost =function(game){
+		var cost = Config.RepelTower.cost;
+		if (game.isBuilt('CheungKongLimited'))
+			cost -= Config.CheungKong.repelTowerCostDecrease*game.numberOfBuilding('CheungKongLimited');
+		return cost;
+	};
+	
 	// tick event handler
 	RepelTower.prototype.tick = function(dt) { // override
 		var target = this.findNearestEnemy();
@@ -29,7 +41,7 @@ define([
 				range += Config.CheungKong.repelTowerRangeIncrease*this.game.numberOfBuilding('CheungKongLimited');
 				force += Config.CheungKong.repelTowerForceIncrease*this.game.numberOfBuilding('CheungKongLimited');
 			}
-			if (target.distance <= range && this.game.getAvailablePower() > 0) {
+			if (target.distance <= range && this.game.getAvailablePower() >= 0) {
 				this.sound.play('electricity');
 				var laser = new Laser(this.x, this.y, target.target.x, target.target.y, "#FF8000", 20, 15);
 				var distanceFromTyphoonToTower = Utility.pointDistance(this.x, this.y, target.target.x, target.target.y);

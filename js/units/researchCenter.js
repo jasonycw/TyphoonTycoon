@@ -14,5 +14,15 @@ define([
 	ResearchCenter.prototype = Object.create(Structure.prototype);
 	ResearchCenter.prototype.constructor = ResearchCenter;
 	
+	ResearchCenter.canBeBuilt = Structure.canBeBuilt;
+	ResearchCenter.fulfillTechReq =function(game){
+		return game.isBuilt('University');
+	};
+
+	ResearchCenter.getCost =function(game){
+		var cost = Config.ResearchCenter.cost;
+		return cost;
+	};
+
 	return ResearchCenter;
 });

@@ -14,5 +14,15 @@ define([
 	University.prototype = Object.create(Structure.prototype);
 	University.prototype.constructor = University;
 
+	University.canBeBuilt = Structure.canBeBuilt;
+	University.fulfillTechReq =function(game){
+		return true;
+	};
+
+	University.getCost =function(game){
+		var cost = Config.University.cost;
+		return cost;
+	};
+
 	return University;
 });
