@@ -301,7 +301,7 @@ body {
   color: red;
   font-weight: bold;
 }
-#credit{
+#btn-credit{
   font-size: 20px !important;
   position: fixed !important;
   padding: 0 !important;
