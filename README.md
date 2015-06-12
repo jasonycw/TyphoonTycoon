@@ -4,11 +4,11 @@
 
 ## Team Members
 Name                | Role
---------------------|-----------
-Chui Hin Wah        |Game Play Design
-Cheung Chun Lung    |OO Design
-Li Kwai Shing       |Graphic and Management
-Yu Chun Wah         |Game Theme, Game Play and Animation Design
+----------------------|-----------
+[Alexander Cheung](https://github.com/shinypichu88)                       |OO Design
+[Dickson Chui](https://hk.linkedin.com/pub/dickson-chui/4b/899/741)       |Game Play Design
+[Eric Li](https://github.com/ericksli)                                         |Graphic and Management
+[Jason Yu](https://hk.linkedin.com/in/jasonycw1992)                       |Game Theme, Game Play and Animation Design
 
 ## Background
 In the year 21XX, the Li’s field (李氏力場) becomes reality, in a form of a tower defence system. The system seeks to weaken, if not totally destroy, incoming typhoons into Hong Kong. Li’s enterprise has appointed Player to control the typhoon defence system for Li. The game genre are strategy and tower defence game.
@@ -36,6 +36,10 @@ http://vicksonzero.github.io/TyphoonTycoon/
 Please fork the project to do any changes, and create a pull request.  
 Go to the wiki page to have a brief introduction to the code structure.  
 This project is written in AMD. no need to build the project
+
+## Special Thanks
+----------------------------------------------------------|-----------
+[MICHAEL CLARK](https://michaelclarkmusic.wordpress.com/) |BGM
 
 ## Important Note
 The whole project is written in HTML5 and Javascript, no plugin is required.  
