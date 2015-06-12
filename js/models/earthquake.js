@@ -3,8 +3,9 @@ define([
 	'models/buildEffect',
 	'config',
 	'utility',
-	'models/earthquakeEffect'
-], function(Stage, Ripple, Config, Utility, Effect)
+	'models/earthquakeEffect',
+	'models/signals/sigStructureKilled'
+], function(Stage, Ripple, Config, Utility, Effect, SigStructureKilled)
 {
 	/*
 		Create Object and Constructor
@@ -88,6 +89,7 @@ define([
 
 				// cause damge
 				Stage.removeChild(tempBuilding.id, 'structures');
+				SigStructureKilled.get().dispatch();
 			} //End if
 		} //End for
 	};
