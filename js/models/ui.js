@@ -511,6 +511,7 @@ define([
 				that.game.init();
 				that.game.start();
 			});
+			console.log(this.game.stat.getStatistics());
 		}
 	};
 
