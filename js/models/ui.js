@@ -522,6 +522,7 @@ define([
 		showStat: function(){
 			var stats = this.game.stat.getStatistics();
 			$("#game-over-stat").html("<table>"+
+				"<tr><td><h2>Best Survival Time</td><td>" + Math.round(stats.bestPlayTime) + " sec</h2></td></tr>" +
 				"<tr><td>Survival Time</td><td>" + Math.round(stats.playTime) + " sec</td></tr>" +
 				"<tr><td>Structures Built</td><td>" + stats.structuresBuilt + "</td></tr>" +
 				"<tr><td>Typhoons Killed</td><td>" + stats.typhoonKills + "</td></tr>" +

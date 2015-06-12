@@ -41,6 +41,7 @@ define([
 			gameUI: null,
 			lastTime: 0,
 			gameTime: 0,
+			bestPlayTime: 0,
 			spawnTimer:0,
 			powerQuota: 0,
 			powerUsed: 0,
