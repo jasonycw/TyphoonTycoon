@@ -69,7 +69,7 @@ define([
 			ctx.globalAlpha = 1;
 
 			ctx.fillStyle = '#FF4124';
-			ctx.fillRect(this.x - 36, this.y - 40, hpRatio*80, 3);
+			ctx.fillRect(this.x - 36, this.y - 40, hpRatio*40, 3);
 
 			ctx.font = "14pt"
 			ctx.fillStyle = "#FF4124";
@@ -139,7 +139,7 @@ define([
 			{
 				dir: this.direction,
 				mag: this.speed
-			}, 
+			},
 			{
 				dir: force_dir,
 				mag: force_magnitude
