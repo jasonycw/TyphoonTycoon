@@ -4,10 +4,10 @@
 
 ## Team Members
 Name                | Role
-----------------------|-----------
+:----------------------:|-----------
 [Alexander Cheung](https://github.com/shinypichu88)                       |OO Design
 [Dickson Chui](https://hk.linkedin.com/pub/dickson-chui/4b/899/741)       |Game Play Design
-[Eric Li](https://github.com/ericksli)                                         |Graphic and Management
+[Eric Li](https://github.com/ericksli)                                    |Graphic and Management
 [Jason Yu](https://hk.linkedin.com/in/jasonycw1992)                       |Game Theme, Game Play and Animation Design
 
 ## Background
@@ -38,8 +38,7 @@ Go to the wiki page to have a brief introduction to the code structure.
 This project is written in AMD. no need to build the project
 
 ## Special Thanks
-----------------------------------------------------------|-----------
-[MICHAEL CLARK](https://michaelclarkmusic.wordpress.com/) |BGM
+[MICHAEL CLARK](https://michaelclarkmusic.wordpress.com/) for the awesome BGM!
 
 ## Important Note
 The whole project is written in HTML5 and Javascript, no plugin is required.  
