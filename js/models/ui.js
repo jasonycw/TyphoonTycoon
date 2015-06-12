@@ -494,6 +494,12 @@ define([
 			$('#btn-tutorial').click(function() {
 				$('#tutorial-iframe').show();
 			});
+			$('#credit-iframe').bind('click',function() {
+				$('#credit-iframe').hide();
+			});
+			$('#credit').click(function() {
+				$('#credit-iframe').show();
+			});
 		},
 		showGameOver: function() {
 			var that = this;
