@@ -44,7 +44,7 @@ define([
         }
     }
     SigGameReset.get().add(function(){
-        console.log("structure reset called");
+        //console.log("structure reset called");
         Structure.instanceList=[];
     });
 
@@ -162,6 +162,7 @@ define([
         Stage.removeChild(this.id, 'structures');
         // return the power it got
         this.game.reducePower(Config[this.name].power);
+        this.game.destroyBuilding(Config[this.name]);
         var buildToast = new Toast(
             this.x, this.y - 10,
             "Power " + ((0 - Config[this.name].power) > 0 ? "+" :
