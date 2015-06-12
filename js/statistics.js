@@ -2,13 +2,14 @@
 define([
 	'signals',
 	'config',
+	'utility',
 	'models/signals/sigTyphoonKilled',
 	'models/signals/sigStructureBuilt',
 	'models/signals/sigStructureKilled',
 	'models/signals/sigOutageStart',
 	'models/signals/sigOutageStop',
 	'models/signals/sigTyphoonAtHK'
-], function(signals, Config, SigTyphoonKilled, SigStructureBuilt, SigStructureKilled, SigOutageStart, SigOutageStop, SigTyphoonAtHK) {
+], function(signals, Config, Utility, SigTyphoonKilled, SigStructureBuilt, SigStructureKilled, SigOutageStart, SigOutageStop, SigTyphoonAtHK) {
 
 	function Statistics(game) {
 		var that = this;
@@ -71,6 +72,8 @@ define([
 			{
 				result.bestPlayTime = result.playTime;
 				this.game.bestPlayTime = result.bestPlayTime;
+				Utility.createCookie("bestPlayTime", result.bestPlayTime);
+				console.log("readCookie: " + Utility.readCookie("bestPlayTime"));
 			}
 			result.typhoonKills = this.counter.typhoonKills;
 			result.structuresBuilt = this.counter.structuresBuilt;
