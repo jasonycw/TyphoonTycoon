@@ -15,11 +15,15 @@ define([
 	'models/mapHitArea',
 	'models/earthquake',
 	'hsi',
+	'statistics',
 	'models/toast',
 	'models/signals/sigGameReset',
 	'models/signals/sigGameOver',
+	'models/signals/sigOutageStart',
+	'models/signals/sigOutageStop',
+	'models/signals/sigTyphoonAtHK',
 	'models/hurtEffect'
-], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Toast, SigGameReset, SigGameOver, HurtEffect) {
+], function(_, Stage, UI, Utility, Config, Tower, Unit, Enemy, MapHitArea, Earthquake, HSI, Statistics, Toast, SigGameReset, SigGameOver, SigOutageStart, SigOutageStop, SigTyphoonAtHK, HurtEffect) {
 
 
 	var Game = (function() {
@@ -41,6 +45,7 @@ define([
 			powerQuota: 0,
 			powerUsed: 0,
 			hsi: new HSI(Config.HSI.init),
+			stat: null,
 			cash: 0,
 			level: 1,
 			enemyCounter: 0,
@@ -62,16 +67,17 @@ define([
 				}
 
 				// create background map
-				if (typeof gameUI == 'undefined') {
-					gameUI = new UI(this);
+				if (this.gameUI == null) {
+					this.gameUI = new UI(this);
 				}
 
-				gameUI.init();
+				this.gameUI.init();
 				MapHitArea.init();
-				Stage.addChild(gameUI, 'backdrops');
+				Stage.addChild(this.gameUI, 'backdrops');
+				this.stat = new Statistics(this);
 
 				if (typeof firstRun == 'undefined') {
-					gameUI.showWelcome();
+					this.gameUI.showWelcome();
 					firstRun = false;
 				}
 
@@ -109,14 +115,15 @@ define([
 				this.gameTime = 0;
 				lastTime = 0;
 				this.powerQuota = this.powerUsed = 0;
-				gameUI.setHsiDisplayValue(this.hsi.getHSI());
-				gameUI.setPowerBar(0, 0);
+				this.gameUI.setHsiDisplayValue(this.hsi.getHSI());
+				this.gameUI.setPowerBar(0, 0);
 				this.level = 1;
 				this.enemyCounter= 0;
 				this.minAmountOfEnemy = Config.enemy.intiMinAmount;
 				this.maxAmountOfEnemy = Config.enemy.intiMaxAmount;
 				this.on.reset.dispatch();
-				this.spawnTimer = Config.enemy.initDelay
+				this.spawnTimer = Config.enemy.initDelay;
+				this.stat.reset();
 
 
 				Built = {
@@ -141,7 +148,7 @@ define([
 
 				lastTime = now;
 
-				gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
+				this.gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
 				var that = this;
 				frameId = requestAnimationFrame(function(){Game.loop.call(that)});
 			},
@@ -267,13 +274,14 @@ define([
 								{dir: 270, time: 2, dist: 30},
 								{fontSize: "18px", color: "red", outline:"silver"}
 								);
+							SigTyphoonAtHK.get().dispatch();
 							new HurtEffect(1);
 						}
 					}
 				} //End for
 
 				this.hsi.addHSI(hsiChange);
-				gameUI.setHsiDisplayValue(this.hsi.getHSI());
+				this.gameUI.setHsiDisplayValue(this.hsi.getHSI());
 			},
 			addPower: function(p) {
 				if (p > 0) {
@@ -317,6 +325,7 @@ define([
 	            		instance.isOnline(true);
 		            }
 	            });
+	            SigOutageStop.get().dispatch();
 			},
 			/**
 			 * called by structures to update all towers
@@ -343,7 +352,7 @@ define([
 	                    {dir: 90, time: 5, dist: 0},
 	                    {fontSize: "20px", color: "#AAAAAA"});
 	            }
-
+	            SigOutageStart.get().dispatch();
 			},
 			getHSI: function(){
 				return this.hsi.getHSI();
