@@ -38,7 +38,7 @@ Go to the wiki page to have a brief introduction to the code structure.
 This project is written in AMD. no need to build the project
 
 ## Special Thanks
-[Michael Clark](https://michaelclarkmusic.wordpress.com/) for the awesome BGM!
+Huge thanks to [Michael Clark](https://michaelclarkmusic.wordpress.com/) for the awesome BGM!
 
 ## Important Note
 The whole project is written in HTML5 and Javascript, no plugin is required.  
