@@ -21,6 +21,7 @@ define([
 	Tower.prototype = Object.create(Structure.prototype);
 	Tower.prototype.constructor = Tower;
 
+	Tower.canBeBuilt = Structure.canBeBuilt;
 	// static functions and variables
 	Tower.instanceList = [];
 	Tower.all = function(callback){

@@ -63,6 +63,7 @@ define(
         buildEffectColor: "red",
         range: 150,
         attackDamage: 20,
+        req: "none",
         builtOn: "Sea" // Sea or Land
     },
     FreezeTower:
@@ -75,6 +76,7 @@ define(
         range: 70,
         attackDamage: 1,
         slowRate: 100,
+        req: "University",
         builtOn: "Sea" // Sea or Land
     },
     RepelTower:
@@ -86,6 +88,7 @@ define(
         buildEffectColor: "#FF8000",
         range: 100,
         force: 150,
+        req: "ResearchCenter",
         builtOn: "Sea" // Sea or Land
     },
 
@@ -97,6 +100,7 @@ define(
         power: 10,
         cost: 1000,
         buildEffectColor: "LawnGreen",
+        req: "none",
         builtOn: "Land" // Sea or Land
     },
     NuclearPlant:
@@ -106,6 +110,7 @@ define(
         power: 40,
         cost: 5000,
         buildEffectColor: "LawnGreen",
+        req: "ResearchCenter",
         builtOn: "Land" // Sea or Land
     },
     University:
@@ -118,6 +123,7 @@ define(
         attackTowerAttackIncrease: 5,
         attackTowerRangeIncrease: 5,
         attackTowerCostIncrease: 20,
+        req: "none",
         builtOn: "Land" // Sea or Land
     },
     ResearchCenter:
@@ -134,6 +140,7 @@ define(
         freezeTowerRangeIncrease: 10,
         freezeTowerAttackIncrease: 0.5,
         freezeTowerCostIncrease: 10,
+        req: "University",
         builtOn: "Land" // Sea or Land
     },
     CheungKong:
@@ -147,6 +154,7 @@ define(
         repelTowerRangeIncrease: 20,
         repelTowerForceIncrease: 70,
         repelTowerCostDecrease: 30,
+        req: "ResearchCenter",
         builtOn: "Land" // Sea or Land
     },
     // Hang Sang Index

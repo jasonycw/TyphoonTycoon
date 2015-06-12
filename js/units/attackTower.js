@@ -21,7 +21,19 @@ define([
 	AttackTower.prototype = Object.create(Tower.prototype);
 	AttackTower.prototype.constructor = AttackTower;
 
+	AttackTower.canBeBuilt = Tower.canBeBuilt;
+    AttackTower.fulfillTechReq =function(game){
+        return true;
+    };
 
+    AttackTower.getCost =function(game){
+        var cost = Config.AttackTower.cost;
+        if (game.isBuilt('University'))
+			cost += Config.University.attackTowerCostIncrease*game.numberOfBuilding('University');
+		if (game.isBuilt('ResearchCenter'))
+			cost += Config.ResearchCenter.attackTowerCostIncrease*game.numberOfBuilding('ResearchCenter');
+		return cost;
+    };
 	// tick event handler
 	AttackTower.prototype.tick = function(dt)
 	{ // override

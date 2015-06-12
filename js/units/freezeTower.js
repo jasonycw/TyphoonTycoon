@@ -22,7 +22,18 @@ define([
 	// subclass extends superclass
 	FreezeTower.prototype = Object.create(Tower.prototype);
 	FreezeTower.prototype.constructor = FreezeTower;
+	FreezeTower.canBeBuilt = Tower.canBeBuilt;
 
+	FreezeTower.fulfillTechReq =function(game){
+		return game.isBuilt('University');
+	};
+
+	FreezeTower.getCost =function(game){
+		var cost = Config.FreezeTower.cost;
+		if (game.isBuilt('ResearchCenter'))
+			cost += Config.ResearchCenter.freezeTowerCostIncrease*game.numberOfBuilding('ResearchCenter');
+		return cost;
+	};
 
 	// tick event handler
 	FreezeTower.prototype.tick = function(dt)

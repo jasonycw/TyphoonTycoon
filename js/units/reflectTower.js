@@ -18,6 +18,18 @@ define([
 	RepelTower.prototype = Object.create(Tower.prototype);
 	RepelTower.prototype.constructor = RepelTower;
 
+	RepelTower.canBeBuilt = Tower.canBeBuilt;
+	RepelTower.fulfillTechReq =function(game){
+		return game.isBuilt('ResearchCenter');
+	};
+
+	RepelTower.getCost =function(game){
+		var cost = Config.RepelTower.cost;
+		if (that.game.isBuilt('CheungKongLimited'))
+			cost -= Config.CheungKong.repelTowerCostDecrease*that.game.numberOfBuilding('CheungKongLimited');
+		return cost;
+	};
+	
 	// tick event handler
 	RepelTower.prototype.tick = function(dt) { // override
 		var target = this.findNearestEnemy();

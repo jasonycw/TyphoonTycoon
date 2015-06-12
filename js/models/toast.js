@@ -43,7 +43,8 @@ define([
         this.fontSize = "10px";
         this.fontFamily = "Arial";
         this.textAlign = "center";
-        this.textColor = "white"
+        this.textColor = "white";
+        this.outline = false;
 
         this.setStyle(style);
 
@@ -121,6 +122,9 @@ define([
         if (styleArgs.hasOwnProperty("color")) {
             this.textColor = styleArgs.color;
         }
+        if (styleArgs.hasOwnProperty("outline")) {
+            this.outline = styleArgs.outline;
+        }
     };
 
     Toast.prototype.init = function() {};
@@ -147,13 +151,22 @@ define([
 
     Toast.prototype.render = function(ctx) {
         //console.log("Toast render");
-        ctx.globalAlpha = this.alpha;
+        var globalAlpha = ctx.globalAlpha;
         var oldFont = ctx.font;
         ctx.font = "" + this.fontSize + " " + this.fontFamily;
         ctx.fillStyle = this.textColor;
         ctx.textAlign = this.textAlign;
+        if(this.outline){
+            ctx.globalAlpha = this.alpha/3;
+            var lineWidth = ctx.lineWidth;
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = this.outline;
+            ctx.strokeText(this.msg, this.x, this.y);
+            ctx.lineWidth = lineWidth;
+        }
+        ctx.globalAlpha = this.alpha;
         ctx.fillText(this.msg, this.x, this.y);
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha = globalAlpha;
         ctx.font = oldFont;
     };
 

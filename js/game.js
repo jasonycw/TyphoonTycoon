@@ -265,7 +265,7 @@ define([
 								e.x, e.y,
 								"HSI " + hsiChange,
 								{dir: 270, time: 2, dist: 30},
-								{fontSize: "18px", color: "red"}
+								{fontSize: "18px", color: "red", outline:"silver"}
 								);
 							new HurtEffect(1);
 						}

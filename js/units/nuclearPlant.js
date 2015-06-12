@@ -14,6 +14,15 @@ define([
 	NuclearPlant.prototype = Object.create(Structure.prototype);
 	NuclearPlant.prototype.constructor = NuclearPlant;
 
+	NuclearPlant.canBeBuilt = Structure.canBeBuilt;
+	NuclearPlant.fulfillTechReq =function(game){
+		return game.isBuilt('ResearchCenter');
+	};
+
+	NuclearPlant.getCost =function(game){
+		var cost = Config.NuclearPlant.cost;
+		return cost;
+	};
 
 	return NuclearPlant;
 });

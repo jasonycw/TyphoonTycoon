@@ -14,6 +14,16 @@ define([
 	CheungKong.prototype = Object.create(Structure.prototype);
 	CheungKong.prototype.constructor = CheungKong;
 
+	CheungKong.canBeBuilt = Structure.canBeBuilt;
+	CheungKong.fulfillTechReq =function(game){
+		return game.isBuilt('ResearchCenter');
+	};
+
+	CheungKong.getCost =function(game){
+		var cost = Config.CheungKong.cost;
+		return cost;
+	};
+
 	
 	return CheungKong;
 });

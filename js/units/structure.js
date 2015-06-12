@@ -48,6 +48,45 @@ define([
         Structure.instanceList=[];
     });
 
+    Structure.canBeBuilt = function(towerName, mousePos, isLand, cost, game){
+
+        // land
+        if(isLand && Config[towerName].builtOn == "Sea"){
+            return {result:false, message:"must build on Sea"};;
+        }
+        if(!isLand && Config[towerName].builtOn == "Land"){
+            return {result:false, message:"must build on Land"};;
+        }
+
+        // money
+        if(game.getHSI() < cost){
+            return {result:false, message:"not enough HSI"};;
+        }
+
+        // power
+        if(game.getAvailablePower() + Config[towerName].power < 0){
+            return {result:false, message:"not enough power"};;
+        }
+
+        // distance to another suructure
+        var nearestBuilding = Structure.findNearestBuilding(mousePos.x, mousePos.y);
+        if (nearestBuilding) {
+            if (nearestBuilding.distance <= Config.nearestBuildingDistance){
+                return {result:false, message:"too close to structures"};;
+            }
+        }
+
+        return {result:true, message:"go ahead"};
+    };
+
+    Structure.prototype.fulfillTechReq =function(){
+        return true;
+    };
+
+    Structure.prototype.getCost = function(game){
+        return 0;
+    };
+
     Structure.prototype.onCreated = function()
     {
 
@@ -148,6 +187,30 @@ define([
             this.buildSound.play('plot');
         }
     }
+
+
+    Structure.findNearestBuilding = function(x, y) {
+        var nearestBuilding = null;
+        var nearestDist = 10000000;
+        var tempBuilding // reused variable
+        var dist; // reused variable
+        _.each(Stage.displayList['structures'], function(tempBuilding) {
+            //Utility.pointIsCloseEnough
+            dist = Utility.pointDistance(x, y, tempBuilding.x, tempBuilding.y);
+            if (dist < nearestDist) {
+                nearestBuilding = tempBuilding;
+                nearestDist = dist;
+            }
+        });
+
+        if (typeof nearestBuilding === 'object')
+            return {
+                targetBuilding: nearestBuilding,
+                distance: nearestDist
+            };
+        else
+            return null;
+    };
 
     return Structure;
 });
