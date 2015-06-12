@@ -511,6 +511,19 @@ define([
 				that.game.init();
 				that.game.start();
 			});
+			this.showStat();
+		},
+		showStat: function(){
+			var stats = this.game.stat.getStatistics();
+			$("#game-over-stat").html("<table>"+
+				"<tr><td>Survival Time</td><td>" + Math.round(stats.playTime) + " sec</td></tr>" +
+				"<tr><td>Structures Built</td><td>" + stats.structuresBuilt + "</td></tr>" +
+				"<tr><td>Typhoons Killed</td><td>" + stats.typhoonKills + "</td></tr>" +
+				"<tr><td>Structures Destroyed By Earthquakes</td><td>" + stats.structuesDestroyedByEarthquakes + "</td></tr>" +
+				"<tr><td>Time Spent In Outage</td><td>" + Math.round(stats.timeSpentInOutage) + " sec</td></tr>" +
+				"<tr><td>Times Being Stormed</td><td>" + stats.timesBeingStormed + "</td></tr>" +
+				"</table>" +
+				"");
 		}
 	};
 

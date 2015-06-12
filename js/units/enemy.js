@@ -3,8 +3,9 @@ define([
 	'stage',
 	'utility',
 	'models/mapHitArea',
-	'config'
-], function(Unit, Stage, Utility, MapHitArea, Config) {
+	'config',
+	'models/signals/sigTyphoonKilled'
+], function(Unit, Stage, Utility, MapHitArea, Config, SigTyphoonKilled) {
 	// TODO: rename it back to Typhoon when Earthquake is created
 	function Enemy(startX, startY, spriteSrc, hp, startSpeed, topspeed) {
 		//call super constructor.
@@ -200,6 +201,7 @@ define([
 	};
 	Enemy.prototype.remove = function() {
 		Stage.removeChild(this.typhoonID, 'typhoons');
+		SigTyphoonKilled.get().dispatch();
 	};
 
 	Enemy.prototype.findNearestTyphoon = function() {

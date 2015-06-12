@@ -6,8 +6,9 @@ define([
     'models/buildEffect',
     'models/toast',
     'sound',
-    'models/signals/sigGameReset'
-], function(Utility, Unit, Stage, Config, BuildEffect, Toast, Sound, SigGameReset)
+    'models/signals/sigGameReset',
+    'models/signals/sigStructureBuilt'
+], function(Utility, Unit, Stage, Config, BuildEffect, Toast, Sound, SigGameReset, SigStructureBuilt)
 {
     // Create Tower Object and its constructor
     function Structure(startX, startY, spriteSrc, game, name)
@@ -26,6 +27,7 @@ define([
         this.buildSound = new Sound('buildSound');
 
         this.onCreated();
+        SigStructureBuilt.get().dispatch();
 
     }
     //subclass extends superclass
