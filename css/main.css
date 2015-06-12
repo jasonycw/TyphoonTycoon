@@ -88,7 +88,7 @@ body {
 #game-over h1 {
   text-shadow: 0 2px 6px rgba(20, 20, 20, 0.5);
   font-size: 4em;
-  margin: 150px 0 80px;
+  margin: 150px 0 0px;
 }
 #game-over button {
   color: #fff;
@@ -107,6 +107,15 @@ body {
 #game-over button:active {
   color: #bb0000;
   background-color: #fff;
+}
+#game-over #game-over-stat {
+  text-align: left;
+  position: static;
+  margin: 20px auto 20px auto;
+}
+#game-over #game-over-stat table {
+  position: static;
+  margin: 0 auto;
 }
 #tooltip {
   -webkit-box-sizing: border-box;
