@@ -44,7 +44,7 @@ define([
 	 * typhoons erased
 	 * structures built
 	 * structures destroyed by earthquakes
-	 * 
+	 *
 	 * typhoons repelled out of screen
 	 */
 	Statistics.prototype = {
@@ -64,7 +64,14 @@ define([
 			this.peekTimer("outage");
 
 			var result = {};
+
 			result.playTime = this.game.gameTime;
+			result.bestPlayTime = this.game.bestPlayTime;
+			if(result.playTime > result.bestPlayTime)
+			{
+				result.bestPlayTime = result.playTime;
+				this.game.bestPlayTime = result.bestPlayTime;
+			}
 			result.typhoonKills = this.counter.typhoonKills;
 			result.structuresBuilt = this.counter.structuresBuilt;
 			result.structuesDestroyedByEarthquakes = this.counter.structuesDestroyedByEarthquakes;
