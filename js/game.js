@@ -61,7 +61,7 @@ define([
 			// Initialize the game
 			init: function() {
 				try {
-					stage = new Stage('game-canvas');
+					this.stage = new Stage('game-canvas');
 				} catch (e) {
 					alert('Cannot obtain the canvas context.');
 					return;
@@ -75,23 +75,28 @@ define([
 				this.gameUI.init();
 				MapHitArea.init();
 				Stage.addChild(this.gameUI, 'backdrops');
-				this.stat = new Statistics(this);
 
-				if (typeof firstRun == 'undefined') {
+				var that = this;
+
+				if (this.firstRun) {
 					this.gameUI.showWelcome();
-					firstRun = false;
+					this.firstRun = false;
+					this.hsi.on.negativeHSI.add(function(){
+						that.gameOver();
+					});
+					this.stat = new Statistics(this);
 				}
 
 			}, //End init
 			firstRender: function() {
 				// Render the stage first to show the game map before player start the game
 				console.log("first render is called");
-				stage.render();
+				this.stage.render();
 			},
 			// Start game loop
 			start: function() {
 				this.reset();
-				lastTime = Date.now();
+				this.lastTime = Date.now();
 				_intervalId = setInterval(function() {
 					Game.updateHSI();
 				}, 500);
@@ -108,13 +113,9 @@ define([
 					{fontSize: "20px", color: "white"});
 			},
 			reset: function() {
-				var that = this;
-				this.hsi = new HSI(Config.HSI.init);
-				console.log(this.hsi);
-				this.hsi.on.negativeHSI.add(function(){Game.gameOver.call(that);});
 				this.cash = 0;
 				this.gameTime = 0;
-				lastTime = 0;
+				this.lastTime = 0;
 				this.powerQuota = this.powerUsed = 0;
 				this.gameUI.setHsiDisplayValue(this.hsi.getHSI());
 				this.gameUI.setPowerBar(0, 0);
@@ -125,7 +126,7 @@ define([
 				this.on.reset.dispatch();
 				this.spawnTimer = Config.enemy.initDelay;
 				this.stat.reset();
-
+				this.hsi.reset(Config.HSI.init);
 
 				Built = {
 					numberOfUniversity: 0,
@@ -142,12 +143,12 @@ define([
 				// var beforePower = totalPower
 
 				var now = Date.now();
-				var dt = (now - lastTime) / 1000.0;
+				var dt = (now - this.lastTime) / 1000.0;
 
 				Game.tick(dt);
-				stage.render();
+				this.stage.render();
 
-				lastTime = now;
+				this.lastTime = now;
 
 				this.gameUI.setPowerBar(this.powerQuota - this.powerUsed, this.powerQuota);
 				var that = this;

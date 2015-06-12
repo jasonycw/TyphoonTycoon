@@ -46,7 +46,7 @@ define([
         }
     }
     SigGameReset.get().add(function(){
-        //console.log("structure reset called");
+        console.log("structure reset called");
         Structure.instanceList=[];
     });
 
