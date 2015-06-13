@@ -45,7 +45,7 @@ define(
             return (cnt>0? cnt: 0);
         },
 
-        initDelay: 8, // seconds
+        initDelay: 15, // seconds
         nextWaveWaitTimeFunction: function(gameElapsedTime){
             // gameElapsedTime in seconds
 
