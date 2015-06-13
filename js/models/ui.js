@@ -72,7 +72,7 @@ define([
 			this.buildSound = new Sound('buildSound');
 		},
 		startBGM: function(){
-			console.log("Go! BGM!");
+		//console.log("Go! BGM!");
 			var bgm = this.$bgm.get()[0];
 			bgm.play();
 		},

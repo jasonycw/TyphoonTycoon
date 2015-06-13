@@ -33,7 +33,7 @@ define([
 		}
 	};
 	SigGameReset.get().add(function(){
-        console.log("tower reset called");
+       //console.log("tower reset called");
 		Tower.instanceList=[];
 	});
 

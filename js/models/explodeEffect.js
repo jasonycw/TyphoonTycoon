@@ -6,7 +6,7 @@ define([
 	'config'
 ], function(Stage, Effect, Config) {
 
-	console.log("explodeEffect.js loaded");
+//console.log("explodeEffect.js loaded");
 	/*
 		Create Object and Constructor
 		https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
@@ -14,9 +14,9 @@ define([
 	var particles = [];
 
 	function ExplodeEffect( targetX, targetY ){
-		//console.log("Unit Constructor is called");	
+		//console.log("Unit Constructor is called");
 		Effect.call(this);
-		
+
 		/*
 		 * A single explosion particle
 		 */
@@ -65,7 +65,7 @@ define([
 		}
 
 		this.createExplosion( targetX, targetY, Config.explodEffect.particleColor);
-		
+
 	};
 
 	ExplodeEffect.prototype = Object.create(Effect.prototype);

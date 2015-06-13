@@ -15,27 +15,27 @@ define([
 		var that = this;
 		this.game = game;
 		SigTyphoonKilled.get().add(function(){
-			console.log("stat");
+		//console.log("stat");
 			that.count("typhoonKills");
 		});
 		SigStructureBuilt.get().add(function(){
-			console.log("stat");
+		//console.log("stat");
 			that.count("structuresBuilt");
 		});
 		SigStructureKilled.get().add(function(){
-			console.log("stat");
+		//console.log("stat");
 			that.count("structuesDestroyedByEarthquakes");
 		});
 		SigOutageStart.get().add(function(){
-			console.log("stat");
+		//console.log("stat");
 			that.startTimer("outage");
 		});
 		SigOutageStop.get().add(function(){
-			console.log("stat");
+		//console.log("stat");
 			that.stopTimer("outage");
 		});
 		SigTyphoonAtHK.get().add(function(){
-			console.log("stat");
+		//console.log("stat");
 			that.count("storming");
 		});
 		this.reset();
@@ -73,7 +73,7 @@ define([
 				result.bestPlayTime = result.playTime;
 				this.game.bestPlayTime = result.bestPlayTime;
 				Utility.createCookie("bestPlayTime", result.bestPlayTime);
-				console.log("readCookie: " + Utility.readCookie("bestPlayTime"));
+			//console.log("readCookie: " + Utility.readCookie("bestPlayTime"));
 			}
 			result.typhoonKills = this.counter.typhoonKills;
 			result.structuresBuilt = this.counter.structuresBuilt;

@@ -73,7 +73,7 @@ define([
             }
             document.cookie = encodeURIComponent(key) + "=" + encodeURIComponent(value) + expires + "; path=/";
 
-            console.log("document.cookie: "+ document.cookie);
+           //console.log("document.cookie: "+ document.cookie);
         },
         readCookie: function(key) {
             var nameEQ = encodeURIComponent(key) + "=";
