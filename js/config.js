@@ -146,11 +146,11 @@ define(
     CheungKong:
     {
         title:"Li's Enterprise Headquarter",
-        description:"Earn double and upgrade Repel Tower. Income does not stack, but upgrades do.",
+        description:"Earn 50% more and upgrade Repel Tower. Income does not stack, but upgrades do.",
         power: -50,
         cost: 7000,
         buildEffectColor: "red",
-        hsiIncrementMultiplier: 2,
+        hsiIncrementMultiplier: 1.5,
         repelTowerRangeIncrease: 20,
         repelTowerForceIncrease: 70,
         repelTowerCostDecrease: 30,
