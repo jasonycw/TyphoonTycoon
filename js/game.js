@@ -252,8 +252,8 @@ define([
 				//TODO could be optimize
 				//
 				var hsiChange = (Config.HSI.increment + Math.round(Math.random() * Config.HSI.upperOfRandom) + Math.round(Math.random() * Config.HSI.lowerOfRandom));
-				if (this.built.cheungKongLimited)
-					hsiChange *= Config.CheungKong.hsiIncrementMultiplier;
+				if (this.isBuilt('CheungKongLimited'))
+					hsiChange = Math.round(hsiChange * Config.CheungKong.hsiIncrementMultiplier);
 				for (var i = Stage.displayList['typhoons'].length - 1; i >= 0; i--) {
 					var e = Stage.displayList['typhoons'][i];
 					// skip if typhoon is destroyed
