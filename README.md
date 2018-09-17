@@ -5,10 +5,10 @@
 ## Team Members
 Name                | Role
 :----------------------:|-----------
-[Alexander Cheung](https://hk.linkedin.com/in/alexandercheung2010)     |OO Design
-[Dickson Chui](https://hk.linkedin.com/pub/dickson-chui/4b/899/741)       |Game Play Design
-[Eric Li](http://eric.swiftzer.net/about/)                                    |Graphic and Management
-[Jason Yu](https://hk.linkedin.com/in/jasonycw1992)                       |Game Theme, Game Play and Animation Design
+[Alexander Cheung](https://hk.linkedin.com/in/alexandercheung2010)     |OO Design, Coding
+[Dickson Chui](https://hk.linkedin.com/pub/dickson-chui/4b/899/741)       |Game Play Design, Coding
+[Eric Li](http://eric.swiftzer.net/about/)                                    |Graphic and Management, Coding
+[Jason Yu](https://www.linkedin.com/in/jasonycw/)                       |Game Theme, Game Play, Animation Design, Coding
 
 ## Background
 In the year 21XX, the Li’s field (李氏力場) becomes reality, in a form of a tower defence system. The system seeks to weaken, if not totally destroy, incoming typhoons into Hong Kong. Li’s enterprise has appointed Player to control the typhoon defence system for Li. The game genre are strategy and tower defence game.
@@ -27,6 +27,7 @@ http://vicksonzero.github.io/TyphoonTycoon/
 1. Download as Zip
   1. Press `Download as Zip` to the right to download.
   2. Extract it somewhere and double click `index.html` to start.
+  
 2. Clone the repository
   1. install `git`
   2. on command line, do `git clone https://github.com/jasonycw/TyphoonTycoon.git`
@@ -42,6 +43,6 @@ Huge thanks to [Michael Clark](https://michaelclarkmusic.wordpress.com/) for the
 
 ## Important Note
 The whole project is written in HTML5 and Javascript, no plugin is required.  
-We only tested on the latest stable version of Google Chrome. (Chrome 40)  
+We only tested on the Google Chrome. (Version 40)  
 Firefox may work but we did not test it.  
 IE? Use it to download Chrome or Firefox please. Thank you.  
