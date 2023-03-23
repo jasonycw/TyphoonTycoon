@@ -33,6 +33,8 @@ http://vicksonzero.github.io/TyphoonTycoon/
   2. on command line, do `git clone https://github.com/jasonycw/TyphoonTycoon.git`
   3. open `index.html` in browser to start.
 
+[![Visualization of the codebase](./diagram.svg)](https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=jasonycw%2FTyphoonTycoon)
+
 ## Contribute
 Please fork the project to do any changes, and create a pull request.  
 Go to the wiki page to have a brief introduction to the code structure.  
@@ -45,4 +47,4 @@ Huge thanks to [Michael Clark](https://michaelclarkmusic.wordpress.com/) for the
 The whole project is written in HTML5 and Javascript, no plugin is required.  
 We only tested on the Google Chrome. (Version 40)  
 Firefox may work but we did not test it.  
-IE? Use it to download Chrome or Firefox please. Thank you.  
+IE? Use it to download Chrome or Firefox please. Thank you.
