@@ -59,6 +59,7 @@ define([
 			this.bindBtnEvent();
 			this.bindKeyboardEvent();
 			this.bindCanvasClickEvent();
+			this.bindCanvasTouchEvent();
 			this.bindCanvasMouseMoveEvent();
 			this.bindButtonTooltip();
 
@@ -93,7 +94,11 @@ define([
         		var top = e.pageY + 16;
 
         		// id to array index
-				var idx = _.indexOf(btnIds, e.target.parentNode.id);
+				var btnId = $(e.target).closest('button').attr('id');
+				var idx = _.indexOf(btnIds, btnId);
+				if (idx === -1) {
+					return;
+				}
 
 				// text content of power
 				var powerHTML = (Config[configIds[idx]].power>0?"+":"") +
@@ -237,8 +242,10 @@ define([
 		bindBtnEvent: function() {
 			var that = this;
 			$('#btn-bar button').click(function(e) {
+				var $button = $(e.target).closest('button');
+				var buttonId = $button.attr('id');
 				// Should be a switch here
-				switch (e.target.parentNode.id) {
+				switch (buttonId) {
 					case 'btn-laser-tower':
 						that.activatedMode = 'AttackTower';
 						break;
@@ -271,45 +278,54 @@ define([
 				}
 				if (that.activatedMode !== null) {
 					$('#btn-bar button').removeAttr('data-activated');
-					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
+					$button.attr('disabled', false).attr('data-activated', 'activated');
 				}
 			})
+		},
+		tryBuildAtEvent: function(event) {
+			if(this.activatedMode == null) return;
+
+			var structureClass = this.structureClassMap[this.activatedMode];
+
+			// tech requirement
+			var fulfillTechReq = structureClass.fulfillTechReq(this.game);
+
+			// general structure can be built checking
+			var mousePos = Utility.getMouse(event);
+			var isLand = MapHitArea.isLand(mousePos.x, mousePos.y);
+			var cost = structureClass.getCost(game);
+			var canBeBuilt = structureClass.canBeBuilt(this.activatedMode, mousePos, isLand, cost, this.game);
+			if(canBeBuilt.result){
+				// actually build tower
+				this.instantiateTower(this.activatedMode, mousePos.x, mousePos.y);
+
+				// pay cost
+				this.game.affectHSI(-1 * cost);
+				this.buildSound.play('plot');
+				// clean up ui
+				this.activatedMode = null;
+				this.setButtonState();
+				$('#btn-bar button').removeAttr('data-activated');
+			}else{
+				var buildToast = new Toast(
+					mousePos.x, mousePos.y - 10,
+					canBeBuilt.message,
+					{dir: 270, time: 1, dist: 30},
+					{fontSize: "14px", color: "silver"});
+				this.buildSound.play('disabled');
+			}
 		},
 		bindCanvasClickEvent: function() {
 			var that = this;
 			$('#game-canvas').click(function(event) {
-				if(that.activatedMode == null) return;
-
-				var structureClass = that.structureClassMap[that.activatedMode];
-
-				// tech requirement
-				var fulfillTechReq = structureClass.fulfillTechReq(that.game);
-
-				// general structure can be built checking
-				var mousePos = Utility.getMouse(event);
-				var isLand = MapHitArea.isLand(mousePos.x, mousePos.y);
-				var cost = structureClass.getCost(game);
-				var canBeBuilt = structureClass.canBeBuilt(that.activatedMode, mousePos, isLand, cost, that.game);
-				if(canBeBuilt.result){
-					// actually build tower
-					that.instantiateTower(that.activatedMode, mousePos.x, mousePos.y);
-
-					// pay cost
-					that.game.affectHSI(-1 * cost);
-					that.buildSound.play('plot');
-					// clean up ui
-					that.activatedMode = null;
-					that.setButtonState();
-					$('#btn-bar button').removeAttr('data-activated');
-				}else{
-					var buildToast = new Toast(
-						mousePos.x, mousePos.y - 10,
-						canBeBuilt.message,
-						{dir: 270, time: 1, dist: 30},
-						{fontSize: "14px", color: "silver"});
-					that.buildSound.play('disabled');
-				}
-
+				that.tryBuildAtEvent(event);
+			});
+		},
+		bindCanvasTouchEvent: function() {
+			var that = this;
+			$('#game-canvas').on('touchstart', function(event) {
+				event.preventDefault();
+				that.tryBuildAtEvent(event);
 			});
 		},
 		instantiateTower: function(towerName, xx, yy){
