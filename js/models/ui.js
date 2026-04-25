@@ -28,6 +28,14 @@ define([
 		this.bgReady = false;
 		this.activatedMode = null;
 		this.lowPowerAlerted = false;
+		this.tutorial = {
+			timers: [],
+			active: false,
+			showedFirstPowerTip: false,
+			showedFirstDefenseTip: false,
+			showedUniversityTip: false,
+			showedResearchTip: false
+		};
 		var that = this;
 		this.on.reset.add(function(){
 			that.startBGM();
@@ -131,6 +139,131 @@ define([
 			this.bgImg.onload = function() {
 				that.bgReady = true;
 				that.game.firstRender();
+			}
+		},
+		clearInGameTutorial: function() {
+			for (var i = this.tutorial.timers.length - 1; i >= 0; i--) {
+				clearTimeout(this.tutorial.timers[i]);
+			}
+			this.tutorial.timers = [];
+			this.tutorial.active = false;
+		},
+		startInGameTutorial: function() {
+			this.clearInGameTutorial();
+			this.tutorial.active = true;
+			this.tutorial.showedFirstPowerTip = false;
+			this.tutorial.showedFirstDefenseTip = false;
+			this.tutorial.showedUniversityTip = false;
+			this.tutorial.showedResearchTip = false;
+
+			var that = this;
+			var tutorialMessages = [{
+				delay: 400,
+				text: "Protect Hong Kong (inside the circles) from typhoons!"
+			}, {
+				delay: 2600,
+				text: "Click a build button (or press 1-4 / QWER), then click the map to build."
+			}, {
+				delay: 5000,
+				text: "Power Plants go on land and towers go on sea. Keep your power above 0."
+			}, {
+				delay: 7400,
+				text: "Hover build buttons to see cost, power, and tech requirements."
+			}];
+
+			_.each(tutorialMessages, function(message) {
+				var timerId = setTimeout(function() {
+					if (!that.tutorial.active) {
+						return;
+					}
+					new Toast(
+						Stage.width / 2,
+						Stage.height - 50,
+						message.text,
+						{dir: 90, time: 2.5, dist: 0},
+						{fontSize: "20px", color: "white"}
+					);
+				}, message.delay);
+				that.tutorial.timers.push(timerId);
+			});
+		},
+		countBuiltStructures: function() {
+			var count = {
+				powerPlant: 0,
+				attackTower: 0,
+				university: 0,
+				researchCenter: 0
+			};
+
+			_.each(Stage.displayList['structures'], function(structure) {
+				if (!structure) {
+					return;
+				}
+				if (structure.name === 'PowerPlant' || structure.name === 'NuclearPlant') {
+					count.powerPlant++;
+				}
+				if (structure.name === 'AttackTower') {
+					count.attackTower++;
+				}
+				if (structure.name === 'University') {
+					count.university++;
+				}
+				if (structure.name === 'ResearchCenter') {
+					count.researchCenter++;
+				}
+			});
+
+			return count;
+		},
+		tick: function() {
+			if (!this.tutorial.active) {
+				return;
+			}
+
+			var builtCount = this.countBuiltStructures();
+
+			if (!this.tutorial.showedFirstPowerTip && builtCount.powerPlant > 0) {
+				this.tutorial.showedFirstPowerTip = true;
+				new Toast(
+					Stage.width / 2,
+					Stage.height - 50,
+					"Good start! Now build Laser Towers on the sea to stop incoming typhoons.",
+					{dir: 90, time: 2.8, dist: 0},
+					{fontSize: "20px", color: "white"}
+				);
+			}
+
+			if (!this.tutorial.showedFirstDefenseTip && builtCount.attackTower > 0) {
+				this.tutorial.showedFirstDefenseTip = true;
+				new Toast(
+					Stage.width / 2,
+					Stage.height - 50,
+					"Nice! If towers go offline, build more power plants to restore your defense.",
+					{dir: 90, time: 2.8, dist: 0},
+					{fontSize: "20px", color: "white"}
+				);
+			}
+
+			if (!this.tutorial.showedUniversityTip && builtCount.university > 0) {
+				this.tutorial.showedUniversityTip = true;
+				new Toast(
+					Stage.width / 2,
+					Stage.height - 50,
+					"University unlocked Freeze Tower (3). Build it on sea to slow typhoons.",
+					{dir: 90, time: 2.8, dist: 0},
+					{fontSize: "20px", color: "white"}
+				);
+			}
+
+			if (!this.tutorial.showedResearchTip && builtCount.researchCenter > 0) {
+				this.tutorial.showedResearchTip = true;
+				new Toast(
+					Stage.width / 2,
+					Stage.height - 50,
+					"Research Center unlocked Repel Tower (4) and Nuclear Plant (Q).",
+					{dir: 90, time: 2.8, dist: 0},
+					{fontSize: "20px", color: "white"}
+				);
 			}
 		},
 		findNearestBuilding: function(x, y) {
@@ -503,6 +636,7 @@ define([
 		},
 		showGameOver: function() {
 			var that = this;
+			this.clearInGameTutorial();
 			// Hide tooltip
 			$('#tooltip').hide();
 			$('#btn-bar button').unbind('hover');
