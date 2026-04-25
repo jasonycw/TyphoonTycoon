@@ -273,11 +273,16 @@ define([
 					$('#btn-bar button').removeAttr('data-activated');
 					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
 				}
-			})
+			});
+
+			$('#btn-bar button').on('touchend', function(e) {
+				e.preventDefault();
+				$(this).trigger('click');
+			});
 		},
 		bindCanvasClickEvent: function() {
 			var that = this;
-			$('#game-canvas').click(function(event) {
+			var buildAt = function(event) {
 				if(that.activatedMode == null) return;
 
 				var structureClass = that.structureClassMap[that.activatedMode];
@@ -309,7 +314,12 @@ define([
 						{fontSize: "14px", color: "silver"});
 					that.buildSound.play('disabled');
 				}
+			};
 
+			$('#game-canvas').click(buildAt);
+			$('#game-canvas').on('touchend', function(event) {
+				event.preventDefault();
+				buildAt(event);
 			});
 		},
 		instantiateTower: function(towerName, xx, yy){
@@ -499,6 +509,11 @@ define([
 			});
 			$('#btn-credit').click(function() {
 				$('#credit-iframe').show();
+			});
+
+			$('#welcome button, #btn-restart, #btn-tutorial, #btn-credit').on('touchend', function(e) {
+				e.preventDefault();
+				$(this).trigger('click');
 			});
 		},
 		showGameOver: function() {
