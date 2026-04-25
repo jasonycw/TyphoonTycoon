@@ -40,8 +40,23 @@ define([
         },
 
         getMouse: function(event) {
-            var mx = event.pageX - Stage.getOffsetLeft();
-            var my = event.pageY - Stage.getOffsetTop();
+            var originalEvent = event.originalEvent || event;
+            var pointer = originalEvent;
+
+            if (originalEvent.touches && originalEvent.touches.length > 0) {
+                pointer = originalEvent.touches[0];
+            } else if (originalEvent.changedTouches && originalEvent.changedTouches.length > 0) {
+                pointer = originalEvent.changedTouches[0];
+            }
+
+            var canvas = document.getElementById('game-canvas');
+            var rect = canvas.getBoundingClientRect();
+            var scaleX = canvas.width / rect.width;
+            var scaleY = canvas.height / rect.height;
+            var mx = (pointer.clientX - rect.left) * scaleX;
+            var my = (pointer.clientY - rect.top) * scaleY;
+            mx = Math.max(0, Math.min(canvas.width - 1, mx));
+            my = Math.max(0, Math.min(canvas.height - 1, my));
             return {
                 x: mx,
                 y: my

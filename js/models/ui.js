@@ -236,9 +236,17 @@ define([
 		},
 		bindBtnEvent: function() {
 			var that = this;
-			$('#btn-bar button').click(function(e) {
+			$('#btn-bar button').on('click touchstart', function(e) {
+				if (e.type === 'touchstart') {
+					e.preventDefault();
+				}
+				var $button = $(e.target).closest('button');
+				var buttonId = $button.attr('id');
+				if (!buttonId) {
+					return;
+				}
 				// Should be a switch here
-				switch (e.target.parentNode.id) {
+				switch (buttonId) {
 					case 'btn-laser-tower':
 						that.activatedMode = 'AttackTower';
 						break;
@@ -271,13 +279,16 @@ define([
 				}
 				if (that.activatedMode !== null) {
 					$('#btn-bar button').removeAttr('data-activated');
-					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
+					$button.attr('disabled', false).attr('data-activated', 'activated');
 				}
-			})
+			});
 		},
 		bindCanvasClickEvent: function() {
 			var that = this;
-			$('#game-canvas').click(function(event) {
+			$('#game-canvas').on('click touchstart', function(event) {
+				if (event.type === 'touchstart') {
+					event.preventDefault();
+				}
 				if(that.activatedMode == null) return;
 
 				var structureClass = that.structureClassMap[that.activatedMode];
@@ -479,8 +490,12 @@ define([
 		showWelcome: function() {
 			$('#welcome').show();
 			var that = this;
-			$('#btn-start').click(function() {
+			$('#btn-start').on('click touchstart', function(event) {
+				if (event.type === 'touchstart') {
+					event.preventDefault();
+				}
 				$('#btn-start').unbind('click');
+				$('#btn-start').unbind('touchstart');
 				$('#welcome').hide();
 				that.game.start();
 				// Set score
@@ -488,16 +503,28 @@ define([
 				that.setPowerBar(0, 0);
 				that.lowPowerAlerted = false;
 			});
-			$('#tutorial-iframe').bind('click',function() {
+			$('#tutorial-iframe').on('click touchstart',function(event) {
+				if (event.type === 'touchstart') {
+					event.preventDefault();
+				}
 				$('#tutorial-iframe').hide();
 			});
-			$('#btn-tutorial').click(function() {
+			$('#btn-tutorial').on('click touchstart', function(event) {
+				if (event.type === 'touchstart') {
+					event.preventDefault();
+				}
 				$('#tutorial-iframe').show();
 			});
-			$('#credit-iframe').bind('click',function() {
+			$('#credit-iframe').on('click touchstart',function(event) {
+				if (event.type === 'touchstart') {
+					event.preventDefault();
+				}
 				$('#credit-iframe').hide();
 			});
-			$('#btn-credit').click(function() {
+			$('#btn-credit').on('click touchstart', function(event) {
+				if (event.type === 'touchstart') {
+					event.preventDefault();
+				}
 				$('#credit-iframe').show();
 			});
 		},
@@ -511,8 +538,12 @@ define([
 			$('#game-over').show();
 			this.stopAndRewindBGM();
 			this.buildSound.play('gameOver');
-			$('#btn-restart').click(function() {
+			$('#btn-restart').on('click touchstart', function(event) {
+				if (event.type === 'touchstart') {
+					event.preventDefault();
+				}
 				$('#btn-restart').attr('disabled', true).unbind('click');
+				$('#btn-restart').unbind('touchstart');
 				$('#game-over').hide();
 				that.game.init();
 				that.game.start();
