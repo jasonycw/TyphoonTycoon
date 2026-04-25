@@ -26,6 +26,7 @@ body {
 #game {
   width: 960px;
   max-width: 100vw;
+  aspect-ratio: 960 / 600;
   margin: 10px auto 0;
   position: relative;
 }
