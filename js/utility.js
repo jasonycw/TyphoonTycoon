@@ -40,8 +40,28 @@ define([
         },
 
         getMouse: function(event) {
-            var mx = event.pageX - Stage.getOffsetLeft();
-            var my = event.pageY - Stage.getOffsetTop();
+            var sourceEvent = event;
+            if (event.originalEvent) {
+                sourceEvent = event.originalEvent;
+            }
+
+            var touch = null;
+            if (sourceEvent.touches && sourceEvent.touches.length > 0) {
+                touch = sourceEvent.touches[0];
+            } else if (sourceEvent.changedTouches && sourceEvent.changedTouches.length > 0) {
+                touch = sourceEvent.changedTouches[0];
+            }
+
+            var pageX = touch ? touch.pageX : event.pageX;
+            var pageY = touch ? touch.pageY : event.pageY;
+
+            var canvasRect = Stage.canvas.getBoundingClientRect();
+            var scaleX = Stage.width / canvasRect.width;
+            var scaleY = Stage.height / canvasRect.height;
+
+            var mx = (pageX - (canvasRect.left + window.pageXOffset)) * scaleX;
+            var my = (pageY - (canvasRect.top + window.pageYOffset)) * scaleY;
+
             return {
                 x: mx,
                 y: my

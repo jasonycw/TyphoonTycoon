@@ -21,6 +21,7 @@ define([
 		}
 
 		//declare static variable 
+		Stage.canvas = this.canvas;
 		Stage.width = this.canvas.width;
 		Stage.height = this.canvas.height;
 		var that = this;
