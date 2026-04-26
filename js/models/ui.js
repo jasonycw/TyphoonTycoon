@@ -82,6 +82,11 @@ define([
 			bgm.currentTime = 0;
 		},
 		bindButtonTooltip: function() {
+			var isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+			if (isTouchDevice) {
+				return;
+			}
+
 			var btnIds = ['btn-power-plant', 'btn-laser-tower', 'btn-freeze-tower', 'btn-repel-tower', 'btn-nuclear-plant', 'btn-university', 'btn-research-center', 'btn-cheung-kong'];
 			var configIds = ['PowerPlant', 'AttackTower', 'FreezeTower', 'RepelTower', 'NuclearPlant', 'University', 'ResearchCenter', 'CheungKong'];
 
@@ -160,7 +165,10 @@ define([
 		},
 		bindCanvasMouseMoveEvent: function() {
 			var that = this;
-			this.$canvas.mousemove(function(e) {
+			this.$canvas.on('pointermove', function(e) {
+				if (e.pointerType && e.pointerType !== 'mouse') {
+					return;
+				}
 				if (!that.activatedMode) {
 					that.$canvas.css('cursor', 'default');
 					return;
@@ -237,8 +245,9 @@ define([
 		bindBtnEvent: function() {
 			var that = this;
 			$('#btn-bar button').click(function(e) {
+				var buttonId = e.currentTarget.id;
 				// Should be a switch here
-				switch (e.target.parentNode.id) {
+				switch (buttonId) {
 					case 'btn-laser-tower':
 						that.activatedMode = 'AttackTower';
 						break;
@@ -271,13 +280,14 @@ define([
 				}
 				if (that.activatedMode !== null) {
 					$('#btn-bar button').removeAttr('data-activated');
-					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
+					$(e.currentTarget).attr('disabled', false).attr('data-activated', 'activated');
 				}
 			})
 		},
 		bindCanvasClickEvent: function() {
 			var that = this;
-			$('#game-canvas').click(function(event) {
+			$('#game-canvas').on('pointerdown', function(event) {
+				event.preventDefault();
 				if(that.activatedMode == null) return;
 
 				var structureClass = that.structureClassMap[that.activatedMode];

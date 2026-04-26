@@ -25,12 +25,19 @@ body {
 }
 #game {
   width: 960px;
+  max-width: 100%;
+  aspect-ratio: 960 / 600;
   margin: 10px auto 0;
   position: relative;
 }
 #game-canvas {
   display: block;
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
   z-index: 2;
   -webkit-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
   -moz-box-shadow: 0px 2px 6px rgba(20, 20, 20, 0.5);
@@ -38,12 +45,16 @@ body {
 }
 #back-canvas {
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
 }
 #welcome {
   display: none;
-  width: 960px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -83,8 +94,8 @@ body {
 }
 #game-over {
   display: none;
-  width: 960px;
-  height: 600px;
+  width: 100%;
+  height: 100%;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -353,4 +364,32 @@ body {
 }
 .title-danger {
   color: #ff4d4d;
+}
+@media (max-width: 980px) {
+  #tutorial-iframe,
+  #credit-iframe {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+  #welcome h1,
+  #game-over h1 {
+    margin-top: 12vh;
+    font-size: 2.4em;
+  }
+  #welcome p {
+    font-size: 1.15em;
+    margin: 12px 0;
+  }
+  #welcome button,
+  #game-over button {
+    font-size: 1.35em;
+  }
+  #btn-credit {
+    position: absolute !important;
+    top: auto !important;
+    bottom: 16px !important;
+    left: 50% !important;
+    margin-left: -46px !important;
+  }
 }
