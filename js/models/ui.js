@@ -237,8 +237,9 @@ define([
 		bindBtnEvent: function() {
 			var that = this;
 			$('#btn-bar button').click(function(e) {
+				var buttonId = e.currentTarget.id;
 				// Should be a switch here
-				switch (e.target.parentNode.id) {
+				switch (buttonId) {
 					case 'btn-laser-tower':
 						that.activatedMode = 'AttackTower';
 						break;
@@ -271,7 +272,7 @@ define([
 				}
 				if (that.activatedMode !== null) {
 					$('#btn-bar button').removeAttr('data-activated');
-					$(e.target.parentNode).attr('disabled', false).attr('data-activated', 'activated');
+					$(e.currentTarget).attr('disabled', false).attr('data-activated', 'activated');
 				}
 			});
 
