@@ -23,6 +23,9 @@ http://jasonycw.github.io/TyphoonTycoon/
 ## Beta Version
 http://vicksonzero.github.io/TyphoonTycoon/
 
+## Vibe coded Version
+https://jasonycw.github.io/games/typhoon-tycoon/
+
 ## Play Offline
 1. Download as Zip
   1. Press `Download as Zip` to the right to download.
